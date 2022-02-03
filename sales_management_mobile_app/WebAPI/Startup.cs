@@ -32,6 +32,8 @@ namespace WebAPI
             string url = "server=LAPTOP-6D8AK342\\CHI;database=Project4;uid=sa;pwd=123";
             services.AddScoped<IRoleServices, RoleServices>();
             services.AddScoped<IManagerServices, ManagerServices>();
+            services.AddScoped<ILocationServices, LocationServices>();
+            services.AddScoped<ITargetServices, TargetServices>();
             services.AddDbContext<Project4Context>(options => options.UseSqlServer(url));
             services.AddControllers();
             services.AddSwaggerGen(c =>

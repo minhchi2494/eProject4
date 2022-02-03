@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-//using WebAPI.Model;
+using WebAPI.Models;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers
@@ -15,29 +15,29 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ManagerController : ControllerBase
     {
-        //private readonly IManagerServices _services;
+        private readonly IManagerServices _services;
 
-        //public ManagerController(IManagerServices services)
-        //{
-        //    _services = services;
-        //}
+        public ManagerController(IManagerServices services)
+        {
+            _services = services;
+        }
 
-        //[HttpGet]
-        //public Task<List<manager>> getManagers([FromQuery]manager searchManager)
-        //{
-        //    return _services.getManagers(searchManager);
-        //}
+        [HttpGet]
+        public Task<List<Manager>> getManagers([FromQuery] Manager searchManager)
+        {
+            return _services.getManagers(searchManager);
+        }
 
-        //[HttpPost]
-        //public Task<bool> createManager([FromBody]manager newManager)
-        //{
-        //    return _services.createManager(newManager);
-        //}
+        [HttpPost]
+        public Task<bool> createManager([FromBody] Manager newManager)
+        {
+            return _services.createManager(newManager);
+        }
 
-        //[HttpPut]
-        //public Task<bool> updateManager(manager updateManager)
-        //{
-        //    return _services.updateManager(updateManager);
-        //}
+        [HttpPut]
+        public Task<bool> updateManager(Manager updateManager)
+        {
+            return _services.updateManager(updateManager);
+        }
     }
 }

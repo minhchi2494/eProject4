@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-//using WebAPI.Model;
+using WebAPI.Models;
 namespace WebAPI.Services
 {
     public interface IManagerServices
     {
-        //Task<List<manager>> getManagers(manager searchManager);
-        //Task<bool> createManager(manager newManager);
-        //Task<bool> updateManager(manager editManager);
+        Task<List<Manager>> getManagers(Manager searchManager);
+        Task<bool> createManager(Manager newManager);
+        Task<bool> updateManager(Manager editManager);
     }
 }

@@ -3,63 +3,63 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-//using WebAPI.Model;
+using WebAPI.Models;
 using WebAPI.Repository;
 
 namespace WebAPI.Services
 {
     public class ManagerServices : IManagerServices
     {
-        //private readonly AppDbContext _context;
+        private readonly Project4Context _context;
 
-        //public ManagerServices(AppDbContext context)
-        //{
-        //    _context = context;
-        //}
+        public ManagerServices(Project4Context context)
+        {
+            _context = context;
+        }
 
-        //public async Task<List<manager>> getManagers(manager searchManager)
-        //{
-        //    var result = _context.managers
-        //        //.Include(a => a.loc)
-        //        .ToList();
-        //    if (!string.IsNullOrEmpty(searchManager.fullname))
-        //    {
-        //        result = result.Where(x => x.fullname.ToLower().Contains(searchManager.fullname.ToLower())).ToList();
-        //    }
-        //    return result;
-        //}
+        public async Task<List<Manager>> getManagers(Manager searchManager)
+        {
+            var result = _context.Managers
+                //.Include(a => a.Location)
+                .ToList();
+            if (!string.IsNullOrEmpty(searchManager.Fullname))
+            {
+                result = result.Where(x => x.Fullname.ToLower().Contains(searchManager.Fullname.ToLower())).ToList();
+            }
+            return result;
+        }
 
-        //public async Task<bool> createManager(manager newManager)
-        //{
-        //    var manager = _context.managers.SingleOrDefault(m => m.id.Equals(newManager.id));
-        //    if (manager == null)
-        //    {
-        //        _context.managers.Add(newManager);
-        //        _context.SaveChanges();
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
+        public async Task<bool> createManager(Manager newManager)
+        {
+            var manager = _context.Managers.SingleOrDefault(m => m.Id.Equals(newManager.Id));
+            if (manager == null)
+            {
+                _context.Managers.Add(newManager);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-        //public async Task<bool> updateManager(manager editManager)
-        //{
-        //    var manager = _context.managers.SingleOrDefault(m => m.id.Equals(editManager.id));
-        //    if (manager != null)
-        //    {
-        //        manager.fullname = editManager.fullname;
-        //        manager.staffquantity = editManager.staffquantity;
-        //        Location loc = _context.locations.SingleOrDefault(l=>l.id == editManager.loc.id);
-        //        manager.loc = loc;  
-        //        _context.SaveChanges();
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
+        public async Task<bool> updateManager(Manager editManager)
+        {
+            var manager = _context.Managers.SingleOrDefault(m => m.Id.Equals(editManager.Id));
+            if (manager != null)
+            {
+                manager.Fullname = editManager.Fullname;
+                manager.StaffQuantity = editManager.StaffQuantity;
+                Location loc = _context.Locations.SingleOrDefault(l => l.Id == editManager.Location.Id);
+                manager.Location = loc;
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
