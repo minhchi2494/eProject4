@@ -10,6 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using WebAPI.Services;
+using WebAPI.Repository;
+using WebAPI.Models;
 
 namespace WebAPI
 {
@@ -25,7 +29,10 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            string url = "server=LAPTOP-6D8AK342\\CHI;database=Project4;uid=sa;pwd=123";
+            services.AddScoped<IRoleServices, RoleServices>();
+            services.AddScoped<IManagerServices, ManagerServices>();
+            services.AddDbContext<Project4Context>(options => options.UseSqlServer(url));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
