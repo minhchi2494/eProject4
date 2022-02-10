@@ -21,7 +21,7 @@ namespace WebAPI.Services
         {
             //var result = _context.Stores.Include(a=>a.Location).ToList();
             //result = result.Where(x => x.IsDelete == false).ToList();
-            var result = _context.Stores.Include(a => a.Location).Where(x => x.IsDelete == false).ToList();
+            var result = _context.Stores.Include(a => a.Location).Where(x => x.IsActive == true).ToList();
             if (!string.IsNullOrEmpty(searchStore.Name))
             {
                 result = result.Where(x => x.Name.ToLower().Contains(searchStore.Name.ToLower())).ToList();
@@ -71,7 +71,7 @@ namespace WebAPI.Services
                 store.LocationId = editStore.LocationId;
                 Location loc = _context.Locations.SingleOrDefault(l => l.Id.Equals(editStore.LocationId));
                 store.Location = loc;
-                store.IsDelete = editStore.IsDelete;
+                store.IsActive = editStore.IsActive;
                 _context.SaveChanges();
                 return true;
             }

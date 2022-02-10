@@ -21,7 +21,7 @@ namespace WebAPI.Models
         public int? Longitude { get; set; }
         public int? Latitude { get; set; }
         public int? LocationId { get; set; }
-        public bool? IsDelete { get; set; }
+        public bool? IsActive { get; set; }
 
         public virtual Location Location { get; set; }
         public virtual ICollection<StoreSalesDetail> StoreSalesDetails { get; set; }
