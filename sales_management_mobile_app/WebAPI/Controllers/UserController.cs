@@ -1,0 +1,31 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+using WebAPI.Models;
+using WebAPI.Services;
+
+namespace WebAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
+    {
+        private readonly IUserServices _services;
+
+        public UserController(IUserServices services)
+        {
+            _services = services;
+        }
+
+        [HttpGet]
+        public Task<List<User>> getUsers([FromQuery] User searchUser)
+        {
+            return _services.getUsers(searchUser);
+        }
+    }
+}

@@ -19,6 +19,7 @@ namespace WebAPI.Models
         public int? LocationId { get; set; }
         public int? RoleId { get; set; }
         public string ManagerId { get; set; }
+        public bool? IsActive { get; set; }
 
         public virtual Location Location { get; set; }
         public virtual Manager Manager { get; set; }
