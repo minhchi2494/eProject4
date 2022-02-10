@@ -17,9 +17,9 @@ namespace WebAPI.Services
             _context = context;
         }
 
-        public async Task<List<Target>> getTargets()
+        public async Task<List<Target>> getTargets(Target searchTarget)
         {
-            var targets = _context.Targets.ToList();
+            var targets = _context.Targets.Where(x=>x.CreatedOn >= searchTarget.FromDate).Where(x=>x.CreatedOn <= searchTarget.ToDate).ToList();
             return targets;
         }
     }
