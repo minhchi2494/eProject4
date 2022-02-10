@@ -21,7 +21,7 @@ namespace WebAPI.Services
         {
             //var result = _context.Locations.ToList();
             //result = result.Where(l => l.IsDelete == false).ToList();
-            var result = _context.Locations.Where(l => l.IsDelete == false).ToList();
+            var result = _context.Locations.Where(l => l.IsActive == true).ToList();
             if (!string.IsNullOrEmpty(searchLoc.District))
             {
                 result = result.Where(l => l.District.ToLower().Contains(searchLoc.District.ToLower())).ToList();
@@ -51,7 +51,7 @@ namespace WebAPI.Services
             {
                 loc.District = editLoc.District;
                 loc.Ward = editLoc.Ward;
-                loc.IsDelete = editLoc.IsDelete;
+                loc.IsActive = editLoc.IsActive;
                 _context.SaveChanges();
                 return true;
             }

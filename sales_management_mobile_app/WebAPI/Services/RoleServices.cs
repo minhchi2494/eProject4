@@ -21,7 +21,7 @@ namespace WebAPI.Services
         {
             //var result = _context.Roles.ToList();
             //result = result.Where(x => x.IsDelete == false).ToList();
-            var result = _context.Roles.Where(x => x.IsDelete == false).ToList();
+            var result = _context.Roles.Where(x => x.IsActive == true).ToList();
             if (!string.IsNullOrEmpty(searchRole.Title))
             {
                 result = result.Where(x => x.Title.ToLower().Contains(searchRole.Title.ToLower())).ToList();
@@ -50,7 +50,7 @@ namespace WebAPI.Services
             if (role != null)
             {
                 role.Title = editRole.Title;
-                role.IsDelete = editRole.IsDelete;
+                role.IsActive = editRole.IsActive;
                 _context.SaveChanges();
                 return true;
             }
