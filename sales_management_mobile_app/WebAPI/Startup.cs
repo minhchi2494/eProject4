@@ -34,7 +34,10 @@ namespace WebAPI
             services.AddScoped<IManagerServices, ManagerServices>();
             services.AddScoped<ILocationServices, LocationServices>();
             services.AddScoped<ITargetServices, TargetServices>();
+            services.AddScoped<IStoreServices, StoreServices>();
             services.AddDbContext<Project4Context>(options => options.UseSqlServer(url));
+            services.AddControllers().AddNewtonsoftJson(options =>
+                                                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
