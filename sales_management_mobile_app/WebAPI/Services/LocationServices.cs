@@ -19,8 +19,9 @@ namespace WebAPI.Services
 
         public async Task<List<Location>> getLocations(Location searchLoc)
         {
-            var result = _context.Locations.ToList();
-            result = result.Where(l => l.IsDelete == false).ToList();
+            //var result = _context.Locations.ToList();
+            //result = result.Where(l => l.IsDelete == false).ToList();
+            var result = _context.Locations.Where(l => l.IsDelete == false).ToList();
             if (!string.IsNullOrEmpty(searchLoc.District))
             {
                 result = result.Where(l => l.District.ToLower().Contains(searchLoc.District.ToLower())).ToList();

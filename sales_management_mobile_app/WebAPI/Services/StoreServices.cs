@@ -19,8 +19,9 @@ namespace WebAPI.Services
 
         public async Task<List<Store>> getStores(Store searchStore)
         {
-            var result = _context.Stores.Include(a=>a.Location).ToList();
-            result = result.Where(x => x.IsDelete == false).ToList();
+            //var result = _context.Stores.Include(a=>a.Location).ToList();
+            //result = result.Where(x => x.IsDelete == false).ToList();
+            var result = _context.Stores.Include(a => a.Location).Where(x => x.IsDelete == false).ToList();
             if (!string.IsNullOrEmpty(searchStore.Name))
             {
                 result = result.Where(x => x.Name.ToLower().Contains(searchStore.Name.ToLower())).ToList();

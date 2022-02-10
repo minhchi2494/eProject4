@@ -19,8 +19,9 @@ namespace WebAPI.Services
 
         public async Task<List<Role>> getRoles(Role searchRole)
         {
-            var result = _context.Roles.ToList();
-            result = result.Where(x => x.IsDelete == false).ToList();
+            //var result = _context.Roles.ToList();
+            //result = result.Where(x => x.IsDelete == false).ToList();
+            var result = _context.Roles.Where(x => x.IsDelete == false).ToList();
             if (!string.IsNullOrEmpty(searchRole.Title))
             {
                 result = result.Where(x => x.Title.ToLower().Contains(searchRole.Title.ToLower())).ToList();
