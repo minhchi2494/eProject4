@@ -33,5 +33,11 @@ namespace WebAPI.Controllers
         {
             return _services.createAdmin(newAdmin);
         }
+
+        [HttpPut]
+        public Task<bool> updateAdmin([FromBody] Admin editAdmin)
+        {
+            return _services.updateAdmin(editAdmin);
+        }
     }
 }

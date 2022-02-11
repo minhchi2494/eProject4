@@ -77,9 +77,23 @@ namespace WebAPI.Services
             }
         }
 
-        public Task<bool> updateAdmin(Admin editAdmin)
+        public async Task<bool> updateAdmin(Admin editAdmin)
         {
-            throw new NotImplementedException();
+            var model = _context.Admins.SingleOrDefault(x=>x.Id.Equals(editAdmin.Id));
+            if (model != null)
+            {
+                model.Username = editAdmin.Username;
+                model.Password = PinCodeSecurity.pinEncrypt(editAdmin.Password);
+                model.Fullname = editAdmin.Fullname;
+                model.Email = editAdmin.Email;
+                model.Phone = editAdmin.Phone;
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
