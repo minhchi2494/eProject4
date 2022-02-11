@@ -27,5 +27,23 @@ namespace WebAPI.Controllers
         {
             return _services.getUsers(searchUser);
         }
+
+        [HttpGet("{username}/{password}")]
+        public Task<User> checkLogin([FromQuery] string username, string password)
+        {
+            return _services.checkLogin(username, password);
+        }
+
+        [HttpPost]
+        public Task<bool> createUser([FromBody] User newUser)
+        {
+            return _services.createUser(newUser);
+        }
+
+        [HttpPut]
+        public Task<bool> updateUser([FromBody] User editUser)
+        {
+            return (_services.updateUser(editUser));
+        }
     }
 }
