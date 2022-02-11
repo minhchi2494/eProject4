@@ -43,7 +43,7 @@ namespace WebAPI.Controllers
         [HttpPut]
         public Task<bool> updateUser([FromBody] User editUser)
         {
-            return (_services.updateUser(editUser));
+            return _services.updateUser(editUser);
         }
     }
 }
