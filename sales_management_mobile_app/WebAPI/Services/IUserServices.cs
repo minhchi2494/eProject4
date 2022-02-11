@@ -10,5 +10,8 @@ namespace WebAPI.Services
     public interface IUserServices
     {
         Task<List<User>> getUsers(User sesrchUser);
+        Task<User> checkLogin(string username, string password);
+        Task<bool> createUser(User newUser);
+        Task<bool> updateUser(User editUser);
     }
 }
