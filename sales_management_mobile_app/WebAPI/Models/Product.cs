@@ -19,7 +19,7 @@ namespace WebAPI.Models
         public decimal? Price { get; set; }
         public string Unit { get; set; }
         public string Images { get; set; }
-        public bool? IsDelete { get; set; }
+        public bool? IsActive { get; set; }
 
         public virtual ICollection<Image> ImagesNavigation { get; set; }
         public virtual ICollection<SalesDetail> SalesDetails { get; set; }
