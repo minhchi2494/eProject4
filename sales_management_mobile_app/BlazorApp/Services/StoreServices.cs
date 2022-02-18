@@ -24,14 +24,23 @@ namespace BlazorApp.Services
             return result;
         }
 
-        public Task<Store> getStore(string id)
+        public async Task<Store> getStore(string id)
         {
-            throw new System.NotImplementedException();
+            var result = await _httpClient.GetFromJsonAsync<Store>($"/api/Store/{id}");
+            return result;
         }
 
-        public Task<bool> createStore(Store newStore)
+        public async Task<bool> createStore(Store newStore)
         {
-            throw new System.NotImplementedException();
+            var result = await _httpClient.PostAsJsonAsync("/api/Admin", newStore);
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public Task<bool> updateStore(Store editStore)

@@ -25,6 +25,11 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Address</th>
+            <th>Longitude</th>
+            <th>Latitude</th>
+            <th>Location</th>
+            <th>Active</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +40,13 @@
                 <td>@item.Email</td>
                 <td>@item.Phone</td>
                 <td>@item.Address</td>
+                <td>@item.Longitude</td>
+                <td>@item.Latitude</td>
+                <td>@item.Location.District</td>
+                <td>@item.IsActive</td>
+                <td>
+                    <a href="/detail/@item.Id" class="btn btn-success"><i class="far fa-eye"></i></a>
+                </td>
             </tr>
         }
     </tbody>
