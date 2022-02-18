@@ -1,4 +1,4 @@
-﻿@page "/adminCreate"
+﻿@page "/storeCreate"
 
 @using BlazorApp.Models
 @using BlazorApp.Services
@@ -57,8 +57,7 @@
 
   <div class="form-group">
     <label for="IsActive">IsActive</label>
-    <InputRadio class="form-control" @bind-Value="newStore.IsActive"></InputRadio>
-    <ValidationMessage For="()=>newStore.IsActive"></ValidationMessage>
+    <input type="checkbox" unchecked @bind="newStore.IsActive">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </EditForm>
@@ -68,6 +67,8 @@
     private IStoreServices _services { get; set; }
 
     private Store newStore = new Store();
+
+    private List<Location> Locations = new List<Location>();
 
     private async Task SubmitCreate(EditContext context)
     {

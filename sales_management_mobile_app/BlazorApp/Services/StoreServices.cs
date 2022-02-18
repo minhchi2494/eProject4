@@ -32,7 +32,7 @@ namespace BlazorApp.Services
 
         public async Task<bool> createStore(Store newStore)
         {
-            var result = await _httpClient.PostAsJsonAsync("/api/Admin", newStore);
+            var result = await _httpClient.PostAsJsonAsync("/api/Store", newStore);
             if (result.IsSuccessStatusCode)
             {
                 return true;
