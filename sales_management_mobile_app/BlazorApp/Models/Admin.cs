@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 #nullable disable
 
-namespace WebAPI.Models
+namespace BlazorApp.Models
 {
     public class Admin
     {
@@ -16,6 +16,7 @@ namespace WebAPI.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
         public string Fullname { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }

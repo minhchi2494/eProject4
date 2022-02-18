@@ -28,6 +28,18 @@ namespace WebAPI.Controllers
             return _services.checkLogin(username, password);
         }
 
+        [HttpGet]
+        public Task<List<Admin>> getAdmins()
+        {
+            return _services.getAdmins();
+        }
+
+        [HttpGet("{id}")]
+        public Task<Admin> getAdmin(int id)
+        {
+            return _services.getAdmin(id);
+        }
+
         [HttpPost]
         public Task<bool> createAdmin([FromBody]Admin newAdmin)
         {

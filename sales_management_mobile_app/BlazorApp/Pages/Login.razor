@@ -1,0 +1,42 @@
+﻿@page "/login/{username}/{password}"
+
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject IAdminServices _services
+@inject NavigationManager NavigationManager
+
+<EditForm Model="@admin" OnValidSubmit="@SubmitLogin">
+    <div class="form-group">
+        <label for="Username">Username</label>
+        <InputText class="form-control" @bind-Value="admin.Username"></InputText>
+        <ValidationMessage For="()=>admin.Username"></ValidationMessage>
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <InputText class="form-control" @bind-Value="admin.Password"></InputText>
+        <ValidationMessage For="()=>admin.Password"></ValidationMessage>
+    </div>
+
+    <button></button>
+</EditForm>
+
+@code {
+    private Admin admin = new Admin();
+
+    [Parameter]
+    public string username { get; set; }
+    [Parameter]
+    public string password { get; set; }
+
+    private async Task SubmitLogin(EditContext context)
+    {
+        username = admin.Username;
+        password = admin.Password;
+        var result = await _services.checkLogin(username, password);
+        if (result != null)
+        {
+            NavigationManager.NavigateTo("/admin");
+        }
+    }
+}

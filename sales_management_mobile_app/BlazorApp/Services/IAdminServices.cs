@@ -1,16 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebAPI.Models;
+using BlazorApp.Models;
 
-namespace WebAPI.Services
+namespace BlazorApp.Services
 {
     public interface IAdminServices
     {
         Task<Admin> checkLogin(string username, string password);
-        //Task<Admin> checkLogin(Admin admin);
         Task<List<Admin>> getAdmins();
         Task<Admin> getAdmin(int id);
         Task<bool> createAdmin(Admin newAdmin);
