@@ -1,0 +1,60 @@
+﻿@page "/store"
+
+@using BlazorApp.Services
+@using BlazorApp.Models
+
+<EditForm Model="@searchStore" OnSubmit=@SeachForm>
+    <div class="row ">
+        <div class="col-md-6">
+            <InputText @bind-Value="searchStore.Name" class="form-control" placeholder="Enter Store Name...">
+                @*<button type="submit" class="btn btn-primary"><i class=" fas fa-search"></i>Search</button>*@
+            </InputText>       
+        </div>
+        <div class="col-md-2">
+            @*<button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>*@
+            <button type="submit" class="form-control btn btn-primary ">Search</button>
+        </div>
+        
+    </div>
+</EditForm>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in stores)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+                <td>@item.Phone</td>
+                <td>@item.Address</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+        [Inject]
+        private IStoreServices _services { get; set; }
+
+        private List<Store> stores = new List<Store>();
+
+        private Store searchStore = new Store();
+
+        protected override async Task OnInitializedAsync()
+        {
+            stores = await _services.getStores(searchStore);
+        }
+
+         private async Task SeachForm(EditContext context)
+        {
+            stores = await _services.getStores(searchStore);
+        }
+}

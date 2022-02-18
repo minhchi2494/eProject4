@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using WebAPI.Models;
 using WebAPI.Repository;
 
-using WebAPI.Models;
-
 namespace WebAPI.Services
 {
     public class AdminServices : IAdminServices
@@ -61,6 +59,24 @@ namespace WebAPI.Services
         //    }
         //}
 
+        public async Task<List<Admin>> getAdmins()
+        {
+            return _context.Admins.ToList();
+        }
+
+        public async Task<Admin> getAdmin(int id)
+        {
+            var model = _context.Admins.SingleOrDefault(x=>x.Id.Equals(id));
+            if (model != null)
+            {
+                return model;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task<bool> createAdmin(Admin newAdmin)
         {
             var model = _context.Admins.SingleOrDefault(x=>x.Id.Equals(newAdmin.Id));
@@ -95,5 +111,6 @@ namespace WebAPI.Services
                 return false;
             }
         }
+
     }
 }
