@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BlazorApp.Services;
-
+using Blazored.Toast;
 
 namespace BlazorApp
 {
@@ -20,9 +20,13 @@ namespace BlazorApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
+            builder.Services.AddBlazoredToast();
+
             builder.Services.AddScoped<IAdminServices, AdminServices>();
 
             builder.Services.AddScoped<IStoreServices, StoreServices>();
+
+            builder.Services.AddScoped<ILocationServices, LocationServices>();
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:54350") });
 

@@ -3,6 +3,8 @@
 @using BlazorApp.Models
 @using BlazorApp.Services
 @inject NavigationManager NavigationManager;
+@inject IStoreServices _services;
+@inject IToastService ToastService;
 
 <EditForm Model="@newStore" OnValidSubmit="@SubmitCreate">
     <DataAnnotationsValidator />
@@ -63,9 +65,6 @@
 </EditForm>
 
 @code {
-    [Inject]
-    private IStoreServices _services { get; set; }
-
     private Store newStore = new Store();
 
     private List<Location> Locations = new List<Location>();
@@ -75,7 +74,12 @@
         var result = await _services.createStore(newStore);
         if (result)
         {
+            ToastService.ShowSuccess($"{newStore.Name} has been created successfully!", "Success");
             NavigationManager.NavigateTo("/store");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
         }
     }
 }
