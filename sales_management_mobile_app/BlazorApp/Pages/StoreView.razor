@@ -2,7 +2,8 @@
 
 @using BlazorApp.Services
 @using BlazorApp.Models
-
+@inject IToastService ToastService
+@inject IStoreServices _services;
 
 <EditForm Model="@searchStore" OnSubmit=@SeachForm>
     <div class="row">
@@ -59,9 +60,6 @@
 </table>
 
 @code {
-        [Inject]
-        private IStoreServices _services { get; set; }
-
         private List<Store> stores = new List<Store>();
 
         private Store searchStore = new Store();
@@ -73,6 +71,7 @@
 
          private async Task SeachForm(EditContext context)
         {
+            ToastService.ShowSuccess("Search successfully!", "Success");
             stores = await _services.getStores(searchStore);
         }
 }

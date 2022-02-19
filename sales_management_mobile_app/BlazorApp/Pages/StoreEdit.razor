@@ -3,6 +3,9 @@
 @using BlazorApp.Models
 @using BlazorApp.Services
 @inject NavigationManager NavigationManager;
+@inject IStoreServices _services;
+@inject ILocationServices services;
+@inject IToastService ToastService;
 
 <h3>Edit Store</h3>
 
@@ -66,6 +69,17 @@
                 <InputNumber class="form-control" @bind-Value="editStore.LocationId"></InputNumber>
                 <ValidationMessage For="()=>editStore.LocationId"></ValidationMessage>
             </div>
+
+@*            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="locationid">locationid: </label>
+                <InputSelect class="form-control" @bind-Value="editStore.LocationId">
+                    <option>Select option</option>
+                @foreach (var location in Locations)
+                {
+                    <option value="@location.Id">@location.District</option>
+                }
+                </InputSelect>
+            </div>*@
         </div>
 
         <div class="row material">
@@ -84,9 +98,6 @@
 </EditForm>
 
 @code {
-    [Inject]
-    private IStoreServices _services { get; set; }
-
     [Parameter]
     public string id { get; set; }
 
@@ -112,7 +123,12 @@
         var result = await _services.updateStore(editStore);
         if (result)
         {
+            ToastService.ShowSuccess($"{editStore.Name} has been updated successfully!", "Success");
             NavigationManager.NavigateTo("/store");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
         }
     }
 }
