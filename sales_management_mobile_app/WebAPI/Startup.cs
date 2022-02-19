@@ -39,6 +39,7 @@ namespace WebAPI
             services.AddScoped<IAdminServices, AdminServices>();
             services.AddScoped<IProductServices, ProductServices>();
             services.AddScoped<ISalesDetailServices, SalesDetailServices>();
+            services.AddScoped<IStoreSalesDetailServices, StoreSalesDetailServices>();
             services.AddDbContext<Project4Context>(options => options.UseSqlServer(url));
             services.AddControllers().AddNewtonsoftJson(options =>
                                                         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
