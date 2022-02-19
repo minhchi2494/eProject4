@@ -43,9 +43,17 @@ namespace BlazorApp.Services
             }
         }
 
-        public Task<bool> updateStore(Store editStore)
+        public async Task<bool> updateStore(Store editStore)
         {
-            throw new System.NotImplementedException();
+            var result = await _httpClient.PutAsJsonAsync("/api/Store", editStore);
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
