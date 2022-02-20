@@ -17,10 +17,19 @@ namespace WebAPI.Services
             _context = context;
         }
 
-        public async Task<List<Target>> getTargets(Target searchTarget)
+        public async Task<List<Target>> getTargets(Target searchTarget, DateTime? fromDate, DateTime? toDate)
         {
-            var targets = _context.Targets.Where(x=>x.CreatedOn >= searchTarget.FromDate).Where(x=>x.CreatedOn <= searchTarget.ToDate).ToList();
-            return targets;
+            var targets = _context.Targets.ToList();
+            if (fromDate == null && toDate == null)
+            {
+                return targets;
+            }
+            else
+            {
+                targets = _context.Targets.Where(x => x.CreatedOn >= fromDate).Where(x => x.CreatedOn <= toDate).ToList();
+                return targets;
+            }
+
         }
     }
 }
