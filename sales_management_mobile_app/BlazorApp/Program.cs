@@ -28,6 +28,8 @@ namespace BlazorApp
 
             builder.Services.AddScoped<ILocationServices, LocationServices>();
 
+            builder.Services.AddScoped<IManagerServices, ManagerServices>();
+
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:54350") });
 
             await builder.Build().RunAsync();

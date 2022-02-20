@@ -27,6 +27,19 @@ namespace WebAPI.Services
             return result;
         }
 
+        public async Task<Manager> getManager(string id)
+        {
+            var result = _context.Managers.Include(a => a.Location).SingleOrDefault(x => x.Id.Equals(id));  
+            if (result != null)
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task<bool> createManager(Manager newManager)
         {
             var manager = _context.Managers.SingleOrDefault(m => m.Id.Equals(newManager.Id));
