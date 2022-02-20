@@ -6,63 +6,96 @@
 @inject IStoreServices _services;
 @inject IToastService ToastService;
 
+
 <EditForm Model="@newStore" OnValidSubmit="@SubmitCreate">
     <DataAnnotationsValidator />
+        <div class="row material">
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="Id">Id: </label>
+                <InputText class="form-control" @bind-Value="newStore.Id"></InputText>
+            </div>
 
-  <div class="form-group">
-    <label for="Id">Id</label>
-    <InputText class="form-control" @bind-Value="newStore.Id"></InputText>
-    <ValidationMessage For="()=>newStore.Id"></ValidationMessage>
-  </div>
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="Name">Name: </label>
+                <InputText class="form-control" @bind-Value="newStore.Name"></InputText>
+                <ValidationMessage For="()=>newStore.Name"></ValidationMessage>
+            </div>
+        </div>
 
-  <div class="form-group">
-    <label for="Name">Name</label>
-    <InputText class="form-control" @bind-Value="newStore.Name"></InputText>
-    <ValidationMessage For="()=>newStore.Name"></ValidationMessage>
-  </div>
+        <div>
+            <br>
+        </div>
 
-  <div class="form-group">
-    <label for="Email">Email</label>
-    <InputText class="form-control" @bind-Value="newStore.Email"></InputText>
-    <ValidationMessage For="()=>newStore.Email"></ValidationMessage>
-  </div>
+        <div class="row material">
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="Email">Email: </label>
+                <InputText class="form-control" @bind-Value="newStore.Email"></InputText>
+                <ValidationMessage For="()=>newStore.Email"></ValidationMessage>
+            </div>
 
-  <div class="form-group">
-    <label for="Phone" class="col-sm-2 col-form-label">Phone</label>
-    <InputText class="form-control" @bind-Value="newStore.Phone"></InputText>
-    <ValidationMessage For="()=>newStore.Phone"></ValidationMessage>
-  </div>
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="Phone">Phone: </label>
+                <InputText class="form-control" @bind-Value="newStore.Phone"></InputText>
+                <ValidationMessage For="()=>newStore.Phone"></ValidationMessage>
+            </div>
+        </div>
 
-  <div class="form-group">
-    <label for="Address">Address</label>
-    <InputText class="form-control" @bind-Value="newStore.Address"></InputText>
-    <ValidationMessage For="()=>newStore.Address"></ValidationMessage>
-  </div>
+         <div>
+            <br>
+        </div>
 
-  <div class="form-group">
-    <label for="Longitude">Longitude</label>
-    <InputNumber class="form-control" @bind-Value="newStore.Longitude"></InputNumber>
-    <ValidationMessage For="()=>newStore.Longitude"></ValidationMessage>
-  </div>
+        <div class="row material">
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="Address">Address: </label>
+                <InputText class="form-control" @bind-Value="newStore.Address"></InputText>
+                <ValidationMessage For="()=>newStore.Address"></ValidationMessage>
+            </div>
 
-  <div class="form-group">
-    <label for="Latitude">Latitude</label>
-    <InputNumber class="form-control" @bind-Value="newStore.Latitude"></InputNumber>
-    <ValidationMessage For="()=>newStore.Latitude"></ValidationMessage>
-  </div>
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="Longitude">Longitude: </label>
+                <InputNumber class="form-control" @bind-Value="newStore.Longitude"></InputNumber>
+                <ValidationMessage For="()=>newStore.Longitude"></ValidationMessage>
+            </div>
+        </div>
 
-  <div class="form-group">
-    <label for="LocationId">LocationId</label>
-    <InputNumber class="form-control" @bind-Value="newStore.LocationId"></InputNumber>
-    <ValidationMessage For="()=>newStore.LocationId"></ValidationMessage>
-  </div>
+        <div>
+            <br>
+        </div>
 
-  <div class="form-group">
-    <label for="IsActive">IsActive</label>
-    <input type="checkbox" unchecked @bind="newStore.IsActive">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="row material">
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="Latitude">Latitude: </label>
+                <InputNumber class="form-control" @bind-Value="newStore.Latitude"></InputNumber>
+                <ValidationMessage For="()=>newStore.Latitude"></ValidationMessage>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="LocationId">LocationId: </label>
+                <InputNumber class="form-control" @bind-Value="newStore.LocationId"></InputNumber>
+                <ValidationMessage For="()=>newStore.LocationId"></ValidationMessage>
+            </div>
+        </div>
+
+        <div>
+            <br>
+        </div>
+
+        <div class="row material">
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="IsActive">IsActive</label>
+                <input type="checkbox" unchecked @bind="newStore.IsActive">
+                <small id="nameHelp" class="form-text text-muted">(Note: check to active your Location)</small>
+            </div>
+        </div>
+
+        <div>
+            <br>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="/store" class="btn btn-primary">Cancel</a>
 </EditForm>
+
 
 @code {
     private Store newStore = new Store();
