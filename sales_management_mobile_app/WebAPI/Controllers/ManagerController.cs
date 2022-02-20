@@ -28,6 +28,12 @@ namespace WebAPI.Controllers
             return _services.getManagers(searchManager);
         }
 
+        [HttpGet("{id}")]
+        public Task<Manager> getManager(string id)
+        {
+            return _services.getManager(id);
+        }
+
         [HttpPost]
         public Task<bool> createManager([FromBody] Manager newManager)
         {
