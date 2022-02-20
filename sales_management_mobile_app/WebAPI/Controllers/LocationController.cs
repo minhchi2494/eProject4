@@ -28,6 +28,12 @@ namespace WebAPI.Controllers
             return _services.getLocations(searchLoc);
         }
 
+        [HttpGet("{id}")]
+        public Task<Location> getLocation(int id)
+        {
+            return _services.getLocation(id);
+        }
+
         [HttpPost]
         public Task<bool> createLocation([FromBody] Location location)
         {

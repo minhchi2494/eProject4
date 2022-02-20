@@ -29,6 +29,19 @@ namespace WebAPI.Services
             return result;
         }
 
+        public async Task<Location> getLocation(int id)
+        {
+            var result = _context.Locations.Where(l => l.IsActive == true).SingleOrDefault(x => x.Id.Equals(id));
+            if (result != null)
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task<bool> createLoc(Location newLoc)
         {
             var loc = _context.Locations.SingleOrDefault(l => l.Id == newLoc.Id);

@@ -17,26 +17,42 @@ namespace BlazorApp.Services
         {
             _httpClient = httpClient;
         }
-
-        public Task<bool> createLoc(Location newLoc)
+        public async Task<List<Location>> getLocations(Location searchLoc)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<Location>> getAll()
-        {
-            var result = await _httpClient.GetFromJsonAsync<List<Location>>($"/api/Location");
+            var result = await _httpClient.GetFromJsonAsync<List<Location>>($"/api/Location?District={searchLoc.District}");
             return result;
         }
 
-        public Task<List<Location>> getLocations(Location searchLoc)
+        public async Task<bool> createLoc(Location newLoc)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.PostAsJsonAsync("/api/Location", newLoc);
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public Task<bool> updateLoc(Location editLoc)
+        public async Task<bool> updateLoc(Location editLoc)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.PutAsJsonAsync("/api/Location", editLoc);
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<Location> getLocation(int id)
+        {
+            var result = await _httpClient.GetFromJsonAsync<Location>($"/api/Location/{id}");
+            return result;
         }
     }
 }

@@ -1,0 +1,87 @@
+﻿@page "/editLocation/{id:int}"
+
+
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject ILocationServices _services;
+@inject IToastService ToastService;
+
+<EditForm Model="@editLoc" OnValidSubmit="@SubmitEdit">
+    <DataAnnotationsValidator />
+        <div class="row material">
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="Id">Id: </label>
+                <input class="form-control" value="@editLoc.Id" readonly />
+            </div>
+        </div>
+
+        <div>
+            <br>
+        </div>
+
+        <div class="row material">
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="District">District: </label>
+                <InputText class="form-control" @bind-Value="editLoc.District"></InputText>
+                <ValidationMessage For="()=>editLoc.District"></ValidationMessage>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="Ward">Ward: </label>
+                <InputText class="form-control" @bind-Value="editLoc.Ward"></InputText>
+                <ValidationMessage For="()=>editLoc.Ward"></ValidationMessage>
+            </div>
+        </div>
+
+        <div>
+            <br>
+        </div>
+
+        <div class="row material">
+            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+                <label for="IsActive">Active: </label>
+                <input type="checkbox" unchecked @bind="editLoc.IsActive">
+                <small id="nameHelp" class="form-text text-muted">(Note: Uncheck will delete your Location)</small>
+            </div>
+        </div>
+
+        <div>
+            <br>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="/location" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private Location editLoc = new Location();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var loc = await _services.getLocation(id);
+        editLoc = new Location();
+        editLoc.Id = loc.Id;
+        editLoc.District = loc.District;
+        editLoc.Ward = loc.Ward;
+        editLoc.IsActive = loc.IsActive;
+    }
+
+    private async Task SubmitEdit(EditContext context)
+    {
+        var result = await _services.updateLoc(editLoc);
+        if (result)
+        {
+            ToastService.ShowSuccess("Data has been updated successfully!", "Success");
+            NavigationManager.NavigateTo("/location");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}
