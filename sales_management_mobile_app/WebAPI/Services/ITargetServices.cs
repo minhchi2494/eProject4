@@ -9,7 +9,7 @@ namespace WebAPI.Services
 {
     public interface ITargetServices
     {
-        Task<List<Target>> getTargets(Target searchTarget);
+        Task<List<Target>> getTargets(Target searchTarget, DateTime? fromDate, DateTime? toDate);
 
     }
 }
