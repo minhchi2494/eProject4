@@ -23,9 +23,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public Task<List<SalesDetail>> getSalesDetails([FromQuery]SalesDetail searchSalesDetail, DateTime? fromDate, DateTime? toDate)
+        public Task<List<SalesDetail>> getSalesDetails(DateTime? fromDate, DateTime? toDate)
         {
-            return _services.getSalesDetail(searchSalesDetail, fromDate, toDate);
+            return _services.getSalesDetail(fromDate, toDate);
         }
     }
 }

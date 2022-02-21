@@ -22,15 +22,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public Task<List<Target>> getTargets([FromQuery] DateTime? fromDate, DateTime? toDate)
+        public Task<List<Target>> getTargets(DateTime? fromDate, DateTime? toDate)
         {
             return _services.getTargets(fromDate, toDate);
         }
-
-        //[HttpGet]
-        //public Task<List<Target>> getTargets(FromToDate ftDate)
-        //{
-        //    return _services.getTargets(ftDate);
-        //}
     }
 }
