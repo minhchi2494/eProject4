@@ -1,0 +1,76 @@
+﻿@page "/target"
+
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject ITargetServices _services;
+
+<EditForm Model="@ftd" OnSubmit=@SeachForm>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="CreatedOn">From Date: </label>
+            <InputDate TValue="DateTime?" @bind-Value="ftd.FromDate" class="form-control"></InputDate>       
+        </div>
+        <div class="col-md-3">
+            <label for="CreatedOn">To Date: </label>
+            <InputDate TValue="DateTime?" @bind-Value="ftd.ToDate" class="form-control"></InputDate>       
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
+        </div>
+    </div>
+
+    <div class=row>
+        <div class="col-3">
+            <a href="/roleCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+        </div>
+    </div>
+</EditForm>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Targets</th>
+            <th>FromDate</th>
+            <th>ToDate</th>
+            <th>Actual Quantity</th>
+            <th>Created On</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in targets)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Targets</td>
+                <td>@item.FromDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.ToDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.ActualQuantity</td>
+                <td>@item.CreatedOn.ToString("dd-MM-yyyy")</td>
+@*                <td>
+                    <a href="/editRole/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+        private List<Target> targets = new List<Target>();
+
+        private FromToDate ftd = new FromToDate();
+
+  
+        protected override async Task OnInitializedAsync()
+        {
+            targets = await _services.getTargets(ftd.FromDate, ftd.ToDate);
+        }
+
+         private async Task SeachForm(EditContext context)
+        {
+            ToastService.ShowSuccess("Search successfully!", "Success");
+            targets = await _services.getTargets(ftd.FromDate, ftd.ToDate);
+        }
+}

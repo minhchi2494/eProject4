@@ -31,5 +31,20 @@ namespace WebAPI.Services
             }
 
         }
+
+        //public async Task<List<Target>> getTargets(FromToDate ftDate)
+        //{
+        //    var targets = _context.Targets.ToList();
+        //    if (ftDate.FromDate == null && ftDate.ToDate == null)
+        //    {
+        //        return targets;
+        //    }
+        //    else
+        //    {
+        //        targets = _context.Targets.Where(x => x.CreatedOn >= ftDate.FromDate).Where(x => x.CreatedOn <= ftDate.ToDate).ToList();
+        //        return targets;
+        //    }
+
+        //}
     }
 }
