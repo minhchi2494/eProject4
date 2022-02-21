@@ -1,9 +1,9 @@
-﻿@page "/target"
+﻿@page "/salesDetail"
 
 @using BlazorApp.Services
 @using BlazorApp.Models
 @inject IToastService ToastService
-@inject ITargetServices _services;
+@inject ISalesDetailServices _services;
 
 <EditForm Model="@ftd" OnSubmit=@SeachForm>
     <div class="row">
@@ -31,24 +31,24 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Targets</th>
-            <th>FromDate</th>
-            <th>ToDate</th>
-            <th>Actual Quantity</th>
-            <th>Created On</th>
+            <th>SalesActualQuantity</th>
+            <th>Target</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Date</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach(var item in targets)
+        @foreach(var item in sd)
         {
             <tr>
                 <td>@item.Id</td>
-                <td>@item.Targets</td>
-                <td>@item.FromDate.ToString("dd-MM-yyyy")</td>
-                <td>@item.ToDate.ToString("dd-MM-yyyy")</td>
-                <td>@item.ActualQuantity</td>
-                <td>@item.CreatedOn.ToString("dd-MM-yyyy")</td>
+                <td>@item.SalesActualQuantity</td>
+                <td>@item.Target.Targets</td>
+                <td>@item.Product.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Date.ToString("dd-MM-yyyy")</td>
 @*                <td>
                     <a href="/editRole/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
                 </td>*@
@@ -58,19 +58,19 @@
 </table>
 
 @code {
-        private List<Target> targets = new List<Target>();
+        private List<SalesDetail> sd = new List<SalesDetail>();
 
         private FromToDate ftd = new FromToDate();
 
   
         protected override async Task OnInitializedAsync()
         {
-            targets = await _services.getTargets(ftd.FromDate, ftd.ToDate);
+            sd = await _services.getSalesDetail(ftd.FromDate, ftd.ToDate);
         }
 
          private async Task SeachForm(EditContext context)
         {
             ToastService.ShowSuccess("Search successfully!", "Success");
-            targets = await _services.getTargets(ftd.FromDate, ftd.ToDate);
+            sd = await _services.getSalesDetail(ftd.FromDate, ftd.ToDate);
         }
 }
