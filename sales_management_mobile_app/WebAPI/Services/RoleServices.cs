@@ -29,6 +29,19 @@ namespace WebAPI.Services
             return result;
         }
 
+        public async Task<Role> getRole(int id)
+        {
+            var result = _context.Roles.Where(x => x.IsActive == true).SingleOrDefault(x=>x.Id.Equals(id));
+            if (result != null)
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task<bool> createRole(Role newRole)
         {
             var role = _context.Roles.SingleOrDefault(r => r.Id.Equals(newRole.Id));

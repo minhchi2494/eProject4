@@ -27,6 +27,12 @@ namespace WebAPI.Controllers
             return _services.getRoles(searchRole);
         }
 
+        [HttpGet("{id}")]
+        public Task<Role> getRole(int id)
+        {
+            return _services.getRole(id);
+        }
+
         [HttpPost]
         public Task<bool> createRole([FromBody] Role newRole)
         {
