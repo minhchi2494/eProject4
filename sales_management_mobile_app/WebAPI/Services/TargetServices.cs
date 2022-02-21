@@ -17,7 +17,7 @@ namespace WebAPI.Services
             _context = context;
         }
 
-        public async Task<List<Target>> getTargets(Target searchTarget, DateTime? fromDate, DateTime? toDate)
+        public async Task<List<Target>> getTargets(DateTime? fromDate, DateTime? toDate)
         {
             var targets = _context.Targets.ToList();
             if (fromDate == null && toDate == null)
