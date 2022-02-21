@@ -1,15 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebAPI.Models;
+using BlazorApp.Models;
 
-namespace WebAPI.Services
+namespace BlazorApp.Services
 {
     public interface ITargetServices
     {
         Task<List<Target>> getTargets(DateTime? fromDate, DateTime? toDate);
-        //Task<List<Target>> getTargets(FromToDate ftDate);
+
     }
 }
