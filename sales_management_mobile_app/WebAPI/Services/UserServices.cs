@@ -88,7 +88,7 @@ namespace WebAPI.Services
             if (model != null)
             {
                 model.Username = editUser.Username;
-                model.Password = PinCodeSecurity.pinEncrypt(editUser.Password);
+                //model.Password = PinCodeSecurity.pinEncrypt(editUser.Password);
                 model.Fullname = editUser.Fullname;
                 model.Email = editUser.Email;
                 model.Phone = editUser.Phone;
