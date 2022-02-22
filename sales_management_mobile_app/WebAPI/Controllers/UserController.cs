@@ -28,6 +28,12 @@ namespace WebAPI.Controllers
             return _services.getUsers(searchUser);
         }
 
+        [HttpGet("{id}")]
+        public Task<User> getUser(int id)
+        {
+            return _services.getUser(id);
+        }
+
         [HttpGet("{username}/{password}")]
         public Task<User> checkLogin([FromQuery] string username, string password)
         {

@@ -28,6 +28,20 @@ namespace WebAPI.Services
             return result;
         }
 
+        public async Task<User> getUser(int id)
+        {
+            var result = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Store).Include(a => a.Target)
+                .Where(x => x.IsActive == true).SingleOrDefault(x => x.Id.Equals(id));
+            if (result != null)
+            {
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public async Task<User> checkLogin(string username, string password)
         {
             var model = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Store).Include(a => a.Target)
