@@ -36,6 +36,8 @@ namespace BlazorApp
 
             builder.Services.AddScoped<ISalesDetailServices, SalesDetailServices>();
 
+            builder.Services.AddScoped<IStoreSalesDetailServices, StoreSalesDetailServices>();
+
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:54350") });
 
             await builder.Build().RunAsync();

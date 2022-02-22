@@ -17,7 +17,7 @@ namespace WebAPI.Services
             _context = context;
         }
 
-        public async Task<List<StoreSalesDetail>> getStoreSalesDetails(StoreSalesDetail searchStoreSalesDetail, DateTime? fromDate, DateTime? toDate)
+        public async Task<List<StoreSalesDetail>> getStoreSalesDetails(DateTime? fromDate, DateTime? toDate)
         {
             var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.SalesDetail).Include(x => x.Store).ToList();
             if (fromDate == null && toDate == null)

@@ -12,7 +12,7 @@ namespace BlazorApp.Models
         public int? SalesDetailId { get; set; }
         public string ProductId { get; set; }
         public decimal? Price { get; set; }
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
         public string StoreId { get; set; }
         public int? StoreActualQuantity { get; set; }
 
