@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sale_man_app/view/pages/target/create_target.dart';
+import 'package:sale_man_app/view/pages/target/detail_target.dart';
 
 class TargetScreen extends StatefulWidget{
   const TargetScreen({Key? key}) : super(key: key);
@@ -59,9 +61,7 @@ class _TargetScreenState extends State<TargetScreen> {
                       children: [
                         ElevatedButton(
                           child: const Text('Create New'),
-                          onPressed: () {
-
-                          },
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CreateTarget()))
                         ),
                       ],
                     ),
@@ -98,7 +98,12 @@ class _TargetScreenState extends State<TargetScreen> {
         // Nội Dung
         Row(
           // nội dung
-          children: [],
+          children: [
+            ElevatedButton(
+                child: const Text('Detail'),
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailTarget()))
+            ),
+          ],
         ),
         const SizedBox(
           height: 40,

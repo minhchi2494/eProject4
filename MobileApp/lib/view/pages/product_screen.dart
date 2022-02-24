@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sale_man_app/view/pages/product/create_product.dart';
+import 'package:sale_man_app/view/pages/product/detail_product.dart';
 
-class ProductScreen extends StatefulWidget{
+class ProductScreen extends StatefulWidget {
   const ProductScreen({Key? key}) : super(key: key);
 
   @override
@@ -32,42 +34,45 @@ class _ProductScreenState extends State<ProductScreen> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 35, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
-                        Icons.favorite,
-                        color: Colors.black,
-                        size: 28,
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Icon(
-                        Icons.search,
-                        color: Colors.black,
-                        size: 25,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton(
-                        child: const Text('Create New'),
-                        onPressed: () {
-
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            ),
+                padding: const EdgeInsets.only(top: 35, right: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(
+                          Icons.favorite,
+                          color: Colors.black,
+                          size: 28,
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Icon(
+                          Icons.search,
+                          color: Colors.black,
+                          size: 25,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                          child: const Text('Create New'),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CreateProduct()),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                )),
           ],
         ),
         const SizedBox(
@@ -75,7 +80,6 @@ class _ProductScreenState extends State<ProductScreen> {
         ),
 
         // Nội dung (List Product)
-
         //title top sale
         Row(
           children: [
@@ -94,16 +98,25 @@ class _ProductScreenState extends State<ProductScreen> {
             )
           ],
         ),
-        const SizedBox(height: 20,),
+        const SizedBox(
+          height: 20,
+        ),
         // Nội Dung
         Row(
           // nội dung
-          children: [],
+          children: [
+            ElevatedButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DetailProduct()),
+              ),
+              child: const Text('Deltail'),
+            ),
+          ],
         ),
         const SizedBox(
           height: 40,
         ),
-
       ],
     );
   }
