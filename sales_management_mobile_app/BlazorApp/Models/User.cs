@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -8,16 +9,27 @@ namespace BlazorApp.Models
     public partial class User
     {
         public int Id { get; set; }
+        [Required]
         public int? TargetId { get; set; }
+        [Required]
         public string Username { get; set; }
+        [Required]
         public string Password { get; set; }
+        [Required]
         public string Fullname { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string Phone { get; set; }
+        [Required]
         public string Address { get; set; }
+        [Required]
         public string StoreId { get; set; }
+        [Required]
         public int? LocationId { get; set; }
+        [Required]
         public int? RoleId { get; set; }
+        [Required]
         public string ManagerId { get; set; }
         public bool? IsActive { get; set; }
 

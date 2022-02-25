@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -15,7 +16,9 @@ namespace BlazorApp.Models
         }
 
         public int Id { get; set; }
+        [Required]
         public string District { get; set; }
+        [Required]
         public string Ward { get; set; }
         public bool? IsActive { get; set; }
 

@@ -7,6 +7,8 @@
 @inject IManagerServices _services;
 @inject IToastService ToastService;
 
+<h3>Edit Manager</h3>
+
 <EditForm Model="@editManager" OnValidSubmit="@SubmitEdit">
     <DataAnnotationsValidator />
         <div class="row material">
@@ -29,7 +31,7 @@
 
         <div class="row material">
             <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="LocationId">LocationId: </label>
+                <label for="LocationId">Location Id: </label>
                 <InputNumber class="form-control" @bind-Value="editManager.LocationId"></InputNumber>
                 <ValidationMessage For="()=>editManager.LocationId"></ValidationMessage>
             </div>
