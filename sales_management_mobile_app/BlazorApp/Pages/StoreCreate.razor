@@ -6,6 +6,7 @@
 @inject IStoreServices _services;
 @inject IToastService ToastService;
 
+<h3>Create Store</h3>
 
 <EditForm Model="@newStore" OnValidSubmit="@SubmitCreate">
     <DataAnnotationsValidator />
@@ -13,6 +14,7 @@
             <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
                 <label for="Id">Id: </label>
                 <InputText class="form-control" @bind-Value="newStore.Id"></InputText>
+                <ValidationMessage For="()=>newStore.Id"></ValidationMessage>
             </div>
 
             <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
@@ -70,7 +72,7 @@
             </div>
 
             <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="LocationId">LocationId: </label>
+                <label for="LocationId">Location Id: </label>
                 <InputNumber class="form-control" @bind-Value="newStore.LocationId"></InputNumber>
                 <ValidationMessage For="()=>newStore.LocationId"></ValidationMessage>
             </div>

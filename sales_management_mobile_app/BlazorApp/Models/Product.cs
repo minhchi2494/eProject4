@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -13,10 +14,13 @@ namespace BlazorApp.Models
             SalesDetails = new HashSet<SalesDetail>();
             StoreSalesDetails = new HashSet<StoreSalesDetail>();
         }
-
+        [Required]
         public string Id { get; set; }
+        [Required]
         public string Name { get; set; }
-        public decimal? Price { get; set; }
+        [Required]
+        public decimal Price { get; set; }
+        [Required]
         public string Unit { get; set; }
         public string Images { get; set; }
         public bool? IsActive { get; set; }

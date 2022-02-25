@@ -70,7 +70,7 @@
             </div>
 
             <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="LocationId">LocationId: </label>
+                <label for="StoreId">Store Id: </label>
                 <InputText class="form-control" @bind-Value="editUser.StoreId" readonly></InputText>
                 <ValidationMessage For="()=>editUser.StoreId"></ValidationMessage>
             </div>
@@ -82,27 +82,31 @@
 
         <div class="row material">
             <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="LocationId">LocationId: </label>
+                <label for="LocationId">Location Id: </label>
                 <InputNumber class="form-control" @bind-Value="editUser.LocationId" readonly></InputNumber>
                 <ValidationMessage For="()=>editUser.LocationId"></ValidationMessage>
             </div>
 
             <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="RoleId">RoleId: </label>
+                <label for="RoleId">Role Id: </label>
                 <InputNumber class="form-control" @bind-Value="editUser.RoleId" readonly></InputNumber>
                 <ValidationMessage For="()=>editUser.RoleId"></ValidationMessage>
             </div>
         </div>
 
+         <div>
+            <br>
+        </div>
+
         <div class="row material">
             <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="ManagerId">ManagerId: </label>
+                <label for="ManagerId">Manager Id: </label>
                 <InputText class="form-control" @bind-Value="editUser.ManagerId" readonly></InputText>
                 <ValidationMessage For="()=>editUser.ManagerId"></ValidationMessage>
             </div>
 
             <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="TargetId">TargetId: </label>
+                <label for="TargetId">Target Id: </label>
                 <InputNumber class="form-control" @bind-Value="editUser.TargetId" readonly></InputNumber>
                 <ValidationMessage For="()=>editUser.TargetId"></ValidationMessage>
             </div>
@@ -114,7 +118,7 @@
 
         <div class="row material">
             <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="IsActive">IsActive</label>
+                <label for="IsActive">Is Active</label>
                 <input type="checkbox" unchecked @bind="editUser.IsActive">
                 <small id="nameHelp" class="form-text text-muted">(Note: Uncheck will deactive your User)</small>
             </div>
