@@ -27,5 +27,11 @@ namespace WebAPI.Controllers
         {
             return _services.getStoreSalesDetails(fromDate, toDate);
         }
+
+        [HttpGet("{id}")]
+        public Task<StoreSalesDetail> getStoreSalesDetail(int id)
+        {
+            return _services.getStoreSalesDetail(id);
+        }
     }
 }
