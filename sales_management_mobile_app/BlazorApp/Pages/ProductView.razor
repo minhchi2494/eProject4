@@ -1,0 +1,77 @@
+﻿@page "/product"
+
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject IProductServices _services;
+
+<EditForm Model="@searchProduct" OnSubmit=@SeachForm>
+    <div class="row">
+        <div class="col-md-6">
+            <InputText @bind-Value="searchProduct.Name" class="form-control" placeholder="Enter Product Name..."></InputText>       
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
+        </div>
+    </div>
+
+    <div class=row>
+        <div class="col-3">
+            <a href="/storeCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+        </div>
+    </div>
+</EditForm>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Images</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Unit</th>
+            <th>Active</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in products)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>
+                    <img src="images/@item.Images" style="width:100px"/>
+                </td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Unit</td>
+                <td>
+                    <span class="badge badge-success">@item.IsActive</span>
+                </td>
+@*                <td>
+                    <a href="/storeDetail/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
+                </td>
+                <td>
+                    <a href="/editStore/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+        private List<Product> products = new List<Product>();
+
+        private Product searchProduct = new Product();
+
+        protected override async Task OnInitializedAsync()
+        {
+            products = await _services.getProducts(searchProduct);
+        }
+
+         private async Task SeachForm(EditContext context)
+        {
+            ToastService.ShowSuccess("Search successfully!", "Success");
+            products = await _services.getProducts(searchProduct);
+        }
+}
