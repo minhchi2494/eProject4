@@ -19,7 +19,7 @@
 
             <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
                 <label for="Title">Title: </label>
-                <InputText class="form-control" @bind-Value="editRole.Title" readonly></InputText>
+                <InputText class="form-control" @bind-Value="editRole.Title"></InputText>
                 <ValidationMessage For="()=>editRole.Title"></ValidationMessage>
             </div>
         </div>
@@ -40,7 +40,7 @@
             <br>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Save</button>
         <a href="/role" class="btn btn-primary">Cancel</a>
 </EditForm>
 

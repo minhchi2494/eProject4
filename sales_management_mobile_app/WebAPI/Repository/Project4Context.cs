@@ -28,6 +28,9 @@ namespace WebAPI.Repository
         public virtual DbSet<Target> Targets { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
+        //DbSet của View
+        public DbSet<vTargetUser> vTargetUser { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
