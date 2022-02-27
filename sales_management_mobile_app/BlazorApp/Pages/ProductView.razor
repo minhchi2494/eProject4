@@ -17,7 +17,7 @@
 
     <div class=row>
         <div class="col-3">
-            <a href="/storeCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+            <a href="/productCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
         </div>
     </div>
 </EditForm>
@@ -40,7 +40,7 @@
             <tr>
                 <td>@item.Id</td>
                 <td>
-                    <img src="images/@item.Images" style="width:100px"/>
+                    <img src="images/@item.Images" width="150px"/>
                 </td>
                 <td>@item.Name</td>
                 <td>@item.Price</td>
@@ -50,10 +50,10 @@
                 </td>
 @*                <td>
                     <a href="/storeDetail/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
-                </td>
-                <td>
-                    <a href="/editStore/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
                 </td>*@
+                <td>
+                    <a href="/editProduct/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+                </td>*
             </tr>
         }
     </tbody>
@@ -74,4 +74,6 @@
             ToastService.ShowSuccess("Search successfully!", "Success");
             products = await _services.getProducts(searchProduct);
         }
+
+        
 }
