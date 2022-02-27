@@ -24,19 +24,43 @@ namespace BlazorApp.Services
             return result;
         }
 
-        public Task<Product> getProduct(string id)
+        public async Task<Product> getProduct(string id)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.GetFromJsonAsync<Product>($"/api/Product/{id}");
+            return result;
         }
 
-        public Task<bool> createProduct(Product createProduct)
+        //public async Task<bool> createProduct(Product createProduct, System.IO.Stream image)
+        public async Task<bool> createProduct(Product createProduct)
         {
-            throw new NotImplementedException();
+
+            //MultipartFormDataContent form = new MultipartFormDataContent();
+            //form.Headers.ContentType.MediaType = "multipart/form-data";
+            //form.Add(new StreamContent(image));
+            //form.Add(new StringContent(JsonConvert.SerializeObject(createProduct), Encoding.UTF8, "application/json"));
+            //var result1 = await _httpClient.PostAsync("/api/Product", form);
+            var result = await _httpClient.PostAsJsonAsync("/api/Product", createProduct);
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public Task<bool> updateProduct(Product editProduct)
+        public async Task<bool> updateProduct(Product editProduct)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.PutAsJsonAsync("/api/Product", editProduct);
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
