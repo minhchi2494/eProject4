@@ -127,7 +127,7 @@ class _RootAppState extends State<RootApp> {
                   icon: Icon(
                     itemsTab[index]['icon'],
                     size: itemsTab[index]['size'],
-                    color: activeTab == index ? Colors.purpleAccent : Colors.black,
+                    color: activeTab == index ? const Color(0xFF1E57F1) : Colors.black,
                   ),
                   onPressed: () {
                     setState(() {

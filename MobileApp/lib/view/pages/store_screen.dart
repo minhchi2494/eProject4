@@ -119,7 +119,7 @@ class _StoreScreenState extends State<StoreScreen> {
           height: 10.0,
         ),
         SizedBox(
-          height: 396,
+          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: GoogleMap(
             onMapCreated: _onMapCreated,
