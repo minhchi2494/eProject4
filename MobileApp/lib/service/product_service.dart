@@ -9,15 +9,12 @@ class ProductService {
   static Uri url = Network.url_products;
 
   static List<Product> parseProduct(String responeBody){
-    Map<String, dynamic> map = json.decode(responeBody);
-
-    List<dynamic> data = map["data"];
-
-    List<Product> products = data.map((model) => Product.fromJson(model)).toList();
-    return products;
+    final list = json.decode(responeBody) as List<dynamic>;
+    List<Product> product = list.map((e) => Product.fromJson(e)).toList();
+    return product;
   }
 
-  static Future<List<Product>> fetchProducts({int page = 1}) async{
+  static Future<List<Product>> getProducts({int page = 1}) async{
     final response = await http.get(url);
     if (response.statusCode == 200) {
       return parseProduct(response.body);

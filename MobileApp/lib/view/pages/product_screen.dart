@@ -1,6 +1,12 @@
+import 'dart:developer';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:sale_man_app/models/Product.dart';
+import 'package:sale_man_app/service/product_service.dart';
 import 'package:sale_man_app/view/pages/product/create_product.dart';
 import 'package:sale_man_app/view/pages/product/detail_product.dart';
+import '';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({Key? key}) : super(key: key);
@@ -10,114 +16,135 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  List<Product> _products = [];
+
+  ScrollController controller = ScrollController();
+  bool closeTopContainer = false;
+
+  List<Card> _buildGridCards(BuildContext context) {
+    if (_products.isEmpty) {
+      return const <Card>[];
+    }
+    List<Product> listProduct = [];
+    for (var item in _products) {
+      listProduct.add(item);
+    }
+    return listProduct.map((product) {
+      return Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 2.0, // loại bỏ cái hàng shadow bên dưới mỗi mặt hàng
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => DetailProduct(product: product),
+            ));
+          },
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              // AspectRatio(
+              //   aspectRatio: 18.0 / 11.0,
+              //   child: Image.network(
+              //     product.imageUrl,
+              //     fit: BoxFit.cover,
+              //     // package: product.assetPackage,
+              //   ),
+              // ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            product.name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6!
+                                .copyWith(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          const SizedBox(height: 4.0),
+                          Text(product.price.toString())
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }).toList();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ProductService.getProducts().then((data) {
+      setState(() {
+        _products = data;
+        log('data here: ${_products}');
+      });
+    });
+    controller.addListener(() {
+      setState(() {
+        closeTopContainer = controller.offset > 50;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: getBody(),
+      body: Center(
+        child: getBody(),
+      ),
     );
   }
 
   getBody() {
-    var size = MediaQuery.of(context).size;
-    return ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        Stack(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
           children: [
             Row(
-              children: const [
-                Text(
-                  "Total Products",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  child: const Text('Create New'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CreateProduct()),
+                    );
+                  },
                 ),
               ],
             ),
-            Padding(
-                padding: const EdgeInsets.only(top: 35, right: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Icon(
-                          Icons.favorite,
-                          color: Colors.black,
-                          size: 28,
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        Icon(
-                          Icons.search,
-                          color: Colors.black,
-                          size: 25,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      // mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ElevatedButton(
-                          child: const Text('Create New'),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CreateProduct()),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                )),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-
-        // Nội dung (List Product)
-        //title top sale
-        Row(
-          children: [
-            const Text(
-              "Top Sales",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Row(
-              children: const [
-                SizedBox(width: 5),
-                Icon(
-                  Icons.trending_up,
-                  color: Colors.green,
-                )
-              ],
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        // Nội Dung
-        Row(
-          // nội dung
-          children: [
-            ElevatedButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DetailProduct()),
+            Expanded(
+              child: GridView.count(
+                controller: controller,
+                crossAxisCount: 2,
+                crossAxisSpacing: 1.0,
+                mainAxisSpacing: 0.5,
+                children: _buildGridCards(context),
               ),
-              child: const Text('Deltail'),
             ),
           ],
         ),
-        const SizedBox(
-          height: 40,
-        ),
-      ],
+      ),
     );
   }
 }

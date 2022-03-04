@@ -9,45 +9,47 @@ class Onboarding extends StatefulWidget{
   State<Onboarding> createState() => _OnboardingState();
 }
 
-const brightBlue = Color(0xFF1E57F1);
-const darkBlue = Color(0xF1001E57);
+const brightYellow = Color(0xFFFDD100);
+const darkYellow = Color(0xFFFEB800);
 
 class _OnboardingState extends State<Onboarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: brightBlue,
-      body: Column(
-        children: [
-          const Flexible(
-            flex: 8,
-            child: FlareActor(
-              'assets/flare/bus.flr',
-              alignment: Alignment.center,
-              fit: BoxFit.contain,
-              animation: 'driving',
-            ),
-          ),
-          Flexible(
-            flex: 2,
-            child: RaisedButton(
-              color: darkBlue,
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50)),
-              child: const Text(
-                'Get Started',
-                style: TextStyle(color: Colors.white),
+      backgroundColor: brightYellow,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const Flexible(
+              flex: 8,
+              child: FlareActor(
+                'assets/flare/bus.flr',
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+                animation: 'driving',
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                );
-              }
             ),
-          ),
-        ],
+            Flexible(
+              flex: 2,
+              child: RaisedButton(
+                color: darkYellow,
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)),
+                child: const Text(
+                  'Get Started',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                }
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
