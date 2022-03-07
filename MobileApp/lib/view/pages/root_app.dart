@@ -6,7 +6,7 @@ import 'package:sale_man_app/view/pages/profile.dart';
 import 'package:sale_man_app/view/pages/store_screen.dart';
 import 'package:sale_man_app/view/pages/target_screen.dart';
 
-class RootApp extends StatefulWidget{
+class RootApp extends StatefulWidget {
   const RootApp({Key? key}) : super(key: key);
 
   @override
@@ -27,11 +27,33 @@ class _RootAppState extends State<RootApp> {
     );
   }
 
-
   getAppBar() {
     switch (activeTab) {
       case 0:
-        appbar = null;
+        return AppBar(
+          elevation: 0.8,
+          backgroundColor: Colors.white,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Home",
+                style: TextStyle(color: Colors.black),
+              ),
+              TextButton(
+                style: ElevatedButton.styleFrom(
+                  onPrimary: Colors.white, // background
+                ),
+                child: const Icon(
+                  Icons.menu,
+                  color: Colors.black,
+                  size: 28,
+                ),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        );
         break;
       case 1:
         return AppBar(
@@ -50,12 +72,14 @@ class _RootAppState extends State<RootApp> {
           title: Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children:[
+              children: [
                 const Text(
                   "Location",
                   style: TextStyle(color: Colors.black),
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 TextButton(
                   style: ElevatedButton.styleFrom(
                     onPrimary: Colors.white, // background
@@ -65,9 +89,7 @@ class _RootAppState extends State<RootApp> {
                     color: Colors.black,
                     size: 28,
                   ),
-                  onPressed: () {
-
-                  },
+                  onPressed: () {},
                 ),
               ],
             ),
@@ -127,7 +149,9 @@ class _RootAppState extends State<RootApp> {
                   icon: Icon(
                     itemsTab[index]['icon'],
                     size: itemsTab[index]['size'],
-                    color: activeTab == index ? const Color(0xFF1E57F1) : Colors.black,
+                    color: activeTab == index
+                        ? const Color(0xFF1E57F1)
+                        : Colors.black,
                   ),
                   onPressed: () {
                     setState(() {
@@ -138,7 +162,4 @@ class _RootAppState extends State<RootApp> {
       ),
     );
   }
-
-
-
 }
