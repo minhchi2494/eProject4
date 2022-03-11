@@ -12,7 +12,7 @@ class DetailProduct extends StatelessWidget {
     return Scaffold(
       appBar: GetAppBar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 1.0),
         child: Column(
           children: [
             Stack(
@@ -23,10 +23,13 @@ class DetailProduct extends StatelessWidget {
                     TextButton(
                         child: const Icon(Icons.arrow_back),
                         onPressed: () => Navigator.pop(context)),
-                    SizedBox(width: 10.0,),
+                    SizedBox(
+                      width: 10.0,
+                    ),
                     const Text(
                       "Products",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -41,14 +44,9 @@ class DetailProduct extends StatelessWidget {
                 alignment: Alignment.center,
                 width: double.infinity,
                 height: 150,
-                color: Colors.grey[300],
-                child: Row(
-                  children: const [
-                    // _image != null
-                    //     ? Image.file(_image!, fit: BoxFit.cover)
-                    //     : const Text('Please select an image'),
-                  ],
-                ),
+                // color: Colors.grey[300],
+                child: Image.network(
+                    'https://th.bing.com/th/id/OIP.kfYgy8ywVaQsKDZk3YmOogHaHa?pid=ImgDet&w=500&h=500&rs=1'),
               ),
               const SizedBox(height: 12.0),
               // [Name]
@@ -64,7 +62,6 @@ class DetailProduct extends StatelessWidget {
 
               const SizedBox(height: 12.0),
             ]),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -72,20 +69,11 @@ class DetailProduct extends StatelessWidget {
                   child: ElevatedButton(
                     child: const Text('Update'),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => UpdateProduct()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UpdateProduct(product: product,)));
                     },
-                  ),
-                ),
-
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    child: const Text('Delete'),
-                    onPressed: () {},
                   ),
                 ),
               ],
@@ -96,4 +84,3 @@ class DetailProduct extends StatelessWidget {
     );
   }
 }
-

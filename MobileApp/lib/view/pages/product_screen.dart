@@ -39,23 +39,23 @@ class _ProductScreenState extends State<ProductScreen> {
               builder: (context) => DetailProduct(product: product),
             ));
           },
-          child: Row(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              // AspectRatio(
-              //   aspectRatio: 18.0 / 11.0,
-              //   child: Image.network(
-              //     product.imageUrl,
-              //     fit: BoxFit.cover,
-              //     // package: product.assetPackage,
-              //   ),
-              // ),
+              AspectRatio(
+                aspectRatio: 18.0 / 14.0,
+                child: Image.network(
+                  'https://th.bing.com/th/id/OIP.kfYgy8ywVaQsKDZk3YmOogHaHa?pid=ImgDet&w=500&h=500&rs=1',
+                  fit: BoxFit.cover,
+                  // package: product.assetPackage,
+                ),
+              ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,7 +138,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 controller: controller,
                 crossAxisCount: 2,
                 crossAxisSpacing: 1.0,
-                mainAxisSpacing: 0.5,
+                mainAxisSpacing: 2.0,
                 children: _buildGridCards(context),
               ),
             ),

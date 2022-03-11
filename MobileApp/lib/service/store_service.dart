@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:sale_man_app/network/network_api.dart';
 
 import '../models/Store.dart';
@@ -23,6 +24,17 @@ class StoreService {
     } else{
       throw Exception('Cant get product');
     }
+  }
 
+  static Future<bool> updateStore(Store data) async {
+    final response = await http.put(Uri.parse("$url/${data.id}"),
+      headers: {"content-type": "application/json"},
+      body: storeToJson(data),
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

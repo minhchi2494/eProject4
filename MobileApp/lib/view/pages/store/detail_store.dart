@@ -1,120 +1,107 @@
 import 'package:flutter/material.dart';
+
+import 'package:sale_man_app/models/Store.dart';
 import 'package:sale_man_app/view/pages/component/appbar.dart';
 import 'package:sale_man_app/view/pages/store/update_store.dart';
 
-class DetailStore extends StatefulWidget {
-  @override
-  State<DetailStore> createState() => _DetailStoreState();
-}
+class DetailStore extends StatelessWidget {
+  const DetailStore({Key? key, required this.store}) : super(key: key);
 
-class _DetailStoreState extends State<DetailStore> {
+  final Store store;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GetAppBar(),
-      body: getBody(),
-    );
-  }
-
-  getBody() {
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      children: [
-        Stack(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Stack(
               children: [
-                TextButton(
-                    child: const Icon(Icons.arrow_back),
-                    onPressed: () => Navigator.pop(context)),
-                const Text(
-                  "Store",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TextButton(
+                        child: const Icon(Icons.arrow_back),
+                        onPressed: () => Navigator.pop(context)),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    const Text(
+                      "Store",
+                      style:
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 12.0,
+            ),
+            Column(children: [
+              const SizedBox(height: 12.0),
+              Container(
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: 150,
+                // color: Colors.grey[300],
+                child: Image.network(
+                    'https://th.bing.com/th/id/OIP.kfYgy8ywVaQsKDZk3YmOogHaHa?pid=ImgDet&w=500&h=500&rs=1'),
+              ),
+              const SizedBox(height: 12.0),
+              // [Name]
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text("Store Name: ${store.name}"),
+                    ],
+                  ),
+                  const SizedBox(height: 12.0),
+                  Row(
+                    children: [
+                      Text("Address: ${store.address}"),
+                    ],
+                  ),
+                  const SizedBox(height: 12.0),
+                  Row(
+                    children: [
+                      Text("Phone: ${store.phone}"),
+                    ],
+                  ),
+                  const SizedBox(height: 12.0),
+                  Row(
+                    children: [
+                      Text("Email: ${store.email}"),
+                    ],
+                  ),
+                ],
+              ),
+              // spacer
+
+              const SizedBox(height: 12.0),
+            ]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    child: const Text('Update'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UpdateStore(store: store,)));
+                    },
+                  ),
                 ),
               ],
             ),
           ],
         ),
-        const SizedBox(
-          height: 12.0,
-        ),
-        Column(children: [
-          const SizedBox(height: 12.0),
-          Container(
-            alignment: Alignment.center,
-            width: double.infinity,
-            height: 150,
-            color: Colors.grey[300],
-            child: Row(
-              children: const [
-                // _image != null
-                //     ? Image.file(_image!, fit: BoxFit.cover)
-                //     : const Text('Please select an image'),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12.0),
-          Row(
-            children: const [
-              Text('Name Store'),
-            ],
-          ),
-          // spacer
-          const SizedBox(height: 12.0),
-          Row(
-            children: const [
-              Text('Address'),
-            ],
-          ),
-          const SizedBox(height: 12.0),
-          Row(
-            children: const [
-              Text('Ward'),
-            ],
-          ),
-          // spacer
-          const SizedBox(height: 12.0),
-          Row(
-            children: const [
-              Text('Phone'),
-            ],
-          ),
-          const SizedBox(height: 12.0),Row(
-            children: const [
-              Text('Email'),
-            ],
-          ),
-          // spacer
-          const SizedBox(height: 12.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: const [
-                  Text('Target'),
-                ],
-              ),
-              Row(
-                children: const [
-                  Text('Name Store'),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 12.0),
-        ]),
-        ElevatedButton(
-          child: const Text('Update'),
-          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UpdateStore())),
-        ),
-        // TODO: Add an elevation to NEXT (103)
-        // TODO: Add a beveled rectangular border to NEXT (103)
-        ElevatedButton(
-          child: const Text('Delete'),
-          onPressed: () {},
-        ),
-      ],
+      ),
     );
   }
 }

@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sale_man_app/models/Store.dart';
+import 'package:sale_man_app/service/store_service.dart';
 import 'package:sale_man_app/view/pages/store/create_store.dart';
 import 'package:sale_man_app/view/pages/store/detail_store.dart';
 
@@ -11,6 +15,31 @@ class StoreScreen extends StatefulWidget {
 }
 
 class _StoreScreenState extends State<StoreScreen> {
+  final Map<String, Marker> _markers = {};
+  // final List<Store> store = [];
+  Future<void> _onMapCreated(GoogleMapController controller) async {
+    List<Store> googleOffices = await StoreService.getStores();
+    setState(() {
+      _markers.clear();
+      for (final office in googleOffices) {
+        final marker = Marker(
+          markerId: MarkerId(office.name),
+          position: LatLng(office.latitude,office.longitude),
+          infoWindow: InfoWindow(
+            title: office.name,
+            snippet: office.address,
+          ),
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailStore(store: office)));
+          },
+        );
+        _markers[office.name] = marker;
+      }
+      for(Store item in googleOffices){
+        log('${item.latitude} - ${item.longitude}');
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,9 +53,9 @@ class _StoreScreenState extends State<StoreScreen> {
 
     final LatLng _center = const LatLng(10.7863, 106.6665);
 
-    void _onMapCreated(GoogleMapController controller) {
-      mapController = controller;
-    }
+    // void _onMapCreated(GoogleMapController controller) {
+    //   mapController = controller;
+    // }
 
     return ListView(
       // padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -42,77 +71,32 @@ class _StoreScreenState extends State<StoreScreen> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20, right: 10),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "Total Store",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          ElevatedButton(
-                            child: const Text('Create New Store'),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CreateStore()),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "Data API HERE",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          ElevatedButton(
-                            child: const Text('Detail'),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DetailStore()),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 20, right: 10),
+            //   child: Column(
+            //     children: [
+            //       Row(
+            //         children: [
+            //           Row(
+            //             // mainAxisAlignment: MainAxisAlignment.end,
+            //             children: [
+            //               ElevatedButton(
+            //                 child: const Text('Detail'),
+            //                 onPressed: () {
+            //                   Navigator.push(
+            //                     context,
+            //                     MaterialPageRoute(
+            //                         builder: (context) => DetailStore()),
+            //                   );
+            //                 },
+            //               ),
+            //             ],
+            //           ),
+            //         ],
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
         const SizedBox(
@@ -127,6 +111,7 @@ class _StoreScreenState extends State<StoreScreen> {
               target: _center,
               zoom: 18.0,
             ),
+            markers: _markers.values.toSet(),
           ),
         ),
       ],

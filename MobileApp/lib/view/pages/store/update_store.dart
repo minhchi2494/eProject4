@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sale_man_app/models/Store.dart';
 import 'package:sale_man_app/view/pages/component/appbar.dart';
 
 class UpdateStore extends StatefulWidget {
+  const UpdateStore({Key? key, required this.store}) : super(key: key);
+
+  final Store store;
+
   @override
   State<UpdateStore> createState() => _UpdateStoreState();
 }

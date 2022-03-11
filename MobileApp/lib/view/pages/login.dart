@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sale_man_app/view/pages/change_password.dart';
+// import 'package:sale_man_app/view/pages/change_password.dart';
 import 'package:sale_man_app/view/pages/home.dart';
 import 'package:sale_man_app/view/pages/root_app.dart';
 
@@ -60,11 +60,11 @@ class _LoginPageState extends State<LoginPage> {
             TextButton(
               child: const Text('Forgot Password.'),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChangePassword()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => const ChangePassword()),
+                // );
               },
             ),
           ],

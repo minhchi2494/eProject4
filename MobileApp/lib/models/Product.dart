@@ -24,8 +24,8 @@ class Product {
   String id;
   String name;
   double price;
-  String unit;
-  String images;
+  String? unit;
+  String? images;
   bool isActive;
   List<dynamic> imagesNavigation;
   List<dynamic> salesDetails;
