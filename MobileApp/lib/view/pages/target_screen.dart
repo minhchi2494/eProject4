@@ -107,12 +107,6 @@ class _TargetScreenState extends State<TargetScreen> {
               Text(
                 'Actual Quantity: ${target[index].actualQuantity.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
-              // Container(
-              //   margin: EdgeInsets.only(top: 5.0),
-              //   height: 2,
-              //   width: 30,
-              //   color: isSelected == index ? Colors.black : Colors.grey,
-              // )
             ],
           ),
         ),
