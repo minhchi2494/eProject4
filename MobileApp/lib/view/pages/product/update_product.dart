@@ -60,23 +60,6 @@ class _UpdateProductState extends State<UpdateProduct> {
                     ),
                   ],
                 ),
-                Padding(
-                    padding: const EdgeInsets.only(top: 35, right: 10),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          // mainAxisAlignment: MainAxisAlignment.end,
-                          children: const [
-                            Text('Name Product',
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.grey)),
-                          ],
-                        ),
-                      ],
-                    )),
               ],
             ),
             Column(children: [
@@ -88,8 +71,8 @@ class _UpdateProductState extends State<UpdateProduct> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.network(
-                        'https://th.bing.com/th/id/OIP.kfYgy8ywVaQsKDZk3YmOogHaHa?pid=ImgDet&w=500&h=500&rs=1'),
+                    Image.asset(
+                        'assets/images/${widget.product.images}'),
                   ],
                 ),
               ),
@@ -128,7 +111,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                               Navigator.pop(context);
                             } else {
                               print("error: " + response.statusCode.toString());
-                              showSnackbarMessage("Submit data failed");
+                              showSnackbarMessage("Update data failed");
                             }
                           });
                         });

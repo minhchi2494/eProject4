@@ -21,9 +21,11 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             const SizedBox(height: 80.0),
             Column(
-              children: const <Widget>[
-                // Image.asset('assets/diamond.png'),
-                Text('Icon'),
+              children: <Widget>[
+                Image(
+                  image: AssetImage('assets/beer.png'),
+                  width: 100,
+                ),
                 SizedBox(height: 16.0),
                 Text('Sales Management'),
               ],

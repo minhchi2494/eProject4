@@ -29,6 +29,7 @@ class _StoreScreenState extends State<StoreScreen> {
             title: office.name,
             snippet: office.address,
           ),
+
           onTap: (){
             Navigator.push(context, MaterialPageRoute(builder: (context) => DetailStore(store: office)));
           },
@@ -61,47 +62,47 @@ class _StoreScreenState extends State<StoreScreen> {
       // padding: const EdgeInsets.symmetric(horizontal: 24.0),
 
       children: [
-        Stack(
-          children: [
-            Row(
-              children: const [
-                Text(
-                  "Store",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 20, right: 10),
-            //   child: Column(
-            //     children: [
-            //       Row(
-            //         children: [
-            //           Row(
-            //             // mainAxisAlignment: MainAxisAlignment.end,
-            //             children: [
-            //               ElevatedButton(
-            //                 child: const Text('Detail'),
-            //                 onPressed: () {
-            //                   Navigator.push(
-            //                     context,
-            //                     MaterialPageRoute(
-            //                         builder: (context) => DetailStore()),
-            //                   );
-            //                 },
-            //               ),
-            //             ],
-            //           ),
-            //         ],
-            //       ),
-            //     ],
-            //   ),
-            // ),
-          ],
-        ),
-        const SizedBox(
-          height: 10.0,
-        ),
+        // Stack(
+        //   children: [
+        //     // Row(
+        //     //   children: const [
+        //     //     Text(
+        //     //       "Store",
+        //     //       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        //     //     ),
+        //     //   ],
+        //     // ),
+        //     // Padding(
+        //     //   padding: const EdgeInsets.only(top: 20, right: 10),
+        //     //   child: Column(
+        //     //     children: [
+        //     //       Row(
+        //     //         children: [
+        //     //           Row(
+        //     //             // mainAxisAlignment: MainAxisAlignment.end,
+        //     //             children: [
+        //     //               ElevatedButton(
+        //     //                 child: const Text('Detail'),
+        //     //                 onPressed: () {
+        //     //                   Navigator.push(
+        //     //                     context,
+        //     //                     MaterialPageRoute(
+        //     //                         builder: (context) => DetailStore()),
+        //     //                   );
+        //     //                 },
+        //     //               ),
+        //     //             ],
+        //     //           ),
+        //     //         ],
+        //     //       ),
+        //     //     ],
+        //     //   ),
+        //     // ),
+        //   ],
+        // ),
+        // const SizedBox(
+        //   height: 10.0,
+        // ),
         SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,

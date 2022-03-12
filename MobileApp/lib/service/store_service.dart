@@ -26,15 +26,11 @@ class StoreService {
     }
   }
 
-  static Future<bool> updateStore(Store data) async {
+  static Future<http.Response> updateStore(Store data) async {
     final response = await http.put(Uri.parse("$url/${data.id}"),
       headers: {"content-type": "application/json"},
       body: storeToJson(data),
     );
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
+    return response;
   }
 }

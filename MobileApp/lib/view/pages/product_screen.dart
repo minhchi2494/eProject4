@@ -44,8 +44,8 @@ class _ProductScreenState extends State<ProductScreen> {
             children: <Widget>[
               AspectRatio(
                 aspectRatio: 18.0 / 14.0,
-                child: Image.network(
-                  'https://th.bing.com/th/id/OIP.kfYgy8ywVaQsKDZk3YmOogHaHa?pid=ImgDet&w=500&h=500&rs=1',
+                child: Image.asset(
+                  'assets/images/${product.images}',
                   fit: BoxFit.cover,
                   // package: product.assetPackage,
                 ),

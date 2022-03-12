@@ -15,25 +15,28 @@ class DetailProduct extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 1.0),
         child: Column(
           children: [
-            Stack(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    TextButton(
-                        child: const Icon(Icons.arrow_back),
-                        onPressed: () => Navigator.pop(context)),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    const Text(
-                      "Products",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ],
+            Flexible(
+              flex: 1,
+              child: Stack(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      TextButton(
+                          child: const Icon(Icons.arrow_back),
+                          onPressed: () => Navigator.pop(context)),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      const Text(
+                        "Products",
+                        style:
+                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 12.0,
@@ -45,8 +48,8 @@ class DetailProduct extends StatelessWidget {
                 width: double.infinity,
                 height: 150,
                 // color: Colors.grey[300],
-                child: Image.network(
-                    'https://th.bing.com/th/id/OIP.kfYgy8ywVaQsKDZk3YmOogHaHa?pid=ImgDet&w=500&h=500&rs=1'),
+                child: Image.asset(
+                    'assets/images/${product.images}'),
               ),
               const SizedBox(height: 12.0),
               // [Name]
