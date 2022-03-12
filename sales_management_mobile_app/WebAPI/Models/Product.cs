@@ -22,8 +22,8 @@ namespace WebAPI.Models
         public string Unit { get; set; }
         public string Images { get; set; }
 
-        [NotMapped]
-        public IFormFile ImageFiles { get; set; }
+        //[NotMapped]
+        //public IFormFile ImageFiles { get; set; }
 
         public bool? IsActive { get; set; }
 
