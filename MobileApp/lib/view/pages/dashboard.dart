@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:sale_man_app/view/pages/login.dart';
+import 'package:sale_man_app/view/pages/root_app.dart';
 
 
 class Onboarding extends StatefulWidget{
@@ -43,7 +44,7 @@ class _OnboardingState extends State<Onboarding> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    MaterialPageRoute(builder: (context) => const RootApp()),
                   );
                 }
               ),

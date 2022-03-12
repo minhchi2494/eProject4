@@ -85,22 +85,22 @@ class DetailStore extends StatelessWidget {
 
                 const SizedBox(height: 12.0),
               ]),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      child: const Text('Update'),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => UpdateStore(store: store,)));
-                      },
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Expanded(
+              //       child: ElevatedButton(
+              //         child: const Text('Update'),
+              //         onPressed: () {
+              //           Navigator.push(
+              //               context,
+              //               MaterialPageRoute(
+              //                   builder: (context) => UpdateStore(store: store,)));
+              //         },
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),

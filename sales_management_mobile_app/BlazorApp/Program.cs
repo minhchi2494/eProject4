@@ -44,6 +44,7 @@ namespace BlazorApp
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://192.168.0.18:54350") });
 
+
             await builder.Build().RunAsync();
         }
     }

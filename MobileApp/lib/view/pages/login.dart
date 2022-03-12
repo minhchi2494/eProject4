@@ -22,10 +22,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 80.0),
             Column(
               children: <Widget>[
-                Image(
-                  image: AssetImage('assets/beer.png'),
-                  width: 100,
-                ),
+                Image(image: AssetImage('assets/beer.png'), width: 100,),
                 SizedBox(height: 16.0),
                 Text('Sales Management'),
               ],
