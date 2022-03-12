@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sale_man_app/models/User.dart';
+import 'package:sale_man_app/service/user_service.dart';
 
-class Profile extends StatefulWidget{
+class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
   @override
@@ -8,167 +10,120 @@ class Profile extends StatefulWidget{
 }
 
 class _ProfileState extends State<Profile> {
+  List<User> users = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    UserService.getUsers().then((user) {
+      setState(() {
+        users = user;
+        // for(User item in user){
+        //   log('${item.fullname}');
+        // }
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: getBody(),
+      body: SafeArea(
+        child: getBody(),
+      ),
     );
   }
 
   getBody() {
-    var size = MediaQuery.of(context).size;
-    return ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        Stack(
-          children: [
-            SizedBox(
-              width: size.width,
-              // height: 500,
-              // decoration: BoxDecoration(
-              //   image:
-              // ),
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(top: 10),
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(height: 5.0),
+                    Text(
+                      users[1].fullname,
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
+                    ),
+                    const SizedBox(height: 5.0),
+                  ],
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 10.0),
+          UserInfo(),
+        ],
+      ),
+    );
+  }
+
+  Widget UserInfo() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(left: 8.0, bottom: 4.0),
+            alignment: Alignment.topLeft,
+            child: Text(
+              "User Information",
+              style: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.left,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 35, right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
-                  Icon(
-                    Icons.favorite,
-                    color: Colors.black,
-                    size: 28,
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Icon(
-                    Icons.search,
-                    color: Colors.black,
-                    size: 25,
-                  ),
+          ),
+          Card(
+            child: Container(
+              alignment: Alignment.topLeft,
+              padding: EdgeInsets.all(15),
+              child: Column(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      ...ListTile.divideTiles(
+                        color: Colors.grey,
+                        tiles: [
+                          ListTile(
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 4),
+                            leading: Icon(Icons.my_location),
+                            title: Text("Location"),
+                            // subtitle: Text("Kathmandu"),
+                              subtitle: Text(users[1].address)
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.email),
+                            title: Text("Email"),
+                            // subtitle: Text("sudeptech@gmail.com"),
+                              subtitle: Text(users[1].email),
+                          ),
+                          ListTile(
+                            leading: Icon(Icons.phone),
+                            title: Text("Phone"),
+                            // subtitle: Text("99--99876-56"),
+                              subtitle: Text(users[1].phone),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
-          ],
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-
-        //title top sale
-        Row(
-          children: [
-            const Text(
-              "Top Sales",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Row(
-              children: const [
-                SizedBox(width: 5),
-                Icon(
-                  Icons.trending_up,
-                  color: Colors.green,
-                )
-              ],
-            )
-          ],
-        ),
-        const SizedBox(height: 20,),
-        // Nội Dung
-        Row(
-          // nội dung
-          children: [],
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-
-        //title top area
-        Row(
-          children: [
-            const Text(
-              "Top Area",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Row(
-              children: const [
-                SizedBox(width: 5),
-                Icon(
-                  Icons.trending_up,
-                  color: Colors.green,
-                )
-              ],
-            )
-          ],
-        ),
-        const SizedBox(height: 20,),
-        // nội dung
-        Row(
-          // nội dung
-          children: [],
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-
-        //title top product
-        Row(
-          children: [
-            const Text(
-              "Top Products",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Row(
-              children: const [
-                SizedBox(width: 5),
-                Icon(
-                  Icons.trending_up,
-                  color: Colors.green,
-                )
-              ],
-            )
-          ],
-        ),
-        const SizedBox(height: 20,),
-        // nội dung
-        Row(
-          // nội dung
-          children: [],
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-
-        //title top store
-        Row(
-          children: [
-            const Text(
-              "Top Store",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Row(
-              children: const [
-                SizedBox(width: 5),
-                Icon(
-                  Icons.trending_up,
-                  color: Colors.green,
-                )
-              ],
-            )
-          ],
-        ),
-        const SizedBox(height: 20,),
-        // nội dung
-        Row(
-          // nội dung
-          children: [],
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-      ],
+          )
+        ],
+      ),
     );
   }
 }

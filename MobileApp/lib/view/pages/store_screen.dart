@@ -35,9 +35,9 @@ class _StoreScreenState extends State<StoreScreen> {
         );
         _markers[office.name] = marker;
       }
-      for(Store item in googleOffices){
-        log('${item.latitude} - ${item.longitude}');
-      }
+      // for(Store item in googleOffices){
+      //   log('${item.latitude} - ${item.longitude}');
+      // }
     });
   }
   @override
