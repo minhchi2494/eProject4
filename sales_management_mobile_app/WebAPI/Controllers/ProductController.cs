@@ -43,19 +43,25 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public Task<bool> createProduct([FromBody] Product newProduct)
+        public Task<bool> createProduct([FromQuery] Product newProduct)
         {
             return _services.createProduct(newProduct);
         }
 
         //[HttpPost]
-        //public async Task<bool> createProduct([FromForm] Product newProduct)
+        //public async Task<bool> createProduct([FromQuery]Product2 product2)
         //{
-        //    newProduct.Images = await SaveImage(newProduct.ImageFiles);
-        //    await _services.createProduct(newProduct);
+        //    var product = await _services.createProduct(new Product()
+        //    {
+        //        Id = product2.Id,
+        //        Name = product2.Name,
+        //        Price = product2.Price,
+        //        Unit = product2.Unit,
+        //        Images = product2.Images,
+        //        IsActive = product2.IsActive,
+        //    });
         //    return true;
         //}
-
 
         //[NonAction]
         //public async Task<string> SaveImage(IFormFile imageFile)
@@ -71,7 +77,7 @@ namespace WebAPI.Controllers
         //}
 
         [HttpPut]
-        public Task<bool> updateProduct([FromBody]Product editProduct)
+        public Task<bool> updateProduct([FromQuery]Product editProduct)
         {
             return _services.updateProduct(editProduct);
         }

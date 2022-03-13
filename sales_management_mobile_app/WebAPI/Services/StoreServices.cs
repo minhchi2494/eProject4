@@ -66,8 +66,8 @@ namespace WebAPI.Services
                 store.Email = editStore.Email;
                 store.Phone = editStore.Phone;
                 store.Address = editStore.Address;
-                store.Longitude = editStore.Longitude;
-                store.Latitude = editStore.Latitude;
+                //store.Longitude = editStore.Longitude;
+                //store.Latitude = editStore.Latitude;
                 store.LocationId = editStore.LocationId;
                 Location loc = _context.Locations.SingleOrDefault(l => l.Id.Equals(editStore.LocationId));
                 store.Location = loc;
