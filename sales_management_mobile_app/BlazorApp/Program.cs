@@ -51,13 +51,6 @@ namespace BlazorApp
             builder.Services.AddScoped(x => {
                 var apiUrl = new Uri(builder.Configuration["apiUrl"]);
 
-                // use fake backend if "fakeBackend" is "true" in appsettings.json
-                //if (builder.Configuration["fakeBackend"] == "true")
-                //{
-                //    var fakeBackendHandler = new FakeBackendHandler(x.GetService<ILocalStorageService>());
-                //    return new HttpClient(fakeBackendHandler) { BaseAddress = apiUrl };
-                //}
-
                 return new HttpClient() { BaseAddress = apiUrl };
             });
 
@@ -68,7 +61,6 @@ namespace BlazorApp
 
 
             
-          //  builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("link api") });
 
             await host.RunAsync();
         }

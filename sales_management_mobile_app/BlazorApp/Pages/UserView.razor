@@ -8,7 +8,7 @@
 <EditForm Model="@searchUser" OnSubmit=@SeachForm>
     <div class="row">
         <div class="col-md-6">
-            <InputText @bind-Value="searchUser.Fullname" class="form-control" placeholder="Enter Full Name..."></InputText>       
+            <InputText @bind-Value="searchUser.Fullname" class="form-control" placeholder="Enter Full Name..."></InputText>
         </div>
         <div class="col-md-2">
             <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
@@ -17,6 +17,12 @@
 
 
 </EditForm>
+<br />
+<div class=row>
+    <div class="col-3">
+        <a href="/userCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+    </div>
+</div>
 
 <table class="table">
     <thead>
@@ -29,14 +35,14 @@
             <th>Role</th>
             <th>Location</th>
             <th>Active</th>
-            @*
+
             <th>Manager</th>
             <th>Active</th>
-            <th>Actions</th>*@
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach(var item in users)
+        @foreach (var item in users)
         {
             <tr>
                 <td>@item.Username</td>
@@ -46,15 +52,12 @@
                 <td>@item.Address</td>
                 <td>@item.Role.Title</td>
                 <td>@item.Location.District</td>
-                @*<td>@item.Store.Name</td>
-                
-                <td>@item.Manager.Fullname</td>*@
+                <td>@item.Store.Name</td>
+
                 <td>
                     <span class="badge badge-success">@item.IsActive</span>
                 </td>
-@*                <td>
-                    <a href="/storeDetail/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
-                </td>*@
+       
                 <td>
                     <a href="/editUser/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
                 </td>
