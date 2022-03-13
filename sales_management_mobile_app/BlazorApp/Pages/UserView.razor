@@ -26,9 +26,10 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Address</th>
-            <th>Store</th>
-            @*<th>Location</th>
             <th>Role</th>
+            <th>Location</th>
+            <th>Active</th>
+            @*
             <th>Manager</th>
             <th>Active</th>
             <th>Actions</th>*@
@@ -43,9 +44,10 @@
                 <td>@item.Email</td>
                 <td>@item.Phone</td>
                 <td>@item.Address</td>
-                @*<td>@item.Store.Name</td>
-                <td>@item.Location.District</td>
                 <td>@item.Role.Title</td>
+                <td>@item.Location.District</td>
+                @*<td>@item.Store.Name</td>
+                
                 <td>@item.Manager.Fullname</td>*@
                 <td>
                     <span class="badge badge-success">@item.IsActive</span>
