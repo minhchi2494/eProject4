@@ -23,6 +23,7 @@
         <a href="/userCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
     </div>
 </div>
+<br />
 
 <table class="table">
     <thead>
@@ -36,9 +37,9 @@
             <th>Location</th>
             <th>Active</th>
 
-            <th>Manager</th>
+@*            <th>Manager</th>
             <th>Active</th>
-            <th>Actions</th>
+            <th>Actions</th>*@
         </tr>
     </thead>
     <tbody>
@@ -52,7 +53,6 @@
                 <td>@item.Address</td>
                 <td>@item.Role.Title</td>
                 <td>@item.Location.District</td>
-                <td>@item.Store.Name</td>
 
                 <td>
                     <span class="badge badge-success">@item.IsActive</span>
