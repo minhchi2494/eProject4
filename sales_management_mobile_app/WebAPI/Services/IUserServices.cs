@@ -14,5 +14,6 @@ namespace WebAPI.Services
         Task<User> checkLogin(string username, string password);
         Task<bool> createUser(User newUser);
         Task<bool> updateUser(User editUser);
+
     }
 }

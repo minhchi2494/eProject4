@@ -1,47 +1,128 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BlazorApp.Models;
 using System.Net.Http;
-using System.Net.Http.Json;
+using BlazorApp.Models.AdminModel;
+using BlazorApp.Services.AdminModel;
+using Microsoft.AspNetCore.Components;
+
 namespace BlazorApp.Services
 {
     public class AdminServices : IAdminServices
     {
-        public HttpClient _httpClient;
+       // public HttpClient _httpClient;
+        private IHttpService _httpService;
+        private NavigationManager _navigationManager;
+        private ILocalStorageService _localStorageService;
+        private string _userKey = "admin";
 
-        public AdminServices(HttpClient httpClient)
+        public Admin Admin { get; private set; }
+
+        public AdminServices(
+            IHttpService httpService,
+            NavigationManager navigationManager,
+            ILocalStorageService localStorageService)
         {
-            _httpClient = httpClient;
+            
+            _httpService = httpService;
+            _navigationManager = navigationManager;
+            _localStorageService = localStorageService;
         }
 
-        public async Task<Admin> checkLogin(string username, string password)
+       
+
+        public async Task Delete(int id)
         {
-            var result = await _httpClient.GetFromJsonAsync<Admin>($"/api/Admin/{username}/{password}");
-            return result;
+            await _httpService.Delete($"/admin/{id}");
+
+            // auto logout if the logged in user deleted their own record
+            if (id == Admin.Id)
+            {
+                await Logout();
+            }
         }
 
-        public async Task<List<Admin>> getAdmins()
+        public async Task<IList<Admin>> GetAll()
         {
-            var result = await _httpClient.GetFromJsonAsync<List<Admin>>($"/api/Admin");
-            return result;
+            return await _httpService.Get<IList<Admin>>("/admin");
         }
 
-        public async Task<Admin> getAdmin(int id)
+        public async Task<Admin> GetById(int id)
         {
-            var result = await _httpClient.GetFromJsonAsync<Admin>($"/api/Admin/{id}");
-            return result;
+            return await _httpService.Get<Admin>($"/admin/{id}");
         }
 
-        public Task<bool> createAdmin(Admin newAdmin)
+        public async Task Initialize()
         {
-            throw new NotImplementedException();
+            Admin = await _localStorageService.GetItem<Admin>(_userKey);
         }
 
-        public Task<bool> updateAdmin(Admin editAdmin)
+        public async Task Login(Login model)
         {
-            throw new NotImplementedException();
+            Admin = await _httpService.Post<Admin>("/admin/authenticate", model);
+            await _localStorageService.SetItem(_userKey, Admin);
         }
+
+        public async Task Logout()
+        {
+            Admin = null;
+            await _localStorageService.RemoveItem(_userKey);
+            _navigationManager.NavigateTo("admin/login");
+        }
+
+        public async Task Register(AddAdmin model)
+        {
+            await _httpService.Post("/admin/register", model);
+        }
+
+        public async Task Update(int id, EditAdmin model)
+        {
+            await _httpService.Put($"/admin/{id}", model);
+
+            // update stored user if the logged in user updated their own record
+            if (id == Admin.Id)
+            {
+                // update local storage
+                Admin.Fullname = model.Fullname;
+                Admin.Phone = model.Phone;
+                Admin.Username = model.Username;
+                await _localStorageService.SetItem(_userKey, Admin);
+            }
+        }
+
+        //public async Task<bool> checkLogin(string username, string password)
+        //{
+        //    var result = await _httpClient.PostAsJsonAsync($"/api/Admin?Username={username}/Password={password}", username);
+        //    if (result.IsSuccessStatusCode)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        //public async Task<List<Admin>> getAdmins()
+        //{
+        //    var result = await _httpClient.GetFromJsonAsync<List<Admin>>($"/api/Admin");
+        //    return result;
+        //}
+
+        //public async Task<Admin> getAdmin(int id)
+        //{
+        //    var result = await _httpClient.GetFromJsonAsync<Admin>($"/api/Admin/{id}");
+        //    return result;
+        //}
+
+        //public Task<bool> createAdmin(Admin newAdmin)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public Task<bool> updateAdmin(Admin editAdmin)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

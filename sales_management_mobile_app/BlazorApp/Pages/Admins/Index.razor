@@ -1,0 +1,73 @@
+﻿@page "/admin"
+@attribute [Authorize]
+@inject IAdminServices AdminService
+
+<h1>Admin</h1>
+<NavLink href="admin/add" class="btn btn-sm btn-success mb-2">Add Admin</NavLink>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 20%">FullName</th>
+            <th style="width: 20%">Phone</th>
+            <th style="width: 20%">Username</th>
+            <th style="width: 20%">Email</th>
+            <th style="width: 20%">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (admins != null)
+        {
+            foreach (var admin in admins)
+            {
+        <tr>
+            <td>@admin.Fullname</td>
+            <td>@admin.Phone</td>
+            <td>@admin.Username</td>
+            <td>@admin.Email</td>
+            <td style="white-space: nowrap">
+                <NavLink href="@($"/admin/edit/{admin.Id}")" class="btn btn-sm btn-primary mr-1">Edit</NavLink>
+                <button @onclick="@(() => DeleteAdmin(admin.Id))" disabled="@admin.IsDeleting" class="btn btn-sm btn-danger btn-delete-user">
+                    @if (admin.IsDeleting)
+                    {
+                        <span class="spinner-border spinner-border-sm"></span>
+                    }
+                    else
+                    {
+                        <span>Delete</span>
+                    }
+                </button>
+            </td>
+        </tr>
+            }
+        }
+        @if (loading)
+        {
+            <tr>
+                <td colspan="4" class="text-center">
+                    <span class="spinner-border spinner-border-lg align-center"></span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private bool loading;
+    private IList<Admin> admins;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        admins = await AdminService.GetAll();
+        loading = false;
+    }
+
+    private async void DeleteAdmin(int id)
+    {
+        var admin = admins.First(x => x.Id == id);
+        admin.IsDeleting = true;
+        await AdminService.Delete(id);
+        admins.Remove(admin);
+        StateHasChanged();
+    }
+}

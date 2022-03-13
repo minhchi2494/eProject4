@@ -34,8 +34,8 @@ namespace WebAPI.Controllers
             return _services.getUser(id);
         }
 
-        [HttpGet("{username}/{password}")]
-        public Task<User> checkLogin([FromQuery] string username, string password)
+        [HttpPost("{username}/{password}")]
+        public Task<User> checkLogin([FromForm] string username, string password)
         {
             return _services.checkLogin(username, password);
         }

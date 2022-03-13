@@ -1,5 +1,5 @@
 ﻿@page "/user"
-
+@attribute [Authorize]
 @using BlazorApp.Services
 @using BlazorApp.Models
 @inject IToastService ToastService
@@ -15,46 +15,38 @@
         </div>
     </div>
 
-@*    <div class=row>
-        <div class="col-3">
-            <a href="/storeCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
-        </div>
-    </div>*@
+
 </EditForm>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>TargetId</th>
             <th>Username</th>
             <th>Fullname</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Address</th>
             <th>Store</th>
-            <th>Location</th>
+            @*<th>Location</th>
             <th>Role</th>
             <th>Manager</th>
             <th>Active</th>
-            <th></th>
+            <th>Actions</th>*@
         </tr>
     </thead>
     <tbody>
         @foreach(var item in users)
         {
             <tr>
-                <td>@item.Id</td>
-                <td>@item.TargetId</td>
                 <td>@item.Username</td>
                 <td>@item.Fullname</td>
                 <td>@item.Email</td>
                 <td>@item.Phone</td>
                 <td>@item.Address</td>
-                <td>@item.Store.Name</td>
+                @*<td>@item.Store.Name</td>
                 <td>@item.Location.District</td>
                 <td>@item.Role.Title</td>
-                <td>@item.Manager.Fullname</td>
+                <td>@item.Manager.Fullname</td>*@
                 <td>
                     <span class="badge badge-success">@item.IsActive</span>
                 </td>
@@ -70,18 +62,18 @@
 </table>
 
 @code {
-        private List<User> users = new List<User>();
+    private List<User> users = new List<User>();
 
-        private User searchUser = new User();
+    private User searchUser = new User();
 
-        protected override async Task OnInitializedAsync()
-        {
-            users = await _services.getUsers(searchUser);
-        }
+    protected override async Task OnInitializedAsync()
+    {
+        users = await _services.getUsers(searchUser);
+    }
 
-         private async Task SeachForm(EditContext context)
-        {
-            ToastService.ShowSuccess("Search successfully!", "Success");
-            users = await _services.getUsers(searchUser);
-        }
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        users = await _services.getUsers(searchUser);
+    }
 }

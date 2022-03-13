@@ -1,5 +1,5 @@
 ﻿@page "/storeDetail/{id}"
-
+@attribute [Authorize]
 @using BlazorApp.Services
 @using BlazorApp.Models
 
@@ -53,16 +53,16 @@
 </table>
 
 @code {
-        [Inject]
-        private IStoreServices _services { get; set; }
+    [Inject]
+    private IStoreServices _services { get; set; }
 
-        private Store store { set; get; }
+    private Store store { set; get; }
 
-        [Parameter]
-        public string id { get; set; }
+    [Parameter]
+    public string id { get; set; }
 
-        protected override async Task OnInitializedAsync()
-        {
-            store = await _services.getStore(id);
-        }
+    protected override async Task OnInitializedAsync()
+    {
+        store = await _services.getStore(id);
+    }
 }

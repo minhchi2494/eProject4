@@ -1,5 +1,9 @@
 ﻿@inherits LayoutComponentBase
 @using Blazored.Toast.Configuration;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@inject BlazorApp.Services.IAdminServices AdminService
+@inject NavigationManager NavigationManager
 
 <BlazoredToasts Position="ToastPosition.BottomRight"
                 Timeout="5"
@@ -12,19 +16,49 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
+
+
+@if (LoggedIn)
+{
 <div class="page">
+    <!-- nav -->
+    @*<nav class="navbar navbar-expand navbar-dark bg-dark">
+            <div class="navbar-nav">
+                <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
+                <NavLink href="admin" class="nav-item nav-link">Admins</NavLink>
+                <NavLink href="admin/logout" class="nav-item nav-link">Logout</NavLink>
+            </div>
+        </nav>*@
+
     <div class="sidebar">
         <NavMenu />
     </div>
 
     <div class="main">
-        <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-        </div>
 
-        <div class="content px-4">
+
+        <div class="top-row px-3">
+            <a href="admin/logout" class="nav-item nav-link">Logout</a>
+
+        </div>
+        <div class="content px-3">
+            <Alert />
             @Body
         </div>
     </div>
 </div>
- 
+        }
+            else {<div class="content px-3 @(LoggedIn ? "bg-light" : "")">
+            <Alert />
+            @Body
+        </div> }
+        
+
+   
+
+    @code {
+public bool LoggedIn
+    {
+        get { return AdminService.Admin != null; }
+    }
+    }

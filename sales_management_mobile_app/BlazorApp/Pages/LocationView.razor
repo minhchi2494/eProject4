@@ -1,5 +1,5 @@
 ﻿@page "/location"
-
+@attribute [Authorize]
 @using BlazorApp.Services
 @using BlazorApp.Models
 @inject IToastService ToastService
@@ -8,7 +8,7 @@
 <EditForm Model="@searchLoc" OnSubmit=@SeachForm>
     <div class="row">
         <div class="col-md-6">
-            <InputText @bind-Value="searchLoc.District" class="form-control" placeholder="Enter District..."></InputText>       
+            <InputText @bind-Value="searchLoc.District" class="form-control" placeholder="Enter District..."></InputText>
         </div>
         <div class="col-md-2">
             <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
@@ -33,7 +33,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var item in locations)
+        @foreach (var item in locations)
         {
             <tr>
                 <td>@item.Id</td>
@@ -51,18 +51,18 @@
 </table>
 
 @code {
-        private List<Location> locations = new List<Location>();
+    private List<Location> locations = new List<Location>();
 
-        private Location searchLoc = new Location();
+    private Location searchLoc = new Location();
 
-        protected override async Task OnInitializedAsync()
-        {
-            locations = await _services.getLocations(searchLoc);
-        }
+    protected override async Task OnInitializedAsync()
+    {
+        locations = await _services.getLocations(searchLoc);
+    }
 
-         private async Task SeachForm(EditContext context)
-        {
-            ToastService.ShowSuccess("Search successfully!", "Success");
-            locations = await _services.getLocations(searchLoc);
-        }
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        locations = await _services.getLocations(searchLoc);
+    }
 }

@@ -18,17 +18,26 @@ namespace BlazorApp.Services
             _httpClient = httpClient;
         }
 
-        public Task<User> checkLogin(string username, string password)
+        public async Task<bool> checkLogin(string username, string password)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.PostAsJsonAsync($"/User?Username={username}/Password={password}", username);
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task<List<User>> getUsers(User searchUser)
         {
-            var result = await _httpClient.GetFromJsonAsync<List<User>>($"/api/User?Username={searchUser.Username}");
+            var result = await _httpClient.GetFromJsonAsync<List<User>>($"api/User?Fullname={searchUser.Fullname}");
             return result;
         }
-
+    
+     
         public async Task<User> getUser(int id)
         {
             var result = await _httpClient.GetFromJsonAsync<User>($"/api/User/{id}");

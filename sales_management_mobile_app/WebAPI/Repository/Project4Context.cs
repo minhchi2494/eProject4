@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using WebAPI.Models;
 
 #nullable disable
@@ -14,13 +15,19 @@ namespace WebAPI.Repository
             //
         }
 
-        public Project4Context(DbContextOptions<Project4Context> options) : base(options){ }
+        public Project4Context(DbContextOptions<Project4Context> options) : base(options) { }
 
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Manager> Managers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+
+        internal object SingleOrDefault(Func<object, bool> p)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SalesDetail> SalesDetails { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
@@ -30,43 +37,55 @@ namespace WebAPI.Repository
 
         //DbSet của View
         public DbSet<vTargetUser> vTargetUser { get; set; }
+        public object Admin { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.\\CHI;Database=Project4;User=sa;Password=123");
+                optionsBuilder.UseSqlServer("server=localhost;database=Project4;uid=sa;pwd=sql@123456");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity<Admin>(entity =>
-            {
-                entity.ToTable("Admin");
 
-                entity.Property(e => e.Email)
-                    .HasMaxLength(30)
-                    .IsUnicode(false);
+            modelBuilder.Entity("WebAPI.Models.Admin", entity =>
+             {
+                 entity.ToTable("Admin");
 
-                entity.Property(e => e.Fullname)
+                 entity.Property<int>("Id")
+                         .ValueGeneratedOnAdd()
+                         .HasColumnType("int")
+                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                 entity.Property<string>("Username")
+                     .HasMaxLength(20)
+                     .HasColumnType("varchar");
+
+                 entity.Property<string>("Fullname")
                     .HasMaxLength(40)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar");
+                 entity.Property<string>("Email")
+                    .HasMaxLength(30)
+                    .HasColumnType("varchar");
 
-                entity.Property(e => e.Password)
+                 entity.Property<string>("Phone")
                     .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .HasColumnType("varchar");
 
-                entity.Property(e => e.Phone)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                 entity.Property<byte[]>("PasswordSalt")
+                    .HasColumnType("varbinary(max)");
 
-                entity.Property(e => e.Username)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                 entity.Property<byte[]>("PasswordHash")
+                   .HasColumnType("varbinary(max)");
+
+
             });
 
             modelBuilder.Entity<Image>(entity =>
@@ -247,15 +266,15 @@ namespace WebAPI.Repository
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("User");
-
+                //
                 entity.Property(e => e.Address)
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
+                //
                 entity.Property(e => e.Email)
                     .HasMaxLength(30)
                     .IsUnicode(false);
-
+                //
                 entity.Property(e => e.Fullname)
                     .HasMaxLength(40)
                     .IsUnicode(false);
@@ -263,11 +282,11 @@ namespace WebAPI.Repository
                 entity.Property(e => e.ManagerId)
                     .HasMaxLength(5)
                     .IsUnicode(false);
-
+                //
                 entity.Property(e => e.Password)
                     .HasMaxLength(20)
                     .IsUnicode(false);
-
+                //
                 entity.Property(e => e.Phone)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -275,31 +294,31 @@ namespace WebAPI.Repository
                 entity.Property(e => e.StoreId)
                     .HasMaxLength(5)
                     .IsUnicode(false);
-
+                //
                 entity.Property(e => e.Username)
                     .HasMaxLength(20)
                     .IsUnicode(false);
-
+                //
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.LocationId)
                     .HasConstraintName("FK_user_location");
-
+                //
                 entity.HasOne(d => d.Manager)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.ManagerId)
                     .HasConstraintName("FK_user_manager");
-
+                //
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
                     .HasConstraintName("FK_user_role");
-
+                //
                 entity.HasOne(d => d.Store)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.StoreId)
                     .HasConstraintName("FK_user_store");
-
+                //
                 entity.HasOne(d => d.Target)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.TargetId)
@@ -307,6 +326,7 @@ namespace WebAPI.Repository
             });
 
             OnModelCreatingPartial(modelBuilder);
+            //  modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

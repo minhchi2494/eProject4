@@ -1,0 +1,10 @@
+﻿@page "/admin/logout"
+@layout MainLayout
+@inject BlazorApp.Services.IAdminServices AdminService
+
+@code {
+    protected override async void OnInitialized()
+    {
+        await AdminService.Logout();
+    }
+}

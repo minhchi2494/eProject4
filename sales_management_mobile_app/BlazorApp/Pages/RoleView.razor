@@ -1,5 +1,5 @@
 ﻿@page "/role"
-
+@attribute [Authorize]
 @using BlazorApp.Services
 @using BlazorApp.Models
 @inject IToastService ToastService
@@ -8,7 +8,7 @@
 <EditForm Model="@searchRole" OnSubmit=@SeachForm>
     <div class="row">
         <div class="col-md-6">
-            <InputText @bind-Value="searchRole.Title" class="form-control" placeholder="Enter Title..."></InputText>       
+            <InputText @bind-Value="searchRole.Title" class="form-control" placeholder="Enter Title..."></InputText>
         </div>
         <div class="col-md-2">
             <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
@@ -32,7 +32,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var item in roles)
+        @foreach (var item in roles)
         {
             <tr>
                 <td>@item.Id</td>
@@ -49,18 +49,18 @@
 </table>
 
 @code {
-        private List<Role> roles = new List<Role>();
+    private List<Role> roles = new List<Role>();
 
-        private Role searchRole = new Role();
+    private Role searchRole = new Role();
 
-        protected override async Task OnInitializedAsync()
-        {
-            roles = await _services.getRoles(searchRole);
-        }
+    protected override async Task OnInitializedAsync()
+    {
+        roles = await _services.getRoles(searchRole);
+    }
 
-         private async Task SeachForm(EditContext context)
-        {
-            ToastService.ShowSuccess("Search successfully!", "Success");
-            roles = await _services.getRoles(searchRole);
-        }
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        roles = await _services.getRoles(searchRole);
+    }
 }

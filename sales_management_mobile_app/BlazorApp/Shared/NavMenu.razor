@@ -1,78 +1,81 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Sales Management</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="admin">
-                <span class="oi oi-plus" aria-hidden="true"></span> Admin
-            </NavLink>
-        </li>
+        <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+            <ul class="nav flex-column">
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="admin">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Admin
+                    </NavLink>
+                </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="user">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> User
-            </NavLink>
-        </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="user">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> User
+                    </NavLink>
+                </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="manager">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Managers
-            </NavLink>
-        </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="manager">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Managers
+                    </NavLink>
+                </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="role">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Roles
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="product">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Products
-            </NavLink>
-        </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="role">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Roles
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="product">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Products
+                    </NavLink>
+                </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="store">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Stores
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="location">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Locations
-            </NavLink>
-        </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="store">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Stores
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="location">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Locations
+                    </NavLink>
+                </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="target">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Targets
-            </NavLink>
-        </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="target">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Targets
+                    </NavLink>
+                </li>
 
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="salesDetail">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> SalesDetail
-            </NavLink>
-        </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="salesDetail">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> SalesDetail
+                    </NavLink>
+                </li>
 
-         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="storeSalesDetail">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> StoreSalesDetail
-            </NavLink>
-        </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="storeSalesDetail">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> StoreSalesDetail
+                    </NavLink>
+                </li>
 
 
-    </ul>
-</div>
+            </ul>
+        </div>
+
 
 @code {
     private bool collapseNavMenu = true;

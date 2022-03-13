@@ -1,5 +1,5 @@
 ﻿@page "/store"
-
+@attribute [Authorize]
 @using BlazorApp.Services
 @using BlazorApp.Models
 @inject IToastService ToastService
@@ -8,7 +8,7 @@
 <EditForm Model="@searchStore" OnSubmit=@SeachForm>
     <div class="row">
         <div class="col-md-6">
-            <InputText @bind-Value="searchStore.Name" class="form-control" placeholder="Enter Store Name..."></InputText>       
+            <InputText @bind-Value="searchStore.Name" class="form-control" placeholder="Enter Store Name..."></InputText>
         </div>
         <div class="col-md-2">
             <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
@@ -38,7 +38,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var item in stores)
+        @foreach (var item in stores)
         {
             <tr>
                 <td>@item.Name</td>
@@ -64,18 +64,18 @@
 </table>
 
 @code {
-        private List<Store> stores = new List<Store>();
+    private List<Store> stores = new List<Store>();
 
-        private Store searchStore = new Store();
+    private Store searchStore = new Store();
 
-        protected override async Task OnInitializedAsync()
-        {
-            stores = await _services.getStores(searchStore);
-        }
+    protected override async Task OnInitializedAsync()
+    {
+        stores = await _services.getStores(searchStore);
+    }
 
-         private async Task SeachForm(EditContext context)
-        {
-            ToastService.ShowSuccess("Search successfully!", "Success");
-            stores = await _services.getStores(searchStore);
-        }
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        stores = await _services.getStores(searchStore);
+    }
 }
