@@ -20,8 +20,8 @@ namespace WebAPI.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public decimal? Longitude { get; set; }
-        public decimal? Latitude { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
         public int? LocationId { get; set; }
         public bool? IsActive { get; set; }
 
