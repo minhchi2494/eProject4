@@ -100,6 +100,7 @@ namespace WebAPI.Services
                 model.Email = editUser.Email;
                 model.Phone = editUser.Phone;
                 model.Address = editUser.Address;
+                model.Password = PinCodeSecurity.pinEncrypt(editUser.Password);
 
                 model.TargetId = editUser.TargetId;
                 Target target = _context.Targets.SingleOrDefault(x=>x.Id.Equals(editUser.TargetId));

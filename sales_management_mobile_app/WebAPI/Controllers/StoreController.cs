@@ -35,13 +35,13 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public Task<bool> createStore([FromBody] Store newStore)
+        public Task<bool> createStore([FromQuery] Store newStore)
         {
             return _services.createStore(newStore);
         }
 
         [HttpPut]
-        public Task<bool> updateStore(Store editStore)
+        public Task<bool> updateStore([FromQuery]Store editStore)
         {
             return _services.updateStore(editStore);
         }

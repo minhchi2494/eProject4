@@ -15,6 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
 using Microsoft.OpenApi.Models;
 
+using Microsoft.AspNetCore.Http;
+
 namespace WebAPI
 {
     public class Startup
