@@ -5,7 +5,7 @@
 // const SERVER_NAME = "192.168.0.18";
 // const URL_TODOS = "http://$SERVER_NAME:54350/api/";
 class Network {
-  static const String apiEndpoint = 'http://192.168.0.18:54350/api/';
+  static const String apiEndpoint = 'http://192.168.0.18:54250/api/';
 
   static final Uri url_products = Uri.parse(apiEndpoint+'Product');
   static final Uri url_store = Uri.parse(apiEndpoint+'Store');

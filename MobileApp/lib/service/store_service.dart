@@ -27,7 +27,7 @@ class StoreService {
   }
 
   static Future<http.Response> updateStore(Store data) async {
-    final response = await http.put(Uri.parse("$url/${data.id}"),
+    final response = await http.put(Uri.parse("$url?Id=${data.id}&Name=${data.name}&Email=${data.email}&Phone=${data.phone}&Address=${data.address}&LocationId=${data.address}&IsActive=${data.isActive}"),
       headers: {"content-type": "application/json"},
       body: storeToJson(data),
     );

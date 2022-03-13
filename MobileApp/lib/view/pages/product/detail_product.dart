@@ -65,22 +65,22 @@ class DetailProduct extends StatelessWidget {
 
               const SizedBox(height: 12.0),
             ]),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Expanded(
-            //       child: ElevatedButton(
-            //         child: const Text('Update'),
-            //         onPressed: () {
-            //           Navigator.push(
-            //               context,
-            //               MaterialPageRoute(
-            //                   builder: (context) => UpdateProduct(product: product,)));
-            //         },
-            //       ),
-            //     ),
-            //   ],
-            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    child: const Text('Update'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UpdateProduct(product: product,)));
+                    },
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

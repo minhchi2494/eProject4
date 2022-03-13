@@ -53,31 +53,18 @@ class _UpdateStoreState extends State<UpdateStore> {
   getBody() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Container(
+      child: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
-               Stack(
-                children: [
-                  Row(
-                    children: const [
-                      Text(
-                        "Product",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
             Column(children: [
               // [Name]
               _buildTextFieldName(),
               _buildTextFieldAddress(),
               _buildTextFieldPhone(),
               _buildTextFieldEmail(),
-              _buildTextFieldLocation(),
+              // _buildTextFieldLocation(),
             ]),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -113,14 +100,14 @@ class _UpdateStoreState extends State<UpdateStore> {
                               address: address,
                               longitude: widget.store.longitude,
                               latitude: widget.store.latitude,
-                              locationId: location,
+                              locationId: widget.store.locationId,
                               isActive: widget.store.isActive,
                               location: widget.store.location,
                               storeSalesDetails: widget.store.storeSalesDetails,
                               users: widget.store.users);
                           StoreService.updateStore(store).then((response) {
                             if (response.statusCode == 200) {
-                              Navigator.pop(context);
+                              Navigator.pop(context,true);
                             } else {
                               print("error: " + response.statusCode.toString());
                               showSnackbarMessage("Update data failed");
@@ -260,24 +247,24 @@ class _UpdateStoreState extends State<UpdateStore> {
     );
   }
 
-  Widget _buildTextFieldLocation() {
-    return TextField(
-      controller: _controllerLocation,
-      keyboardType: TextInputType.numberWithOptions(),
-      decoration: const InputDecoration(
-        labelText: "Location",
-        // errorText: _isFieldPriceValid == null || _isFieldPriceValid
-        //     ? null
-        //     : "Price is required",
-      ),
-      // onChanged: (value) {
-      //   bool isFieldValid = value.trim().isNotEmpty;
-      //   if (isFieldValid != _isFieldPriceValid) {
-      //     setState(() => _isFieldPriceValid = isFieldValid);
-      //   }
-      // },
-    );
-  }
+  // Widget _buildTextFieldLocation() {
+  //   return TextField(
+  //     controller: _controllerLocation,
+  //     keyboardType: TextInputType.numberWithOptions(),
+  //     decoration: const InputDecoration(
+  //       labelText: "Location",
+  //       // errorText: _isFieldPriceValid == null || _isFieldPriceValid
+  //       //     ? null
+  //       //     : "Price is required",
+  //     ),
+  //     // onChanged: (value) {
+  //     //   bool isFieldValid = value.trim().isNotEmpty;
+  //     //   if (isFieldValid != _isFieldPriceValid) {
+  //     //     setState(() => _isFieldPriceValid = isFieldValid);
+  //     //   }
+  //     // },
+  //   );
+  // }
 
   void showSnackbarMessage(String message) {
     ScaffoldMessenger.of(context)

@@ -108,7 +108,7 @@ class _UpdateProductState extends State<UpdateProduct> {
                               storeSalesDetails: widget.product.storeSalesDetails);
                           ProductService.updateProduct(product).then((response){
                             if(response.statusCode == 200){
-                              Navigator.pop(context);
+                              Navigator.pop(context,true);
                             } else {
                               print("error: " + response.statusCode.toString());
                               showSnackbarMessage("Update data failed");
@@ -166,26 +166,6 @@ class _UpdateProductState extends State<UpdateProduct> {
                 ),
               ],
             ),
-            if (_isLoading)
-              Container(
-                height: 50,
-                child: Stack(
-                  children: const <Widget>[
-                    Opacity(
-                      opacity: 1.0,
-                      child: ModalBarrier(
-                        dismissible: false,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  ],
-                ),
-              )
-            else
-              Container(),
           ],
         ),
       ),
@@ -202,12 +182,12 @@ class _UpdateProductState extends State<UpdateProduct> {
         //     ? null
         //     : "Product name is required",
       ),
-      // onChanged: (value) {
-      //   bool isFieldValid = value.trim().isNotEmpty;
-      //   if (isFieldValid != _isFieldNameValid) {
-      //     setState(() => _isFieldNameValid = isFieldValid);
-      //   }
-      // },
+      onChanged: (value) {
+        bool isFieldValid = value.trim().isNotEmpty;
+        if (isFieldValid != _isFieldNameValid) {
+          setState(() => _isFieldNameValid = isFieldValid);
+        }
+      },
     );
   }
 
@@ -221,12 +201,12 @@ class _UpdateProductState extends State<UpdateProduct> {
         //     ? null
         //     : "Price is required",
       ),
-      // onChanged: (value) {
-      //   bool isFieldValid = value.trim().isNotEmpty;
-      //   if (isFieldValid != _isFieldPriceValid) {
-      //     setState(() => _isFieldPriceValid = isFieldValid);
-      //   }
-      // },
+      onChanged: (value) {
+        bool isFieldValid = value.trim().isNotEmpty;
+        if (isFieldValid != _isFieldPriceValid) {
+          setState(() => _isFieldPriceValid = isFieldValid);
+        }
+      },
     );
   }
 

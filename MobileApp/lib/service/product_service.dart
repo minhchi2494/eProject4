@@ -26,7 +26,7 @@ class ProductService {
 
   }
   static Future<http.Response> updateProduct(Product product) async {
-    final response = await http.put(Uri.parse("$url/${product.id}"),
+    final response = await http.put(Uri.parse("${url}?Id=${product.id}&Name=${product.name}&Price=${product.price}&Unit=${product.unit}&Images=${product.images}&IsActive=${product.isActive}"),
 
       body: productToJson(product),
     );
