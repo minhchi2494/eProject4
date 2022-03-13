@@ -23,6 +23,13 @@ class UserService {
     } else{
       throw Exception('Cant get product');
     }
+  }
 
+  static Future<http.Response> updateStore(User data) async {
+    final response = await http.put(Uri.parse("$url?Id=${data.id}&TargetId=${data.targetId}&Username=${data.username}&Password=${data.password}&Fullname=${data.fullname}&Email=${data.email}&Phone=${data.phone}&Address=${data.address}&StoreId=${data.storeId}&LocationId=${data.locationId}&RoleId=${data.roleId}&ManagerId=${data.managerId}&IsActive=${data.isActive}"),
+      headers: {"content-type": "application/json"},
+      body: userToJson(data),
+    );
+    return response;
   }
 }

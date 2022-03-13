@@ -93,7 +93,7 @@ class _ProductScreenState extends State<ProductScreen> {
     ProductService.getProducts().then((data) {
       setState(() {
         _products = data;
-        log('data here: ${_products}');
+        // log('data here: ${_products}');
       });
     });
     controller.addListener(() {

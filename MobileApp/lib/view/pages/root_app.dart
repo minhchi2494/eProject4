@@ -40,17 +40,6 @@ class _RootAppState extends State<RootApp> {
                 "Home",
                 style: TextStyle(color: Colors.black),
               ),
-              TextButton(
-                style: ElevatedButton.styleFrom(
-                  onPrimary: Colors.white, // background
-                ),
-                child: const Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                  size: 28,
-                ),
-                onPressed: () {},
-              ),
             ],
           ),
         );
@@ -79,17 +68,6 @@ class _RootAppState extends State<RootApp> {
                 ),
                 const SizedBox(
                   height: 20,
-                ),
-                TextButton(
-                  style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.white, // background
-                  ),
-                  child: const Icon(
-                    Icons.menu,
-                    color: Colors.black,
-                    size: 28,
-                  ),
-                  onPressed: () {},
                 ),
               ],
             ),

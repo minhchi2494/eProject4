@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sale_man_app/models/User.dart';
 import 'package:sale_man_app/service/user_service.dart';
+import 'package:sale_man_app/view/pages/profile/update_profile.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -11,7 +12,6 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   List<User> users = [];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -117,7 +117,23 @@ class _ProfileState extends State<Profile> {
                         ],
                       ),
                     ],
-                  )
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          child: const Text('Update'),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfileUpdate(user: users[1],)));
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

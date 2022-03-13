@@ -11,4 +11,5 @@ class Network {
   static final Uri url_store = Uri.parse(apiEndpoint+'Store');
   static final Uri url_user = Uri.parse(apiEndpoint+'User');
   static final Uri url_target = Uri.parse(apiEndpoint + 'Target');
+  static final Uri url_targetUser = Uri.parse(apiEndpoint + 'TargetUser');
 }

@@ -44,7 +44,7 @@ class _OnboardingState extends State<Onboarding> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const RootApp()),
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
                   );
                 }
               ),
