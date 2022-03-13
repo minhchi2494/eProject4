@@ -73,7 +73,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="/store" class="btn btn-primary">Cancel</a>
+    <a href="/product" class="btn btn-primary">Cancel</a>
 </EditForm>
 
 @code {
@@ -111,7 +111,7 @@
     {
         foreach (var file in selectedFiles)
         {
-            editProduct.Images = nameImage;  
+            editProduct.Images = file.Name;  
         }
 
 

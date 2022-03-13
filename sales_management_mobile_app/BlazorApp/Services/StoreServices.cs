@@ -32,7 +32,9 @@ namespace BlazorApp.Services
 
         public async Task<bool> createStore(Store newStore)
         {
-            var result = await _httpClient.PostAsJsonAsync("/api/Store", newStore);
+            var result = await _httpClient.PostAsJsonAsync($"/api/Store?Id={newStore.Id}&Name={newStore.Name}" +
+                $"&Email={newStore.Email}&Phone={newStore.Phone}&Address={newStore.Address}&Longitude={newStore.Longitude}" +
+                $"&Latitude={newStore.Latitude}&LocationId={newStore.LocationId}&IsActive={newStore.IsActive}", newStore);
             if (result.IsSuccessStatusCode)
             {
                 return true;
@@ -45,7 +47,9 @@ namespace BlazorApp.Services
 
         public async Task<bool> updateStore(Store editStore)
         {
-            var result = await _httpClient.PutAsJsonAsync("/api/Store", editStore);
+            var result = await _httpClient.PutAsJsonAsync($"/api/Store?Id={editStore.Id}&Name={editStore.Name}" +
+                $"&Email={editStore.Email}&Phone={editStore.Phone}&Address={editStore.Address}" +
+                $"&LocationId={editStore.LocationId}&IsActive={editStore.IsActive}", editStore);
             if (result.IsSuccessStatusCode)
             {
                 return true;

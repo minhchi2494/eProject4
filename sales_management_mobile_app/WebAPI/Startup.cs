@@ -15,6 +15,8 @@ using WebAPI.Services;
 using WebAPI.Repository;
 using WebAPI.Models;
 
+using Microsoft.AspNetCore.Http;
+
 namespace WebAPI
 {
     public class Startup

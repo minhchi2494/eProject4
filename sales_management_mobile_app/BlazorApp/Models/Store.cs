@@ -26,9 +26,9 @@ namespace BlazorApp.Models
         [Required]
         public string Address { get; set; }
         [Required]
-        public int? Longitude { get; set; }
+        public decimal? Longitude { get; set; }
         [Required]
-        public int? Latitude { get; set; }
+        public decimal? Latitude { get; set; }
         [Required]
         public int? LocationId { get; set; }
         public bool? IsActive { get; set; }
