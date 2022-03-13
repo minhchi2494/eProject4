@@ -1,5 +1,5 @@
 ﻿@page "/manager"
-
+@attribute [Authorize]
 @using BlazorApp.Services
 @using BlazorApp.Models
 @inject IToastService ToastService
@@ -8,7 +8,7 @@
 <EditForm Model="@searchManager" OnSubmit=@SeachForm>
     <div class="row">
         <div class="col-md-6">
-            <InputText @bind-Value="searchManager.Fullname" class="form-control" placeholder="Enter Fullname..."></InputText>       
+            <InputText @bind-Value="searchManager.Fullname" class="form-control" placeholder="Enter Fullname..."></InputText>
         </div>
         <div class="col-md-2">
             <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
@@ -37,7 +37,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var item in managers)
+        @foreach (var item in managers)
         {
             <tr>
                 <td>@item.Id</td>
@@ -53,18 +53,18 @@
 </table>
 
 @code {
-        private List<Manager> managers = new List<Manager>();
+    private List<Manager> managers = new List<Manager>();
 
-        private Manager searchManager = new Manager();
+    private Manager searchManager = new Manager();
 
-        protected override async Task OnInitializedAsync()
-        {
-            managers = await _services.getManagers(searchManager);
-        }
+    protected override async Task OnInitializedAsync()
+    {
+        managers = await _services.getManagers(searchManager);
+    }
 
-         private async Task SeachForm(EditContext context)
-        {
-            ToastService.ShowSuccess("Search successfully!", "Success");
-            managers = await _services.getManagers(searchManager);
-        }
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        managers = await _services.getManagers(searchManager);
+    }
 }

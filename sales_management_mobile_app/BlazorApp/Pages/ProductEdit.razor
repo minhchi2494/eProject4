@@ -1,5 +1,5 @@
 ﻿@page "/editProduct/{id}"
-
+@attribute [Authorize]
 @using BlazorApp.Models
 @using BlazorApp.Services
 @inject NavigationManager NavigationManager;
@@ -8,7 +8,7 @@
 
 <h3>Edit Product</h3>
 
-@if(editProduct == null)
+@if (editProduct == null)
 {
     <div>Loading</div>
 }
@@ -54,7 +54,7 @@
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Images">Images: </label>
-            <img src="images/@editProduct.Images" width="150px"/> 
+            <img src="images/@editProduct.Images" width="150px" />
             <br />
             <InputFile OnChange="OnInputFileChange" @bind-Value="editProduct.Images"></InputFile>
         </div>

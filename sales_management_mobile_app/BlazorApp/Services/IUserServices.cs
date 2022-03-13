@@ -10,7 +10,7 @@ namespace BlazorApp.Services
     {
         Task<List<User>> getUsers(User searchUser);
         Task<User> getUser(int id);
-        Task<User> checkLogin(string username, string password);
+        Task<bool> checkLogin(string username, string password);
         Task<bool> createUser(User newUser);
         Task<bool> updateUser(User editUser);
     }

@@ -1,0 +1,71 @@
+﻿@page "/admin/add"
+@attribute [Authorize]
+@inject IAdminServices AdminService
+@inject IAlertService AlertService
+@inject NavigationManager NavigationManager
+
+<h1>Add Admin</h1>
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="form-row">
+        <div class="form-group col">
+            <label>Full Name</label>
+            <InputText @bind-Value="model.Fullname" class="form-control" />
+            <ValidationMessage For="@(() => model.Fullname)" />
+        </div>
+        <div class="form-group col">
+            <label>Phone</label>
+            <InputText @bind-Value="model.Phone" class="form-control" />
+            <ValidationMessage For="@(() => model.Phone)" />
+        </div>
+        <div class="form-group col">
+            <label>Email</label>
+            <InputText @bind-Value="model.Email" class="form-control" />
+            <ValidationMessage For="@(() => model.Email)" />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col">
+            <label>Username</label>
+            <InputText @bind-Value="model.Username" class="form-control" />
+            <ValidationMessage For="@(() => model.Username)" />
+        </div>
+        <div class="form-group col">
+            <label>Password</label>
+            <InputText @bind-Value="model.Password" type="password" class="form-control" />
+            <ValidationMessage For="@(() => model.Password)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <button disabled="@loading" class="btn btn-primary">
+            @if (loading)
+            {
+                <span class="spinner-border spinner-border-sm mr-1"></span>
+            }
+            Save
+        </button>
+        <NavLink href="admin" class="btn btn-link">Cancel</NavLink>
+    </div>
+</EditForm>
+
+@code {
+    private AddAdmin model = new AddAdmin();
+    private bool loading;
+
+    private async void OnValidSubmit()
+    {
+        loading = true;
+        try
+        {
+            await AdminService.Register(model);
+            AlertService.Success("Admin added successfully", keepAfterRouteChange: true);
+            NavigationManager.NavigateTo("admin");
+        }
+        catch (Exception ex)
+        {
+            AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
+        }
+    }
+}

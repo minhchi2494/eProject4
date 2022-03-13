@@ -26,5 +26,7 @@ namespace WebAPI.Models
         public virtual Role Role { get; set; }
         public virtual Store Store { get; set; }
         public virtual Target Target { get; set; }
+
+
     }
 }

@@ -33,6 +33,8 @@ namespace BlazorApp.Models
         public string ManagerId { get; set; }
         public bool? IsActive { get; set; }
 
+
+      
         public virtual Location Location { get; set; }
         public virtual Manager Manager { get; set; }
         public virtual Role Role { get; set; }

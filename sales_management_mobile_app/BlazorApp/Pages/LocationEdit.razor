@@ -1,5 +1,5 @@
 ﻿@page "/editLocation/{id:int}"
-
+@attribute [Authorize]
 
 @using BlazorApp.Models
 @using BlazorApp.Services
@@ -11,49 +11,49 @@
 
 <EditForm Model="@editLoc" OnValidSubmit="@SubmitEdit">
     <DataAnnotationsValidator />
-        <div class="row material">
-            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="Id">Id: </label>
-                <input class="form-control" value="@editLoc.Id" readonly />
-            </div>
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: </label>
+            <input class="form-control" value="@editLoc.Id" readonly />
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="District">District: </label>
+            <InputText class="form-control" @bind-Value="editLoc.District"></InputText>
+            <ValidationMessage For="()=>editLoc.District"></ValidationMessage>
         </div>
 
-        <div>
-            <br>
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Ward">Ward: </label>
+            <InputText class="form-control" @bind-Value="editLoc.Ward"></InputText>
+            <ValidationMessage For="()=>editLoc.Ward"></ValidationMessage>
         </div>
+    </div>
 
-        <div class="row material">
-            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="District">District: </label>
-                <InputText class="form-control" @bind-Value="editLoc.District"></InputText>
-                <ValidationMessage For="()=>editLoc.District"></ValidationMessage>
-            </div>
+    <div>
+        <br>
+    </div>
 
-            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="Ward">Ward: </label>
-                <InputText class="form-control" @bind-Value="editLoc.Ward"></InputText>
-                <ValidationMessage For="()=>editLoc.Ward"></ValidationMessage>
-            </div>
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="IsActive">Active: </label>
+            <input type="checkbox" unchecked @bind="editLoc.IsActive">
+            <small id="nameHelp" class="form-text text-muted">(Note: Uncheck will deactive your Location)</small>
         </div>
+    </div>
 
-        <div>
-            <br>
-        </div>
+    <div>
+        <br>
+    </div>
 
-        <div class="row material">
-            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="IsActive">Active: </label>
-                <input type="checkbox" unchecked @bind="editLoc.IsActive">
-                <small id="nameHelp" class="form-text text-muted">(Note: Uncheck will deactive your Location)</small>
-            </div>
-        </div>
-
-        <div>
-            <br>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a href="/location" class="btn btn-primary">Cancel</a>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/location" class="btn btn-primary">Cancel</a>
 </EditForm>
 
 

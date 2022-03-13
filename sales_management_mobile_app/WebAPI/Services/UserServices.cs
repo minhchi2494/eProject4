@@ -17,16 +17,24 @@ namespace WebAPI.Services
             _context = context;
         }
 
+
+
         public async Task<List<User>> getUsers(User searchUser)
         {
             var result = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Store).Include(a => a.Target)
                 .Where(x => x.IsActive == true).ToList();
+
+            //var result = _context.Users.Where(x => x.IsActive == true).ToList();
             if (!string.IsNullOrEmpty(searchUser.Fullname))
             {
                 result = result.Where(x => x.Fullname.ToLower().Contains(searchUser.Fullname.ToLower())).ToList();
             }
             return result;
         }
+
+
+
+
 
         public async Task<User> getUser(int id)
         {
@@ -46,7 +54,6 @@ namespace WebAPI.Services
         {
             var model = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Store).Include(a => a.Target)
                 .Where(x => x.IsActive == true).SingleOrDefault(a => a.Username.Equals(username));
-            //var model = _context.Users.SingleOrDefault(a => a.Username.Equals(username));
             if (model != null)
             {
                 string pass = PinCodeSecurity.pinDecrypt(model.Password);

@@ -1,0 +1,87 @@
+﻿@page "/admin/edit/{Id:int}"
+@attribute [Authorize]
+@inject IAdminServices AdminService
+@inject IAlertService AlertService
+@inject NavigationManager NavigationManager
+
+<h1>Edit Admin</h1>
+@if (model != null)
+{
+    <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Fullname</label>
+                <InputText @bind-Value="model.Fullname" class="form-control" />
+                <ValidationMessage For="@(() => model.Fullname)" />
+            </div>
+            <div class="form-group col">
+                <label>Last Name</label>
+                <InputText @bind-Value="model.Phone" class="form-control" />
+                <ValidationMessage For="@(() => model.Phone)" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label>Username</label>
+                <InputText @bind-Value="model.Username" class="form-control" />
+                <ValidationMessage For="@(() => model.Username)" />
+            </div>
+            <div class="form-group col">
+                <label>
+                    Password
+                    <em>(Leave blank to keep the same password)</em>
+                </label>
+                <InputText @bind-Value="model.Password" type="password" class="form-control" />
+                <ValidationMessage For="@(() => model.Password)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <button disabled="@loading" class="btn btn-primary">
+                @if (loading)
+                {
+                    <span class="spinner-border spinner-border-sm mr-1"></span>
+                }
+                Save
+            </button>
+            <NavLink href="admin" class="btn btn-link">Cancel</NavLink>
+        </div>
+    </EditForm>
+}
+else
+{
+    <div class="text-center p-3">
+        <span class="spinner-border spinner-border-lg align-center"></span>
+    </div>
+}
+
+@code {
+    private EditAdmin model;
+    private bool loading;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var admin = await AdminService.GetById(Id);
+        model = new EditAdmin(admin);
+    }
+
+    private async void OnValidSubmit()
+    {
+        loading = true;
+        try
+        {
+            await AdminService.Update(Id, model);
+            AlertService.Success("Update successful", keepAfterRouteChange: true);
+            NavigationManager.NavigateTo("admin");
+        }
+        catch (Exception ex)
+        {
+            AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
+        }
+    }
+}

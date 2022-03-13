@@ -1,5 +1,5 @@
 ﻿@page "/product"
-
+@attribute [Authorize]
 @using BlazorApp.Services
 @using BlazorApp.Models
 @inject IToastService ToastService
@@ -8,7 +8,7 @@
 <EditForm Model="@searchProduct" OnSubmit=@SeachForm>
     <div class="row">
         <div class="col-md-6">
-            <InputText @bind-Value="searchProduct.Name" class="form-control" placeholder="Enter Product Name..."></InputText>       
+            <InputText @bind-Value="searchProduct.Name" class="form-control" placeholder="Enter Product Name..."></InputText>
         </div>
         <div class="col-md-2">
             <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
@@ -39,12 +39,12 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var item in products)
+        @foreach (var item in products)
         {
             <tr>
                 <td>@item.Id</td>
                 <td>
-                    <img src="images/@item.Images" width="150px"/>
+                    <img src="images/@item.Images" width="150px" />
                 </td>
                 <td>@item.Name</td>
                 <td>@item.Price</td>
@@ -52,9 +52,9 @@
                 <td>
                     <span class="badge badge-success">@item.IsActive</span>
                 </td>
-@*                <td>
-                    <a href="/storeDetail/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
-                </td>*@
+                @*                <td>
+                        <a href="/storeDetail/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
+                    </td>*@
                 <td>
                     <a href="/editProduct/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
                 </td>*
@@ -64,20 +64,20 @@
 </table>
 
 @code {
-        private List<Product> products = new List<Product>();
+    private List<Product> products = new List<Product>();
 
-        private Product searchProduct = new Product();
+    private Product searchProduct = new Product();
 
-        protected override async Task OnInitializedAsync()
-        {
-            products = await _services.getProducts(searchProduct);
-        }
+    protected override async Task OnInitializedAsync()
+    {
+        products = await _services.getProducts(searchProduct);
+    }
 
-         private async Task SeachForm(EditContext context)
-        {
-            ToastService.ShowSuccess("Search successfully!", "Success");
-            products = await _services.getProducts(searchProduct);
-        }
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        products = await _services.getProducts(searchProduct);
+    }
 
-        
+
 }
