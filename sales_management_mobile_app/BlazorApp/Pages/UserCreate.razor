@@ -1,0 +1,91 @@
+﻿@page "/userCreate"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject IUserServices _services;
+@inject IToastService ToastService;
+
+<h3>Create User</h3>
+
+<EditForm Model="@model" OnValidSubmit="@SubmitCreate">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label>Target Id</label>
+        <InputNumber @bind-Value="model.TargetId" class="form-control" />
+        <ValidationMessage For="@(() => model.TargetId)" />
+    </div>
+    <div class="form-group">
+        <label>Phone</label>
+        <InputText @bind-Value="model.Fullname" class="form-control" />
+        <ValidationMessage For="@(() => model.Fullname)" />
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <InputText @bind-Value="model.Phone" class="form-control" />
+        <ValidationMessage For="@(() => model.Phone)" />
+    </div>
+
+
+    <div class="form-group">
+        <label>Phone</label>
+        <InputText @bind-Value="model.Email" class="form-control" />
+        <ValidationMessage For="@(() => model.Email)" />
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <InputText @bind-Value="model.Address" class="form-control" />
+        <ValidationMessage For="@(() => model.Address)" />
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <InputNumber @bind-Value="model.LocationId" class="form-control" />
+        <ValidationMessage For="@(() => model.LocationId)" />
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <InputNumber @bind-Value="model.StoreId" class="form-control" />
+        <ValidationMessage For="@(() => model.StoreId)" />
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <InputNumber @bind-Value="model.ManagerId" class="form-control" />
+        <ValidationMessage For="@(() => model.ManagerId)" />
+    </div>
+
+    <div class="form-group">
+        <label>Username</label>
+        <InputText @bind-Value="model.Username" class="form-control" />
+        <ValidationMessage For="@(() => model.Username)" />
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <InputText @bind-Value="model.Password" type="password" class="form-control" />
+        <ValidationMessage For="@(() => model.Password)" />
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/location" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+@code {
+    private User model = new User();
+
+    private async Task SubmitCreate(EditContext context)
+    {
+        var result = await _services.createUser(model);
+        if (result)
+        {
+            ToastService.ShowSuccess($"Manager {model.Fullname} has been created successfully!", "Success");
+            NavigationManager.NavigateTo("/manager");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}
