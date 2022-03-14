@@ -51,6 +51,7 @@ namespace WebAPI
             services.AddScoped<IStoreSalesDetailServices, StoreSalesDetailServices>();
             services.AddScoped<IImageServices, ImageServices>();
             services.AddScoped<ITargetUserServices, TargetUserServices>();
+            services.AddScoped<ISalesDetailTargetUser, SalesDetailTargetUserServices>();
 
             services.AddDbContext<Project4Context>(options => options.UseSqlServer(url));
 
