@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("{username}/{password}")]
-        public Task<User> checkLogin([FromForm] string username, string password)
+        public Task<User> checkLogin([FromQuery] string username, string password)
         {
             return _services.checkLogin(username, password);
         }
