@@ -13,27 +13,4 @@ class AuthenticationServices {
     var response = await http.get(Uri.parse('${url}/${username}/${password}?username=${username}'));
     return response;
   }
-
-  // Future<User> changePassword(String newPassword) async {
-  //   String jsonData = await sharedPreferencesHelper.getUserDataModel();
-  //   User user = User.fromJson(jsonDecode(jsonData));
-  //
-  //   var body = json.encode({
-  //     "id": user.id,
-  //     "newPassword": newPassword
-  //   });
-  //
-  //   var response = await client.post('${Server.baseUrl}/change-password', body: body, headers: headers);
-  //   if (response.statusCode != 200) {
-  //     return null;
-  //   } else {
-  //     JsonResult jsonResult = JsonResult.fromJson(jsonDecode(response.body));
-  //     if (jsonResult.success) {
-  //       user = User.fromJson(jsonResult.data);
-  //     }
-  //     return user;
-  //   }
-  // }
-
-//  url image: https://my.vietphilcamp.com/storage/users/default.png
 }

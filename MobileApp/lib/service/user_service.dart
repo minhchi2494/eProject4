@@ -21,7 +21,7 @@ class UserService {
     }else if (response.statusCode == 404) {
       throw Exception('Not Found!');
     } else{
-      throw Exception('Cant get product');
+      throw Exception('Cant get users');
     }
   }
 
@@ -32,4 +32,10 @@ class UserService {
     );
     return response;
   }
+
+  // static Future<http.Response> getUserDetails(int id) async{
+  //   var response =  await http.get(Uri.parse('${url}/${id}'));
+  //   return response;
+  // }
+
 }

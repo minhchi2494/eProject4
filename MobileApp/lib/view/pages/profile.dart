@@ -12,6 +12,7 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   List<User> users = [];
+  // late int id;
   @override
   void initState() {
     // TODO: implement initState
@@ -24,6 +25,7 @@ class _ProfileState extends State<Profile> {
         // }
       });
     });
+    // UserService.getUserDetails(id);
   }
 
   @override
@@ -49,7 +51,7 @@ class _ProfileState extends State<Profile> {
                   children: <Widget>[
                     const SizedBox(height: 5.0),
                     Text(
-                      users[1].fullname,
+                      users[0].fullname,
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
                     ),
                     const SizedBox(height: 5.0),
@@ -100,19 +102,19 @@ class _ProfileState extends State<Profile> {
                             leading: Icon(Icons.my_location),
                             title: Text("Location"),
                             // subtitle: Text("Kathmandu"),
-                              subtitle: Text(users[1].address)
+                              subtitle: Text(users[0].address)
                           ),
                           ListTile(
                             leading: Icon(Icons.email),
                             title: Text("Email"),
                             // subtitle: Text("sudeptech@gmail.com"),
-                              subtitle: Text(users[1].email),
+                              subtitle: Text(users[0].email),
                           ),
                           ListTile(
                             leading: Icon(Icons.phone),
                             title: Text("Phone"),
                             // subtitle: Text("99--99876-56"),
-                              subtitle: Text(users[1].phone),
+                              subtitle: Text(users[0].phone),
                           ),
                         ],
                       ),
@@ -128,7 +130,7 @@ class _ProfileState extends State<Profile> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ProfileUpdate(user: users[1],)));
+                                    builder: (context) => ProfileUpdate(user: users[0],)));
                           },
                         ),
                       ),

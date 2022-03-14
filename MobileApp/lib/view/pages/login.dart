@@ -89,16 +89,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
               // TODO: Add an elevation to NEXT (103)
               // TODO: Add a beveled rectangular border to NEXT (103)
-              // TextButton(
-              //   child: const Text('Forgot Password.'),
-              //   onPressed: () {
-              //     // Navigator.push(
-              //     //   context,
-              //     //   MaterialPageRoute(
-              //     //       builder: (context) => const ChangePassword()),
-              //     // );
-              //   },
-              // ),
             ],
           ),
         ),

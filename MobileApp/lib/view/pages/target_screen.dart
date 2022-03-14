@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sale_man_app/models/Target.dart';
+import 'package:sale_man_app/models/TargetUser.dart';
 import 'package:sale_man_app/service/target_service.dart';
+import 'package:sale_man_app/service/target_user_service.dart';
 import 'package:sale_man_app/view/pages/target/create_target.dart';
 import 'package:sale_man_app/view/pages/target/detail_target.dart';
 
@@ -13,6 +15,7 @@ class TargetScreen extends StatefulWidget{
 
 class _TargetScreenState extends State<TargetScreen> {
   List<Target> target = [];
+  List<TargetUser> targetUser = [];
 
   @override
   void initState() {
@@ -21,6 +24,14 @@ class _TargetScreenState extends State<TargetScreen> {
     TargetService.getTarget().then((data) {
       setState(() {
         target = data;
+      });
+    });
+    TargetUserService.getTargetUser().then((data) {
+      setState(() {
+        targetUser = data;
+        // for(TargetUser item in targetUser){
+        //   log('${item.fullname}');
+        // }
       });
     });
   }
@@ -76,7 +87,9 @@ class _TargetScreenState extends State<TargetScreen> {
                 height: 450,
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: target.length,
+                    // itemCount: target.length,
+                   // itemCount: targetUser.length,
+                    itemCount: 1,
                     itemBuilder: (context, index) =>
                         buildProducts(index, context)),
               ),
@@ -102,10 +115,15 @@ class _TargetScreenState extends State<TargetScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Targets: ${target[index].targets.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                'Full name: ${targetUser[0].fullname}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
               Text(
-                'Actual Quantity: ${target[index].actualQuantity.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                'Targets: ${targetUser[0].targets.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                // 'Targets: ${target[index].targets.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                'Actual Quantity: ${targetUser[0].actualQuantity.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                // 'Actual Quantity: ${target[index].actualQuantity.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
             ],
           ),
