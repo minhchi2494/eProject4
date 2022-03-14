@@ -44,6 +44,9 @@ namespace BlazorApp
             builder.Services.AddScoped<IUserServices, UserServices>();
 
             builder.Services.AddScoped<IProductServices, ProductServices>();
+
+            builder.Services.AddScoped<ISalesDetailTargetUser, SalesDetailTargetUserServices>();
+
             builder.Services.AddAuthorizationCore();
 
 
