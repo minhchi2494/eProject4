@@ -38,6 +38,7 @@ namespace WebAPI.Repository
         //DbSet của View
         public DbSet<vTargetUser> vTargetUser { get; set; }
         public DbSet<vSalesDetailTargetUser> vSalesDetailTargetUser { get; set; }
+        public DbSet<vStoreSalesDetailStoreUser> vStoreSalesDetailStoreUser { get; set; }
         public object Admin { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -1,0 +1,64 @@
+﻿@page "/storeSalesDetailStoreUser"
+@attribute [Authorize]
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject IStoreSalesDetailStoreUserServices _services;
+
+<EditForm Model="@ftd" OnSubmit=@SeachForm>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="CreatedOn">From Date: </label>
+            <InputDate TValue="DateTime?" @bind-Value="ftd.FromDate" class="form-control"></InputDate>
+        </div>
+        <div class="col-md-3">
+            <label for="CreatedOn">To Date: </label>
+            <InputDate TValue="DateTime?" @bind-Value="ftd.ToDate" class="form-control"></InputDate>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
+        </div>
+    </div>
+</EditForm>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name Salesman</th>
+            <th>Store Name</th>
+            <th>Quantity Sale</th>
+            <th>Product Name</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ssu)
+        {
+            <tr>
+                <td>@item.Fullname</td>
+                <td>@item.Store</td>
+                <td>@item.StoreActualQuantity</td>
+                <td>@item.Product</td>
+                <td>@item.Date.ToString("dd-MM-yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<vStoreSalesDetailStoreUser> ssu = new List<vStoreSalesDetailStoreUser>();
+
+    private FromToDate ftd = new FromToDate();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        ssu = await _services.getStoreSalesDetailStoreUsers(ftd.FromDate, ftd.ToDate);
+    }
+
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        ssu = await _services.getStoreSalesDetailStoreUsers(ftd.FromDate, ftd.ToDate);
+    }
+}
