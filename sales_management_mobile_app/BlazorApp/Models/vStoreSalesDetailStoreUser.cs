@@ -10,7 +10,7 @@ namespace BlazorApp.Models
     public class vStoreSalesDetailStoreUser
     {
         public DateTime Date { get; set; }
-        public int? StoreActualQuantity { get; set; }
+        public int StoreActualQuantity { get; set; }
 
         //Store name
         public string Store { get; set; }
