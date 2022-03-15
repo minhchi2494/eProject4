@@ -26,5 +26,11 @@ namespace WebAPI.Controllers
         {
             return _services.getTargets(fromDate, toDate);
         }
+
+        [HttpPost]
+        public Task<bool> createTarget([FromQuery] Target newTarget)
+        {
+            return _services.createTarget(newTarget);
+        }
     }
 }
