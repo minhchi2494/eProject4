@@ -3,14 +3,14 @@
 @inject IAdminServices AdminService
 
 <h1>Admin</h1>
-<NavLink href="admin/add" class="btn btn-sm btn-success mb-2">Add Admin</NavLink>
-<table class="table table-striped">
+@*<NavLink href="admin/add" class="btn btn-sm btn-success mb-2">Add Admin</NavLink>*@
+<table class="table">
     <thead>
         <tr>
+            <th style="width: 20%">Username</th>
             <th style="width: 20%">FullName</th>
             <th style="width: 20%">Phone</th>
-            <th style="width: 20%">Username</th>
-            <th style="width: 20%">Email</th>
+@*            <th style="width: 20%">Email</th>*@
             <th style="width: 20%">Actions</th>
         </tr>
     </thead>
@@ -20,13 +20,14 @@
             foreach (var admin in admins)
             {
         <tr>
+            <td>@admin.Username</td>
             <td>@admin.Fullname</td>
             <td>@admin.Phone</td>
-            <td>@admin.Username</td>
-            <td>@admin.Email</td>
-            <td style="white-space: nowrap">
-                <NavLink href="@($"/admin/edit/{admin.Id}")" class="btn btn-sm btn-primary mr-1">Edit</NavLink>
-                <button @onclick="@(() => DeleteAdmin(admin.Id))" disabled="@admin.IsDeleting" class="btn btn-sm btn-danger btn-delete-user">
+@*            <td>@admin.Email</td>*@
+            <td>
+                @*<NavLink href="@($"/admin/edit/{admin.Id}")" class="btn btn-sm btn-primary mr-1">Edit</NavLink>*@
+                <a href="@($"/admin/edit/{admin.Id}")" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+@*                <button @onclick="@(() => DeleteAdmin(admin.Id))" disabled="@admin.IsDeleting" class="btn btn-sm btn-danger btn-delete-user">
                     @if (admin.IsDeleting)
                     {
                         <span class="spinner-border spinner-border-sm"></span>
@@ -35,7 +36,7 @@
                     {
                         <span>Delete</span>
                     }
-                </button>
+                </button>*@
             </td>
         </tr>
             }
