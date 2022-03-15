@@ -18,7 +18,7 @@ namespace BlazorApp.Models
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public int ActualQuantity { get; set; } 
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         public virtual ICollection<SalesDetail> SalesDetails { get; set; }
         public virtual ICollection<User> Users { get; set; }

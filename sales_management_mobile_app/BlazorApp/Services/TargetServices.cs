@@ -17,10 +17,26 @@ namespace BlazorApp.Services
         {
             _httpClient = httpClient;
         }
+
+
         public async Task<List<Target>> getTargets(DateTime? fromDate, DateTime? toDate)
         {
             var result = await _httpClient.GetFromJsonAsync<List<Target>>($"/api/Target?fromDate={fromDate}&toDate={toDate}");
             return result;
+        }
+
+        public async Task<bool> createTarget(Target newTarget)
+        {
+            var result = await _httpClient.PostAsJsonAsync($"/api/Target?Targets={newTarget.Targets}&FromDate={newTarget.FromDate}" +
+                $"&ToDate={newTarget.ToDate}&ActualQuantity={newTarget.ActualQuantity}&CreatedOn={newTarget.CreatedOn}", newTarget);
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
