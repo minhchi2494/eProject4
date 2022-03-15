@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
+SalesDetail salesDetailFromJson(String str) => SalesDetail.fromJson(json.decode(str));
 
-String welcomeToJson(Welcome data) => json.encode(data.toJson());
+String salesDetailToJson(SalesDetail data) => json.encode(data.toJson());
 
-class Welcome {
-  Welcome({
+class SalesDetail {
+  SalesDetail({
     required this.id,
     required this.salesActualQuantity,
     required this.targetId,
@@ -31,7 +31,7 @@ class Welcome {
   List<dynamic> target;
   List<dynamic> storeSalesDetails;
 
-  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+  factory SalesDetail.fromJson(Map<String, dynamic> json) => SalesDetail(
     id: json["id"],
     salesActualQuantity: json["salesActualQuantity"],
     targetId: json["targetId"],

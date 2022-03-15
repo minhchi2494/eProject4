@@ -20,7 +20,9 @@ class DetailStore extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-
+                  TextButton(
+                      child: const Icon(Icons.arrow_back),
+                      onPressed: () => Navigator.pop(context)),
                   const Text(
                     "Store",
                     style:
@@ -34,7 +36,7 @@ class DetailStore extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               width: double.infinity,
-              height: 70,
+              height: 100,
               // color: Colors.grey[300],
               child: Image.asset(
                   'assets/images/shopss.png'),
@@ -99,7 +101,7 @@ class DetailStore extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CreateStore()));
+                            builder: (context) => CreateStore(store: store,)));
                   },
                 ),
               ),

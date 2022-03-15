@@ -1,15 +1,19 @@
 // To parse this JSON data, do
 //
-//     final welcome = welcomeFromJson(jsonString);
+//     final storeSalesDetail = storeSalesDetailFromJson(jsonString);
 
 import 'dart:convert';
 
-Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
+import 'package:sale_man_app/models/Product.dart';
+import 'package:sale_man_app/models/SaleDetail.dart';
+import 'package:sale_man_app/models/Store.dart';
 
-String welcomeToJson(Welcome data) => json.encode(data.toJson());
+StoreSalesDetail storeSalesDetailFromJson(String str) => StoreSalesDetail.fromJson(json.decode(str));
 
-class Welcome {
-  Welcome({
+String storeSalesDetailToJson(StoreSalesDetail data) => json.encode(data.toJson());
+
+class StoreSalesDetail {
+  StoreSalesDetail({
     required this.id,
     required this.quantityCommit,
     required this.salesDetailId,
@@ -19,8 +23,8 @@ class Welcome {
     required this.storeId,
     required this.storeActualQuantity,
     required this.product,
-    required this.store,
     required this.salesDetail,
+    required this.store,
   });
 
   int id;
@@ -31,11 +35,11 @@ class Welcome {
   DateTime date;
   String storeId;
   int storeActualQuantity;
-  List<dynamic> product;
-  List<dynamic> salesDetail;
-  List<dynamic> store;
+  Product product;
+  SalesDetail salesDetail;
+  Store store;
 
-  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+  factory StoreSalesDetail.fromJson(Map<String, dynamic> json) => StoreSalesDetail(
     id: json["id"],
     quantityCommit: json["quantityCommit"],
     salesDetailId: json["salesDetailId"],
@@ -44,9 +48,9 @@ class Welcome {
     date: DateTime.parse(json["date"]),
     storeId: json["storeId"],
     storeActualQuantity: json["storeActualQuantity"],
-    product: List<dynamic>.from(json["product"].map((x) => x)),
-    salesDetail: List<dynamic>.from(json["salesDetail"].map((x) => x)),
-    store: List<dynamic>.from(json["store"].map((x) => x)),
+    product: Product.fromJson(json["product"]),
+    salesDetail: SalesDetail.fromJson(json["salesDetail"]),
+    store: Store.fromJson(json["store"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -58,8 +62,9 @@ class Welcome {
     "date": date.toIso8601String(),
     "storeId": storeId,
     "storeActualQuantity": storeActualQuantity,
-    "product": List<dynamic>.from(product.map((x) => x)),
-    "salesDetail": List<dynamic>.from(salesDetail.map((x) => x)),
-    "store": List<dynamic>.from(store.map((x) => x)),
+    "product": product.toJson(),
+    "salesDetail": salesDetail.toJson(),
+    "store": store.toJson(),
   };
 }
+

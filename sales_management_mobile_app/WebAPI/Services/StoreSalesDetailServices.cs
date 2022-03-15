@@ -31,6 +31,23 @@ namespace WebAPI.Services
             }
         }
 
+        //create actual quantity base store id
+        public async Task<bool> createActualQuantity(string storeId, StoreSalesDetail ssd)
+        {
+            var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.SalesDetail).Include(x => x.Store).
+                        First(x => x.StoreId.Equals(storeId));
+            if (result != null)
+            {
+                _context.StoreSalesDetails.Add(ssd);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public async Task<List<StoreSalesDetail>> getStoreSalesDetails(DateTime? fromDate, DateTime? toDate)
         {
             var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.SalesDetail).Include(x => x.Store).ToList();

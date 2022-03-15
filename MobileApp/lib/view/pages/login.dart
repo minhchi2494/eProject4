@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                         if (response.statusCode == 200) {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => RootApp(),));
                         } else {
-                          // print("error: " + response.statusCode.toString());
+                          print("error: " + response.statusCode.toString());
                           showSnackbarMessage("Invalid username and password");
                         }
                       });
