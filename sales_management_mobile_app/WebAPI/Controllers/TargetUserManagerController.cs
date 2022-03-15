@@ -13,19 +13,19 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TargetUserController : ControllerBase
+    public class TargetUserManagerController : ControllerBase
     {
-        private readonly ITargetUserServices _services;
+        private readonly ITargetUserManagerServices _services;
 
-        public TargetUserController(ITargetUserServices services)
+        public TargetUserManagerController(ITargetUserManagerServices services)
         {
             _services = services;
         }
 
         [HttpGet]
-        public Task<List<vTargetUser>> getTargetUsers(DateTime? fromDate, DateTime? toDate)
+        public Task<List<vTargetUserManager>> getTargetUserManagers(DateTime? fromDate, DateTime? toDate)
         {
-            return _services.getTargetUsers(fromDate, toDate);
+            return _services.getTargetUserManagers(fromDate, toDate);
         }
     }
 }

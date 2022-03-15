@@ -50,7 +50,7 @@ namespace WebAPI
             services.AddScoped<ISalesDetailServices, SalesDetailServices>();
             services.AddScoped<IStoreSalesDetailServices, StoreSalesDetailServices>();
             services.AddScoped<IImageServices, ImageServices>();
-            services.AddScoped<ITargetUserServices, TargetUserServices>();
+            services.AddScoped<ITargetUserManagerServices, TargetUserManagerServices>();
             services.AddScoped<ISalesDetailTargetUser, SalesDetailTargetUserServices>();
             services.AddScoped<IStoreSalesDetailStoreUserServices, StoreSalesDetailStoreUserServices>();
             services.AddScoped<IManagerUserServices, ManagerUserServices>();

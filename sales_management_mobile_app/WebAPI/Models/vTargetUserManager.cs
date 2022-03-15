@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema
     ;
 namespace WebAPI.Models
 {
-    [Table("vTargetUser")]
-    public class vTargetUser
+    [Table("vTargetUserManager")]
+    public class vTargetUserManager
     {
         [Key]
         public int Id { get; set; }
@@ -16,6 +16,7 @@ namespace WebAPI.Models
         public int ActualQuantity { get; set; }
         public DateTime CreatedOn { get; set; }
 
-        public string Fullname { get; set; }
+        public string Salesman { get; set; }
+        public string Manager { get; set; }
     }
 }
