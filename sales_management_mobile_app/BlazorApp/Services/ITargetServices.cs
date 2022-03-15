@@ -9,6 +9,6 @@ namespace BlazorApp.Services
     public interface ITargetServices
     {
         Task<List<Target>> getTargets(DateTime? fromDate, DateTime? toDate);
-
+        Task<bool> createTarget(Target newTarget);
     }
 }

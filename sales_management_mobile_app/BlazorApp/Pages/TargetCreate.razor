@@ -1,0 +1,82 @@
+﻿@page "/targetCreate"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject ITargetServices _services;
+@inject IToastService ToastService;
+
+<h3>Create Target</h3>
+
+<EditForm Model="@newTarget" OnValidSubmit="@SubmitCreate">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Targets">Targets: </label>
+            <InputNumber class="form-control" @bind-Value="newTarget.Targets"></InputNumber>
+            <ValidationMessage For="()=>newTarget.Targets"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="ActualQuantity">Actual Quantity: </label>
+            <InputNumber class="form-control" @bind-Value="newTarget.ActualQuantity"></InputNumber>
+            <ValidationMessage For="()=>newTarget.ActualQuantity"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="FromDate">From Date: </label>
+            <InputDate TValue="DateTime" @bind-Value="newTarget.FromDate" class="form-control"></InputDate>
+            <small id="nameHelp" class="form-text text-muted">(Note: mm/dd/yyyy)</small>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="ToDate">To Date: </label>
+            <InputDate TValue="DateTime" @bind-Value="newTarget.ToDate" class="form-control"></InputDate>
+            <small id="nameHelp" class="form-text text-muted">(Note: mm/dd/yyyy)</small>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="CreatedOn">Created On: </label>
+            <InputDate TValue="DateTime" @bind-Value="newTarget.CreatedOn" class="form-control"></InputDate>
+            <small id="nameHelp" class="form-text text-muted">(Note: mm/dd/yyyy)</small>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/targetUserManager" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+
+@code {
+    private Target newTarget = new Target();
+
+    private async Task SubmitCreate(EditContext context)
+    {
+        var result = await _services.createTarget(newTarget);
+        if (result)
+        {
+            ToastService.ShowSuccess($"Target has been created successfully!", "Success");
+            NavigationManager.NavigateTo("/targetUserManager");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}
