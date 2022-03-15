@@ -51,6 +51,8 @@ namespace BlazorApp
 
             builder.Services.AddScoped<IManagerUserServices, ManagerUserServices>();
 
+            builder.Services.AddScoped<ITargetUserManagerServices, TargetUserManagerServices>();
+
             builder.Services.AddAuthorizationCore();
 
 

@@ -1,12 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema
     ;
-namespace WebAPI.Models
+namespace BlazorApp.Models
 {
-    [Keyless]
     [Table("vTargetUserManager")]
     public class vTargetUserManager
     {
