@@ -20,9 +20,6 @@ class DetailStore extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  TextButton(
-                      child: const Icon(Icons.arrow_back),
-                      onPressed: () => Navigator.pop(context)),
                   const Text(
                     "Store",
                     style:

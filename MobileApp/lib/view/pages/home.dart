@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               Container(
-                height: 60,
+                height: 65,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: stores.length,
@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               Container(
-                height: 170,
+                height: 150,
                 child: ListView.builder(
                     // scrollDirection: Axis.horizontal,
                     itemCount: targetUser.length,
