@@ -28,6 +28,12 @@ namespace WebAPI.Controllers
             return _services.getStoreSalesDetails(fromDate, toDate);
         }
 
+        [HttpPost]
+        public Task<bool> createActualQuantity([FromQuery] string storeId,[FromQuery] StoreSalesDetail ssd)
+        {
+            return _services.createActualQuantity(storeId, ssd);
+        }
+
         [HttpGet("{id}")]
         public Task<StoreSalesDetail> getStoreSalesDetail(int id)
         {
