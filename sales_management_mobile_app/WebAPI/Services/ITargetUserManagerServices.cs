@@ -6,8 +6,8 @@ using WebAPI.Models;
 
 namespace WebAPI.Services
 {
-    public interface ITargetUserServices
+    public interface ITargetUserManagerServices
     {
-        Task<List<vTargetUser>> getTargetUsers(DateTime? fromDate, DateTime? toDate);
+        Task<List<vTargetUserManager>> getTargetUserManagers(DateTime? fromDate, DateTime? toDate);
     }
 }

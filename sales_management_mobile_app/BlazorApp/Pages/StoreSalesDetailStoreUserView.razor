@@ -24,9 +24,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Name Salesman</th>
             <th>Store Name</th>
-            <th>Quantity Sale</th>
+            <th>Salesman</th>
+            <th>Actual Quantity</th>
             <th>Product Name</th>
             <th>Date</th>
         </tr>
@@ -35,8 +35,8 @@
         @foreach (var item in ssu)
         {
             <tr>
-                <td>@item.Fullname</td>
                 <td>@item.Store</td>
+                <td>@item.Fullname</td>
                 <td>@item.StoreActualQuantity</td>
                 <td>@item.Product</td>
                 <td>@item.Date.ToString("dd-MM-yyyy")</td>

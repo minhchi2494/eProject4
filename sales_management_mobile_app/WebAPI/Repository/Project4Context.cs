@@ -36,7 +36,7 @@ namespace WebAPI.Repository
         public virtual DbSet<User> Users { get; set; }
 
         //DbSet của View
-        public DbSet<vTargetUser> vTargetUser { get; set; }
+        public DbSet<vTargetUserManager> vTargetUserManager { get; set; }
         public DbSet<vSalesDetailTargetUser> vSalesDetailTargetUser { get; set; }
         public DbSet<vStoreSalesDetailStoreUser> vStoreSalesDetailStoreUser { get; set; }
         public DbSet<vManagerUser> vManagerUser { get; set; }
