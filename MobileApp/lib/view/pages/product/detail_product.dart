@@ -19,21 +19,21 @@ class DetailProduct extends StatelessWidget {
               flex: 1,
               child: Stack(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TextButton(
-                          child: const Icon(Icons.arrow_back),
-                          onPressed: () => Navigator.pop(context)),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      const Text(
-                        "Products",
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        const Text(
+                          "Products",
+                          style:
+                              TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

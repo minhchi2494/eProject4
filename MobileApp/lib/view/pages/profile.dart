@@ -136,6 +136,19 @@ class _ProfileState extends State<Profile> {
                       ),
                     ],
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          child: const Text('Logout'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

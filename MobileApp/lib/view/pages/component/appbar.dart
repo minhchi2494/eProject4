@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 GetAppBar(){
   return AppBar(
     elevation: 0.8,
-    backgroundColor: Colors.white,
+    // backgroundColor: Colors.white,
     title: Container(
       child: Row(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,

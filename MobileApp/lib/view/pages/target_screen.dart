@@ -71,7 +71,7 @@ class _TargetScreenState extends State<TargetScreen> {
           children: [
             ListTile(
               title: const Text('Actual/Target'),
-              trailing: const Text('all'),
+              // trailing: const Text('all'),
               subtitle: Text('This is all the actual quantity and targets'),
               onTap: () {
                 // setState(() {
@@ -109,22 +109,27 @@ class _TargetScreenState extends State<TargetScreen> {
         padding: EdgeInsets.zero,
         child: Container(
           padding: EdgeInsets.all(10.0),
-          color: index % 2 == 0 ? Color(0xFF1E57F1) : Color(0xFFFDD100),
+          // color: index % 2 == 0 ? Color(0xFF2196F3) : Color(0xFFFDD100),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Full name: ${targetUser[0].fullname}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                'Full name: ${targetUser[0].fullname}', style: TextStyle(fontSize: 16.0,),
               ),
               Text(
-                'Targets: ${targetUser[0].targets.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                'Targets: ${targetUser[0].targets.toString()}', style: TextStyle(fontSize: 16.0,),
                 // 'Targets: ${target[index].targets.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
               Text(
-                'Actual Quantity: ${targetUser[0].actualQuantity.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                'Actual Quantity: ${targetUser[0].actualQuantity.toString()}', style: TextStyle(fontSize: 16.0,),
                 // 'Actual Quantity: ${target[index].actualQuantity.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
               ),
+              Text(
+                'Percentage: ${((targetUser[0].actualQuantity)/(targetUser[0].targets))*100}%', style: TextStyle(fontSize: 16.0,),
+                // 'Actual Quantity: ${target[index].actualQuantity.toString()}', style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              ),
+
             ],
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sale_man_app/models/Store.dart';
 import 'package:sale_man_app/view/pages/component/appbar.dart';
+import 'package:sale_man_app/view/pages/store/create_store.dart';
 import 'package:sale_man_app/view/pages/store/update_store.dart';
 
 class DetailStore extends StatelessWidget {
@@ -19,9 +20,7 @@ class DetailStore extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  TextButton(
-                      child: const Icon(Icons.arrow_back),
-                      onPressed: () => Navigator.pop(context)),
+
                   const Text(
                     "Store",
                     style:
@@ -35,7 +34,7 @@ class DetailStore extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               width: double.infinity,
-              height: 100,
+              height: 70,
               // color: Colors.grey[300],
               child: Image.asset(
                   'assets/images/shopss.png'),
@@ -85,6 +84,22 @@ class DetailStore extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => UpdateStore(store: store,)));
+                  },
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  child: const Text('Daily Order'),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CreateStore()));
                   },
                 ),
               ),
