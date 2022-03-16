@@ -4,6 +4,7 @@
 @using BlazorApp.Models
 @inject IToastService ToastService
 @inject IManagerServices _services;
+@inject IUserServices _userServices;
 
 <EditForm Model="@searchManager" OnSubmit=@SeachForm>
     <div class="row">
@@ -61,9 +62,12 @@
 
     private Manager searchManager = new Manager();
 
+    private User user = new User();
+
     protected override async Task OnInitializedAsync()
     {
         managers = await _services.getManagers(searchManager);
+       // user = await _userServices.getUser();
     }
 
     private async Task SeachForm(EditContext context)

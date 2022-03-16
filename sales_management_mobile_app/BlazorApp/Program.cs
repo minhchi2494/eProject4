@@ -47,8 +47,6 @@ namespace BlazorApp
 
             builder.Services.AddScoped<ISalesDetailTargetUser, SalesDetailTargetUserServices>();
 
-            builder.Services.AddScoped<IStoreSalesDetailStoreUserServices, StoreSalesDetailStoreUserServices>();
-
             builder.Services.AddScoped<IManagerUserServices, ManagerUserServices>();
 
             builder.Services.AddScoped<ITargetUserManagerServices, TargetUserManagerServices>();

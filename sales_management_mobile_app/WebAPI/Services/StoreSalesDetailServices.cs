@@ -69,7 +69,6 @@ namespace WebAPI.Services
                                             date.UserId = ssd.UserId;
                                             date.Date = ssd.Date;
                                             date.ProductId = ssd.ProductId;
-                        //_context.SalesDetails.Add(date);
                         _context.SaveChanges();
                     }
                                         else { 
@@ -78,7 +77,6 @@ namespace WebAPI.Services
                                             bien.UserId = ssd.UserId;
                                             bien.Date = ssd.Date;
                                             bien.ProductId = ssd.ProductId;
-                                            //_context.SalesDetails.Add(bien);
                         _context.SaveChanges();
                     }
 
@@ -90,7 +88,6 @@ namespace WebAPI.Services
                     bien.UserId = ssd.UserId;
                     bien.Date = ssd.Date;
                     bien.ProductId = ssd.ProductId;
-                    //_context.SalesDetails.Add(bien);
                     _context.SaveChanges();
                 }
                 return true;
