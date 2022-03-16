@@ -11,4 +11,6 @@ namespace BlazorApp.Services
         Task<List<Target>> getTargets(DateTime? fromDate, DateTime? toDate);
 
     }
+
+
 }

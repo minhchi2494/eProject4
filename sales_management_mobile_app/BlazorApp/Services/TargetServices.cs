@@ -22,5 +22,7 @@ namespace BlazorApp.Services
             var result = await _httpClient.GetFromJsonAsync<List<Target>>($"/api/Target?fromDate={fromDate}&toDate={toDate}");
             return result;
         }
+
+
     }
 }

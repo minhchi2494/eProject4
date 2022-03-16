@@ -12,5 +12,6 @@ namespace WebAPI.Services
         Task<List<Target>> getTargets(DateTime? fromDate, DateTime? toDate);
         
         Task<bool> createTarget(Target newTarget);
+      
     }
 }
