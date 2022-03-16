@@ -30,10 +30,10 @@ namespace WebAPI.Repository
 
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SalesDetail> SalesDetails { get; set; }
-        public virtual DbSet<Store> Stores { get; set; }
+        public  DbSet<Store> Stores { get; set; }
         public virtual DbSet<StoreSalesDetail> StoreSalesDetails { get; set; }
         public virtual DbSet<Target> Targets { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public  DbSet<User> Users { get; set; }
 
         //DbSet của View
         public DbSet<vTargetUserManager> vTargetUserManager { get; set; }
@@ -46,7 +46,7 @@ namespace WebAPI.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=LAPTOP-6D8AK342\\CHI;database=Project4;uid=sa;pwd=123", options => options.EnableRetryOnFailure());
+                optionsBuilder.UseSqlServer("server=localhost;database=Project4;uid=sa;pwd=sql@123456", options => options.EnableRetryOnFailure());
             }
         }
 
@@ -178,7 +178,7 @@ namespace WebAPI.Repository
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
-                entity.Property(e => e.Price).HasColumnType("decimal(15, 2)");
+                //entity.Property(e => e.Price).HasColumnType("decimal(15, 2)");
 
                 entity.Property(e => e.ProductId)
                     .HasMaxLength(5)
@@ -193,6 +193,9 @@ namespace WebAPI.Repository
                     .WithMany(p => p.SalesDetails)
                     .HasForeignKey(d => d.TargetId)
                     .HasConstraintName("FK_sales_detail_target");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnType("int");
             });
 
             modelBuilder.Entity<Store>(entity =>
@@ -223,6 +226,10 @@ namespace WebAPI.Repository
                     .WithMany(p => p.Stores)
                     .HasForeignKey(d => d.LocationId)
                     .HasConstraintName("FK_store_location");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnType("int");
+
             });
 
             modelBuilder.Entity<StoreSalesDetail>(entity =>
@@ -231,7 +238,6 @@ namespace WebAPI.Repository
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
-                entity.Property(e => e.Price).HasColumnType("decimal(15, 2)");
 
                 entity.Property(e => e.ProductId)
                     .HasMaxLength(5)
@@ -246,15 +252,19 @@ namespace WebAPI.Repository
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("FK_store_sales_detail_product");
 
-                entity.HasOne(d => d.SalesDetail)
-                    .WithMany(p => p.StoreSalesDetails)
-                    .HasForeignKey(d => d.SalesDetailId)
-                    .HasConstraintName("FK_store_sales_detail_sales_detail");
+                //entity.HasOne(d => d.SalesDetail)
+                //    .WithMany(p => p.StoreSalesDetails)
+                //    .HasForeignKey(d => d.SalesDetailId)
+                //    .HasConstraintName("FK_store_sales_detail_sales_detail");
 
                 entity.HasOne(d => d.Store)
                     .WithMany(p => p.StoreSalesDetails)
                     .HasForeignKey(d => d.StoreId)
                     .HasConstraintName("FK_store_sales_detail_store");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnType("int");
+
             });
 
             modelBuilder.Entity<Target>(entity =>
@@ -297,7 +307,7 @@ namespace WebAPI.Repository
                 entity.Property(e => e.StoreId)
                     .HasMaxLength(5)
                     .IsUnicode(false);
-                //
+
                 entity.Property(e => e.Username)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -316,12 +326,17 @@ namespace WebAPI.Repository
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
                     .HasConstraintName("FK_user_role");
-                //
-                entity.HasOne(d => d.Store)
-                    .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.StoreId)
-                    .HasConstraintName("FK_user_store");
-                //
+
+                // entity.Property<string>("RoleId");
+
+
+
+
+                //entity.HasMany(p => p.Stores)
+                //.WithOne(d => d.Users)
+                //.HasForeignKey(d => d.CurrentUserId)
+                //    .HasConstraintName("FK_user_store");
+
                 entity.HasOne(d => d.Target)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.TargetId)
@@ -329,7 +344,6 @@ namespace WebAPI.Repository
             });
 
             OnModelCreatingPartial(modelBuilder);
-            //  modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

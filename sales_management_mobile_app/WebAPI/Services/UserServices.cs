@@ -21,8 +21,7 @@ namespace WebAPI.Services
 
         public async Task<List<User>> getUsers(User searchUser)
         {
-            var result = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Store).Include(a => a.Target)
-                .Where(x => x.IsActive == true).ToList();
+            var result = _context.Users.Where(x => x.IsActive == true).ToList();
 
             //var result = _context.Users.Where(x => x.IsActive == true).ToList();
             if (!string.IsNullOrEmpty(searchUser.Fullname))
@@ -38,7 +37,8 @@ namespace WebAPI.Services
 
         public async Task<User> getUser(int id)
         {
-            var result = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Store).Include(a => a.Target)
+            //var result = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Store).Include(a => a.Target)
+                var result = _context.Users
                 .Where(x => x.IsActive == true).SingleOrDefault(x => x.Id.Equals(id));
             if (result != null)
             {
@@ -52,7 +52,7 @@ namespace WebAPI.Services
 
         public async Task<User> checkLogin(string username, string password)
         {
-            var model = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Store).Include(a => a.Target)
+            var model = _context.Users
                 .Where(x => x.IsActive == true).SingleOrDefault(a => a.Username.Equals(username));
             if (model != null)
             {
@@ -90,7 +90,7 @@ namespace WebAPI.Services
 
         public async Task<bool> updateUser(User editUser)
         {
-            var model = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Store).Include(a => a.Target)
+            var model = _context.Users
                 .Where(x => x.IsActive == true).SingleOrDefault(x=>x.Id.Equals(editUser.Id));
             if (model != null)
             {
@@ -107,8 +107,8 @@ namespace WebAPI.Services
                 model.Target = target;
 
                 model.StoreId = editUser.StoreId;
-                Store store = _context.Stores.SingleOrDefault(x => x.Id.Equals(editUser.StoreId));
-                model.Store = store;
+                //Store store = _context.Stores.SingleOrDefault(x => x.Id.Equals(editUser.StoreId));
+                //model.StoreId = store;
 
                 model.LocationId = editUser.LocationId;
                 Location loc = _context.Locations.SingleOrDefault(x => x.Id.Equals(editUser.LocationId));

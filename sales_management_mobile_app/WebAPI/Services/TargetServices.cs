@@ -22,11 +22,24 @@ namespace WebAPI.Services
             var targets = _context.Targets.ToList();
             if (fromDate == null && toDate == null)
             {
+
+
+
+
                 return targets;
             }
             else
             {
+
+
+
+
+         
+
                 targets = _context.Targets.Where(x => x.CreatedOn >= fromDate).Where(x => x.CreatedOn <= toDate).ToList();
+
+
+
                 return targets;
             }
 
@@ -46,5 +59,7 @@ namespace WebAPI.Services
                 return false;
             }
         }
+
+        
     }
 }

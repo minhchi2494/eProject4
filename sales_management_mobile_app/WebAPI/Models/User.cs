@@ -24,9 +24,15 @@ namespace WebAPI.Models
         public virtual Location Location { get; set; }
         public virtual Manager Manager { get; set; }
         public virtual Role Role { get; set; }
-        public virtual Store Store { get; set; }
+        //public virtual Store Store { get; set; }
         public virtual Target Target { get; set; }
 
+        public virtual List<Store> Stores { get; set; }
 
+        //public User()
+        //{
+        //    Stores = new HashSet<Store>();
+
+        //}
     }
 }

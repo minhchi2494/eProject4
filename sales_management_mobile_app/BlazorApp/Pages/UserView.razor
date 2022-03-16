@@ -4,6 +4,7 @@
 @using BlazorApp.Models
 @inject IToastService ToastService
 @inject IUserServices _services;
+@inject IStoreServices _storeservices;
 
 <EditForm Model="@searchUser" OnSubmit=@SeachForm>
     <div class="row">
@@ -38,9 +39,9 @@
             <th>Active</th>
             <th>Action</th>
 
-@*            <th>Manager</th>
-            <th>Active</th>
-            <th>Actions</th>*@
+            @*            <th>Manager</th>
+                <th>Active</th>
+                <th>Actions</th>*@
         </tr>
     </thead>
     <tbody>
@@ -51,26 +52,17 @@
                 <td>@item.Fullname</td>
                 <td>@item.Email</td>
                 <td>@item.Phone</td>
-                @if (@item.Role.Title.Equals("Manager"))
+                <td>@item.Address</td>
+                @*<td>@item.Role.Title</td>
+                    <td>@item.Location.District</td>*@
+                @foreach (var store in stores)
                 {
-                    <td>
-                        <span class="badge bg-danger" style="color:white">@item.Role.Title</span>
-                    </td>
+                    <td>@store.Name</td>
                 }
-                else
-                {
-                    <td>
-                        <span class="badge bg-primary" style="color:white">@item.Role.Title</span>
-                    </td>
-                }
-                
-@*                <td>@item.Address</td>
-                <td>@item.Location.District</td>*@
-
                 <td>
                     <span class="badge badge-success">@item.IsActive</span>
                 </td>
-       
+
                 <td>
                     <a href="/editUser/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
                 </td>
@@ -81,12 +73,13 @@
 
 @code {
     private List<User> users = new List<User>();
-
+    private List<Store> stores = new List<Store>();
     private User searchUser = new User();
 
     protected override async Task OnInitializedAsync()
     {
         users = await _services.getUsers(searchUser);
+        
     }
 
     private async Task SeachForm(EditContext context)
