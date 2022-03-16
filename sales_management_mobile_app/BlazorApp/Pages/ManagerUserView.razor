@@ -4,20 +4,19 @@
 @using BlazorApp.Models
 @inject IToastService ToastService
 @inject IManagerUserServices _services;
+@inject IManagerServices _managerServices;
 
 <table class="table">
     <thead>
         <tr>
-            <th>Manager Name</th>
-            <th>Saleman Name</th>
+            <th>@manager.Fullname</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in managerUsers)
         {
             <tr>
-                <td>@item.Manager</td>
-                <td>@item.Salesman</td>
+                <td>Salesman: @item.Salesman</td>
             </tr>
         }
     </tbody>
@@ -28,6 +27,8 @@
 @code {
     private List<vManagerUser> managerUsers = new List<vManagerUser>();
 
+    private Manager manager = new Manager();
+
     [Parameter]
     public string id { get; set; }
     public string managerName { get; set; }
@@ -35,6 +36,6 @@
     protected override async Task OnInitializedAsync()
     {
         managerUsers = await _services.getManagerUsers(id);
-        
+        manager = await _managerServices.getManager(id);
     }
 }
