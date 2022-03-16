@@ -38,8 +38,8 @@ namespace WebAPI.Repository
         //DbSet của View
         public DbSet<vTargetUserManager> vTargetUserManager { get; set; }
         public DbSet<vSalesDetailTargetUser> vSalesDetailTargetUser { get; set; }
-        public DbSet<vStoreSalesDetailStoreUser> vStoreSalesDetailStoreUser { get; set; }
         public DbSet<vManagerUser> vManagerUser { get; set; }
+        public DbSet<vStoreUser> vStoreUser { get; set; }
         public object Admin { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
