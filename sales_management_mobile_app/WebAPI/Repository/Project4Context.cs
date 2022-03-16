@@ -46,7 +46,7 @@ namespace WebAPI.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=localhost;database=Project4;uid=sa;pwd=sql@123456", options => options.EnableRetryOnFailure());
+                optionsBuilder.UseSqlServer("server=LAPTOP-6D8AK342\\CHI;database=Project4;uid=sa;pwd=123", options => options.EnableRetryOnFailure());
             }
         }
 
@@ -304,9 +304,9 @@ namespace WebAPI.Repository
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.Property(e => e.StoreId)
-                    .HasMaxLength(5)
-                    .IsUnicode(false);
+                //entity.Property(e => e.StoreId)
+                //    .HasMaxLength(5)
+                //    .IsUnicode(false);
 
                 entity.Property(e => e.Username)
                     .HasMaxLength(20)

@@ -106,7 +106,7 @@ namespace WebAPI.Services
                 Target target = _context.Targets.SingleOrDefault(x=>x.Id.Equals(editUser.TargetId));
                 model.Target = target;
 
-                model.StoreId = editUser.StoreId;
+                //model.StoreId = editUser.StoreId;
                 //Store store = _context.Stores.SingleOrDefault(x => x.Id.Equals(editUser.StoreId));
                 //model.StoreId = store;
 

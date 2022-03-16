@@ -15,7 +15,6 @@ namespace WebAPI.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public string StoreId { get; set; }
         public int? LocationId { get; set; }
         public int? RoleId { get; set; }
         public string ManagerId { get; set; }
