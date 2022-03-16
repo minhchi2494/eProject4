@@ -37,8 +37,8 @@ namespace WebAPI.Services
 
         public async Task<User> getUser(int id)
         {
-            //var result = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Store).Include(a => a.Target)
-                var result = _context.Users
+            var result = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Target)
+                //var result = _context.Users
                 .Where(x => x.IsActive == true).SingleOrDefault(x => x.Id.Equals(id));
             if (result != null)
             {
@@ -106,7 +106,7 @@ namespace WebAPI.Services
                 Target target = _context.Targets.SingleOrDefault(x=>x.Id.Equals(editUser.TargetId));
                 model.Target = target;
 
-                model.StoreId = editUser.StoreId;
+                //model.StoreId = editUser.StoreId;
                 //Store store = _context.Stores.SingleOrDefault(x => x.Id.Equals(editUser.StoreId));
                 //model.StoreId = store;
 

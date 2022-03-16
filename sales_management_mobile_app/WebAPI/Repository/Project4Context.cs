@@ -178,7 +178,6 @@ namespace WebAPI.Repository
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 
-                //entity.Property(e => e.Price).HasColumnType("decimal(15, 2)");
 
                 entity.Property(e => e.ProductId)
                     .HasMaxLength(5)
@@ -196,6 +195,11 @@ namespace WebAPI.Repository
 
                 entity.Property(e => e.UserId)
                     .HasColumnType("int");
+
+                entity.Property(e => e.SalesActualQuantity)
+                    .HasColumnType("int");
+
+
             });
 
             modelBuilder.Entity<Store>(entity =>
@@ -226,6 +230,12 @@ namespace WebAPI.Repository
                     .WithMany(p => p.Stores)
                     .HasForeignKey(d => d.LocationId)
                     .HasConstraintName("FK_store_location");
+
+
+                entity.HasOne(d => d.Users)
+                    .WithMany(p => p.Stores)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_store_user");
 
                 entity.Property(e => e.UserId)
                     .HasColumnType("int");
@@ -264,6 +274,13 @@ namespace WebAPI.Repository
 
                 entity.Property(e => e.UserId)
                     .HasColumnType("int");
+
+
+                //entity.HasOne(d => d.Users)
+                //  .WithMany(p => p.StoreSalesDetail)
+                //  .HasForeignKey(d => d.UserId)
+                //  .HasConstraintName("FK_store_user");
+
 
             });
 
@@ -304,7 +321,15 @@ namespace WebAPI.Repository
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.Property(e => e.StoreId)
+                entity.Property(e => e.RoleId)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LocationId)
+                    .HasMaxLength(5)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.TargetId)
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
@@ -326,16 +351,7 @@ namespace WebAPI.Repository
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
                     .HasConstraintName("FK_user_role");
-
-                // entity.Property<string>("RoleId");
-
-
-
-
-                //entity.HasMany(p => p.Stores)
-                //.WithOne(d => d.Users)
-                //.HasForeignKey(d => d.CurrentUserId)
-                //    .HasConstraintName("FK_user_store");
+            
 
                 entity.HasOne(d => d.Target)
                     .WithMany(p => p.Users)

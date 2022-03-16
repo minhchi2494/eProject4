@@ -24,8 +24,6 @@ namespace BlazorApp.Models
         [Required]
         public string Address { get; set; }
         [Required]
-        public string StoreId { get; set; }
-        [Required]
         public int? LocationId { get; set; }
         [Required]
         public int? RoleId { get; set; }
@@ -39,13 +37,13 @@ namespace BlazorApp.Models
         public virtual Manager Manager { get; set; }
         public virtual Role Role { get; set; }
        // public virtual Store Store { get; set; }
-        public virtual Target Target { get; set; }
-        public virtual List<Store> Stores { get; set; }
 
-        //public User()
-        //{
-        //    //StoreSalesDetails = new HashSet<StoreSalesDetail>();
-        //    Stores = new HashSet<Store>();
-        //}
+        //public virtual Store Store { get; set; }
+        public virtual Target Target { get; set; }
+
+        public virtual ICollection<Store> Stores { get; set; }
+
+        //1user - n storesales detail
+        public virtual ICollection<StoreSalesDetail> StoreSalesDetail { get; set; }
     }
 }

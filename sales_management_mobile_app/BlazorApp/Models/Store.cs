@@ -33,11 +33,11 @@ namespace BlazorApp.Models
         public int? LocationId { get; set; }
         public bool? IsActive { get; set; }
         
+ 
+
+        public int UserId { get; set; }
         public virtual Location Location { get; set; }
         public virtual ICollection<StoreSalesDetail> StoreSalesDetails { get; set; }
-        //public virtual ICollection<User> Users { get; set; }
         public virtual User Users { get; set; }
-      //  public string CurrentUserId { get; set; }
-      public int UserId { get; set; }
     }
 }

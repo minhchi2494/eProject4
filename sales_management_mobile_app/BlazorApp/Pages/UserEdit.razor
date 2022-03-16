@@ -69,11 +69,11 @@
             <ValidationMessage For="()=>editUser.Address"></ValidationMessage>
         </div>
 
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+        @*<div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="StoreId">Store Id: </label>
             <InputText class="form-control" @bind-Value="editUser.StoreId" readonly></InputText>
             <ValidationMessage For="()=>editUser.StoreId"></ValidationMessage>
-        </div>
+        </div>*@
     </div>
 
     <div>
@@ -149,7 +149,6 @@
         editUser.Email = user.Email;
         editUser.Phone = user.Phone;
         editUser.Address = user.Address;
-        editUser.StoreId = user.StoreId;
         editUser.LocationId = user.LocationId;
         editUser.RoleId = user.RoleId;
         editUser.ManagerId = user.ManagerId;

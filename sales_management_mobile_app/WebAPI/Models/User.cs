@@ -15,7 +15,7 @@ namespace WebAPI.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public string StoreId { get; set; }
+       // public string StoreId { get; set; }
         public int? LocationId { get; set; }
         public int? RoleId { get; set; }
         public string ManagerId { get; set; }
@@ -27,12 +27,9 @@ namespace WebAPI.Models
         //public virtual Store Store { get; set; }
         public virtual Target Target { get; set; }
 
-        public virtual List<Store> Stores { get; set; }
+        public virtual ICollection<Store> Stores { get; set; }
 
-        //public User()
-        //{
-        //    Stores = new HashSet<Store>();
-
-        //}
+        //1user - n storesales detail
+        public virtual ICollection<StoreSalesDetail> StoreSalesDetail { get; set; }
     }
 }

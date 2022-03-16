@@ -8,13 +8,7 @@ namespace WebAPI.Models
 {
     public class Store
     {
-        //public Store()
-        //{
-        //    StoreSalesDetails = new HashSet<StoreSalesDetail>();
-        //   // Users = new HashSet<User>();
-        //}
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        
         [Key]
         public string Id { get; set; }
         public string Name { get; set; }

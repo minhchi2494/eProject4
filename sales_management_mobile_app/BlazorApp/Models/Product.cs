@@ -8,12 +8,12 @@ namespace BlazorApp.Models
 {
     public partial class Product
     {
-        public Product()
-        {
-            ImagesNavigation = new HashSet<Image>();
-            SalesDetails = new HashSet<SalesDetail>();
-            StoreSalesDetails = new HashSet<StoreSalesDetail>();
-        }
+        //public Product()
+        //{
+        //    ImagesNavigation = new HashSet<Image>();
+        //    SalesDetails = new HashSet<SalesDetail>();
+        //    StoreSalesDetails = new HashSet<StoreSalesDetail>();
+        //}
         [Required]
         public string Id { get; set; }
         [Required]

@@ -22,6 +22,13 @@ namespace BlazorApp.Models
         public virtual Product Product { get; set; }
         public virtual Target Target { get; set; }
         public virtual ICollection<StoreSalesDetail> StoreSalesDetails { get; set; }
+
+        //create relationship
         public int UserId { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+
+
+
+
     }
 }

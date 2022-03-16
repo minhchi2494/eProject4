@@ -55,10 +55,16 @@
                 <td>@item.Address</td>
                 @*<td>@item.Role.Title</td>
                     <td>@item.Location.District</td>*@
-                @foreach (var store in stores)
+                @*@foreach (var store in stores)
                 {
                     <td>@store.Name</td>
+<<<<<<< Updated upstream
                 }
+=======
+                }*@
+
+
+>>>>>>> Stashed changes
                 <td>
                     <span class="badge badge-success">@item.IsActive</span>
                 </td>
@@ -73,7 +79,7 @@
 
 @code {
     private List<User> users = new List<User>();
-    private List<Store> stores = new List<Store>();
+   // private List<Store> stores = new List<Store>();
     private User searchUser = new User();
 
     protected override async Task OnInitializedAsync()
