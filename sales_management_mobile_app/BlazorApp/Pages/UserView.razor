@@ -32,9 +32,9 @@
             <th>Fullname</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>Address</th>
             <th>Role</th>
-            <th>Location</th>
+@*          <th>Address</th>
+            <th>Location</th>*@
             <th>Active</th>
             <th>Action</th>
 
@@ -51,16 +51,28 @@
                 <td>@item.Fullname</td>
                 <td>@item.Email</td>
                 <td>@item.Phone</td>
-                <td>@item.Address</td>
-                <td>@item.Role.Title</td>
-                <td>@item.Location.District</td>
+                @if (@item.Role.Title.Equals("Manager"))
+                {
+                    <td>
+                        <span class="badge bg-danger" style="color:white">@item.Role.Title</span>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <span class="badge bg-primary" style="color:white">@item.Role.Title</span>
+                    </td>
+                }
+                
+@*                <td>@item.Address</td>
+                <td>@item.Location.District</td>*@
 
                 <td>
                     <span class="badge badge-success">@item.IsActive</span>
                 </td>
        
                 <td>
-                    <a href="/editUser/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+                    <a href="/editUser/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
                 </td>
             </tr>
         }
