@@ -30,24 +30,21 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Id</th>
+            <th>Sales Name</th>
             <th>Daily Sales</th>
             <th>Target</th>
             <th>Product</th>
-            <th>Price</th>
             <th>Date</th>
-            <th>Action</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in sd)
         {
             <tr>
-                <td>@item.Id</td>
+                <td>@item.User.Fullname</td>
                 <td>@item.SalesActualQuantity</td>
                 <td>@item.Target.Targets</td>
                 <td>@item.Product.Name</td>
-                @*<td>@item.Price</td>*@
                 <td>@item.Date.ToString("dd-MM-yyyy")</td>
                 @*                <td>
                         <a href="/editRole/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
