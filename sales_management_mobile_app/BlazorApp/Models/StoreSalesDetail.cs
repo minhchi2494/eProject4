@@ -17,7 +17,7 @@ namespace BlazorApp.Models
         public int? StoreActualQuantity { get; set; }
 
         public virtual Product Product { get; set; }
-        public virtual SalesDetail SalesDetail { get; set; }
+        //public virtual SalesDetail SalesDetail { get; set; }
         public virtual Store Store { get; set; }
         public int UserId { get; set; }
     }

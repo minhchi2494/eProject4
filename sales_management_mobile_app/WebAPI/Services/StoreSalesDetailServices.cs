@@ -19,8 +19,10 @@ namespace WebAPI.Services
 
         public async Task<StoreSalesDetail> getStoreSalesDetail(int id)
         {
-            var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.SalesDetail).Include(x => x.Store).
-                        SingleOrDefault(x=>x.Id.Equals(id));
+            //var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.SalesDetail).Include(x => x.Store).
+            //            SingleOrDefault(x=>x.Id.Equals(id));
+            var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).
+                        SingleOrDefault(x => x.Id.Equals(id));
             if (result != null)
             {
                 return result;
@@ -34,8 +36,10 @@ namespace WebAPI.Services
         //create actual quantity base store id
         public async Task<bool> createActualQuantity(string storeId, StoreSalesDetail ssd)
         {
-            var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.SalesDetail).Include(x => x.Store).
-                        First(x => x.StoreId.Equals(storeId));
+            //var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.SalesDetail).Include(x => x.Store).
+            //            First(x => x.StoreId.Equals(storeId));
+            var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).
+            First(x => x.StoreId.Equals(storeId));
 
             var acc = _context.SalesDetails.SingleOrDefault(x => x.UserId.Equals(ssd.UserId));
             var temp = _context.SalesDetails.Where(x=>x.ProductId.Equals(ssd.ProductId));
@@ -66,14 +70,16 @@ namespace WebAPI.Services
 
         public async Task<List<StoreSalesDetail>> getStoreSalesDetails(DateTime? fromDate, DateTime? toDate)
         {
-            var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.SalesDetail).Include(x => x.Store).ToList();
+            //var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.SalesDetail).Include(x => x.Store).ToList();
+            var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).ToList();
             if (fromDate == null && toDate == null)
             {
                 return result;
             }
             else
             {
-                result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.SalesDetail).Include(x => x.Store)
+                //result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.SalesDetail).Include(x => x.Store)
+                result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store)
                                               .Where(x => x.Date >= fromDate).Where(x => x.Date <= toDate).ToList();
                 return result;
             }
