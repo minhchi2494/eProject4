@@ -1,9 +1,11 @@
-﻿@inherits LayoutComponentBase
+﻿@attribute [Authorize]
+@inherits LayoutComponentBase
 @using Blazored.Toast.Configuration;
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @inject BlazorApp.Services.IAdminServices AdminService
 @inject NavigationManager NavigationManager
+@inject IAdminServices AdminService
 
 <BlazoredToasts Position="ToastPosition.BottomRight"
                 Timeout="5"
@@ -39,6 +41,8 @@
 
         <div class="top-row px-3">
             <a href="admin/logout" class="nav-item nav-link">Logout</a>
+            <span><a href="/" class="nav-item nav-link">Profile</a>Hi @AdminService.Admin.Username, welcome back!</span>
+            
 
         </div>
         <div class="content px-3">

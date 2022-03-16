@@ -42,8 +42,13 @@
     </tr>
 
     <tr>
-        <td>Location</td>
+        <td>District</td>
         <td>@store?.Location.District</td>
+    </tr>
+
+    <tr>
+        <td>Ward</td>
+        <td>@store?.Location.Ward</td>
     </tr>
 
     <tr>
@@ -51,6 +56,8 @@
         <td>@store?.IsActive</td>
     </tr>
 </table>
+
+<a href="/store" class="btn btn-primary">Cancel</a>
 
 @code {
     [Inject]

@@ -33,9 +33,9 @@
             <th>Fullname</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>Address</th>
             <th>Role</th>
-            <th>Location</th>
+@*          <th>Address</th>
+            <th>Location</th>*@
             <th>Active</th>
             <th>Action</th>
 
@@ -59,14 +59,12 @@
                 {
                     <td>@store.Name</td>
                 }
-
-
                 <td>
                     <span class="badge badge-success">@item.IsActive</span>
                 </td>
 
                 <td>
-                    <a href="/editUser/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+                    <a href="/editUser/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
                 </td>
             </tr>
         }
