@@ -14,7 +14,7 @@ namespace WebAPI.Models
         //public decimal? Price { get; set; }
         public DateTime? Date { get; set; }
         public string StoreId { get; set; }
-        public int? StoreActualQuantity { get; set; }
+        public int StoreActualQuantity { get; set; } //vua bo cham ?
 
         public virtual Product Product { get; set; }
         //public virtual SalesDetail SalesDetail { get; set; }

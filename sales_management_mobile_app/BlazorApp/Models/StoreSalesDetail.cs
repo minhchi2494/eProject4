@@ -19,6 +19,7 @@ namespace BlazorApp.Models
         public virtual Product Product { get; set; }
         //public virtual SalesDetail SalesDetail { get; set; }
         public virtual Store Store { get; set; }
+        public virtual User User { get; set; }
         public int UserId { get; set; }
     }
 }
