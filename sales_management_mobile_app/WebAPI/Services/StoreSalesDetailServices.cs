@@ -42,7 +42,6 @@ namespace WebAPI.Services
 
             
 
-
             int quant = 0;
             foreach (var item in temp)
             {
@@ -52,11 +51,32 @@ namespace WebAPI.Services
 
             var date = temp.SingleOrDefault(x => x.Date.Equals(ssd.Date));
 
+
+            //check performance
+            var per = _context.Performances.SingleOrDefault(x => x.UserId.Equals(ssd.UserId));
+
+
+            Performance model = new Performance();
+
             SalesDetail bien = new SalesDetail();
             if (result != null)
             {
                 _context.StoreSalesDetails.Add(ssd);
                 _context.SaveChanges();
+
+                if (per!=null)
+                {
+                    per.YTD = ssd.StoreActualQuantity;
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    
+                    model.UserId = ssd.UserId;
+                    model.YTD += ssd.StoreActualQuantity;
+                    _context.Performances.Add(model);
+                    _context.SaveChanges();
+                }
 
                 if (temp.Count()!=0)
                 {
