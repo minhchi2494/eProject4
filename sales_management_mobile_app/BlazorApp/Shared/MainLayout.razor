@@ -23,14 +23,7 @@
 @if (LoggedIn)
 {
 <div class="page">
-    <!-- nav -->
-    @*<nav class="navbar navbar-expand navbar-dark bg-dark">
-            <div class="navbar-nav">
-                <NavLink href="" Match="NavLinkMatch.All" class="nav-item nav-link">Home</NavLink>
-                <NavLink href="admin" class="nav-item nav-link">Admins</NavLink>
-                <NavLink href="admin/logout" class="nav-item nav-link">Logout</NavLink>
-            </div>
-        </nav>*@
+
 
     <div class="sidebar">
         <NavMenu />
@@ -40,8 +33,8 @@
 
 
         <div class="top-row px-3">
-            <a href="admin/logout" class="nav-item nav-link">Logout</a>
-            <span><a href="/" class="nav-item nav-link">Profile</a>Hi @AdminService.Admin.Username, welcome back!</span>
+            <a href="admin/logout" class="nav-item nav-link"><i class="fa-solid fa-sign-out"></i>Logout</a>
+            <a href="profile" class="nav-item nav-link"><i class="fa-solid fa-user-gear"></i></a>Hi @AdminService.Admin.Username
             
 
         </div>

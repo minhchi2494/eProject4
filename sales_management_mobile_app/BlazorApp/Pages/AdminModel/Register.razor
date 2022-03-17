@@ -1,15 +1,16 @@
-﻿@page "/admin/register"
+﻿@page "/admin/add"
+@attribute [Authorize]
 @inject IAdminServices AdminService
 @inject IAlertService AlertService
 @inject NavigationManager NavigationManager
 
 <div class="card">
-    <h4 class="card-header">Register</h4>
+    <h4 class="card-header">Create new</h4>
     <div class="card-body">
         <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
             <DataAnnotationsValidator />
             <div class="form-group">
-                <label>Fullname</label>
+                <label>Full name</label>
                 <InputText @bind-Value="model.Fullname" class="form-control" />
                 <ValidationMessage For="@(() => model.Fullname)" />
             </div>
@@ -40,7 +41,8 @@
                 }
                 Register
             </button>
-            <NavLink href="account/login" class="btn btn-link">Cancel</NavLink>
+            <NavLink href="admin" class="btn btn-link">Cancel</NavLink>
+            @*<NavLink href="account/login" class="btn btn-link">Cancel</NavLink>*@
         </EditForm>
     </div>
 </div>
@@ -59,7 +61,7 @@
         {
             await AdminService.Register(model);
             AlertService.Success("Registration successful", keepAfterRouteChange: true);
-            NavigationManager.NavigateTo("admin/login");
+            NavigationManager.NavigateTo("admin");
         }
         catch (Exception ex)
         {

@@ -10,5 +10,6 @@ namespace WebAPI.Services
     public interface ISalesDetailServices
     {
         Task<List<SalesDetail>> getSalesDetail(DateTime? fromDate, DateTime? toDate);
+
     }
 }

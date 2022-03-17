@@ -22,7 +22,7 @@ namespace WebAPI.Repository
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Manager> Managers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-
+        public virtual DbSet<Performance> Performances { get; set; }
         internal object SingleOrDefault(Func<object, bool> p)
         {
             throw new NotImplementedException();
@@ -46,7 +46,7 @@ namespace WebAPI.Repository
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=LAPTOP-6D8AK342\\CHI;database=Project4;uid=sa;pwd=123", options => options.EnableRetryOnFailure());
+                optionsBuilder.UseSqlServer("server=localhost;database=Project4;uid=sa;pwd=sql@123456", options => options.EnableRetryOnFailure());
             }
         }
 
@@ -341,6 +341,18 @@ namespace WebAPI.Repository
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.TargetId)
                     .HasConstraintName("FK_user_target1");
+            });
+
+            modelBuilder.Entity<Performance>(entity =>
+            {
+                entity.ToTable("Performance");
+
+
+                entity.Property(e => e.UserId)
+                   .HasColumnType("int");
+                entity.Property(e => e.YTD)
+                   .HasColumnType("int");
+
             });
 
             OnModelCreatingPartial(modelBuilder);
