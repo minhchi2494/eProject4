@@ -343,16 +343,32 @@ namespace WebAPI.Repository
                     .HasConstraintName("FK_user_target1");
             });
 
+            //modelBuilder.Entity<Performance>(entity =>
+            //{
+            //    entity.ToTable("Performance");
+
+            //    entity.Property<int>("Id")
+            //             .ValueGeneratedOnAdd()
+            //             .HasColumnType("int")
+            //             .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+
+            //    entity.Property(e => e.UserId)
+            //       .HasColumnType("int");
+            //    entity.Property(e => e.YTD)
+            //       .HasColumnType("int");
+
+            //});
+
             modelBuilder.Entity<Performance>(entity =>
             {
                 entity.ToTable("Performance");
 
 
-                entity.Property(e => e.UserId)
-                   .HasColumnType("int");
                 entity.Property(e => e.YTD)
-                   .HasColumnType("int");
-
+                    .HasColumnType("int");
+                entity.Property(e => e.UserId)
+                    .HasColumnType("int");
             });
 
             OnModelCreatingPartial(modelBuilder);

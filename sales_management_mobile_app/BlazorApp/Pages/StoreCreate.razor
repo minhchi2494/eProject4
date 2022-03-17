@@ -88,6 +88,12 @@
             <input type="checkbox" unchecked @bind="newStore.IsActive">
             <small id="nameHelp" class="form-text text-muted">(Note: check to active your Store)</small>
         </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="UserId">User Id: </label>
+            <InputNumber class="form-control" @bind-Value="newStore.UserId"></InputNumber>
+            <ValidationMessage For="()=>newStore.UserId"></ValidationMessage>
+        </div>
     </div>
 
     <div>

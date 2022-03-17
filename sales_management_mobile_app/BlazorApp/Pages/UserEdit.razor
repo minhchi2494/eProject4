@@ -18,7 +18,7 @@
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Id">Id: </label>
-            <input class="form-control" value="@editUser.Id" readonly />
+            <input class="form-control" value="@editUser.Id" readonly hidden/>
         </div>
     </div>
 
@@ -70,9 +70,9 @@
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="StoreId">Store Id: </label>
-            <InputText class="form-control" @bind-Value="editUser.StoreId" readonly></InputText>
-            <ValidationMessage For="()=>editUser.StoreId"></ValidationMessage>
+            <label for="TargetId">Target Id: </label>
+            <InputNumber class="form-control" @bind-Value="editUser.TargetId" readonly></InputNumber>
+            <ValidationMessage For="()=>editUser.TargetId"></ValidationMessage>
         </div>
     </div>
 
@@ -105,11 +105,7 @@
             <ValidationMessage For="()=>editUser.ManagerId"></ValidationMessage>
         </div>
 
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="TargetId">Target Id: </label>
-            <InputNumber class="form-control" @bind-Value="editUser.TargetId" readonly></InputNumber>
-            <ValidationMessage For="()=>editUser.TargetId"></ValidationMessage>
-        </div>
+
     </div>
 
     <div>

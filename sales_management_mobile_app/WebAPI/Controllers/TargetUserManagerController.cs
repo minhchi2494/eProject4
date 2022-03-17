@@ -15,17 +15,17 @@ namespace WebAPI.Controllers
     [ApiController]
     public class TargetUserManagerController : ControllerBase
     {
-        private readonly IPerformanceService _services;
+        private readonly ITargetUserManagerServices _services;
 
-        public TargetUserManagerController(IPerformanceService services)
+        public TargetUserManagerController(ITargetUserManagerServices services)
         {
             _services = services;
         }
 
         [HttpGet]
-        public List<Performance> getTargetUserManagers()
+        public Task<List<vTargetUserManager>> getTargetUserManagers(DateTime? fromDate, DateTime? toDate)
         {
-            return _services.getAll();
+            return _services.getTargetUserManagers(fromDate, toDate);
         }
     }
 }
