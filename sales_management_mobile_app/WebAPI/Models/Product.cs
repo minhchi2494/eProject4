@@ -7,25 +7,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPI.Models
 {
-    public partial class Product
+    public class Product
     {
-        public Product()
-        {
-            ImagesNavigation = new HashSet<Image>();
-            SalesDetails = new HashSet<SalesDetail>();
-            StoreSalesDetails = new HashSet<StoreSalesDetail>();
-        }
-
         public string Id { get; set; }
         public string Name { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
         public string Unit { get; set; }
         public string Images { get; set; }
 
-        //[NotMapped]
-        //public IFormFile ImageFiles { get; set; }
-
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual ICollection<Image> ImagesNavigation { get; set; }
         public virtual ICollection<SalesDetail> SalesDetails { get; set; }

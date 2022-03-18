@@ -5,19 +5,12 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class Location
+    public class Location
     {
-        public Location()
-        {
-            Managers = new HashSet<Manager>();
-            Stores = new HashSet<Store>();
-            Users = new HashSet<User>();
-        }
-
         public int Id { get; set; }
         public string District { get; set; }
         public string Ward { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual ICollection<Manager> Managers { get; set; }
         public virtual ICollection<Store> Stores { get; set; }

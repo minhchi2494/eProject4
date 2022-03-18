@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class Role
+    public class Role
     {
         public Role()
         {
@@ -14,7 +14,7 @@ namespace WebAPI.Models
 
         public int Id { get; set; }
         public string Title { get; set; }
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
     }

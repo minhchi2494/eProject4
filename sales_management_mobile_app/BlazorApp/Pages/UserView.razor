@@ -4,6 +4,7 @@
 @using BlazorApp.Models
 @inject IToastService ToastService
 @inject IUserServices _services;
+@inject IStoreServices _storeservices;
 
 <EditForm Model="@searchUser" OnSubmit=@SeachForm>
     <div class="row">
@@ -17,13 +18,14 @@
 
 
 </EditForm>
-<br />
+@*<br />
 <div class=row>
     <div class="col-3">
         <a href="/userCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
     </div>
 </div>
-<br />
+<br />*@
+<NavLink href="/userCreate" class="btn btn-sm btn-success mb-2">Create User</NavLink>
 
 <table class="table">
     <thead>
@@ -32,7 +34,7 @@
             <th>Fullname</th>
             <th>Email</th>
             <th>Phone</th>
-            <th>Address</th>
+            <th>Role</th>
 @*          <th>Address</th>
             <th>Location</th>*@
             <th>Active</th>
@@ -55,6 +57,10 @@
                 <td>@item.Address</td>
                 @*<td>@item.Role.Title</td>
                     <td>@item.Location.District</td>*@
+                @foreach (var store in stores)
+                {
+                    <td>@store.Name</td>
+                }
                 <td>
                     <span class="badge badge-success">@item.IsActive</span>
                 </td>
@@ -73,7 +79,7 @@
 
 @code {
     private List<User> users = new List<User>();
-
+    private List<Store> stores = new List<Store>();
     private User searchUser = new User();
 
     protected override async Task OnInitializedAsync()

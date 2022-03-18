@@ -1,10 +1,10 @@
-﻿@page "/admin/add"
+﻿@page "/admin/register"
 @attribute [Authorize]
 @inject IAdminServices AdminService
 @inject IAlertService AlertService
 @inject NavigationManager NavigationManager
 
-<h1>Add Admin</h1>
+<h1>Create new Admin</h1>
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <div class="form-row">

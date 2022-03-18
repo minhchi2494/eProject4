@@ -12,13 +12,13 @@ namespace WebAPI.Models
     public class vSalesDetailTargetUser
     {
         //public int Id { get; set; }
-        public int? SalesActualQuantity { get; set; }
-        public int? TargetId { get; set; }
+        public int SalesActualQuantity { get; set; }
+        public int TargetId { get; set; }
         public string ProductId { get; set; }
         public decimal? Price { get; set; }
         public DateTime? Date { get; set; }
 
-        public int? Targets { get; set; }
+        public int Targets { get; set; }
 
         public string Fullname { get; set; }
     }

@@ -38,6 +38,8 @@ namespace BlazorApp.Models
         //public virtual ICollection<User> Users { get; set; }
         public virtual User Users { get; set; }
       //  public string CurrentUserId { get; set; }
-      public int UserId { get; set; }
+
+      [Required]
+      public int? UserId { get; set; }
     }
 }
