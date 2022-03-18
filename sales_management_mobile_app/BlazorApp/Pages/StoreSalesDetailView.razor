@@ -6,7 +6,7 @@
 @inject IStoreSalesDetailServices _services;
 
 <EditForm Model="@ftd" OnSubmit=@SeachForm>
-    <div class="row">
+    @*<div class="row">
         <div class="col-md-3">
             <label for="CreatedOn">From Date: </label>
             <InputDate TValue="DateTime?" @bind-Value="ftd.FromDate" class="form-control"></InputDate>
@@ -18,7 +18,7 @@
         <div class="col-md-2">
             <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
         </div>
-    </div>
+    </div>*@
 
     @*    <div class=row>
             <div class="col-3">

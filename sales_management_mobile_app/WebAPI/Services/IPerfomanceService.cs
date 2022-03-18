@@ -7,9 +7,9 @@ using WebAPI.Models;
 
 namespace WebAPI.Services
 {
-    public interface ISalesDetailServices
+    public interface IPerformanceService
     {
-        Task<List<SalesDetail>> getSalesDetail(DateTime? fromDate, DateTime? toDate);
-
+        List<Performance> getAll();
+    
     }
 }

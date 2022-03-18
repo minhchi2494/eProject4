@@ -3,8 +3,9 @@
 @inject IAlertService AlertService
 @inject NavigationManager NavigationManager
 
-<div class="card" style="width: 500px; margin: auto">
-    <h4 class="card-header">Login</h4>
+<div class="card" style="width: 500px; margin: auto; text-align:center; padding: 50px">
+    <img src="images/logo.png" width="150px" style="margin: auto"/>
+    <h4 class="card-header" style="background-color: azure" >Sales Management Application</h4>
     <div class="card-body">
         <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
             <DataAnnotationsValidator />
@@ -25,7 +26,7 @@
                 }
                 Login
             </button>
-            <NavLink href="admin/register" class="btn btn-link">Register</NavLink>
+            @*<NavLink href="admin/register" class="btn btn-link">Register</NavLink>*@
         </EditForm>
     </div>
 </div>

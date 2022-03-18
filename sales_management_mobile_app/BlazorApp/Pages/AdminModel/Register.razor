@@ -1,38 +1,40 @@
-﻿@page "/admin/register"
+﻿@page "/admin/add"
+@attribute [Authorize]
 @inject IAdminServices AdminService
 @inject IAlertService AlertService
 @inject NavigationManager NavigationManager
 
 <div class="card">
-    <h4 class="card-header">Register</h4>
+    <h4 class="card-header">Create new</h4>
     <div class="card-body">
         <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
             <DataAnnotationsValidator />
-            <div class="form-group">
-                <label>Fullname</label>
-                <InputText @bind-Value="model.Fullname" class="form-control" />
-                <ValidationMessage For="@(() => model.Fullname)" />
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <InputText @bind-Value="model.Email" class="form-control" />
-                <ValidationMessage For="@(() => model.Email)" />
-            </div>
-            <div class="form-group">
-                <label>Phone</label>
-                <InputText @bind-Value="model.Phone" class="form-control" />
-                <ValidationMessage For="@(() => model.Phone)" />
-            </div>
-            <div class="form-group">
-                <label>Username</label>
+             <div class="form-group">
+                <label>Username <span style="color:red">(*)</span></label>
                 <InputText @bind-Value="model.Username" class="form-control" />
                 <ValidationMessage For="@(() => model.Username)" />
             </div>
             <div class="form-group">
-                <label>Password</label>
+                <label>Password <span style="color:red">(*)</span></label>
                 <InputText @bind-Value="model.Password" type="password" class="form-control" />
                 <ValidationMessage For="@(() => model.Password)" />
             </div>
+            <div class="form-group">
+                <label>Full name <span style="color:red">(*)</span></label>
+                <InputText @bind-Value="model.Fullname" class="form-control" />
+                <ValidationMessage For="@(() => model.Fullname)" />
+            </div>
+            <div class="form-group">
+                <label>Email <span style="color:red">(*)</span></label>
+                <InputText @bind-Value="model.Email" class="form-control" />
+                <ValidationMessage For="@(() => model.Email)" />
+            </div>
+            <div class="form-group">
+                <label>Phone <span style="color:red">(*)</span></label>
+                <InputText @bind-Value="model.Phone" class="form-control" />
+                <ValidationMessage For="@(() => model.Phone)" />
+            </div>
+
             <button disabled="@loading" class="btn btn-primary">
                 @if (loading)
                 {
@@ -40,7 +42,8 @@
                 }
                 Register
             </button>
-            <NavLink href="account/login" class="btn btn-link">Cancel</NavLink>
+            <NavLink href="admin" class="btn btn-link">Cancel</NavLink>
+            @*<NavLink href="account/login" class="btn btn-link">Cancel</NavLink>*@
         </EditForm>
     </div>
 </div>
@@ -59,7 +62,7 @@
         {
             await AdminService.Register(model);
             AlertService.Success("Registration successful", keepAfterRouteChange: true);
-            NavigationManager.NavigateTo("admin/login");
+            NavigationManager.NavigateTo("admin");
         }
         catch (Exception ex)
         {

@@ -5,19 +5,14 @@ using System.Collections.Generic;
 
 namespace WebAPI.Models
 {
-    public partial class SalesDetail
+    public class SalesDetail
     {
-        //public SalesDetail()
-        //{
-        //    StoreSalesDetails = new HashSet<StoreSalesDetail>();
-        //}
-
         public int Id { get; set; }
         public int SalesActualQuantity { get; set; }
-        public int? TargetId { get; set; }
+        public int TargetId { get; set; }
         public string ProductId { get; set; }
         //public decimal? Price { get; set; }
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
         public int UserId { set; get; }
         public virtual User User { get; set; }
         public virtual Product Product { get; set; }

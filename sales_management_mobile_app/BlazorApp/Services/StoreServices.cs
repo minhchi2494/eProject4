@@ -34,7 +34,7 @@ namespace BlazorApp.Services
         {
             var result = await _httpClient.PostAsJsonAsync($"/api/Store?Id={newStore.Id}&Name={newStore.Name}" +
                 $"&Email={newStore.Email}&Phone={newStore.Phone}&Address={newStore.Address}&Longitude={newStore.Longitude}" +
-                $"&Latitude={newStore.Latitude}&LocationId={newStore.LocationId}&IsActive={newStore.IsActive}", newStore);
+                $"&Latitude={newStore.Latitude}&LocationId={newStore.LocationId}&IsActive={newStore.IsActive}&UserId={newStore.UserId}", newStore);
             if (result.IsSuccessStatusCode)
             {
                 return true;

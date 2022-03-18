@@ -12,13 +12,13 @@
     <DataAnnotationsValidator />
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Id">Id: </label>
+            <label for="Id">Id <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="newManager.Id"></InputText>
             <ValidationMessage For="()=>newManager.Id"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Fullname">Fullname: </label>
+            <label for="Fullname">Fullname <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="newManager.Fullname"></InputText>
             <ValidationMessage For="()=>newManager.Fullname"></ValidationMessage>
         </div>
@@ -30,13 +30,13 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="LocationId">Location Id: </label>
+            <label for="LocationId">Location Id <span style="color:red">(*)</span> </label>
             <InputNumber class="form-control" @bind-Value="newManager.LocationId"></InputNumber>
             <ValidationMessage For="()=>newManager.LocationId"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="StaffQuantity">Staff Quantity: </label>
+            <label for="StaffQuantity">Staff Quantity <span style="color:red">(*)</span> </label>
             <InputNumber class="form-control" @bind-Value="newManager.StaffQuantity"></InputNumber>
             <ValidationMessage For="()=>newManager.StaffQuantity"></ValidationMessage>
         </div>
@@ -47,7 +47,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="/location" class="btn btn-primary">Cancel</a>
+    <a href="/manager" class="btn btn-primary">Cancel</a>
 </EditForm>
 
 @code {

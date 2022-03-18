@@ -12,13 +12,31 @@
     <DataAnnotationsValidator />
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="TargetId">Target Id: </label>
+            <label for="Username">Username <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="model.Username"></InputText>
+            <ValidationMessage For="()=>model.Username"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Password">Password <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" type="password" @bind-Value="model.Password"></InputText>
+            <ValidationMessage For="()=>model.Password"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="TargetId">Target Id <span style="color:red">(*)</span> </label>
             <InputNumber class="form-control" @bind-Value="model.TargetId"></InputNumber>
             <ValidationMessage For="()=>model.TargetId"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Fullname">Fullname: </label>
+            <label for="Fullname">Fullname <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="model.Fullname"></InputText>
             <ValidationMessage For="()=>model.Fullname"></ValidationMessage>
         </div>
@@ -30,13 +48,13 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Phone">Phone: </label>
+            <label for="Phone">Phone <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="model.Phone"></InputText>
             <ValidationMessage For="()=>model.Phone"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Email">Email: </label>
+            <label for="Email">Email <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="model.Email"></InputText>
             <ValidationMessage For="()=>model.Email"></ValidationMessage>
         </div>
@@ -48,13 +66,13 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Address">Address: </label>
+            <label for="Address">Address <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="model.Address"></InputText>
             <ValidationMessage For="()=>model.Address"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="LocationId">Location Id: </label>
+            <label for="LocationId">Location Id <span style="color:red">(*)</span> </label>
             <InputNumber class="form-control" @bind-Value="model.LocationId"></InputNumber>
             <ValidationMessage For="()=>model.LocationId"></ValidationMessage>
         </div>
@@ -67,13 +85,13 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="StoreId">Store Id: </label>
+            <label for="StoreId">Store Id <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="model.StoreId"></InputText>
             <ValidationMessage For="()=>model.StoreId"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="ManagerId">Manager Id: </label>
+            <label for="ManagerId">Manager Id <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="model.ManagerId"></InputText>
             <ValidationMessage For="()=>model.ManagerId"></ValidationMessage>
         </div>
@@ -83,28 +101,9 @@
         <br>
     </div>
 
-
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Username">Username: </label>
-            <InputText class="form-control" @bind-Value="model.Username"></InputText>
-            <ValidationMessage For="()=>model.Username"></ValidationMessage>
-        </div>
-
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Password">Password: </label>
-            <InputText class="form-control" @bind-Value="model.Password"></InputText>
-            <ValidationMessage For="()=>model.Password"></ValidationMessage>
-        </div>
-    </div>
-
-    <div>
-        <br>
-    </div>
-
-    <div class="row material">
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="RoleId">Role Id: </label>
+            <label for="RoleId">Role Id <span style="color:red">(*)</span> </label>
             <InputNumber class="form-control" @bind-Value="model.RoleId"></InputNumber>
             <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
         </div>

@@ -12,13 +12,13 @@
     <DataAnnotationsValidator />
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Id">Id: </label>
+            <label for="Id">Id <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="newStore.Id"></InputText>
             <ValidationMessage For="()=>newStore.Id"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Name">Name: </label>
+            <label for="Name">Name <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="newStore.Name"></InputText>
             <ValidationMessage For="()=>newStore.Name"></ValidationMessage>
         </div>
@@ -30,13 +30,13 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Email">Email: </label>
+            <label for="Email">Email <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="newStore.Email"></InputText>
             <ValidationMessage For="()=>newStore.Email"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Phone">Phone: </label>
+            <label for="Phone">Phone <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="newStore.Phone"></InputText>
             <ValidationMessage For="()=>newStore.Phone"></ValidationMessage>
         </div>
@@ -48,13 +48,13 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Address">Address: </label>
+            <label for="Address">Address <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="newStore.Address"></InputText>
             <ValidationMessage For="()=>newStore.Address"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Longitude">Longitude: </label>
+            <label for="Longitude">Longitude <span style="color:red">(*)</span> </label>
             <InputNumber class="form-control" @bind-Value="newStore.Longitude"></InputNumber>
             <ValidationMessage For="()=>newStore.Longitude"></ValidationMessage>
         </div>
@@ -66,13 +66,13 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Latitude">Latitude: </label>
+            <label for="Latitude">Latitude <span style="color:red">(*)</span> </label>
             <InputNumber class="form-control" @bind-Value="newStore.Latitude"></InputNumber>
             <ValidationMessage For="()=>newStore.Latitude"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="LocationId">Location Id: </label>
+            <label for="LocationId">Location Id <span style="color:red">(*)</span> </label>
             <InputNumber class="form-control" @bind-Value="newStore.LocationId"></InputNumber>
             <ValidationMessage For="()=>newStore.LocationId"></ValidationMessage>
         </div>
@@ -87,6 +87,12 @@
             <label for="IsActive">IsActive</label>
             <input type="checkbox" unchecked @bind="newStore.IsActive">
             <small id="nameHelp" class="form-text text-muted">(Note: check to active your Store)</small>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="UserId">User Id <span style="color:red">(*)</span> </label>
+            <InputNumber class="form-control" @bind-Value="newStore.UserId"></InputNumber>
+            <ValidationMessage For="()=>newStore.UserId"></ValidationMessage>
         </div>
     </div>
 

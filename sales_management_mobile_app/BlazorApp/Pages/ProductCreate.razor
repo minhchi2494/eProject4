@@ -14,13 +14,13 @@
     <DataAnnotationsValidator />
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Id">Id: </label>
+            <label for="Id">Id <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="newProduct.Id"></InputText>
             <ValidationMessage For="()=>newProduct.Id"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Name">Name: </label>
+            <label for="Name">Name <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="newProduct.Name"></InputText>
             <ValidationMessage For="()=>newProduct.Name"></ValidationMessage>
         </div>
@@ -38,7 +38,7 @@
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Unit">Unit: </label>
+            <label for="Unit">Unit <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="newProduct.Unit"></InputText>
             <ValidationMessage For="()=>newProduct.Unit"></ValidationMessage>
         </div>
@@ -50,7 +50,7 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Images">Images: </label>
+            <label for="Images">Images <span style="color:red">(*)</span> </label>
             <InputFile OnChange="OnInputFileChange" @bind-Value="newProduct.Images"></InputFile>
         </div>
     </div>

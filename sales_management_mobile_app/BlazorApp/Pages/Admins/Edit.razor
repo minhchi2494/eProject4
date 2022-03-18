@@ -4,7 +4,7 @@
 @inject IAlertService AlertService
 @inject NavigationManager NavigationManager
 
-<h1>Edit Admin</h1>
+<h1>Change your profile</h1>
 @if (model != null)
 {
     <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
@@ -75,7 +75,7 @@ else
         {
             await AdminService.Update(Id, model);
             AlertService.Success("Update successful", keepAfterRouteChange: true);
-            NavigationManager.NavigateTo("admin");
+            NavigationManager.NavigateTo("profile");
         }
         catch (Exception ex)
         {

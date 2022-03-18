@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using BlazorApp.Services;
 using Blazored.Toast;
 using BlazorApp.Services.AdminModel;
@@ -32,6 +31,7 @@ namespace BlazorApp
             builder.Services.AddScoped<ILocationServices, LocationServices>();
 
             builder.Services.AddScoped<IManagerServices, ManagerServices>();
+            builder.Services.AddScoped<IPerformanceService, PerformanceService>();
 
             builder.Services.AddScoped<IRoleServices, RoleServices>();
 
@@ -46,6 +46,7 @@ namespace BlazorApp
             builder.Services.AddScoped<IProductServices, ProductServices>();
 
             builder.Services.AddScoped<ISalesDetailTargetUser, SalesDetailTargetUserServices>();
+
 
             builder.Services.AddScoped<IManagerUserServices, ManagerUserServices>();
 
