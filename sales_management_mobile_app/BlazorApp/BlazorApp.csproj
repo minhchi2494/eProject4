@@ -26,6 +26,7 @@
     <Folder Include="Models\AdminModel\" />
     <Folder Include="Pages\AdminModel\" />
     <Folder Include="Pages\Admins\" />
+    <Folder Include="Pages\Manager\" />
     <Folder Include="Services\AdminModel\" />
   </ItemGroup>
 </Project>
