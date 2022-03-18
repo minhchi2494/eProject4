@@ -1,0 +1,69 @@
+﻿@page "/managerCreate"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject IManagerServices _services;
+@inject IToastService ToastService;
+
+<h3>Create Manager</h3>
+
+<EditForm Model="@newManager" OnValidSubmit="@SubmitCreate">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: </label>
+            <InputText class="form-control" @bind-Value="newManager.Id"></InputText>
+            <ValidationMessage For="()=>newManager.Id"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Fullname">Fullname: </label>
+            <InputText class="form-control" @bind-Value="newManager.Fullname"></InputText>
+            <ValidationMessage For="()=>newManager.Fullname"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="LocationId">Location Id: </label>
+            <InputNumber class="form-control" @bind-Value="newManager.LocationId"></InputNumber>
+            <ValidationMessage For="()=>newManager.LocationId"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="StaffQuantity">Staff Quantity: </label>
+            <InputNumber class="form-control" @bind-Value="newManager.StaffQuantity"></InputNumber>
+            <ValidationMessage For="()=>newManager.StaffQuantity"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/location" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+@code {
+    private Manager newManager = new Manager();
+
+    private async Task SubmitCreate(EditContext context)
+    {
+        var result = await _services.createManager(newManager);
+        if (result)
+        {
+            ToastService.ShowSuccess($"Manager {newManager.Fullname} has been created successfully!", "Success");
+            NavigationManager.NavigateTo("/manager");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

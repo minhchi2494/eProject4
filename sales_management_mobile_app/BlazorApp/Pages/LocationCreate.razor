@@ -1,0 +1,63 @@
+﻿@page "/locationCreate"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject ILocationServices _services;
+@inject IToastService ToastService;
+
+<h3>Create Location</h3>
+
+<EditForm Model="@newLoc" OnValidSubmit="@SubmitCreate">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="District">District: </label>
+            <InputText class="form-control" @bind-Value="newLoc.District"></InputText>
+            <ValidationMessage For="()=>newLoc.District"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Ward">Ward: </label>
+            <InputText class="form-control" @bind-Value="newLoc.Ward"></InputText>
+            <ValidationMessage For="()=>newLoc.Ward"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="IsActive">Active: </label>
+            <input type="checkbox" unchecked @bind="newLoc.IsActive">
+            <small id="nameHelp" class="form-text text-muted">(Note: check to active your Location)</small>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/location" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+@code {
+    private Location newLoc = new Location();
+
+    private async Task SubmitCreate(EditContext context)
+    {
+        var result = await _services.createLoc(newLoc);
+        if (result)
+        {
+            ToastService.ShowSuccess("New Location has been created successfully!", "Success");
+            NavigationManager.NavigateTo("/location");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

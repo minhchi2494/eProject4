@@ -1,0 +1,76 @@
+﻿@page "/editRole/{id:int}"
+@attribute [Authorize]
+
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject IRoleServices _services;
+@inject IToastService ToastService;
+
+<h3>Edit Role</h3>
+
+<EditForm Model="@editRole" OnValidSubmit="@SubmitEdit">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: </label>
+            <input class="form-control" value="@editRole.Id" readonly />
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Title">Title: </label>
+            <InputText class="form-control" @bind-Value="editRole.Title"></InputText>
+            <ValidationMessage For="()=>editRole.Title"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+@*    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="IsActive">Active: </label>
+            <input type="checkbox" unchecked @bind="editRole.IsActive">
+            <small id="nameHelp" class="form-text text-muted">(Note: Uncheck will deactive your Role)</small>
+        </div>
+    </div>*@
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/role" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private Role editRole = new Role();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var role = await _services.getRole(id);
+        editRole = new Role();
+        editRole.Id = role.Id;
+        editRole.Title = role.Title;
+        editRole.IsActive = role.IsActive;
+    }
+
+    private async Task SubmitEdit(EditContext context)
+    {
+        var result = await _services.updateRole(editRole);
+        if (result)
+        {
+            ToastService.ShowSuccess("Data has been updated successfully!", "Success");
+            NavigationManager.NavigateTo("/role");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

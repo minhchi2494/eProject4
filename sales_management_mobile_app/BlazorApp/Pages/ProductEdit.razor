@@ -1,0 +1,129 @@
+﻿@page "/editProduct/{id}"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject IProductServices _services;
+@inject IToastService ToastService;
+
+<h3>Edit Product</h3>
+
+@if (editProduct == null)
+{
+    <div>Loading</div>
+}
+
+<EditForm Model="@editProduct" OnValidSubmit="@SubmitEdit">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: </label>
+            <InputText class="form-control" @bind-Value="editProduct.Id" readonly></InputText>
+            <ValidationMessage For="()=>editProduct.Id"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Name">Name: </label>
+            <InputText class="form-control" @bind-Value="editProduct.Name"></InputText>
+            <ValidationMessage For="()=>editProduct.Name"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Price">Price: </label>
+            <InputNumber class="form-control" @bind-Value="editProduct.Price"></InputNumber>
+            <ValidationMessage For="()=>editProduct.Price"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Unit">Unit: </label>
+            <InputText class="form-control" @bind-Value="editProduct.Unit"></InputText>
+            <ValidationMessage For="()=>editProduct.Unit"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Images">Images: </label>
+            <img src="images/@editProduct.Images" width="150px" />
+            <br />
+            <InputFile OnChange="OnInputFileChange" @bind-Value="editProduct.Images"></InputFile>
+        </div>
+    </div>
+
+@*    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="IsActive">Active</label>
+            <input type="checkbox" unchecked @bind="editProduct.IsActive">
+            <small id="nameHelp" class="form-text text-muted">(Note: Uncheck to de-active your Product)</small>
+        </div>
+    </div>*@
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/product" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    [Parameter]
+    public string nameImage { get; set; }
+
+    string Message = "No image selected";
+    IReadOnlyList<IBrowserFile> selectedFiles;
+
+    private void OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        selectedFiles = e.GetMultipleFiles();
+        Message = $"{selectedFiles.Count} image selected";
+        this.StateHasChanged();
+    }
+
+    private Product editProduct = new Product();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var product = await _services.getProduct(id);
+        editProduct = new Product();
+        editProduct.Id = product.Id;
+        editProduct.Name = product.Name;
+        editProduct.Price = product.Price;
+        editProduct.Unit = product.Unit;
+        editProduct.Images = product.Images;
+        editProduct.IsActive = product.IsActive;
+    }
+
+    private async Task SubmitEdit(EditContext context)
+    {
+        foreach (var file in selectedFiles)
+        {
+            editProduct.Images = file.Name;  
+        }
+
+
+        var result = await _services.updateProduct(editProduct);
+        if (result)
+        {
+            ToastService.ShowSuccess($"{editProduct.Name} has been updated successfully!", "Success");
+            NavigationManager.NavigateTo("/product");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

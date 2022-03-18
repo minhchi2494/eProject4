@@ -1,0 +1,84 @@
+﻿@page "/editManager/{id}"
+@attribute [Authorize]
+
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject IManagerServices _services;
+@inject IToastService ToastService;
+
+<h3>Edit Manager</h3>
+
+<EditForm Model="@editManager" OnValidSubmit="@SubmitEdit">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: </label>
+            <InputText class="form-control" @bind-Value="editManager.Id" readonly></InputText>
+            <ValidationMessage For="()=>editManager.Id"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Fullname">Fullname: </label>
+            <InputText class="form-control" @bind-Value="editManager.Fullname"></InputText>
+            <ValidationMessage For="()=>editManager.Fullname"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+@*    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="LocationId">Location Id: </label>
+            <InputNumber class="form-control" @bind-Value="editManager.LocationId"></InputNumber>
+            <ValidationMessage For="()=>editManager.LocationId"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="StaffQuantity">Staff Quantity: </label>
+            <InputNumber class="form-control" @bind-Value="editManager.StaffQuantity"></InputNumber>
+            <ValidationMessage For="()=>editManager.StaffQuantity"></ValidationMessage>
+        </div>
+    </div>*@
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/manager" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    private Manager editManager = new Manager();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var manager = await _services.getManager(id);
+        editManager = new Manager();
+        editManager.Id = manager.Id;
+        editManager.Fullname = manager.Fullname;
+        editManager.LocationId = manager.LocationId;
+        editManager.StaffQuantity = manager.StaffQuantity;
+    }
+
+    private async Task SubmitEdit(EditContext context)
+    {
+        var result = await _services.updateManager(editManager);
+        if (result)
+        {
+            ToastService.ShowSuccess($"Manager {editManager.Fullname} has been updated successfully!", "Success");
+            NavigationManager.NavigateTo("/manager");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

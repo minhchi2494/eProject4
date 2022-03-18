@@ -1,0 +1,71 @@
+﻿@page "/admin/register"
+@inject IAdminServices AdminService
+@inject IAlertService AlertService
+@inject NavigationManager NavigationManager
+
+<div class="card">
+    <h4 class="card-header">Register</h4>
+    <div class="card-body">
+        <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <label>Fullname</label>
+                <InputText @bind-Value="model.Fullname" class="form-control" />
+                <ValidationMessage For="@(() => model.Fullname)" />
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <InputText @bind-Value="model.Email" class="form-control" />
+                <ValidationMessage For="@(() => model.Email)" />
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <InputText @bind-Value="model.Phone" class="form-control" />
+                <ValidationMessage For="@(() => model.Phone)" />
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <InputText @bind-Value="model.Username" class="form-control" />
+                <ValidationMessage For="@(() => model.Username)" />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <InputText @bind-Value="model.Password" type="password" class="form-control" />
+                <ValidationMessage For="@(() => model.Password)" />
+            </div>
+            <button disabled="@loading" class="btn btn-primary">
+                @if (loading)
+                {
+                    <span class="spinner-border spinner-border-sm mr-1"></span>
+                }
+                Register
+            </button>
+            <NavLink href="account/login" class="btn btn-link">Cancel</NavLink>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private AddAdmin model = new AddAdmin();
+    private bool loading;
+
+    private async void OnValidSubmit()
+    {
+        // reset alerts on submit
+        AlertService.Clear();
+
+        loading = true;
+        try
+        {
+            await AdminService.Register(model);
+            AlertService.Success("Registration successful", keepAfterRouteChange: true);
+            NavigationManager.NavigateTo("admin/login");
+        }
+        catch (Exception ex)
+        {
+            AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
+        }
+    }
+}

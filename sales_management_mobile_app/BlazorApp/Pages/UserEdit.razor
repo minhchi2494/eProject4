@@ -1,0 +1,172 @@
+﻿@page "/editUser/{id:int}"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject IUserServices _services;
+@inject IToastService ToastService;
+
+<h3>User Information</h3>
+
+@if (editUser == null)
+{
+    <div>Loading</div>
+}
+
+<EditForm Model="@editUser" OnValidSubmit="@SubmitEdit">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: </label>
+            <input class="form-control" value="@editUser.Id" readonly />
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Username">Username: </label>
+            <InputText class="form-control" @bind-Value="editUser.Username" readonly></InputText>
+            <ValidationMessage For="()=>editUser.Username"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Fullname">Fullname: </label>
+            <InputText class="form-control" @bind-Value="editUser.Fullname" readonly></InputText>
+            <ValidationMessage For="()=>editUser.Fullname"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Email">Email: </label>
+            <InputText class="form-control" @bind-Value="editUser.Email" readonly></InputText>
+            <ValidationMessage For="()=>editUser.Email"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Phone">Phone: </label>
+            <InputText class="form-control" @bind-Value="editUser.Phone" readonly></InputText>
+            <ValidationMessage For="()=>editUser.Phone"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Address">Address: </label>
+            <InputText class="form-control" @bind-Value="editUser.Address" readonly></InputText>
+            <ValidationMessage For="()=>editUser.Address"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="StoreId">Store Id: </label>
+            <InputText class="form-control" @bind-Value="editUser.StoreId" readonly></InputText>
+            <ValidationMessage For="()=>editUser.StoreId"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="LocationId">Location Id: </label>
+            <InputNumber class="form-control" @bind-Value="editUser.LocationId" readonly></InputNumber>
+            <ValidationMessage For="()=>editUser.LocationId"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="RoleId">Role Id: </label>
+            <InputNumber class="form-control" @bind-Value="editUser.RoleId" readonly></InputNumber>
+            <ValidationMessage For="()=>editUser.RoleId"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="ManagerId">Manager Id: </label>
+            <InputText class="form-control" @bind-Value="editUser.ManagerId" readonly></InputText>
+            <ValidationMessage For="()=>editUser.ManagerId"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="TargetId">Target Id: </label>
+            <InputNumber class="form-control" @bind-Value="editUser.TargetId" readonly></InputNumber>
+            <ValidationMessage For="()=>editUser.TargetId"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+@*    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="IsActive">Is Active</label>
+            <input type="checkbox" unchecked @bind="editUser.IsActive">
+            <small id="nameHelp" class="form-text text-muted">(Note: Uncheck will deactive your User)</small>
+        </div>
+    </div>*@
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="/user" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private User editUser = new User();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await _services.getUser(id);
+        editUser = new User();
+        editUser.Id = user.Id;
+        editUser.TargetId = user.TargetId;
+        editUser.Username = user.Username;
+        editUser.Fullname = user.Fullname;
+        editUser.Email = user.Email;
+        editUser.Phone = user.Phone;
+        editUser.Address = user.Address;
+        editUser.StoreId = user.StoreId;
+        editUser.LocationId = user.LocationId;
+        editUser.RoleId = user.RoleId;
+        editUser.ManagerId = user.ManagerId;
+        editUser.IsActive = user.IsActive;
+    }
+
+    private async Task SubmitEdit(EditContext context)
+    {
+        var result = await _services.updateUser(editUser);
+        if (result)
+        {
+            ToastService.ShowSuccess($"{editUser.Fullname} has been updated successfully!", "Success");
+            NavigationManager.NavigateTo("/user");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

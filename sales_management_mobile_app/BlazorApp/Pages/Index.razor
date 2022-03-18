@@ -1,0 +1,12 @@
+﻿@page "/"
+@attribute [Authorize]
+@inject IAdminServices AdminService
+
+<h1>Hi @AdminService.Admin.Username, welcome back! </h1>
+@*<div class="p-4">
+    <div class="container">
+        <h1>Hi @AdminService.Admin.Username!</h1>
+        <p>You're logged in with Blazor WebAssembly!!</p>
+        <p><NavLink href="admin">Manage Admin</NavLink></p>
+    </div>
+</div>*@

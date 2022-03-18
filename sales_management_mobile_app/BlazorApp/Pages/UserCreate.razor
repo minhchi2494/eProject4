@@ -1,0 +1,143 @@
+﻿@page "/userCreate"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject IUserServices _services;
+@inject IToastService ToastService;
+
+<h3>Create User</h3>
+
+<EditForm Model="@model" OnValidSubmit="@SubmitCreate">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="TargetId">Target Id: </label>
+            <InputNumber class="form-control" @bind-Value="model.TargetId"></InputNumber>
+            <ValidationMessage For="()=>model.TargetId"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Fullname">Fullname: </label>
+            <InputText class="form-control" @bind-Value="model.Fullname"></InputText>
+            <ValidationMessage For="()=>model.Fullname"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Phone">Phone: </label>
+            <InputText class="form-control" @bind-Value="model.Phone"></InputText>
+            <ValidationMessage For="()=>model.Phone"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Email">Email: </label>
+            <InputText class="form-control" @bind-Value="model.Email"></InputText>
+            <ValidationMessage For="()=>model.Email"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Address">Address: </label>
+            <InputText class="form-control" @bind-Value="model.Address"></InputText>
+            <ValidationMessage For="()=>model.Address"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="LocationId">Location Id: </label>
+            <InputNumber class="form-control" @bind-Value="model.LocationId"></InputNumber>
+            <ValidationMessage For="()=>model.LocationId"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="StoreId">Store Id: </label>
+            <InputText class="form-control" @bind-Value="model.StoreId"></InputText>
+            <ValidationMessage For="()=>model.StoreId"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="ManagerId">Manager Id: </label>
+            <InputText class="form-control" @bind-Value="model.ManagerId"></InputText>
+            <ValidationMessage For="()=>model.ManagerId"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Username">Username: </label>
+            <InputText class="form-control" @bind-Value="model.Username"></InputText>
+            <ValidationMessage For="()=>model.Username"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Password">Password: </label>
+            <InputText class="form-control" @bind-Value="model.Password"></InputText>
+            <ValidationMessage For="()=>model.Password"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="RoleId">Role Id: </label>
+            <InputNumber class="form-control" @bind-Value="model.RoleId"></InputNumber>
+            <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="IsActive">Active</label>
+            <input type="checkbox" unchecked @bind="model.IsActive">
+            <small id="nameHelp" class="form-text text-muted">(Note: check to active your User)</small>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/user" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+@code {
+    private User model = new User();
+
+    private async Task SubmitCreate(EditContext context)
+    {
+        var result = await _services.createUser(model);
+        if (result)
+        {
+            ToastService.ShowSuccess($"User {model.Fullname} has been created successfully!", "Success");
+            NavigationManager.NavigateTo("/user");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

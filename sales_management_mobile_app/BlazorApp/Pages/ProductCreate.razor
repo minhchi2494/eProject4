@@ -1,0 +1,150 @@
+﻿@page "/productCreate"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@using System.IO
+
+@inject NavigationManager NavigationManager;
+@inject IProductServices _services;
+@inject IToastService ToastService;
+
+<h3>Create Product</h3>
+
+<EditForm Model="@newProduct" OnValidSubmit="@SubmitCreate">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: </label>
+            <InputText class="form-control" @bind-Value="newProduct.Id"></InputText>
+            <ValidationMessage For="()=>newProduct.Id"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Name">Name: </label>
+            <InputText class="form-control" @bind-Value="newProduct.Name"></InputText>
+            <ValidationMessage For="()=>newProduct.Name"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Price">Price: </label>
+            <InputNumber class="form-control" @bind-Value="newProduct.Price"></InputNumber>
+            <ValidationMessage For="()=>newProduct.Price"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Unit">Unit: </label>
+            <InputText class="form-control" @bind-Value="newProduct.Unit"></InputText>
+            <ValidationMessage For="()=>newProduct.Unit"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Images">Images: </label>
+            <InputFile OnChange="OnInputFileChange" @bind-Value="newProduct.Images"></InputFile>
+        </div>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="IsActive">Active</label>
+            <input type="checkbox" unchecked @bind="newProduct.IsActive">
+            <small id="nameHelp" class="form-text text-muted">(Note: check to active your Product)</small>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/product" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+
+@code {
+    private Product newProduct = new Product();
+
+    [Parameter]
+    public string nameImage { get; set; }
+
+    string Message = "No image selected";
+    IReadOnlyList<IBrowserFile> selectedFiles;
+
+    private void OnInputFileChange(InputFileChangeEventArgs e)
+    {
+
+        selectedFiles = e.GetMultipleFiles();
+        //nameImage = e.File.Name;
+        Message = $"{selectedFiles.Count} image selected";
+        this.StateHasChanged();
+    }
+
+    private async Task SubmitCreate(EditContext context)
+    {
+        foreach (var file in selectedFiles)
+        {
+            //string path = $"{Directory.GetCurrentDirectory()}{@"wwwroot/images"}";
+
+            //try
+            //{
+            //FileStream filestream = new FileStream("D:\\img", FileMode.Create, FileAccess.Write);
+            //var stream = file.OpenReadStream();
+            //stream.CopyTo(filestream);
+            //filestream.Close();
+            //stream.Close();
+            //var filepath = Path.Combine(path, file.Name);
+
+            //var b = Directory.Exists(path);
+
+            //newProduct.Images = file.Name;                                                                    ;
+            //var a1 = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)   ;
+            //var a2 = AppDomain.CurrentDomain.BaseDirectory;
+            //var a3 = System.IO.Directory.GetCurrentDirectory();
+            //var a4 = Environment.CurrentDirectory;
+            //var a5 = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+            //var a6 = Path.GetFullPath(path);
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+
+            //if (Directory.Exists(filepath))
+            //{
+            //    var stream = new FileStream(filepath, FileMode.Create);
+            //    await file.OpenReadStream().CopyToAsync(stream);
+            //    //newProduct.Images = "images/" + file.Name;
+
+            //}
+
+            //Stream stream = file.OpenReadStream();
+            //MemoryStream ms = new MemoryStream();
+            //await stream.CopyToAsync(ms);
+            nameImage = file.Name;
+        }
+        newProduct.Images = nameImage;
+        var result = await _services.createProduct(newProduct);
+
+        if (result)
+        {
+            ToastService.ShowSuccess($"{newProduct.Name} has been created successfully!", "Success");
+            NavigationManager.NavigateTo("/product");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

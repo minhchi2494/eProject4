@@ -1,0 +1,120 @@
+﻿@page "/storeCreate"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject IStoreServices _services;
+@inject IToastService ToastService;
+
+<h3>Create Store</h3>
+
+<EditForm Model="@newStore" OnValidSubmit="@SubmitCreate">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: </label>
+            <InputText class="form-control" @bind-Value="newStore.Id"></InputText>
+            <ValidationMessage For="()=>newStore.Id"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Name">Name: </label>
+            <InputText class="form-control" @bind-Value="newStore.Name"></InputText>
+            <ValidationMessage For="()=>newStore.Name"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Email">Email: </label>
+            <InputText class="form-control" @bind-Value="newStore.Email"></InputText>
+            <ValidationMessage For="()=>newStore.Email"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Phone">Phone: </label>
+            <InputText class="form-control" @bind-Value="newStore.Phone"></InputText>
+            <ValidationMessage For="()=>newStore.Phone"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Address">Address: </label>
+            <InputText class="form-control" @bind-Value="newStore.Address"></InputText>
+            <ValidationMessage For="()=>newStore.Address"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Longitude">Longitude: </label>
+            <InputNumber class="form-control" @bind-Value="newStore.Longitude"></InputNumber>
+            <ValidationMessage For="()=>newStore.Longitude"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Latitude">Latitude: </label>
+            <InputNumber class="form-control" @bind-Value="newStore.Latitude"></InputNumber>
+            <ValidationMessage For="()=>newStore.Latitude"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="LocationId">Location Id: </label>
+            <InputNumber class="form-control" @bind-Value="newStore.LocationId"></InputNumber>
+            <ValidationMessage For="()=>newStore.LocationId"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="IsActive">IsActive</label>
+            <input type="checkbox" unchecked @bind="newStore.IsActive">
+            <small id="nameHelp" class="form-text text-muted">(Note: check to active your Store)</small>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/store" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+
+@code {
+    private Store newStore = new Store();
+
+    private List<Location> Locations = new List<Location>();
+
+    private async Task SubmitCreate(EditContext context)
+    {
+        var result = await _services.createStore(newStore);
+        if (result)
+        {
+            ToastService.ShowSuccess($"{newStore.Name} has been created successfully!", "Success");
+            NavigationManager.NavigateTo("/store");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

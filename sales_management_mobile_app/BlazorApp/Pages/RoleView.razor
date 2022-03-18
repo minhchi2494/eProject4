@@ -1,0 +1,70 @@
+﻿@page "/role"
+@attribute [Authorize]
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject IRoleServices _services;
+
+<EditForm Model="@searchRole" OnSubmit=@SeachForm>
+    <div class="row">
+        <div class="col-md-6">
+            <InputText @bind-Value="searchRole.Title" class="form-control" placeholder="Enter Title..."></InputText>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
+        </div>
+    </div>
+
+    <br />
+
+    <div class=row>
+        <div class="col-3">
+            <a href="/roleCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+        </div>
+    </div>
+
+    <br />
+</EditForm>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Active</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in roles)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>
+                    <span class="badge badge-success">@item.IsActive</span>
+                </td>
+                <td>
+                    <a href="/editRole/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Role> roles = new List<Role>();
+
+    private Role searchRole = new Role();
+
+    protected override async Task OnInitializedAsync()
+    {
+        roles = await _services.getRoles(searchRole);
+    }
+
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        roles = await _services.getRoles(searchRole);
+    }
+}
