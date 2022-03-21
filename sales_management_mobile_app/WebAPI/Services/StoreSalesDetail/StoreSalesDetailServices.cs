@@ -109,9 +109,21 @@ namespace WebAPI.Services
             }
         }
 
-        public Task<SalesDetailServices> create()
+
+        public async Task<bool> createStoreSalesDetail(StoreSalesDetail ssd)
         {
-            throw new NotImplementedException();
+            var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).Include(x => x.User).
+                         SingleOrDefault(x=>x.Id == ssd.Id);
+            if (result == null)
+            {
+                _context.StoreSalesDetails.Add(ssd);
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
