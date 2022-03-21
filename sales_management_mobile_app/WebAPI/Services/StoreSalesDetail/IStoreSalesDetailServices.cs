@@ -12,7 +12,7 @@ namespace WebAPI.Services
         Task<List<StoreSalesDetail>> getStoreSalesDetails(DateTime? fromDate, DateTime? toDate);
         Task<bool> createActualQuantity(string storeId, StoreSalesDetail ssd);
         Task<StoreSalesDetail> getStoreSalesDetail(int id);
-        Task<SalesDetailServices> create();
+        Task<bool> createStoreSalesDetail(StoreSalesDetail ssd);
         
     }
 }
