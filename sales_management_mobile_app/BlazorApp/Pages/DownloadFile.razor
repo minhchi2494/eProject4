@@ -2,6 +2,9 @@
 @inject IJSRuntime JSRuntime
 @inject HttpClient _httpClient
  
+@inject NavigationManager NavigationManager;
+@inject IToastService ToastService;
+
 <button @onclick="@(async() => await DownloadFiles())" class="form-control btn btn-primary col-md-10">Export</button>
  
 @if (IsDownloadStarted == 1)
@@ -31,6 +34,9 @@ else if (IsDownloadStarted == 2)
             await JSRuntime.InvokeAsync<object>("saveAsFile", fileName, Convert.ToBase64String(fileBytes));
  
             IsDownloadStarted = 2;
+
+            ToastService.ShowSuccess("File has been export successfully!", "Success");
+            NavigationManager.NavigateTo("/storeSalesDetail");
         }
     }
 }

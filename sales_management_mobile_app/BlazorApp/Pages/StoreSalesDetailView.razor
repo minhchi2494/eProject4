@@ -18,23 +18,32 @@
         <div class="col-md-2">
             <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col colright">
-             <div class="col-md-2">
-                 <DownloadFile></DownloadFile>
-             </div>
+    
+        <div class="col-md-2" style="max-width:130px;">
+            <a href="/downloadexcel" class="btn btn-primary"><i class="fa fa-download"></i> Export</a>
+        </div>
+        <div class="col-md-2">
+            <a href="/importexcel" class="btn btn-primary"><i class="fas fa-file-import"></i> Import</a>
         </div>
     </div>
 
-    
-    @*    <div class=row>
-            <div class="col-3">
-                <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
-            </div>
-        </div>*@
+@*    <div class="row">
+             <div class="col-md-8">
+             </div>
+
+             <div class="col-md-2">
+                 <DownloadFile></DownloadFile>
+                 <a href="/downloadexcel" class="btn btn-primary"><i class="fa fa-download"></i></a>
+             </div>
+
+             <div class="col-md-2">
+                  <a href="/importexcel" class="btn btn-primary"><i class="fas fa-file-import"></i></a>
+                 <ImportFile></ImportFile>
+             </div>
+    </div>*@
 </EditForm>
+
+<br />
 
 <table class="table">
     <thead>
