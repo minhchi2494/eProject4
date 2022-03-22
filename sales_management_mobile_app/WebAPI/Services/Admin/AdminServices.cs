@@ -25,9 +25,6 @@ namespace WebAPI.Services
            
         }
 
-    
-
-
         public Admin getAdmin(int id)
         {
             // return _context.Admins.FirstOrDefault(x => x.Id == id);
