@@ -1,0 +1,83 @@
+﻿@page "/importexcel"
+@inject HttpClient _httpClient
+@using System.IO
+@using BlazorApp.Models
+@using OfficeOpenXml;
+
+@inject NavigationManager NavigationManager;
+@inject IToastService ToastService;
+
+<form @onsubmit="OnSubmit" class="control-wrapper">
+    <InputFile OnChange="OnInputFileChange"></InputFile>
+    <div>
+        <br>
+    </div>
+         <button class="form-control btn btn-primary col-md-10" type="submit">Import</button>
+   
+</form>
+
+
+@if(ImportStated == 1)
+{
+    <p>Importing... Please wait</p>
+}
+else if (ImportStated == 2)
+{
+    <p>Import Success</p>
+}
+
+@code {
+    public int ImportStated { get; set; } = 0;
+
+    string Message = "No file(s) selected";
+    IReadOnlyList<IBrowserFile> selectedFiles;
+
+
+    private void OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        selectedFiles = e.GetMultipleFiles();
+        Message = $"{selectedFiles.Count} file(s) selected"; 
+        this.StateHasChanged();
+    }
+
+    private async void OnSubmit()
+    {
+        foreach(var file in selectedFiles)
+        {
+            try
+            {
+                Stream stream = file.OpenReadStream();
+                MemoryStream ms = new MemoryStream();
+                await stream.CopyToAsync(ms);
+                stream.Close();
+
+                var content = new MultipartFormDataContent();
+                var fileContent = new StreamContent(file.OpenReadStream(99999999));
+                content.Add(fileContent, "file", file.Name);
+                //hasItemsForUpload = true;
+                if (content != null)
+                {
+                    var uri = $@"api/Import/";
+                    var result = await _httpClient.PostAsync(uri, content);
+
+                    if (result != null)
+                    {
+                        ToastService.ShowSuccess("File has been imported successfully!", "Success");
+                        NavigationManager.NavigateTo("/storeSalesDetail");
+                        //Message = $"{selectedFiles.Count} file(s) uploaded on server";
+                        //this.StateHasChanged();
+                    }
+                }
+            }
+            catch
+            {
+                ToastService.ShowError("File is not selected!", "Fail");
+                NavigationManager.NavigateTo("/storeSalesDetail");
+            }
+        }
+
+   }
+        //Message = $"{selectedFiles.Count} file(s) uploaded on server";
+        //this.StateHasChanged();
+
+}
