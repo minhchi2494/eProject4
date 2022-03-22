@@ -18,15 +18,52 @@
     <br />
 
     @*<div class=row>
-            <div class="col-3">
-                <a href="/managerCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
-            </div>
+        <div class="col-3">
+        <a href="/managerCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+        </div>
         </div>
 
         <br />*@
 
     <NavLink href="/managerCreate" class="btn btn-sm btn-success mb-2">Create Manager</NavLink>
 </EditForm>
+
+@*<div class="row">
+    <div class="col">
+        <div class="col-md-2">
+            <button type="button" class="form-control btn btn-primary" @onclick="Show">
+                <i class="fas fa-plus"></i> ADD New
+            </button>
+
+            <div>
+                <br>
+            </div>
+
+            @if (showModal)
+            {
+                <div class="modal" style="display:block" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <h4 style="text-align:center" class="modal-title">Create</h4>
+                            <div class="modal-body">
+                                <label for="AttributeMaster" class="Requried">Attribute Master : </label>
+                                <input />
+                                <div>Hello from Dialog</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary d-flex justify-content-start">Save</button>
+                                <button type="button" @onclick="CancelSubmit" class="btn btn-default d-flex justify-content-end" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>*@
 
 <table class="table">
     <thead>
@@ -50,9 +87,9 @@
                     <a href="/managerUser/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
                 </td>
 
-@*                <td>
+                @*                <td>
                     <a href="/editManager/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
-                </td>*@
+                    </td>*@
             </tr>
         }
     </tbody>
@@ -63,8 +100,11 @@
 
     private Manager searchManager = new Manager();
 
+    bool showModal;
+
     protected override async Task OnInitializedAsync()
     {
+        //showModal = false;
         managers = await _services.getManagers(searchManager);
     }
 
@@ -73,4 +113,14 @@
         ToastService.ShowSuccess("Search successfully!", "Success");
         managers = await _services.getManagers(searchManager);
     }
+
+    //private void Show()
+    //{
+    //    showModal = true;
+    //}
+
+    //private void CancelSubmit()
+    //{
+    //    showModal = false;
+    //}
 }
