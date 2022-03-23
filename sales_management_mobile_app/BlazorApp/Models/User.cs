@@ -41,12 +41,6 @@ namespace BlazorApp.Models
         public virtual Role Role { get; set; }
        // public virtual Store Store { get; set; }
         public virtual Target Target { get; set; }
-        public virtual List<Store> Stores { get; set; }
-
-        //public User()
-        //{
-        //    //StoreSalesDetails = new HashSet<StoreSalesDetail>();
-        //    Stores = new HashSet<Store>();
-        //}
+        public virtual ICollection<Store> Stores { get; set; }
     }
 }
