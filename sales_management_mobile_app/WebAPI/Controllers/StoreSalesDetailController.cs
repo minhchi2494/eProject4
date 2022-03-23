@@ -29,9 +29,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public Task<bool> createActualQuantity([FromQuery] string productId,[FromQuery] StoreSalesDetail ssd)
+        public Task<bool> createActualQuantity([FromQuery] StoreSalesDetail ssd)
         {
-            return _services.createActualQuantity(productId, ssd);
+            return _services.createActualQuantity(ssd);
         }
 
         [HttpGet("{id}")]
