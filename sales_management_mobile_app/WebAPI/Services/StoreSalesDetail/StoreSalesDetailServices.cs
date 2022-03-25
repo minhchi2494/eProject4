@@ -110,8 +110,11 @@ namespace WebAPI.Services
 
 
             //tính cộng dồn cho bảng Targets
+            //load lại số record theo target id bên bảng SalesDetail
             var acc2 = _context.SalesDetails.Where(x => x.TargetId.Equals(targetId)).ToList();
+            //tìm lại trong bảng Target record mà ngày nhập vào trong StoreSalesDetail nằm trong khoảng From Date To Date bên bảng Target
             var target2 = targetList.SingleOrDefault(x => x.FromDate <= ssd.Date && x.ToDate >= ssd.Date);
+            //tìm danh sách record trong bảng SalesDetail mà có Date nằm trong khoảng FromDate ToDate đã tìm dc trong đối tượng target2
             var listSDByDate = acc2.Where(x => x.Date >= target2.FromDate && x.Date <= target2.ToDate).ToList();
             if (listSDByDate != null)
             {
