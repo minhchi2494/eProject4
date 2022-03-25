@@ -14,7 +14,10 @@ namespace WebAPI.Models
         public int ActualQuantity { get; set; }
         public DateTime? CreatedOn { get; set; }
 
+        public virtual User User { get; set; }
+        public int UserId { get; set; }
+
         public virtual ICollection<SalesDetail> SalesDetails { get; set; }
-        public virtual ICollection<User> Users { get; set; }
+        
     }
 }

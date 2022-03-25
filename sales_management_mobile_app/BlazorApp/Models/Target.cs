@@ -7,12 +7,6 @@ namespace BlazorApp.Models
 {
     public partial class Target
     {
-        public Target()
-        {
-            SalesDetails = new HashSet<SalesDetail>();
-            Users = new HashSet<User>();
-        }
-
         public int Id { get; set; }
         public int Targets { get; set; }
         public DateTime FromDate { get; set; }
@@ -20,7 +14,9 @@ namespace BlazorApp.Models
         public int ActualQuantity { get; set; } 
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
+        public virtual User User { get; set; }
+        public int UserId { get; set; }
+
         public virtual ICollection<SalesDetail> SalesDetails { get; set; }
-        public virtual ICollection<User> Users { get; set; }
     }
 }

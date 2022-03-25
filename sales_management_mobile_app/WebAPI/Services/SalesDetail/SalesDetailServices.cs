@@ -19,14 +19,16 @@ namespace WebAPI.Services
 
         public async Task<List<SalesDetail>> getSalesDetail(DateTime? fromDate, DateTime? toDate)
         {
-            var result = _context.SalesDetails.Include(x => x.Target).Include(x => x.Product).Include(x => x.User).ToList();
+            //var result = _context.SalesDetails.Include(x => x.Target).Include(x => x.Product).Include(x => x.User).ToList();
+            var result = _context.SalesDetails.Include(x => x.Target).Include(x => x.Product).ToList();
             if (fromDate == null && toDate == null)
             {
                 return result;
             }
             else
             {
-                result = _context.SalesDetails.Include(x => x.Target).Include(x => x.Product).Include(x => x.User)
+                //result = _context.SalesDetails.Include(x => x.Target).Include(x => x.Product).Include(x => x.User)
+                result = _context.SalesDetails.Include(x => x.Target).Include(x => x.Product)
                                               .Where(x => x.Date >= fromDate).Where(x => x.Date <= toDate).ToList();
                 return result;
             }

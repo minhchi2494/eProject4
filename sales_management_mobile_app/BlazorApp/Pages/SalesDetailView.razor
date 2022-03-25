@@ -30,7 +30,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Sales Name</th>
+            @*<th>Sales Name</th>*@
             <th>Daily Sales</th>
             <th>Target</th>
             <th>Product</th>
@@ -41,7 +41,7 @@
         @foreach (var item in sd)
         {
             <tr>
-                <td>@item.User.Fullname</td>
+                @*<td>@item.User.Fullname</td>*@
                 <td>@item.SalesActualQuantity</td>
                 <td>@item.Target.Targets</td>
                 <td>@item.Product.Name</td>
