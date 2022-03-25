@@ -38,17 +38,17 @@ namespace WebAPI.Services
             //StoreSalesDetail result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).SingleOrDefault(x => x.StoreId.Equals(ssd.StoreId));
             //if (result == null)
             //{
-                StoreSalesDetail result = new StoreSalesDetail()
-                {
-                    ProductId = ssd.ProductId,
-                    Date = ssd.Date,
-                    StoreId = ssd.StoreId,
-                    StoreActualQuantity = ssd.StoreActualQuantity,
-                    Product = _context.Products.SingleOrDefault(p=>p.Id == ssd.ProductId),
-                    Store = _context.Stores.SingleOrDefault(s=>s.Id == ssd.StoreId)
-                };
-                _context.StoreSalesDetails.Add(result);
-                _context.SaveChanges();
+            StoreSalesDetail result = new StoreSalesDetail()
+            {
+                ProductId = ssd.ProductId,
+                Date = ssd.Date,
+                StoreId = ssd.StoreId,
+                StoreActualQuantity = ssd.StoreActualQuantity,
+                Product = _context.Products.SingleOrDefault(p => p.Id == ssd.ProductId),
+                Store = _context.Stores.SingleOrDefault(s => s.Id == ssd.StoreId)
+            };
+            _context.StoreSalesDetails.Add(result);
+            _context.SaveChanges();
             //}
 
             //var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).First(x => x.StoreId.Equals(storeId));
@@ -58,52 +58,32 @@ namespace WebAPI.Services
             int userId = result.Store.UserId;
             var user = _context.Users.SingleOrDefault(x => x.Id.Equals(userId));
 
-            var target = _context.Targets.SingleOrDefault(x => x.UserId.Equals(userId));
+            //var target = _context.Targets.SingleOrDefault(x => x.UserId.Equals(userId));
+            var targetList = _context.Targets.Where(x => x.UserId.Equals(userId)).ToList();
+            var target = targetList.First();
             int targetId = target.Id;
 
             //var acc = _context.SalesDetails.Where(x => x.UserId.Equals(userId)).ToList();
             var acc = _context.SalesDetails.Where(x => x.TargetId.Equals(targetId)).ToList();
             var temp = acc.Where(x => x.ProductId.Equals(productId)).ToList();
 
+
             int quant = 0;
-            //foreach (var item in temp)
-            //{
-
-            //    quant += item.SalesActualQuantity;
-            //}
-
-
 
             SalesDetail bien = new SalesDetail();
-            //if (result != null)
-            //{
-            //    _context.StoreSalesDetails.Add(ssd);
-            //    _context.SaveChanges();
 
-                if (temp.Count() != 0)
+            if (temp.Count() != 0)
+            {
+                var date = temp.SingleOrDefault(x => x.Date.Equals(ssd.Date));
+                if (date != null)
                 {
-                    var date = temp.SingleOrDefault(x => x.Date.Equals(ssd.Date));
-                    if (date != null)
-                    {
-                        quant += date.SalesActualQuantity;
-                        date.SalesActualQuantity = ssd.StoreActualQuantity + quant;
-                        //date.TargetId = date.TargetId;
-                        //date.UserId = userId;
-                        //date.Date = ssd.Date;
-                        //date.ProductId = ssd.ProductId;
-                        _context.SaveChanges();
-                    }
-                    else
-                    {
-                        bien.SalesActualQuantity = ssd.StoreActualQuantity;
-                        bien.TargetId = targetId;
-                        //bien.UserId = userId;
-                        bien.Date = ssd.Date;
-                        bien.ProductId = ssd.ProductId;
-                        _context.SalesDetails.Add(bien);
-                        _context.SaveChanges();
-                    }
-
+                    quant += date.SalesActualQuantity;
+                    date.SalesActualQuantity = ssd.StoreActualQuantity + quant;
+                    //date.TargetId = date.TargetId;
+                    //date.UserId = userId;
+                    //date.Date = ssd.Date;
+                    //date.ProductId = ssd.ProductId;
+                    _context.SaveChanges();
                 }
                 else
                 {
@@ -115,12 +95,35 @@ namespace WebAPI.Services
                     _context.SalesDetails.Add(bien);
                     _context.SaveChanges();
                 }
-                return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
+
+            }
+            else
+            {
+                bien.SalesActualQuantity = ssd.StoreActualQuantity;
+                bien.TargetId = targetId;
+                //bien.UserId = userId;
+                bien.Date = ssd.Date;
+                bien.ProductId = ssd.ProductId;
+                _context.SalesDetails.Add(bien);
+                _context.SaveChanges();
+            }
+
+
+            //tính cộng dồn cho bảng Targets
+            var acc2 = _context.SalesDetails.Where(x => x.TargetId.Equals(targetId)).ToList();
+            var target2 = targetList.SingleOrDefault(x => x.FromDate <= ssd.Date && x.ToDate >= ssd.Date);
+            var listSDByDate = acc2.Where(x => x.Date >= target2.FromDate && x.Date <= target2.ToDate).ToList();
+            if (listSDByDate != null)
+            {
+                int total = 0;
+                foreach (var item in listSDByDate)
+                {
+                    total += item.SalesActualQuantity;
+                }
+                target2.ActualQuantity = total;
+                _context.SaveChanges();
+            }
+            return true;
         }
 
         public async Task<List<StoreSalesDetail>> getStoreSalesDetails(DateTime? fromDate, DateTime? toDate)

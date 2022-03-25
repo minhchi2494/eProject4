@@ -11,7 +11,7 @@ namespace BlazorApp.Models
         public int Targets { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
-        public int ActualQuantity { get; set; } 
+        public int? ActualQuantity { get; set; } 
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         public virtual User User { get; set; }
