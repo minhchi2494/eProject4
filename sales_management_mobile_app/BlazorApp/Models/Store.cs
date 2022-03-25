@@ -26,12 +26,12 @@ namespace BlazorApp.Models
         [Required]
         public string Address { get; set; }
         [Required]
-        public double? Longitude { get; set; }
+        public double Longitude { get; set; }
         [Required]
-        public double? Latitude { get; set; }
+        public double Latitude { get; set; }
         [Required]
-        public int? LocationId { get; set; }
-        public bool? IsActive { get; set; }
+        public int LocationId { get; set; }
+        public bool IsActive { get; set; }
         
         public virtual Location Location { get; set; }
         public virtual ICollection<StoreSalesDetail> StoreSalesDetails { get; set; }

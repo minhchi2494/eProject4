@@ -60,7 +60,6 @@ namespace WebAPI.Services
             int targetId = user.TargetId;
 
             var acc = _context.SalesDetails.Where(x => x.UserId.Equals(userId)).ToList();
-            //var temp = acc.Where(x => x.ProductId.Equals(ssd.ProductId)).ToList();
             var temp = acc.Where(x => x.ProductId.Equals(productId)).ToList();
 
             int quant = 0;
