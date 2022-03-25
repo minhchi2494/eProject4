@@ -1,0 +1,56 @@
+﻿@page "/testMap"
+@attribute [Authorize]
+@inject IJSRuntime JSRuntime
+
+<h1>Display Google Map</h1>
+<div id="map" style="height:600px;width:100%;">
+</div>
+
+<div class="row">
+    <div class="col-xl-6">
+        <h3>
+            <RadzenCheckBox @bind-Value="@showmardidMarket"></RadzenCheckBox>
+        </h3>
+        <RadzenGoogleMap style="height:600px;width:100%" Zoom="@zoom" Center="(new GoogleMapPosition() { Lat = 10.786914, Lng = 106.664237})" 
+                                               MapClick="@OnMapClick" MarkerClick="@OnMarkerClick">
+            <Markers>
+                <RadzenGoogleMapMarker Title="Nha hang 1" Label="Nha hang 1" Position="(new GoogleMapPosition() { Lat = 10.786313, Lng = 106.667627})" />
+                <RadzenGoogleMapMarker Title="Nha hang 2" Label="Nha hang 2" Position="(new GoogleMapPosition() { Lat = 10.785660, Lng = 106.666758})" />
+                @if (showmardidMarket)
+                {
+                    <RadzenGoogleMapMarker Title="Nha hang 3" Label="Nha hang 3" Position="(new GoogleMapPosition() { Lat = 10.786840, Lng = 106.664998})" />
+                }
+            </Markers>
+        </RadzenGoogleMap>
+    </div>
+
+    <div class="col-xl-6">
+        <label>Position: </label> @clickedPosition
+    </div>
+</div>
+
+@code {
+    int zoom = 15;
+    bool showmardidMarket;
+    string clickedPosition = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initialize", null);
+        }
+    }
+
+    void OnMapClick(GoogleMapClickEventArgs args)
+    {
+        clickedPosition = $"Map clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
+    }
+
+    void OnMarkerClick(RadzenGoogleMapMarker args)
+    {
+        clickedPosition = $"Map {args.Title} clicked LAT: {args.Position.Lat}, LNG: {args.Position.Lng}";
+    }
+
+
+}
