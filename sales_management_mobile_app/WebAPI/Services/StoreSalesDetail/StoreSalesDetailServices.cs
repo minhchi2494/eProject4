@@ -57,9 +57,12 @@ namespace WebAPI.Services
             //var acc = _context.SalesDetails.Where(x => x.UserId.Equals(ssd.UserId)).ToList();
             int userId = result.Store.UserId;
             var user = _context.Users.SingleOrDefault(x => x.Id.Equals(userId));
-            int targetId = user.TargetId;
 
-            var acc = _context.SalesDetails.Where(x => x.UserId.Equals(userId)).ToList();
+            var target = _context.Targets.SingleOrDefault(x => x.UserId.Equals(userId));
+            int targetId = target.Id;
+
+            //var acc = _context.SalesDetails.Where(x => x.UserId.Equals(userId)).ToList();
+            var acc = _context.SalesDetails.Where(x => x.TargetId.Equals(targetId)).ToList();
             var temp = acc.Where(x => x.ProductId.Equals(productId)).ToList();
 
             int quant = 0;
@@ -94,7 +97,7 @@ namespace WebAPI.Services
                     {
                         bien.SalesActualQuantity = ssd.StoreActualQuantity;
                         bien.TargetId = targetId;
-                        bien.UserId = userId;
+                        //bien.UserId = userId;
                         bien.Date = ssd.Date;
                         bien.ProductId = ssd.ProductId;
                         _context.SalesDetails.Add(bien);
@@ -106,7 +109,7 @@ namespace WebAPI.Services
                 {
                     bien.SalesActualQuantity = ssd.StoreActualQuantity;
                     bien.TargetId = targetId;
-                    bien.UserId = userId;
+                    //bien.UserId = userId;
                     bien.Date = ssd.Date;
                     bien.ProductId = ssd.ProductId;
                     _context.SalesDetails.Add(bien);

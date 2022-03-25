@@ -10,8 +10,6 @@ namespace BlazorApp.Models
     {
         public int Id { get; set; }
         [Required]
-        public int? TargetId { get; set; }
-        [Required]
         public string Username { get; set; }
         [Required]
         [DataType(DataType.Password)]
@@ -40,7 +38,7 @@ namespace BlazorApp.Models
         public virtual Manager Manager { get; set; }
         public virtual Role Role { get; set; }
        // public virtual Store Store { get; set; }
-        public virtual Target Target { get; set; }
         public virtual ICollection<Store> Stores { get; set; }
+        public virtual ICollection<Target> Targets { get; set; }
     }
 }

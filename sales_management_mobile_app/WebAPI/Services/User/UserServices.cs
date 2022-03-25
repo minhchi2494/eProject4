@@ -102,9 +102,9 @@ namespace WebAPI.Services
                 model.Address = editUser.Address;
                 model.Password = PinCodeSecurity.pinEncrypt(editUser.Password);
 
-                model.TargetId = editUser.TargetId;
-                Target target = _context.Targets.SingleOrDefault(x=>x.Id.Equals(editUser.TargetId));
-                model.Target = target;
+                //model.TargetId = editUser.TargetId;
+                //Target target = _context.Targets.SingleOrDefault(x=>x.Id.Equals(editUser.TargetId));
+                //model.Target = target;
 
                 //model.StoreId = editUser.StoreId;
                 //Store store = _context.Stores.SingleOrDefault(x => x.Id.Equals(editUser.StoreId));

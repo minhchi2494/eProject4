@@ -8,7 +8,6 @@ namespace WebAPI.Models
     public class User
     {
         public int Id { get; set; }
-        public int TargetId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Fullname { get; set; }
@@ -24,9 +23,8 @@ namespace WebAPI.Models
         public virtual Manager Manager { get; set; }
         public virtual Role Role { get; set; }
 
-        public virtual Target Target { get; set; }
-
         public virtual ICollection<Store> Stores { get; set; }
+        public virtual ICollection<Target> Targets { get; set; }
 
     }
 }
