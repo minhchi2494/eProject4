@@ -27,6 +27,17 @@
     <NavLink href="/managerCreate" class="btn btn-sm btn-success mb-2">Create Manager</NavLink>
 </EditForm>
 
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
 <RadzenGrid @ref="managerGrid" AllowPaging="true" AllowSorting="true" Data="managers" TItem="Manager" ColumnWidth="200px">
     <Columns>
         <RadzenGridColumn TItem="Manager" Property="Id" Title="Id"></RadzenGridColumn>
@@ -35,7 +46,7 @@
         <RadzenGridColumn TItem="Manager" Property="StaffQuantity" Title="StaffQuantity"></RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Title="Action">
             <Template Context="data">
-                <a href="/managerUser/@data.Id"><i class="far fa-eye"></i></a>
+                <a href="/managerUser/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> 
             </Template>
         </RadzenGridColumn>
     </Columns>
@@ -111,6 +122,8 @@
 @code {
     RadzenGrid<Manager> managerGrid;
 
+    private bool loading;
+
     private List<Manager> managers = new List<Manager>();
 
     private Manager searchManager = new Manager();
@@ -120,7 +133,9 @@
     protected override async Task OnInitializedAsync()
     {
         //showModal = false;
+        loading = true;
         managers = await _services.getManagers(searchManager);
+        loading = false;
     }
 
     private async Task SeachForm(EditContext context)

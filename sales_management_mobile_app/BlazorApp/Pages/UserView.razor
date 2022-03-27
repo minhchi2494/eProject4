@@ -16,17 +16,46 @@
         </div>
     </div>
 </EditForm>
-@*<br />
-<div class=row>
-    <div class="col-3">
-        <a href="/userCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
-    </div>
-</div>
-<br />*@
 <br />
 <NavLink href="/userCreate" class="btn btn-sm btn-success mb-2">Create User</NavLink>
 
-<table class="table">
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="userGrid" AllowPaging="true" AllowSorting="true" Data="users" TItem="User" ColumnWidth="200px">
+    <Columns>
+        <RadzenGridColumn TItem="User" Property="Username" Title="Username"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="Fullname" Title="Fullname"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="Email" Title="Email"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="Phone" Title="Phone"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="RoleId" Title="Role">
+            <Template Context="data">
+                @data.Role?.Title
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Title="Active">
+            <Template Context="data">
+                <span class="badge badge-success">@data.IsActive</span>
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Title="Action">
+            <Template Context="data">
+                <a href="/editUser/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a> &nbsp
+                <a href="/storeUser/@data.Id" class="btn btn-outline-info"><i class="fas fa-store"></i></a>
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@*<table class="table">
     <thead>
         <tr>
             <th>Username</th>
@@ -34,15 +63,14 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Role</th>
-@*          <th>Address</th>
-            <th>Location</th>*@
+            <th>Address</th>
+            <th>Location</th>
             <th>Active</th>
             <th>Action</th>
             <th>Store</th>
-
-            @*            <th>Manager</th>
-                <th>Active</th>
-                <th>Actions</th>*@
+            <th>Manager</th>
+            <th>Active</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -54,8 +82,8 @@
                 <td>@item.Email</td>
                 <td>@item.Phone</td>
                 <td>@item.Address</td>
-                @*<td>@item.Role.Title</td>
-                    <td>@item.Location.District</td>*@
+                <td>@item.Role.Title</td>
+                <td>@item.Location.District</td>
                 @foreach (var store in stores)
                 {
                     <td>@store.Name</td>
@@ -74,17 +102,23 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
 
 @code {
+    RadzenGrid<User> userGrid;
+
+    private bool loading;
+
     private List<User> users = new List<User>();
     private List<Store> stores = new List<Store>();
     private User searchUser = new User();
 
     protected override async Task OnInitializedAsync()
     {
+        loading = true;
         users = await _services.getUsers(searchUser);
-        
+        loading = false;
+
     }
 
     private async Task SeachForm(EditContext context)

@@ -4,7 +4,27 @@
 
 <h1>Admin Team</h1>
 <NavLink href="admin/add" class="btn btn-sm btn-success mb-2">Create Admin</NavLink>
-<table class="table">
+
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+<RadzenGrid @ref="adminGrid" AllowPaging="true" AllowSorting="true" Data="admins" TItem="Admin" ColumnWidth="200px">
+    <Columns>
+        <RadzenGridColumn TItem="Admin" Property="Username" Title="Username"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Admin" Property="Fullname" Title="Fullname"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Admin" Property="Phone" Title="Phone"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Admin" Property="Email" Title="Email"></RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@*<table class="table">
     <thead>
         <tr>
             <th style="width: 20%">Username</th>
@@ -36,9 +56,11 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
 
 @code {
+    RadzenGrid<Admin> adminGrid;
+
     private bool loading;
     private IList<Admin> admins;
 
