@@ -8,11 +8,6 @@ namespace BlazorApp.Models
 {
     public partial class Manager
     {
-        public Manager()
-        {
-            Users = new HashSet<User>();
-        }
-
         [Required]
         public string Id { get; set; }
         [Required]

@@ -24,9 +24,22 @@
         </div>
 
         <br />*@
-
     <NavLink href="/managerCreate" class="btn btn-sm btn-success mb-2">Create Manager</NavLink>
 </EditForm>
+
+<RadzenGrid @ref="managerGrid" AllowPaging="true" AllowSorting="true" Data="managers" TItem="Manager" ColumnWidth="200px">
+    <Columns>
+        <RadzenGridColumn TItem="Manager" Property="Id" Title="Id"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="Fullname" Title="Fullname"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="LocationId" Title="LocationId"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="StaffQuantity" Title="StaffQuantity"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Title="Action">
+            <Template Context="data">
+                <a href="/managerUser/@data.Id"><i class="far fa-eye"></i></a>
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
 
 @*<div class="row">
     <div class="col">
@@ -63,16 +76,16 @@
             }
         </div>
     </div>
-</div>*@
+</div>
 
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
             <th style="width:20%">Id</th>
             <th style="width:20%">Fullname</th>
             <th style="width:20%">District</th>
             <th style="width:20%">Team members</th>
-            @*<th style="width:20%">Action</th>*@
+            <th style="width:20%">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -87,15 +100,17 @@
                     <a href="/managerUser/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
                 </td>
 
-                @*                <td>
+                <td>
                     <a href="/editManager/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
-                    </td>*@
+                </td>
             </tr>
         }
     </tbody>
-</table>
+</table>*@
 
 @code {
+    RadzenGrid<Manager> managerGrid;
+
     private List<Manager> managers = new List<Manager>();
 
     private Manager searchManager = new Manager();
