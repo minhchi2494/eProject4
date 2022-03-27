@@ -19,8 +19,6 @@ namespace WebAPI.Services
 
         public async Task<StoreSalesDetail> getStoreSalesDetail(int id)
         {
-            //var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).Include(x => x.User).
-            //            SingleOrDefault(x => x.Id.Equals(id));
             var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).SingleOrDefault(x => x.Id.Equals(id));
             if (result != null)
             {
