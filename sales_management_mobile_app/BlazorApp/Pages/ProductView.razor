@@ -27,6 +27,17 @@
     <NavLink href="/productCreate" class="btn btn-sm btn-success mb-2">Create Product</NavLink>
 </EditForm>
 
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
 <RadzenGrid @ref="productGrid" AllowPaging="true" AllowSorting="true" Data="products" TItem="Product" ColumnWidth="200px">
     <Columns>
         <RadzenGridColumn TItem="Product" Property="Id" Title="Id"></RadzenGridColumn>
@@ -89,13 +100,17 @@
 @code {
     RadzenGrid<Product> productGrid;
 
+    private bool loading;
+
     private List<Product> products = new List<Product>();
 
     private Product searchProduct = new Product();
 
     protected override async Task OnInitializedAsync()
     {
+        loading = true;
         products = await _services.getProducts(searchProduct);
+        loading = false;
     }
 
     private async Task SeachForm(EditContext context)

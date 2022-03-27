@@ -28,7 +28,38 @@
     <br />
 </EditForm>
 
-<table class="table">
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="storeGrid" AllowPaging="true" AllowSorting="true" Data="stores" TItem="Store" ColumnWidth="200px">
+    <Columns>
+        <RadzenGridColumn TItem="Store" Property="Name" Title="Name"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Store" Property="Email" Title="Email"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Store" Property="Phone" Title="Phone"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Store" Property="Address" Title="Address"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Store" Title="Active">
+            <Template Context="data">
+                <span class="badge badge-success">@data.IsActive</span>
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="Store" Title="Action">
+            <Template Context="data">
+                <a href="/storeDetail/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> &nbsp
+                <a href="/editStore/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@*<table class="table">
     <thead>
         <tr>
             <th>Name</th>
@@ -48,8 +79,8 @@
                 <td>@item.Email</td>
                 <td>@item.Phone</td>
                 <td>@item.Address</td>
-                @*<td>@item.Location.District</td>
-                <td>@item.Location.Ward</td>*@
+                <td>@item.Location.District</td>
+                <td>@item.Location.Ward</td>
                 <td>
                     <span class="badge badge-success">@item.IsActive</span>
                 </td>
@@ -62,16 +93,22 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
 
 @code {
+    RadzenGrid<Store> storeGrid;
+
+    private bool loading;
+
     private List<Store> stores = new List<Store>();
 
     private Store searchStore = new Store();
 
     protected override async Task OnInitializedAsync()
     {
+        loading = true;
         stores = await _services.getStores(searchStore);
+        loading = false;
     }
 
     private async Task SeachForm(EditContext context)
