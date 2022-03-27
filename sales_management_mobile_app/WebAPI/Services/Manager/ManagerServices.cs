@@ -42,7 +42,7 @@ namespace WebAPI.Services
 
         public async Task<bool> createManager(Manager newManager)
         {
-            var manager = _context.Managers.SingleOrDefault(m => m.Id.Equals(newManager.Id));
+            var manager = _context.Managers.Include(a => a.Location).SingleOrDefault(m => m.Id.Equals(newManager.Id));
             if (manager == null)
             {
                 _context.Managers.Add(newManager);
@@ -57,15 +57,16 @@ namespace WebAPI.Services
 
         public async Task<bool> updateManager(Manager editManager)
         {
-            var manager = _context.Managers.SingleOrDefault(m => m.Id.Equals(editManager.Id));
+            var manager = _context.Managers.Include(a => a.Location).SingleOrDefault(m => m.Id.Equals(editManager.Id));
             if (manager != null)
             {
                 manager.Fullname = editManager.Fullname;
                 manager.StaffQuantity = editManager.StaffQuantity;
+
                 manager.LocationId = editManager.LocationId;
                 Location loc = _context.Locations.SingleOrDefault(l => l.Id == editManager.LocationId);
-                //Location loc = _context.Locations.SingleOrDefault(l => l.Id == editManager.Location.Id);
                 manager.Location = loc;
+
                 _context.SaveChanges();
                 return true;
             }
