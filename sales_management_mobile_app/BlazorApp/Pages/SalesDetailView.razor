@@ -19,18 +19,48 @@
             <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
         </div>
     </div>
-
-    @*    <div class=row>
-            <div class="col-3">
-                <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
-            </div>
-        </div>*@
 </EditForm>
 
-<table class="table">
+<br />
+
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="sdGrid" AllowPaging="true" AllowSorting="true" Data="sd" TItem="SalesDetail" ColumnWidth="200px">
+    <Columns>
+        <RadzenGridColumn TItem="SalesDetail" Property="ProductId" Title="Product">
+            <Template Context="data">
+                @data.Product.Name
+            </Template>
+        </RadzenGridColumn>
+
+        <RadzenGridColumn TItem="SalesDetail" Property="SalesActualQuantity" Title="Sales Actual Quantity"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="SalesDetail" Property="TargetId" Title="Target">
+            <Template Context="data">
+                @data.Target.Targets
+            </Template>
+        </RadzenGridColumn>
+
+        <RadzenGridColumn TItem="SalesDetail" Property="Date" Title="Date">
+            <Template Context="data">
+                @data.Date.ToString("dd-MM-yyyy")
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@*<table class="table">
     <thead>
         <tr>
-            @*<th>Sales Name</th>*@
             <th>Daily Sales</th>
             <th>Target</th>
             <th>Product</th>
@@ -41,20 +71,20 @@
         @foreach (var item in sd)
         {
             <tr>
-                @*<td>@item.User.Fullname</td>*@
                 <td>@item.SalesActualQuantity</td>
                 <td>@item.Target.Targets</td>
                 <td>@item.Product.Name</td>
                 <td>@item.Date.ToString("dd-MM-yyyy")</td>
-                @*                <td>
-                        <a href="/editRole/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
-                    </td>*@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
 
 @code {
+    RadzenGrid<SalesDetail> sdGrid;
+
+    private bool loading;
+
     private List<SalesDetail> sd = new List<SalesDetail>();
 
     private FromToDate ftd = new FromToDate();
@@ -62,7 +92,9 @@
 
     protected override async Task OnInitializedAsync()
     {
+        loading = true;
         sd = await _services.getSalesDetail(ftd.FromDate, ftd.ToDate);
+        loading = false;
     }
 
     private async Task SeachForm(EditContext context)

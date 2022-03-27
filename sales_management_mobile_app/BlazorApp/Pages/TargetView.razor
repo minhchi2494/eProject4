@@ -20,17 +20,54 @@
             <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
         </div>
     </div>
-
-    @*    <div class=row>
-            <div class="col-3">
-                <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
-            </div>
-        </div>*@
-
+    <br />
     <NavLink href="targetCreate" class="btn btn-sm btn-success mb-2">Create Target</NavLink>
 </EditForm>
 
-<table class="table">
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="targetGrid" AllowPaging="true" AllowSorting="true" Data="targets" TItem="Target" ColumnWidth="200px">
+    <Columns>
+        <RadzenGridColumn TItem="Target" Property="Id" Title="Id"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Target" Property="Targets" Title="Targets"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Target" Property="UserId" Title="Saleman Name">
+            <Template Context="data">
+                @data.User.Fullname
+            </Template>
+        </RadzenGridColumn>
+
+        <RadzenGridColumn TItem="Target" Property="FromDate" Title="From Date">
+            <Template Context="data">
+                @data.FromDate.ToString("dd-MM-yyyy")
+            </Template>
+        </RadzenGridColumn>
+
+        <RadzenGridColumn TItem="Target" Property="ToDate" Title="To Date">
+            <Template Context="data">
+                @data.ToDate.ToString("dd-MM-yyyy")
+            </Template>
+        </RadzenGridColumn>
+
+        <RadzenGridColumn TItem="Target" Property="ActualQuantity" Title="Actual Quantity"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="Target" Title="Percentage(%)">
+            <Template Context="data">
+                @((data.ActualQuantity*100*1.00)/data.Targets)%
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@*<table class="table">
     <thead>
         <tr>
             <th>Id</th>
@@ -52,15 +89,16 @@
                 <td>@item.ToDate.ToString("dd-MM-yyyy")</td>
                 <td>@item.ActualQuantity</td>
                 <td>@item.CreatedOn.ToString("dd-MM-yyyy")</td>
-                @*                <td>
-                        <a href="/editRole/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
-                    </td>*@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
 
 @code {
+    RadzenGrid<Target> targetGrid;
+
+    private bool loading;
+
     private List<Target> targets = new List<Target>();
 
     private List<User> users = new List<User>();
@@ -70,7 +108,9 @@
 
     protected override async Task OnInitializedAsync()
     {
+        loading = true;
         targets = await _services.getTargets(ftd.FromDate, ftd.ToDate);
+        loading = false;
     }
 
     private async Task SeachForm(EditContext context)
