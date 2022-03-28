@@ -2,7 +2,7 @@
 @attribute [Authorize]
 @inject IJSRuntime JSRuntime
 
-<style>
+@*<style>
     .searchBox{
         background-color: #fff;
         padding: 0 11px 0 13px;
@@ -25,7 +25,7 @@
 
 <h1>Display Google Map</h1>
 <div id="map" style="height:600px;width:100%;">
-</div>
+</div>*@
 
 <div class="row">
     <div class="col-xl-6">
@@ -55,13 +55,13 @@
     bool showmardidMarket;
     string clickedPosition = "";
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("initialize", null);
-        }
-    }
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        await JSRuntime.InvokeVoidAsync("initialize", null);
+    //    }
+    //}
 
     void OnMapClick(GoogleMapClickEventArgs args)
     {

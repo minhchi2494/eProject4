@@ -35,7 +35,8 @@
     </table>
 }
 
-<RadzenGrid @ref="targetGrid" AllowPaging="true" AllowSorting="true" Data="targets" TItem="Target" ColumnWidth="200px">
+<RadzenGrid @ref="targetGrid" AllowPaging="true" AllowSorting="true" Data="targets" TItem="Target" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>
         <RadzenGridColumn TItem="Target" Property="Id" Title="Id"></RadzenGridColumn>
         <RadzenGridColumn TItem="Target" Property="Targets" Title="Targets"></RadzenGridColumn>

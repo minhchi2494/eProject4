@@ -38,17 +38,18 @@
     </table>
 }
 
-<RadzenGrid @ref="productGrid" AllowPaging="true" AllowSorting="true" Data="products" TItem="Product" ColumnWidth="200px">
+<RadzenGrid @ref="productGrid" AllowPaging="true" AllowSorting="true" Data="products" TItem="Product" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>
         <RadzenGridColumn TItem="Product" Property="Id" Title="Id"></RadzenGridColumn>
-        <RadzenGridColumn TItem="Product" Title="Image">
-            <Template Context="data">
-                <img src="images/@data.Images" width="120px" />
-            </Template>
-        </RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Property="Name" Title="Name"></RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Property="Price" Title="Price"></RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Property="Unit" Title="Unit"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Product" Title="Image">
+            <Template Context="data">
+                <img src="images/@data.Images" style="width: 80px; height: 80px; border-radius: 8px;" />
+            </Template>
+        </RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Title="Active">
             <Template Context="data">
                 <span class="badge badge-success">@data.IsActive</span>
