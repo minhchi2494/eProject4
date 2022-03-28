@@ -34,7 +34,8 @@
     </table>
 }
 
-<RadzenGrid @ref="sdGrid" AllowPaging="true" AllowSorting="true" Data="sd" TItem="SalesDetail" ColumnWidth="200px">
+<RadzenGrid @ref="sdGrid" AllowPaging="true" AllowSorting="true" Data="sd" TItem="SalesDetail" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>
         <RadzenGridColumn TItem="SalesDetail" Property="ProductId" Title="Product">
             <Template Context="data">

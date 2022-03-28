@@ -22,9 +22,7 @@ namespace BlazorApp.Models
         public string Phone { get; set; }
         [Required]
         public string Address { get; set; }
-        [Required]
-        public string StoreId { get; set; }
-        [Required]
+
         public int? LocationId { get; set; }
         [Required]
         public int? RoleId { get; set; }
@@ -33,11 +31,9 @@ namespace BlazorApp.Models
         public bool? IsActive { get; set; }
 
 
-      
         public virtual Location Location { get; set; }
         public virtual Manager Manager { get; set; }
         public virtual Role Role { get; set; }
-       // public virtual Store Store { get; set; }
         public virtual ICollection<Store> Stores { get; set; }
         public virtual ICollection<Target> Targets { get; set; }
     }

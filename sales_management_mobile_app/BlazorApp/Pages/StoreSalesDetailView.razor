@@ -56,7 +56,8 @@
     </table>
 }
 
-<RadzenGrid @ref="ssdGrid" AllowPaging="true" AllowSorting="true" Data="ssd" TItem="StoreSalesDetail" ColumnWidth="200px">
+<RadzenGrid @ref="ssdGrid" AllowPaging="true" AllowSorting="true" Data="ssd" TItem="StoreSalesDetail" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>
         <RadzenGridColumn TItem="StoreSalesDetail" Property="StoreId" Title="Store">
             <Template Context="data">

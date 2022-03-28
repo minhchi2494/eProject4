@@ -39,7 +39,8 @@
     </table>
 }
 
-<RadzenGrid @ref="storeGrid" AllowPaging="true" AllowSorting="true" Data="stores" TItem="Store" ColumnWidth="200px">
+<RadzenGrid @ref="storeGrid" AllowPaging="true" AllowSorting="true" Data="stores" TItem="Store" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>
         <RadzenGridColumn TItem="Store" Property="Name" Title="Name"></RadzenGridColumn>
         <RadzenGridColumn TItem="Store" Property="Email" Title="Email"></RadzenGridColumn>

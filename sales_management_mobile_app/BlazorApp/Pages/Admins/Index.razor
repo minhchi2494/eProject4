@@ -15,7 +15,8 @@
         </tr>
     </table>
 }
-<RadzenGrid @ref="adminGrid" AllowPaging="true" AllowSorting="true" Data="admins" TItem="Admin" ColumnWidth="200px">
+<RadzenGrid @ref="adminGrid" AllowPaging="true" AllowSorting="true" Data="admins" TItem="Admin" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>
         <RadzenGridColumn TItem="Admin" Property="Username" Title="Username"></RadzenGridColumn>
         <RadzenGridColumn TItem="Admin" Property="Fullname" Title="Fullname"></RadzenGridColumn>

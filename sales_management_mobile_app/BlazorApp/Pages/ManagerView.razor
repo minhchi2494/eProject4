@@ -38,17 +38,23 @@
     </table>
 }
 
-<RadzenGrid @ref="managerGrid" AllowPaging="true" AllowSorting="true" Data="managers" TItem="Manager" ColumnWidth="200px">
+<RadzenGrid @ref="managerGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="managers" TItem="Manager" ColumnWidth="200px">
     <Columns>
         <RadzenGridColumn TItem="Manager" Property="Id" Title="Id"></RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="Fullname" Title="Fullname"></RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="LocationId" Title="LocationId"></RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="StaffQuantity" Title="StaffQuantity"></RadzenGridColumn>
+
         <RadzenGridColumn TItem="Manager" Title="Action">
             <Template Context="data">
                 <a href="/managerUser/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> 
             </Template>
+            <FooterTemplate>
+                Displayed Managers: <b>@managerGrid.View.Count()</b> of <b>@managers.Count()</b>
+            </FooterTemplate>
         </RadzenGridColumn>
+
     </Columns>
 </RadzenGrid>
 
