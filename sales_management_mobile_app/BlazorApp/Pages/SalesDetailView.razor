@@ -51,6 +51,14 @@
             </Template>
         </RadzenGridColumn>
 
+        @*bắt đầu sửa*@
+         <RadzenGridColumn TItem="SalesDetail" Property="TargetId" Title="User Id">
+            <Template Context="data">
+                @data.Target.UserId
+            </Template>
+        </RadzenGridColumn>
+        @*kết thúc*@
+
         <RadzenGridColumn TItem="SalesDetail" Property="Date" Title="Date">
             <Template Context="data">
                 @data.Date.ToString("dd-MM-yyyy")
@@ -89,7 +97,6 @@
     private List<SalesDetail> sd = new List<SalesDetail>();
 
     private FromToDate ftd = new FromToDate();
-
 
     protected override async Task OnInitializedAsync()
     {

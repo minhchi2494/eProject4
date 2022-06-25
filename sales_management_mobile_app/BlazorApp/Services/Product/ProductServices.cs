@@ -6,6 +6,8 @@ using System.Linq;
 using BlazorApp.Models;
 using System.Net.Http;
 using System.Net.Http.Json;
+using BlazorApp.Services.Request;
+using Microsoft.AspNetCore.Http;
 
 namespace BlazorApp.Services
 {
@@ -31,7 +33,7 @@ namespace BlazorApp.Services
         }
 
         //public async Task<bool> createProduct(Product createProduct, System.IO.Stream image)
-        public async Task<bool> createProduct(Product createProduct)
+        public async Task<bool> createProduct(MultipartFormDataContent request)
         {
 
             //MultipartFormDataContent form = new MultipartFormDataContent();
@@ -39,9 +41,21 @@ namespace BlazorApp.Services
             //form.Add(new StreamContent(image));
             //form.Add(new StringContent(JsonConvert.SerializeObject(createProduct), Encoding.UTF8, "application/json"));
             //var result1 = await _httpClient.PostAsync("/api/Product", form);
-            var result = await _httpClient.PostAsJsonAsync
-                ($"/api/Product?Id={createProduct.Id}&Name={createProduct.Name}&Price={createProduct.Price}" +
-                $"&Unit={createProduct.Unit}&Images={createProduct.Images}&IsActive={createProduct.IsActive}", createProduct);
+
+            //tạm thời comment
+            //var result = await _httpClient.PostAsJsonAsync
+            //    ($"/api/Product?Id={createProduct.Id}&Name={createProduct.Name}&Price={createProduct.Price}" +
+            //    $"&Unit={createProduct.Unit}&Images={createProduct.Images}&IsActive={createProduct.IsActive}", createProduct);
+            //if (result.IsSuccessStatusCode)
+            //{
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+
+            var result = await _httpClient.PostAsync("/api/Product", request);
             if (result.IsSuccessStatusCode)
             {
                 return true;
@@ -52,11 +66,12 @@ namespace BlazorApp.Services
             }
         }
 
-        public async Task<bool> updateProduct(Product editProduct)
+        public async Task<bool> updateProduct(MultipartFormDataContent request)
         {
-            var result = await _httpClient.PutAsJsonAsync
-                ($"/api/Product?Id={editProduct.Id}&Name={editProduct.Name}&Price={editProduct.Price}" +
-                $"&Unit={editProduct.Unit}&Images={editProduct.Images}&IsActive={editProduct.IsActive}", editProduct);
+            //var result = await _httpClient.PutAsJsonAsync
+            //    ($"/api/Product?Id={editProduct.Id}&Name={editProduct.Name}&Price={editProduct.Price}" +
+            //    $"&Unit={editProduct.Unit}&Images={editProduct.Images}&IsActive={editProduct.IsActive}", editProduct);
+            var result = await _httpClient.PutAsync("/api/Product", request);
             if (result.IsSuccessStatusCode)
             {
                 return true;

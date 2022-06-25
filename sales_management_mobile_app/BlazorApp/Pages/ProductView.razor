@@ -40,14 +40,14 @@
 
 <RadzenGrid @ref="productGrid" AllowPaging="true" AllowSorting="true" Data="products" TItem="Product" ColumnWidth="200px"
             AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
-    <Columns>
+    <Columns>aA
         <RadzenGridColumn TItem="Product" Property="Id" Title="Id"></RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Property="Name" Title="Name"></RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Property="Price" Title="Price"></RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Property="Unit" Title="Unit"></RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Title="Image">
             <Template Context="data">
-                <img src="images/@data.Images" style="width: 80px; height: 80px; border-radius: 8px;" />
+                <img src="@("http://localhost:54350" + data.Images)" style="width: 80px; height: 80px; border-radius: 8px;" />
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Title="Active">
@@ -99,6 +99,7 @@
 </table>*@
 
 @code {
+
     RadzenGrid<Product> productGrid;
 
     private bool loading;
