@@ -16,6 +16,8 @@ using AutoMapper;
 using Microsoft.OpenApi.Models;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace WebAPI
 {
@@ -149,7 +151,12 @@ namespace WebAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Upload")),
+                RequestPath = new PathString("/Upload")
+            });
 
             app.UseEndpoints(endpoints =>
             {

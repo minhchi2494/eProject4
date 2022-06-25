@@ -33,6 +33,7 @@
 <RadzenGrid @ref="userGrid" AllowPaging="true" AllowSorting="true" Data="users" TItem="User" ColumnWidth="200px"
             AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>
+        <RadzenGridColumn TItem="User" Property="Id" Title="Id"></RadzenGridColumn>
         <RadzenGridColumn TItem="User" Property="Username" Title="Username"></RadzenGridColumn>
         <RadzenGridColumn TItem="User" Property="Fullname" Title="Fullname"></RadzenGridColumn>
         <RadzenGridColumn TItem="User" Property="Email" Title="Email"></RadzenGridColumn>

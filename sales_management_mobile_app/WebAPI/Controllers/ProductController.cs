@@ -43,42 +43,66 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public Task<bool> createProduct([FromQuery] Product newProduct)
+        public Task<bool> createProduct([FromForm] Requests.ProductRequest request)
         {
+            IFormFile file = request.file;
+            Product newProduct = new Product();
+            newProduct.Id = request.id;
+            newProduct.Name = request.name;
+            newProduct.Unit = request.unit;
+            newProduct.Price = request.price;
+            newProduct.IsActive = request.active;
+
+            if (file != null)
+            {
+                var dictPath = Path.Combine(_hostEnvironment.ContentRootPath, "Upload");
+                var filepath = Path.Combine(dictPath, file.FileName);
+                using(var stream = new FileStream(filepath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                newProduct.Images = "/Upload/" + file.FileName;
+            }
+
             return _services.createProduct(newProduct);
         }
 
-        //[HttpPost]
-        //public async Task<bool> createProduct([FromQuery]Product2 product2)
-        //{
-        //    var product = await _services.createProduct(new Product()
-        //    {
-        //        Id = product2.Id,
-        //        Name = product2.Name,
-        //        Price = product2.Price,
-        //        Unit = product2.Unit,
-        //        Images = product2.Images,
-        //        IsActive = product2.IsActive,
-        //    });
-        //    return true;
-        //}
 
-        //[NonAction]
-        //public async Task<string> SaveImage(IFormFile imageFile)
+        //[HttpPut]
+        //public Task<bool> updateProduct([FromQuery]Product editProduct)
         //{
-        //    string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ','-');
-        //    imageName = imageName + Path.GetExtension(imageFile.FileName);
-        //    var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
-        //    using (var fileStream = new FileStream(imagePath, FileMode.Create))
-        //    {
-        //        await imageFile.CopyToAsync(fileStream);
-        //    }
-        //    return imageName;
+        //    return _services.updateProduct(editProduct);
         //}
 
         [HttpPut]
-        public Task<bool> updateProduct([FromQuery]Product editProduct)
+        public Task<bool> updateProduct([FromForm] Requests.ProductRequest request)
         {
+            IFormFile file = request.file;
+            Product editProduct = new Product();
+            editProduct.Id = request.id;
+            editProduct.Name = request.name;
+            editProduct.Unit = request.unit;
+            editProduct.Price = request.price;
+            editProduct.IsActive = request.active;
+
+            Task<Product> pro = _services.getProduct(request.id);
+            Product p = pro.Result;
+
+
+            if (file != null)
+            {
+                var dicPath = Path.Combine(_hostEnvironment.ContentRootPath, "Upload");
+                var filePath = Path.Combine(dicPath, file.FileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+                editProduct.Images = "/Upload/" + file.FileName;
+            }
+            else if (file == null)
+            {
+                editProduct.Images = p.Images;
+            }
             return _services.updateProduct(editProduct);
         }
     }

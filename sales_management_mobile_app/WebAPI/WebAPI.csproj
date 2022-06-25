@@ -38,6 +38,14 @@
     <None Remove="Swashbuckle.AspNetCore.Swagger" />
     <None Remove="Swashbuckle.AspNetCore.SwaggerUI" />
     <None Remove="Swashbuckle.AspNetCore.SwaggerGen" />
+    <None Remove="Upload\b5.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Upload\b5.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helpers\" />

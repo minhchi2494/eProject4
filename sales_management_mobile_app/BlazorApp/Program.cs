@@ -7,6 +7,7 @@ using BlazorApp.Services;
 using Blazored.Toast;
 using BlazorApp.Services.AdminModel;
 using BlazorApp.Helpers;
+using Tewr.Blazor.FileReader;
 
 namespace BlazorApp
 {
@@ -55,6 +56,8 @@ namespace BlazorApp
             builder.Services.AddScoped<IStoreUserServices, StoreUserServices>();
 
             builder.Services.AddAuthorizationCore();
+
+            builder.Services.AddFileReaderService();
 
 
             // configure http client
