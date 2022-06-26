@@ -32,6 +32,7 @@ namespace BlazorApp
             builder.Services.AddScoped<ILocationServices, LocationServices>();
 
             builder.Services.AddScoped<IManagerServices, ManagerServices>();
+
             builder.Services.AddScoped<IPerformanceService, PerformanceService>();
 
             builder.Services.AddScoped<IRoleServices, RoleServices>();

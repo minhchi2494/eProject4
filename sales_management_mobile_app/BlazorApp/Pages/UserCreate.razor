@@ -8,6 +8,7 @@
 
 @inject IManagerServices _managerServices;
 @inject IRoleServices _roleServices;
+@inject ITargetServices _targetServices;
 
 <h3>Create User</h3>
 
@@ -109,6 +110,23 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="TargetId">Target No.</label>
+            <select @bind="model.TargetId" style="width:682px; height:35px">
+                @if (targets != null)
+                {
+                        <option value=0 style="text-align:center">-- Select Target Number --</option>
+                    @foreach (var targs in targets)
+                    {
+                        <option value="@targs.Id">@targs.Id</option>
+                    }
+                }
+            </select>
+            <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
+        </div>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="IsActive">Active</label>
             <input type="checkbox" unchecked @bind="model.IsActive">
             <small id="nameHelp" class="form-text text-muted">(Note: check to active your User)</small>
@@ -134,10 +152,15 @@
 
     private User model = new User();
 
+    private List<Target> targets = new List<Target>();
+
+    private FromToDate ftd = new FromToDate();
+
     protected override async Task OnInitializedAsync()
     {
         managers = await _managerServices.getManagers(searchManager);
         roles = await _roleServices.getRoles(searchRole);
+        targets = await _targetServices.getTargets(ftd.FromDate, ftd.ToDate);
     }
 
     private async Task SubmitCreate(EditContext context)

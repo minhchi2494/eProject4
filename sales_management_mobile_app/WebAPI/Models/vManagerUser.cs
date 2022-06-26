@@ -13,5 +13,6 @@ namespace WebAPI.Models
         public string Id { get; set; }
         public string Manager { get; set; }
         public string Salesman { get; set; }
+        public int SalesmanId { get; set; }
     }
 }
