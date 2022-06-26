@@ -14,9 +14,9 @@ namespace BlazorApp.Models
         public int? ActualQuantity { get; set; } 
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
-        public virtual User User { get; set; }
-        public int UserId { get; set; }
 
         public virtual ICollection<SalesDetail> SalesDetails { get; set; }
+        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Manager> Managers { get; set; }
     }
 }

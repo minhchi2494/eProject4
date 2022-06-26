@@ -30,11 +30,15 @@ namespace BlazorApp.Models
         public string ManagerId { get; set; }
         public bool? IsActive { get; set; }
 
+        public int TargetId { get; set; }
+        public int ActualTarget { get; set; }
+
 
         public virtual Location Location { get; set; }
         public virtual Manager Manager { get; set; }
         public virtual Role Role { get; set; }
+        public virtual Target Target { get; set; }
+
         public virtual ICollection<Store> Stores { get; set; }
-        public virtual ICollection<Target> Targets { get; set; }
     }
 }

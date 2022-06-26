@@ -51,13 +51,6 @@
             </Template>
         </RadzenGridColumn>
 
-        @*bắt đầu sửa*@
-         <RadzenGridColumn TItem="SalesDetail" Property="TargetId" Title="User Id">
-            <Template Context="data">
-                @data.Target.UserId
-            </Template>
-        </RadzenGridColumn>
-        @*kết thúc*@
 
         <RadzenGridColumn TItem="SalesDetail" Property="Date" Title="Date">
             <Template Context="data">

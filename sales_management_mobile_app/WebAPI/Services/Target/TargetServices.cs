@@ -19,7 +19,7 @@ namespace WebAPI.Services
 
         public async Task<List<Target>> getTargets(DateTime? fromDate, DateTime? toDate)
         {
-            var targets = _context.Targets.Include(x => x.User).ToList();
+            var targets = _context.Targets.ToList();
             if (fromDate == null && toDate == null)
             {
                 return targets;
@@ -34,7 +34,7 @@ namespace WebAPI.Services
 
         public async Task<bool> createTarget(Target newTarget)
         {
-            var target = _context.Targets.Include(x => x.User).SingleOrDefault(x => x.Id.Equals(newTarget.Id));
+            var target = _context.Targets.SingleOrDefault(x => x.Id.Equals(newTarget.Id));
             if (target == null)
             {
                 _context.Targets.Add(newTarget);

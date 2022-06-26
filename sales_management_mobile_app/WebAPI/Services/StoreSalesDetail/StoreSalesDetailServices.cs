@@ -33,97 +33,88 @@ namespace WebAPI.Services
         //create actual quantity base store id
         public async Task<bool> createActualQuantity(StoreSalesDetail ssd)
         {
-            //StoreSalesDetail result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).SingleOrDefault(x => x.StoreId.Equals(ssd.StoreId));
-            //if (result == null)
-            //{
-            StoreSalesDetail result = new StoreSalesDetail()
-            {
-                ProductId = ssd.ProductId,
-                Date = ssd.Date,
-                StoreId = ssd.StoreId,
-                StoreActualQuantity = ssd.StoreActualQuantity,
-                Product = _context.Products.SingleOrDefault(p => p.Id == ssd.ProductId),
-                Store = _context.Stores.SingleOrDefault(s => s.Id == ssd.StoreId)
-            };
-            _context.StoreSalesDetails.Add(result);
-            _context.SaveChanges();
-            //}
-
-            //var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).First(x => x.StoreId.Equals(storeId));
-            string productId = result.ProductId;
-
-            //var acc = _context.SalesDetails.Where(x => x.UserId.Equals(ssd.UserId)).ToList();
-            int userId = result.Store.UserId;
-            var user = _context.Users.SingleOrDefault(x => x.Id.Equals(userId));
-
-            //var target = _context.Targets.SingleOrDefault(x => x.UserId.Equals(userId));
-            var targetList = _context.Targets.Where(x => x.UserId.Equals(userId)).ToList();
-            var target = targetList.First();
-            int targetId = target.Id;
-
-            //var acc = _context.SalesDetails.Where(x => x.UserId.Equals(userId)).ToList();
-            var acc = _context.SalesDetails.Where(x => x.TargetId.Equals(targetId)).ToList();
-            var temp = acc.Where(x => x.ProductId.Equals(productId)).ToList();
+        //    StoreSalesDetail result = new StoreSalesDetail()
+        //    {
+        //        ProductId = ssd.ProductId,
+        //        Date = ssd.Date,
+        //        StoreId = ssd.StoreId,
+        //        StoreActualQuantity = ssd.StoreActualQuantity,
+        //        Product = _context.Products.SingleOrDefault(p => p.Id == ssd.ProductId),
+        //        Store = _context.Stores.SingleOrDefault(s => s.Id == ssd.StoreId)
+        //    };
+        //    _context.StoreSalesDetails.Add(result);
+        //    _context.SaveChanges();
 
 
-            int quant = 0;
 
-            SalesDetail bien = new SalesDetail();
-
-            if (temp.Count() != 0)
-            {
-                var date = temp.SingleOrDefault(x => x.Date.Equals(ssd.Date));
-                if (date != null)
-                {
-                    quant += date.SalesActualQuantity;
-                    date.SalesActualQuantity = ssd.StoreActualQuantity + quant;
-                    //date.TargetId = date.TargetId;
-                    //date.UserId = userId;
-                    //date.Date = ssd.Date;
-                    //date.ProductId = ssd.ProductId;
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    bien.SalesActualQuantity = ssd.StoreActualQuantity;
-                    bien.TargetId = targetId;
-                    //bien.UserId = userId;
-                    bien.Date = ssd.Date;
-                    bien.ProductId = ssd.ProductId;
-                    _context.SalesDetails.Add(bien);
-                    _context.SaveChanges();
-                }
-
-            }
-            else
-            {
-                bien.SalesActualQuantity = ssd.StoreActualQuantity;
-                bien.TargetId = targetId;
-                //bien.UserId = userId;
-                bien.Date = ssd.Date;
-                bien.ProductId = ssd.ProductId;
-                _context.SalesDetails.Add(bien);
-                _context.SaveChanges();
-            }
+        //    string productId = result.ProductId;
 
 
-            //tính cộng dồn cho bảng Targets
-            //load lại số record theo target id bên bảng SalesDetail
-            var acc2 = _context.SalesDetails.Where(x => x.TargetId.Equals(targetId)).ToList();
-            //tìm lại trong bảng Target record mà Date nhập vào trong StoreSalesDetail nằm trong khoảng From Date To Date bên bảng Target
-            var target2 = targetList.SingleOrDefault(x => x.FromDate <= ssd.Date && x.ToDate >= ssd.Date);
-            //tìm danh sách record trong bảng SalesDetail mà có Date nằm trong khoảng FromDate ToDate đã tìm dc trong đối tượng target2
-            var listSDByDate = acc2.Where(x => x.Date >= target2.FromDate && x.Date <= target2.ToDate).ToList();
-            if (listSDByDate != null)
-            {
-                int total = 0;
-                foreach (var item in listSDByDate)
-                {
-                    total += item.SalesActualQuantity;
-                }
-                target2.ActualQuantity = total;
-                _context.SaveChanges();
-            }
+        //    int userId = result.Store.UserId;
+        //    var user = _context.Users.SingleOrDefault(x => x.Id.Equals(userId));
+
+
+        //    var targetList = _context.Targets.Where(x => x.UserId.Equals(userId)).ToList();
+        //    var target = targetList.First();
+        //    int targetId = target.Id;
+
+        //    //var acc = _context.SalesDetails.Where(x => x.UserId.Equals(userId)).ToList();
+        //    var acc = _context.SalesDetails.Where(x => x.TargetId.Equals(targetId)).ToList();
+        //    var temp = acc.Where(x => x.ProductId.Equals(productId)).ToList();
+
+
+        //    int quant = 0;
+
+        //    SalesDetail bien = new SalesDetail();
+
+        //    if (temp.Count() != 0)
+        //    {
+        //        var date = temp.SingleOrDefault(x => x.Date.Equals(ssd.Date));
+        //        if (date != null)
+        //        {
+        //            quant += date.SalesActualQuantity;
+        //            date.SalesActualQuantity = ssd.StoreActualQuantity + quant;
+        //            _context.SaveChanges();
+        //        }
+        //        else
+        //        {
+        //            bien.SalesActualQuantity = ssd.StoreActualQuantity;
+        //            bien.TargetId = targetId;
+        //            bien.Date = ssd.Date;
+        //            bien.ProductId = ssd.ProductId;
+        //            _context.SalesDetails.Add(bien);
+        //            _context.SaveChanges();
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        bien.SalesActualQuantity = ssd.StoreActualQuantity;
+        //        bien.TargetId = targetId;
+        //        bien.Date = ssd.Date;
+        //        bien.ProductId = ssd.ProductId;
+        //        _context.SalesDetails.Add(bien);
+        //        _context.SaveChanges();
+        //    }
+
+
+        //    //tính cộng dồn cho bảng Targets
+        //    //load lại số record theo target id bên bảng SalesDetail
+        //    var acc2 = _context.SalesDetails.Where(x => x.TargetId.Equals(targetId)).ToList();
+        //    //tìm lại trong bảng Target record mà Date nhập vào trong StoreSalesDetail nằm trong khoảng From Date To Date bên bảng Target
+        //    var target2 = targetList.SingleOrDefault(x => x.FromDate <= ssd.Date && x.ToDate >= ssd.Date);
+        //    //tìm danh sách record trong bảng SalesDetail mà có Date nằm trong khoảng FromDate ToDate đã tìm dc trong đối tượng target2
+        //    var listSDByDate = acc2.Where(x => x.Date >= target2.FromDate && x.Date <= target2.ToDate).ToList();
+        //    if (listSDByDate != null)
+        //    {
+        //        int total = 0;
+        //        foreach (var item in listSDByDate)
+        //        {
+        //            total += item.SalesActualQuantity;
+        //        }
+        //        target2.ActualQuantity = total;
+        //        _context.SaveChanges();
+        //    }
             return true;
         }
 
