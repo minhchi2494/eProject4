@@ -4,6 +4,7 @@
 @using BlazorApp.Services
 @inject NavigationManager NavigationManager;
 @inject IStoreServices _services;
+@inject IUserServices _userServices;
 @inject IToastService ToastService;
 
 <h3>Create Store</h3>
@@ -83,16 +84,31 @@
     </div>
 
     <div class="row material">
+@*        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="UserId">User Id <span style="color:red">(*)</span> </label>
+            <InputNumber class="form-control" @bind-Value="newStore.UserId"></InputNumber>
+            <ValidationMessage For="()=>newStore.UserId"></ValidationMessage>
+        </div>*@
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="UserId">Salesman</label>
+            <select @bind="newStore.UserId" style="width:682px; height:35px">
+                @if (users != null)
+                {
+                        <option value=0 style="text-align:center">-- Select Salesman --</option>
+                    @foreach (var us in users)
+                    {
+                        <option value="@us.Id">@us.Fullname</option>
+                    }
+                }
+            </select>
+            <ValidationMessage For="()=>newStore.UserId"></ValidationMessage>
+        </div>
+
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="IsActive">IsActive</label>
             <input type="checkbox" unchecked @bind="newStore.IsActive">
             <small id="nameHelp" class="form-text text-muted">(Note: check to active your Store)</small>
-        </div>
-
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="UserId">User Id <span style="color:red">(*)</span> </label>
-            <InputNumber class="form-control" @bind-Value="newStore.UserId"></InputNumber>
-            <ValidationMessage For="()=>newStore.UserId"></ValidationMessage>
         </div>
     </div>
 
@@ -109,6 +125,15 @@
     private Store newStore = new Store();
 
     private List<Location> Locations = new List<Location>();
+
+    private List<User> users = new List<User>();
+
+    private User searchUser = new User();
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await _userServices.getUsers(searchUser);
+    }
 
     private async Task SubmitCreate(EditContext context)
     {

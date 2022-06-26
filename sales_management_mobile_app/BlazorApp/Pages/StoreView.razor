@@ -39,13 +39,21 @@
     </table>
 }
 
-<RadzenGrid @ref="storeGrid" AllowPaging="true" AllowSorting="true" Data="stores" TItem="Store" ColumnWidth="200px"
+<RadzenGrid @ref="storeGrid" AllowPaging="true" AllowSorting="true" Data="stores" TItem="Store" ColumnWidth="150"
             AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>
+        <RadzenGridColumn TItem="Store" Property="Id" Title="Id"></RadzenGridColumn>
         <RadzenGridColumn TItem="Store" Property="Name" Title="Name"></RadzenGridColumn>
         <RadzenGridColumn TItem="Store" Property="Email" Title="Email"></RadzenGridColumn>
         <RadzenGridColumn TItem="Store" Property="Phone" Title="Phone"></RadzenGridColumn>
         <RadzenGridColumn TItem="Store" Property="Address" Title="Address"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="Store" Property="UserId" Title="Salesman">
+            <Template Context="data">
+                @data.Users.Fullname
+            </Template>
+        </RadzenGridColumn>
+
         <RadzenGridColumn TItem="Store" Title="Active">
             <Template Context="data">
                 <span class="badge badge-success">@data.IsActive</span>
@@ -53,7 +61,7 @@
         </RadzenGridColumn>
         <RadzenGridColumn TItem="Store" Title="Action">
             <Template Context="data">
-                <a href="/storeDetail/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> &nbsp
+                @*<a href="/storeDetail/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> &nbsp*@
                 <a href="/editStore/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
             </Template>
         </RadzenGridColumn>
