@@ -24,8 +24,8 @@ namespace BlazorApp.Models
         public string Address { get; set; }
 
         public int? LocationId { get; set; }
-        [Required]
-        public int? RoleId { get; set; }
+
+        public int? RoleId { get; set; } = 3;
         [Required]
         public string ManagerId { get; set; }
         public bool? IsActive { get; set; }
