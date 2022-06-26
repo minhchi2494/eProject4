@@ -38,7 +38,7 @@
     </table>
 }
 
-<RadzenGrid @ref="productGrid" AllowPaging="true" AllowSorting="true" Data="products" TItem="Product" ColumnWidth="200px"
+<RadzenGrid @ref="productGrid" AllowPaging="true" PageSize="5" AllowSorting="true" Data="products" TItem="Product" ColumnWidth="200px"
             AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>aA
         <RadzenGridColumn TItem="Product" Property="Id" Title="Id"></RadzenGridColumn>
@@ -59,6 +59,9 @@
             <Template Context="data">
                 <a href="/editProduct/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
             </Template>
+            <FooterTemplate>
+                Displayed Managers: <b>@productGrid.View.Count()</b> of <b>@products.Count()</b>
+            </FooterTemplate>
         </RadzenGridColumn>
     </Columns>
 </RadzenGrid>
