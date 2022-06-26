@@ -43,7 +43,11 @@
     <Columns>
         <RadzenGridColumn TItem="Manager" Property="Id" Title="Id"></RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="Fullname" Title="Fullname"></RadzenGridColumn>
-        <RadzenGridColumn TItem="Manager" Property="LocationId" Title="LocationId"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="LocationId" Title="District">
+            <Template Context="data">
+                @data.Location.District
+            </Template>
+        </RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="StaffQuantity" Title="StaffQuantity"></RadzenGridColumn>
 
         <RadzenGridColumn TItem="Manager" Title="Action">
