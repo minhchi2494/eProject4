@@ -28,7 +28,7 @@ namespace BlazorApp.Services
         public async Task<bool> createTarget(Target newTarget)
         {
             var result = await _httpClient.PostAsJsonAsync($"/api/Target?Targets={newTarget.Targets}&FromDate={newTarget.FromDate}" +
-                $"&ToDate={newTarget.ToDate}&CreatedOn={newTarget.CreatedOn}&UserId={newTarget.UserId}", newTarget);
+                $"&ToDate={newTarget.ToDate}&CreatedOn={newTarget.CreatedOn}", newTarget);
             if (result.IsSuccessStatusCode)
             {
                 return true;

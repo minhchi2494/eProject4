@@ -19,7 +19,7 @@ namespace WebAPI.Services
 
         public async Task<List<Manager>> getManagers(Manager searchManager)
         {
-            var result = _context.Managers.Include(a => a.Location).ToList();
+            var result = _context.Managers.Include(a => a.Location).Include(a => a.Target).ToList();
             if (!string.IsNullOrEmpty(searchManager.Fullname))
             {
                 result = result.Where(x => x.Fullname.ToLower().Contains(searchManager.Fullname.ToLower())).ToList();
@@ -29,7 +29,7 @@ namespace WebAPI.Services
 
         public async Task<Manager> getManager(string id)
         {
-            var result = _context.Managers.Include(a => a.Location).SingleOrDefault(x => x.Id.Equals(id));  
+            var result = _context.Managers.Include(a => a.Location).Include(a => a.Target).SingleOrDefault(x => x.Id.Equals(id));  
             if (result != null)
             {
                 return result;
@@ -66,6 +66,10 @@ namespace WebAPI.Services
                 manager.LocationId = editManager.LocationId;
                 Location loc = _context.Locations.SingleOrDefault(l => l.Id == editManager.LocationId);
                 manager.Location = loc;
+
+                manager.TargetId = editManager.TargetId;
+                Target targ = _context.Targets.SingleOrDefault(t => t.Id == editManager.TargetId);
+                manager.Target = targ;
 
                 _context.SaveChanges();
                 return true;

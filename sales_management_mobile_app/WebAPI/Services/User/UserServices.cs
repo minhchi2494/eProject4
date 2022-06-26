@@ -21,7 +21,8 @@ namespace WebAPI.Services
 
         public async Task<List<User>> getUsers(User searchUser)
         {
-            var result = _context.Users.Include(x => x.Location).Include(x => x.Manager).Include(x => x.Role).Where(x => x.IsActive == true).ToList();
+            var result = _context.Users.Include(x => x.Location).Include(x => x.Manager).Include(x => x.Role).Include(x => x.Target)
+                .Where(x => x.IsActive == true).ToList();
 
             //var result = _context.Users.Where(x => x.IsActive == true).ToList();
             if (!string.IsNullOrEmpty(searchUser.Fullname))
@@ -35,7 +36,7 @@ namespace WebAPI.Services
         public async Task<User> getUser(int id)
         {
             //var result = _context.Users.Include(a => a.Location).Include(a => a.Manager).Include(a => a.Role).Include(a => a.Store).Include(a => a.Target)
-                var result = _context.Users.Include(x => x.Location).Include(x => x.Manager).Include(x => x.Role)
+                var result = _context.Users.Include(x => x.Location).Include(x => x.Manager).Include(x => x.Role).Include(x => x.Target)
                 .Where(x => x.IsActive == true).SingleOrDefault(x => x.Id.Equals(id));
             if (result != null)
             {
@@ -49,7 +50,7 @@ namespace WebAPI.Services
 
         public async Task<User> checkLogin(string username, string password)
         {
-            var model = _context.Users.Include(x => x.Location).Include(x => x.Manager).Include(x => x.Role)
+            var model = _context.Users.Include(x => x.Location).Include(x => x.Manager).Include(x => x.Role).Include(x => x.Target)
                 .Where(x => x.IsActive == true).SingleOrDefault(a => a.Username.Equals(username));
             if (model != null)
             {
@@ -71,7 +72,7 @@ namespace WebAPI.Services
 
         public async Task<bool> createUser(User newUser)
         {
-            var model = _context.Users.Include(x => x.Location).Include(x => x.Manager).Include(x => x.Role)
+            var model = _context.Users.Include(x => x.Location).Include(x => x.Manager).Include(x => x.Role).Include(x => x.Target)
                 .SingleOrDefault(x => x.Id.Equals(newUser.Id));
             if (model == null)
             {
@@ -88,7 +89,7 @@ namespace WebAPI.Services
 
         public async Task<bool> updateUser(User editUser)
         {
-            var model = _context.Users.Include(x => x.Location).Include(x => x.Manager).Include(x => x.Role)
+            var model = _context.Users.Include(x => x.Location).Include(x => x.Manager).Include(x => x.Role).Include(x => x.Target)
                 .Where(x => x.IsActive == true).SingleOrDefault(x=>x.Id.Equals(editUser.Id));
             if (model != null)
             {
@@ -119,6 +120,10 @@ namespace WebAPI.Services
                 model.ManagerId = editUser.ManagerId;
                 Manager manager = _context.Managers.SingleOrDefault(x => x.Id.Equals(editUser.ManagerId));
                 model.Manager = manager;
+
+                model.TargetId = editUser.TargetId;
+                Target targ = _context.Targets.SingleOrDefault(t => t.Id == editUser.TargetId);
+                model.Target = targ;
 
                 model.IsActive = editUser.IsActive;
                 _context.SaveChanges();
