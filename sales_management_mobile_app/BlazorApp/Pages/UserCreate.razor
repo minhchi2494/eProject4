@@ -88,28 +88,6 @@
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="RoleId">Role <span style="color:red">(*)</span> </label>
-            @*<InputNumber class="form-control" @bind-Value="model.RoleId"></InputNumber>*@
-            <select @bind="model.RoleId" style="width:682px; height:35px">
-                @if (roles != null)
-                {
-                        <option value=0 style="text-align:center">-- Select roles --</option>
-                    @foreach (var role in roles)
-                    {
-                        <option value="@role.Id">@role.Title</option>
-                    }
-                }
-            </select>
-            <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
-        </div>
-    </div>
-
-    <div>
-        <br>
-    </div>
-
-    <div class="row material">
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="TargetId">Target No.</label>
             <select @bind="model.TargetId" style="width:682px; height:35px">
                 @if (targets != null)
@@ -123,6 +101,25 @@
             </select>
             <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
         </div>
+
+@*        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="RoleId">Role <span style="color:red">(*)</span> </label>
+            <select @bind="model.RoleId" style="width:682px; height:35px">
+                @if (roles != null)
+                {
+                        <option value=0 style="text-align:center">-- Select roles --</option>
+                    @foreach (var role in roles)
+                    {
+                        <option value="@role.Id">@role.Title</option>
+                    }
+                }
+            </select>
+            <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
+        </div>*@
+    </div>
+
+    <div>
+        <br>
     </div>
 
     <div class="row material">
@@ -133,12 +130,19 @@
         </div>
     </div>
 
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputNumber class="form-control" @bind-Value="model.RoleId" hidden></InputNumber>
+            <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
+        </div>
+    </div>
+
     <div>
         <br>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="/user" class="btn btn-primary">Cancel</a>
+    <a href="/manager" class="btn btn-primary">Cancel</a>
 </EditForm>
 
 @code {
@@ -169,7 +173,7 @@
         if (result)
         {
             ToastService.ShowSuccess($"User {model.Fullname} has been created successfully!", "Success");
-            NavigationManager.NavigateTo("/user");
+            NavigationManager.NavigateTo("/manager");
         }
         else
         {
