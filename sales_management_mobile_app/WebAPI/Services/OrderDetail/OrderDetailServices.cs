@@ -8,18 +8,18 @@ using WebAPI.Repository;
 
 namespace WebAPI.Services
 {
-    public class StoreSalesDetailServices : IStoreSalesDetailServices
+    public class OrderDetailServices : IOrderDetailServices
     {
         private readonly Project4Context _context;
 
-        public StoreSalesDetailServices(Project4Context context)
+        public OrderDetailServices(Project4Context context)
         {
             _context = context;
         }
 
-        public async Task<StoreSalesDetail> getStoreSalesDetail(int id)
+        public async Task<OrderDetail> getOrderDetail(int id)
         {
-            var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).SingleOrDefault(x => x.Id.Equals(id));
+            var result = _context.OrderDetails.Include(x => x.Product).Include(x => x.Order).SingleOrDefault(x => x.Id.Equals(id));
             if (result != null)
             {
                 return result;
@@ -31,7 +31,7 @@ namespace WebAPI.Services
         }
 
         //create actual quantity base store id
-        public async Task<bool> createActualQuantity(StoreSalesDetail ssd)
+        public async Task<bool> createActualQuantity(OrderDetail ssd)
         {
         //    StoreSalesDetail result = new StoreSalesDetail()
         //    {
@@ -118,28 +118,28 @@ namespace WebAPI.Services
             return true;
         }
 
-        public async Task<List<StoreSalesDetail>> getStoreSalesDetails(DateTime? fromDate, DateTime? toDate)
+        public async Task<List<OrderDetail>> getOrderDetails(DateTime? fromDate, DateTime? toDate)
         {
-            var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).ToList();
+            var result = _context.OrderDetails.Include(x => x.Product).Include(x => x.Order).ToList();
             if (fromDate == null && toDate == null)
             {
                 return result;
             }
             else
             {
-                result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store)
+                result = _context.OrderDetails.Include(x => x.Product).Include(x => x.Order)
                                               .Where(x => x.Date >= fromDate).Where(x => x.Date <= toDate).ToList();
                 return result;
             }
         }
 
 
-        public async Task<bool> createStoreSalesDetail(StoreSalesDetail ssd)
+        public async Task<bool> createOrderDetail(OrderDetail ssd)
         {
-            var result = _context.StoreSalesDetails.Include(x => x.Product).Include(x => x.Store).SingleOrDefault(x => x.Id == ssd.Id);
+            var result = _context.OrderDetails.Include(x => x.Product).Include(x => x.Order).SingleOrDefault(x => x.Id == ssd.Id);
             if (result == null)
             {
-                _context.StoreSalesDetails.Add(ssd);
+                _context.OrderDetails.Add(ssd);
                 _context.SaveChanges();
                 return true;
             }

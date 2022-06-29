@@ -15,9 +15,9 @@ namespace practice_codefirst2.Controllers
     public class ImportController : ControllerBase
     {
 
-        private readonly IStoreSalesDetailServices _service;
+        private readonly IOrderDetailServices _service;
 
-        public ImportController(IStoreSalesDetailServices service)
+        public ImportController(IOrderDetailServices service)
         {
             _service = service;
         }
@@ -27,7 +27,7 @@ namespace practice_codefirst2.Controllers
         {
 
             var stream = file.OpenReadStream();
-            List<StoreSalesDetail> list = new List<StoreSalesDetail>();
+            List<OrderDetail> list = new List<OrderDetail>();
             try
             {
                 using (var package = new ExcelPackage(stream))
@@ -46,7 +46,7 @@ namespace practice_codefirst2.Controllers
                             var StoreActualQuantity = worksheet.Cells[row + 1, 3].Value?.ToString();
                             var Date = worksheet.Cells[row + 1, 4].Value?.ToString();
 
-                            var ssd = new StoreSalesDetail()
+                            var ssd = new OrderDetail()
                             {
                                 ProductId = ProductId,
                                 StoreId = StoreId,

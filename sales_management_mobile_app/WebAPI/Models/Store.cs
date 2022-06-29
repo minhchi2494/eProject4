@@ -14,13 +14,12 @@ namespace WebAPI.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+        public int UserId { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
-        public int LocationId { get; set; }
         public bool IsActive { get; set; }
-        public int UserId { get; set; }
-        public virtual Location Location { get; set; }
-        public virtual ICollection<StoreSalesDetail> StoreSalesDetails { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
         public virtual User Users { get; set; }
     }
 }
