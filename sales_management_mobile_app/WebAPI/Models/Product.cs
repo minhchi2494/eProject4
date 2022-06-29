@@ -14,11 +14,10 @@ namespace WebAPI.Models
         public decimal Price { get; set; }
         public string Unit { get; set; }
         public string Images { get; set; }
+        public string Description { get; set; }
 
         public bool IsActive { get; set; }
 
-        public virtual ICollection<Image> ImagesNavigation { get; set; }
-        public virtual ICollection<SalesDetail> SalesDetails { get; set; }
-        public virtual ICollection<StoreSalesDetail> StoreSalesDetails { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }
