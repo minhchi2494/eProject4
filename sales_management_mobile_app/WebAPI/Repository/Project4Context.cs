@@ -13,8 +13,6 @@ namespace WebAPI.Repository
         public Project4Context(DbContextOptions<Project4Context> options) : base(options) { }
 
         public  DbSet<Admin> Admins { get; set; }
-        //public  DbSet<Image> Images { get; set; }
-        //public  DbSet<Location> Locations { get; set; }
         public DbSet<Director> Directors { get; set; }
         public  DbSet<Manager> Managers { get; set; }
         public DbSet<User> Users { get; set; }
@@ -24,19 +22,8 @@ namespace WebAPI.Repository
         public  DbSet<Product> Products { get; set; }
         public  DbSet<Performance> Performances { get; set; }
 
-        //public  DbSet<Role> Roles { get; set; }
-        //public  DbSet<SalesDetail> SalesDetails { get; set; }
-
-        
-        //public  DbSet<Target> Targets { get; set; }
-
-
-        //DbSet của View
-        //public DbSet<vTargetUserManager> vTargetUserManager { get; set; }
-        //public DbSet<vSalesDetailTargetUser> vSalesDetailTargetUser { get; set; }
         public DbSet<vManagerUser> vManagerUser { get; set; }
 
-        public DbSet<vStoreUser> vStoreUser { get; set; }
         public object Admin { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -86,15 +73,6 @@ namespace WebAPI.Repository
                    .HasColumnType("varbinary(max)");
             });
 
-            //modelBuilder.Entity<Image>(entity =>
-            //{
-            //    entity.ToTable("Image");
-            //});
-
-            //modelBuilder.Entity<Location>(entity =>
-            //{
-            //    entity.ToTable("Location");
-            //});
             modelBuilder.Entity<Director>(entity =>
             {
                 entity.ToTable("Director");
@@ -130,24 +108,6 @@ namespace WebAPI.Repository
             {
                 entity.ToTable("Product");
             });
-
-            //modelBuilder.Entity<Role>(entity =>
-            //{
-            //    entity.ToTable("Role");
-            //});
-
-            //modelBuilder.Entity<SalesDetail>(entity =>
-            //{
-            //    entity.ToTable("SalesDetail");
-            //});
-
-
-
-            //modelBuilder.Entity<Target>(entity =>
-            //{
-            //    entity.ToTable("Target");
-            //});
-
 
 
             modelBuilder.Entity<Performance>(entity =>

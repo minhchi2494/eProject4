@@ -29,17 +29,9 @@ namespace BlazorApp
 
             builder.Services.AddScoped<IStoreServices, StoreServices>();
 
-            builder.Services.AddScoped<ILocationServices, LocationServices>();
-
             builder.Services.AddScoped<IManagerServices, ManagerServices>();
 
             builder.Services.AddScoped<IPerformanceService, PerformanceService>();
-
-            builder.Services.AddScoped<IRoleServices, RoleServices>();
-
-            builder.Services.AddScoped<ITargetServices, TargetServices>();
-
-            builder.Services.AddScoped<ISalesDetailServices, SalesDetailServices>();
 
             builder.Services.AddScoped<IStoreSalesDetailServices, StoreSalesDetailServices>();
 
@@ -47,14 +39,7 @@ namespace BlazorApp
 
             builder.Services.AddScoped<IProductServices, ProductServices>();
 
-            builder.Services.AddScoped<ISalesDetailTargetUser, SalesDetailTargetUserServices>();
-
-
             builder.Services.AddScoped<IManagerUserServices, ManagerUserServices>();
-
-            builder.Services.AddScoped<ITargetUserManagerServices, TargetUserManagerServices>();
-
-            builder.Services.AddScoped<IStoreUserServices, StoreUserServices>();
 
             builder.Services.AddAuthorizationCore();
 

@@ -72,11 +72,7 @@
             <ValidationMessage For="()=>newStore.Latitude"></ValidationMessage>
         </div>
 
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="LocationId">Location Id <span style="color:red">(*)</span> </label>
-            <InputNumber class="form-control" @bind-Value="newStore.LocationId"></InputNumber>
-            <ValidationMessage For="()=>newStore.LocationId"></ValidationMessage>
-        </div>
+
     </div>
 
     <div>
@@ -123,8 +119,6 @@
 
 @code {
     private Store newStore = new Store();
-
-    private List<Location> Locations = new List<Location>();
 
     private List<User> users = new List<User>();
 

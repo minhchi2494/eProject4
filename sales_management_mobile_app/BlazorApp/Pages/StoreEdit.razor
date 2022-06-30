@@ -75,22 +75,7 @@
             <ValidationMessage For="()=>editStore.Latitude"></ValidationMessage>
         </div>
 
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="LocationId">LocationId: </label>
-            <InputNumber class="form-control" @bind-Value="editStore.LocationId"></InputNumber>
-            <ValidationMessage For="()=>editStore.LocationId"></ValidationMessage>
-        </div>
 
-        @*            <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-                <label for="locationid">locationid: </label>
-                <InputSelect class="form-control" @bind-Value="editStore.LocationId">
-                    <option>Select option</option>
-                @foreach (var location in Locations)
-                {
-                    <option value="@location.Id">@location.District</option>
-                }
-                </InputSelect>
-            </div>*@
     </div>
 
     <div>
@@ -131,7 +116,6 @@
         editStore.Longitude = store.Longitude;
         editStore.Latitude = store.Latitude;
         editStore.IsActive = store.IsActive;
-        editStore.LocationId = store.LocationId;
     }
 
     private async Task SubmitEdit(EditContext context)

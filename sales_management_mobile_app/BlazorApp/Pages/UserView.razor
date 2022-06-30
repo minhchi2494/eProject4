@@ -38,11 +38,6 @@
         <RadzenGridColumn TItem="User" Property="Fullname" Title="Fullname"></RadzenGridColumn>
         <RadzenGridColumn TItem="User" Property="Email" Title="Email"></RadzenGridColumn>
         <RadzenGridColumn TItem="User" Property="Phone" Title="Phone"></RadzenGridColumn>
-        <RadzenGridColumn TItem="User" Property="RoleId" Title="Role">
-            <Template Context="data">
-                @data.Role?.Title
-            </Template>
-        </RadzenGridColumn>
         <RadzenGridColumn TItem="User" Title="Active">
             <Template Context="data">
                 <span class="badge badge-success">@data.IsActive</span>
