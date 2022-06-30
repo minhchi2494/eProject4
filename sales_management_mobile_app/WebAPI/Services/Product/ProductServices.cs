@@ -65,6 +65,7 @@ namespace WebAPI.Services
                 product.Price = editProduct.Price;
                 product.Unit = editProduct.Unit;
                 product.Images = editProduct.Images;
+                product.Description = editProduct.Description;
                 product.IsActive = editProduct.IsActive;
                 _context.SaveChanges();
                 return true;

@@ -22,10 +22,10 @@ namespace WebAPI.Controllers
             _services = services;
         }
 
-        [HttpGet]
-        public Task<List<vSalesDetailTargetUser>> getSalesDetailTargetUsers(DateTime? fromDate, DateTime? toDate)
-        {
-            return _services.getSalesDetailTargetUsers(fromDate, toDate);
-        }
+        //[HttpGet]
+        //public Task<List<vSalesDetailTargetUser>> getSalesDetailTargetUsers(DateTime? fromDate, DateTime? toDate)
+        //{
+        //    return _services.getSalesDetailTargetUsers(fromDate, toDate);
+        //}
     }
 }

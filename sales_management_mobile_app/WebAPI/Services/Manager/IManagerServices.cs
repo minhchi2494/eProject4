@@ -10,6 +10,7 @@ namespace WebAPI.Services
     {
         Task<List<Manager>> getManagers(Manager searchManager);
         Task<Manager> getManager(string id);
+        Task<Manager> checkLogin(string username, string password);
         Task<bool> createManager(Manager newManager);
         Task<bool> updateManager(Manager editManager);
     }

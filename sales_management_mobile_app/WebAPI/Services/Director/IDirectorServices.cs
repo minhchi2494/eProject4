@@ -10,7 +10,7 @@ namespace WebAPI.Services
     public interface IDirectorServices
     {
         Task<List<Director>> getDirectors(Director searchDirector);
-        Task<Director> getDirector(int id);
+        Task<Director> getDirector(string id);
         Task<Director> checkLogin(string username, string password);
         Task<bool> createDirector(Director newDirector);
         Task<bool> updateDirector(Director editDirector);

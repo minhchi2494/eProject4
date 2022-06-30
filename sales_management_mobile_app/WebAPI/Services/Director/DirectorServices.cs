@@ -49,7 +49,7 @@ namespace WebAPI.Services
             return dir;
         }
 
-        public async Task<Director> getDirector(int id)
+        public async Task<Director> getDirector(string id)
         {
             var dir = _context.Directors.SingleOrDefault(x => x.Id.Equals(id));
             if (dir != null)

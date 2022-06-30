@@ -22,28 +22,28 @@ namespace WebAPI.Controllers
             _services = services;
         }
 
-        [HttpGet]
-        public Task<List<Location>> getLocations([FromQuery] Location searchLoc)
-        {
-            return _services.getLocations(searchLoc);
-        }
+        //[HttpGet]
+        //public Task<List<Location>> getLocations([FromQuery] Location searchLoc)
+        //{
+        //    return _services.getLocations(searchLoc);
+        //}
 
-        [HttpGet("{id}")]
-        public Task<Location> getLocation(int id)
-        {
-            return _services.getLocation(id);
-        }
+        //[HttpGet("{id}")]
+        //public Task<Location> getLocation(int id)
+        //{
+        //    return _services.getLocation(id);
+        //}
 
-        [HttpPost]
-        public Task<bool> createLocation([FromBody] Location location)
-        {
-            return _services.createLoc(location);
-        }
+        //[HttpPost]
+        //public Task<bool> createLocation([FromBody] Location location)
+        //{
+        //    return _services.createLoc(location);
+        //}
 
-        [HttpPut]
-        public Task<bool> updateLocation([FromBody] Location location)
-        {
-            return _services.updateLoc(location);
-        }
+        //[HttpPut]
+        //public Task<bool> updateLocation([FromBody] Location location)
+        //{
+        //    return _services.updateLoc(location);
+        //}
     }
 }

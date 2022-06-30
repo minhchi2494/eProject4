@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public Task<Director> getDirector(int id)
+        public Task<Director> getDirector(string id)
         {
             return _services.getDirector(id);
         }

@@ -17,9 +17,14 @@ namespace WebAPI.Services
             _context = context;
         }
 
+        public Task<Manager> checkLogin(string username, string password)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<Manager>> getManagers(Manager searchManager)
         {
-            var result = _context.Managers.Include(a => a.Location).Include(a => a.Target).ToList();
+            var result = _context.Managers.Include(a => a.Director).ToList();
             if (!string.IsNullOrEmpty(searchManager.Fullname))
             {
                 result = result.Where(x => x.Fullname.ToLower().Contains(searchManager.Fullname.ToLower())).ToList();
@@ -29,7 +34,7 @@ namespace WebAPI.Services
 
         public async Task<Manager> getManager(string id)
         {
-            var result = _context.Managers.Include(a => a.Location).Include(a => a.Target).SingleOrDefault(x => x.Id.Equals(id));  
+            var result = _context.Managers.Include(a => a.Director).SingleOrDefault(x => x.Id.Equals(id));  
             if (result != null)
             {
                 return result;
@@ -42,7 +47,7 @@ namespace WebAPI.Services
 
         public async Task<bool> createManager(Manager newManager)
         {
-            var manager = _context.Managers.Include(a => a.Location).SingleOrDefault(m => m.Id.Equals(newManager.Id));
+            var manager = _context.Managers.Include(a => a.Director).SingleOrDefault(m => m.Id.Equals(newManager.Id));
             if (manager == null)
             {
                 _context.Managers.Add(newManager);
@@ -57,19 +62,22 @@ namespace WebAPI.Services
 
         public async Task<bool> updateManager(Manager editManager)
         {
-            var manager = _context.Managers.Include(a => a.Location).SingleOrDefault(m => m.Id.Equals(editManager.Id));
+            var manager = _context.Managers.Include(a => a.Director).SingleOrDefault(m => m.Id.Equals(editManager.Id));
             if (manager != null)
             {
+                manager.Username = editManager.Username;
+                manager.Password = PinCodeSecurity.pinEncrypt(editManager.Password);
                 manager.Fullname = editManager.Fullname;
+                manager.Email = editManager.Email;
+                manager.Phone = editManager.Phone;
+                manager.Address = editManager.Address;
+                manager.KpiYear = editManager.KpiYear;
+                manager.KpiValue = editManager.KpiValue;
                 manager.StaffQuantity = editManager.StaffQuantity;
 
-                manager.LocationId = editManager.LocationId;
-                Location loc = _context.Locations.SingleOrDefault(l => l.Id == editManager.LocationId);
-                manager.Location = loc;
-
-                manager.TargetId = editManager.TargetId;
-                Target targ = _context.Targets.SingleOrDefault(t => t.Id == editManager.TargetId);
-                manager.Target = targ;
+                manager.DirectorId = editManager.DirectorId;
+                Director dir = _context.Directors.SingleOrDefault(d => d.Id == editManager.DirectorId);
+                manager.Director = dir;
 
                 _context.SaveChanges();
                 return true;

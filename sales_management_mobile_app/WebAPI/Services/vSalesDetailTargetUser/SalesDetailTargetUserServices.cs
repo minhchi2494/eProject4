@@ -16,19 +16,19 @@ namespace WebAPI.Services
             _context = context;
         }
 
-        public async Task<List<vSalesDetailTargetUser>> getSalesDetailTargetUsers(DateTime? fromDate, DateTime? toDate)
-        {
-            var stu = _context.vSalesDetailTargetUser.ToList();
-            if (fromDate == null && toDate == null)
-            {
-                return stu;
-            }
-            else
-            {
-                stu = _context.vSalesDetailTargetUser.Where(x => x.Date >= fromDate).Where(x => x.Date <= toDate).ToList();
-                return stu;
-            }
-        }
+        //public async Task<List<vSalesDetailTargetUser>> getSalesDetailTargetUsers(DateTime? fromDate, DateTime? toDate)
+        //{
+        //    var stu = _context.vSalesDetailTargetUser.ToList();
+        //    if (fromDate == null && toDate == null)
+        //    {
+        //        return stu;
+        //    }
+        //    else
+        //    {
+        //        stu = _context.vSalesDetailTargetUser.Where(x => x.Date >= fromDate).Where(x => x.Date <= toDate).ToList();
+        //        return stu;
+        //    }
+        //}
 
         
     }

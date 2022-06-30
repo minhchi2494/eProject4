@@ -19,7 +19,7 @@ namespace WebAPI.Services
 
         public async Task<List<Store>> getStores(Store searchStore)
         {
-            var result = _context.Stores.Include(a => a.Location).Include(a => a.Users).Where(x => x.IsActive == true).ToList();
+            var result = _context.Stores.Include(a => a.Users).Where(x => x.IsActive == true).ToList();
             if (!string.IsNullOrEmpty(searchStore.Name))
             {
                 result = result.Where(x => x.Name.ToLower().Contains(searchStore.Name.ToLower())).ToList();
@@ -29,7 +29,7 @@ namespace WebAPI.Services
 
         public async Task<Store> getStore(string id)
         {
-            var result = _context.Stores.Include(a=>a.Location).Include(a => a.Users).SingleOrDefault(x => x.Id.Equals(id));
+            var result = _context.Stores.Include(a => a.Users).SingleOrDefault(x => x.Id.Equals(id));
             if (result != null)
             {
                 return result;
@@ -42,7 +42,7 @@ namespace WebAPI.Services
 
         public async Task<bool> createStore(Store newStore)
         {
-            var store = _context.Stores.Include(a=>a.Location).Include(a => a.Users).SingleOrDefault(x=>x.Id.Equals(newStore.Id));
+            var store = _context.Stores.Include(a => a.Users).SingleOrDefault(x=>x.Id.Equals(newStore.Id));
             if (store == null)
             {
                 _context.Stores.Add(newStore);
@@ -57,7 +57,7 @@ namespace WebAPI.Services
 
         public async Task<bool> updateStore(Store editStore)
         {
-            var store = _context.Stores.Include(a => a.Location).Include(a => a.Users).SingleOrDefault(x=>x.Id.Equals(editStore.Id));
+            var store = _context.Stores.Include(a => a.Users).SingleOrDefault(x=>x.Id.Equals(editStore.Id));
             if (store != null)
             {
                 store.Name = editStore.Name;
@@ -66,10 +66,6 @@ namespace WebAPI.Services
                 store.Address = editStore.Address;
                 //store.Longitude = editStore.Longitude;
                 //store.Latitude = editStore.Latitude;
-
-                store.LocationId = editStore.LocationId;
-                Location loc = _context.Locations.SingleOrDefault(l => l.Id.Equals(editStore.LocationId));
-                store.Location = loc;
 
                 store.UserId = editStore.UserId;
                 User user = _context.Users.SingleOrDefault(u => u.Id.Equals(editStore.UserId));

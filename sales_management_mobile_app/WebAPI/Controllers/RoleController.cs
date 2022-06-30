@@ -21,28 +21,28 @@ namespace WebAPI.Controllers
             _services = services;
         }
 
-        [HttpGet]
-        public Task<List<Role>> getRoles([FromQuery] Role searchRole)
-        {
-            return _services.getRoles(searchRole);
-        }
+        //[HttpGet]
+        //public Task<List<Role>> getRoles([FromQuery] Role searchRole)
+        //{
+        //    return _services.getRoles(searchRole);
+        //}
 
-        [HttpGet("{id}")]
-        public Task<Role> getRole(int id)
-        {
-            return _services.getRole(id);
-        }
+        //[HttpGet("{id}")]
+        //public Task<Role> getRole(int id)
+        //{
+        //    return _services.getRole(id);
+        //}
 
-        [HttpPost]
-        public Task<bool> createRole([FromBody] Role newRole)
-        {
-            return _services.createRole(newRole);
-        }
+        //[HttpPost]
+        //public Task<bool> createRole([FromBody] Role newRole)
+        //{
+        //    return _services.createRole(newRole);
+        //}
 
-        [HttpPut]
-        public Task<bool> updateRole(Role updateRole)
-        {
-            return _services.updateRole(updateRole);
-        }
+        //[HttpPut]
+        //public Task<bool> updateRole(Role updateRole)
+        //{
+        //    return _services.updateRole(updateRole);
+        //}
     }
 }
