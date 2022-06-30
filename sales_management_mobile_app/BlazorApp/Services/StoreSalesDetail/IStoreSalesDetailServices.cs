@@ -8,6 +8,6 @@ namespace BlazorApp.Services
 {
     public interface IStoreSalesDetailServices
     {
-        Task<List<StoreSalesDetail>> getStoreSalesDetails(DateTime? fromDate, DateTime? toDate);
+        Task<List<OrderDetail>> getStoreSalesDetails(DateTime? fromDate, DateTime? toDate);
     }
 }

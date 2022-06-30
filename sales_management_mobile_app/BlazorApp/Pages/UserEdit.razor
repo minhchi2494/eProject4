@@ -75,24 +75,13 @@
             <ValidationMessage For="()=>editUser.Address"></ValidationMessage>
         </div>
 
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="RoleId">Role Id: </label>
-            <InputNumber class="form-control" @bind-Value="editUser.RoleId" readonly></InputNumber>
-            <ValidationMessage For="()=>editUser.RoleId"></ValidationMessage>
-        </div>
+
     </div>
 
     <div>
         <br>
     </div>
 
-    <div class="row material">
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="LocationId">Location Id: </label>
-            <InputNumber class="form-control" @bind-Value="editUser.LocationId" readonly></InputNumber>
-            <ValidationMessage For="()=>editUser.LocationId"></ValidationMessage>
-        </div>
-    </div>
 
 @*    <div>
         <br>
@@ -138,15 +127,12 @@
         var user = await _services.getUser(id);
         editUser = new User();
         editUser.Id = user.Id;
-        //editUser.TargetId = user.TargetId;
         editUser.Username = user.Username;
         editUser.Fullname = user.Fullname;
         editUser.Email = user.Email;
         editUser.Phone = user.Phone;
         editUser.Address = user.Address;
         //editUser.StoreId = user.StoreId;
-        editUser.LocationId = user.LocationId;
-        editUser.RoleId = user.RoleId;
         editUser.ManagerId = user.ManagerId;
         editUser.IsActive = user.IsActive;
     }

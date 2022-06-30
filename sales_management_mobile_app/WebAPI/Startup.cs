@@ -39,9 +39,6 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             string url = "server=LAPTOP-6D8AK342\\CHI;database=Project4;uid=sa;pwd=123";
-            //services.AddScoped<IRoleServices, RoleServices>();
-            //services.AddScoped<ILocationServices, LocationServices>();
-            //services.AddScoped<ITargetServices, TargetServices>();
             services.AddScoped<IAdminServices, AdminServices>();
             services.AddScoped<IDirectorServices, DirectorServices>();
             services.AddScoped<IManagerServices, ManagerServices>();
@@ -51,15 +48,7 @@ namespace WebAPI
             services.AddScoped<IOrderDetailServices, OrderDetailServices>();
             services.AddScoped<IProductServices, ProductServices>();
             services.AddScoped<IManagerUserServices, ManagerUserServices>();
-            services.AddScoped<IStoreUserServices, StoreUserServices>();
             services.AddScoped<IPerformanceService, PerformanceService>();
-
-            //services.AddScoped<ISalesDetailServices, SalesDetailServices>();
-
-            //services.AddScoped<IImageServices, ImageServices>();
-            //services.AddScoped<ITargetUserManagerServices, TargetUserManagerServices>();
-            //services.AddScoped<ISalesDetailTargetUser, SalesDetailTargetUserServices>();
-
             services.AddScoped<ExportService>();
 
             services.AddDbContext<Project4Context>(options => options.UseSqlServer(url));

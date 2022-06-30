@@ -18,9 +18,9 @@ namespace BlazorApp.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<StoreSalesDetail>> getStoreSalesDetails(DateTime? fromDate, DateTime? toDate)
+        public async Task<List<OrderDetail>> getStoreSalesDetails(DateTime? fromDate, DateTime? toDate)
         {
-            var result = await _httpClient.GetFromJsonAsync<List<StoreSalesDetail>>($"/api/StoreSalesDetail?fromDate={fromDate}&toDate={toDate}");
+            var result = await _httpClient.GetFromJsonAsync<List<OrderDetail>>($"/api/StoreSalesDetail?fromDate={fromDate}&toDate={toDate}");
             return result;
         }
     }

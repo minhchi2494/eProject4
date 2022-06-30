@@ -7,8 +7,7 @@
 @inject IToastService ToastService;
 
 @inject IManagerServices _managerServices;
-@inject IRoleServices _roleServices;
-@inject ITargetServices _targetServices;
+@*@inject ITargetServices _targetServices;*@
 
 <h3>Create User</h3>
 
@@ -87,7 +86,7 @@
             <ValidationMessage For="()=>model.ManagerId"></ValidationMessage>
         </div>
 
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+@*        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="TargetId">Target No.</label>
             <select @bind="model.TargetId" style="width:682px; height:35px">
                 @if (targets != null)
@@ -100,22 +99,8 @@
                 }
             </select>
             <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
-        </div>
-
-@*        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="RoleId">Role <span style="color:red">(*)</span> </label>
-            <select @bind="model.RoleId" style="width:682px; height:35px">
-                @if (roles != null)
-                {
-                        <option value=0 style="text-align:center">-- Select roles --</option>
-                    @foreach (var role in roles)
-                    {
-                        <option value="@role.Id">@role.Title</option>
-                    }
-                }
-            </select>
-            <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
         </div>*@
+
     </div>
 
     <div>
@@ -130,12 +115,12 @@
         </div>
     </div>
 
-    <div class="row material">
+@*    <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <InputNumber class="form-control" @bind-Value="model.RoleId" hidden></InputNumber>
             <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
         </div>
-    </div>
+    </div>*@
 
     <div>
         <br>
@@ -150,21 +135,16 @@
 
     private Manager searchManager = new Manager();
 
-    private List<Role> roles = new List<Role>();
-
-    private Role searchRole = new Role();
-
     private User model = new User();
 
-    private List<Target> targets = new List<Target>();
+    //private List<Target> targets = new List<Target>();
 
     private FromToDate ftd = new FromToDate();
 
     protected override async Task OnInitializedAsync()
     {
         managers = await _managerServices.getManagers(searchManager);
-        roles = await _roleServices.getRoles(searchRole);
-        targets = await _targetServices.getTargets(ftd.FromDate, ftd.ToDate);
+        //targets = await _targetServices.getTargets(ftd.FromDate, ftd.ToDate);
     }
 
     private async Task SubmitCreate(EditContext context)

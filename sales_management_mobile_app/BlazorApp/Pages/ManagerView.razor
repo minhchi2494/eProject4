@@ -43,13 +43,20 @@
             AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="managers" TItem="Manager" ColumnWidth="200px">
     <Columns>
         <RadzenGridColumn TItem="Manager" Property="Id" Title="Id"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="Username" Title="Username"></RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="Fullname" Title="Fullname"></RadzenGridColumn>
-        <RadzenGridColumn TItem="Manager" Property="LocationId" Title="District">
+        <RadzenGridColumn TItem="Manager" Property="Email" Title="Email"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="Phone" Title="Phone"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="Address" Title="Address"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="DirectorId" Title="Director">
             <Template Context="data">
-                @data.Location.District
+                @data.Director.Fullname
             </Template>
         </RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="StaffQuantity" Title="StaffQuantity"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="KpiYear" Title="Kpi Year"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="ActualKpi" Title="Actual Kpi"></RadzenGridColumn>
 
         <RadzenGridColumn TItem="Manager" Title="Action">
             <Template Context="data">
