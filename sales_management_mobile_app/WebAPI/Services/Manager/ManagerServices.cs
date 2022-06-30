@@ -17,9 +17,25 @@ namespace WebAPI.Services
             _context = context;
         }
 
-        public Task<Manager> checkLogin(string username, string password)
+        public async Task<Manager> checkLogin(string username, string password)
         {
-            throw new NotImplementedException();
+            var mng = _context.Managers.SingleOrDefault(a => a.Username.Equals(username));
+            if (mng != null)
+            {
+                string pass = PinCodeSecurity.pinDecrypt(mng.Password);
+                if (password.Equals(pass))
+                {
+                    return mng;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<List<Manager>> getManagers(Manager searchManager)
@@ -50,6 +66,7 @@ namespace WebAPI.Services
             var manager = _context.Managers.Include(a => a.Director).SingleOrDefault(m => m.Id.Equals(newManager.Id));
             if (manager == null)
             {
+                newManager.Password = PinCodeSecurity.pinEncrypt(newManager.Password);
                 _context.Managers.Add(newManager);
                 _context.SaveChanges();
                 return true;
