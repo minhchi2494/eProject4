@@ -45,19 +45,19 @@ namespace WebAPI.Services
             var worksheet = package.Worksheets.Add("StoreSalesDetail");
 
             worksheet.Cell(1, 1).Value = "ProductId";
-            worksheet.Cell(1, 2).Value = "StoreId";
+            worksheet.Cell(1, 2).Value = "OrderId";
             //worksheet.Cell(1, 3).Value = "UserId";
-            worksheet.Cell(1, 3).Value = "StoreActualQuantity";
+            worksheet.Cell(1, 3).Value = "ActualQuantity";
             worksheet.Cell(1, 4).Value = "Date";
 
 
-            var a = _context.StoreSalesDetails.ToList();
+            var a = _context.OrderDetails.ToList();
             for (int i = 1; i <= a.Count; i++)
             {
                 worksheet.Cell(i + 1, 1).Value = a[i - 1].ProductId;
-                worksheet.Cell(i + 1, 2).Value = a[i - 1].StoreId;
+                worksheet.Cell(i + 1, 2).Value = a[i - 1].OrderId;
                 //worksheet.Cell(i + 1, 3).Value = a[i - 1].UserId;
-                worksheet.Cell(i + 1, 3).Value = a[i - 1].StoreActualQuantity;
+                worksheet.Cell(i + 1, 3).Value = a[i - 1].ActualQuantity;
                 worksheet.Cell(i + 1, 4).Value = a[i - 1].Date;
             }
         }

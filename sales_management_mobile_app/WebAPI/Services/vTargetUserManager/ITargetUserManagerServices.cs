@@ -8,6 +8,6 @@ namespace WebAPI.Services
 {
     public interface ITargetUserManagerServices
     {
-        Task<List<vTargetUserManager>> getTargetUserManagers(DateTime? fromDate, DateTime? toDate);
+        //Task<List<vTargetUserManager>> getTargetUserManagers(DateTime? fromDate, DateTime? toDate);
     }
 }

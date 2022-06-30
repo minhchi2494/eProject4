@@ -17,9 +17,9 @@ namespace WebAPI.Services
             _context = context;
         }
 
-        public async Task<List<Image>> getImages()
-        {
-            return _context.Images.ToList();
-        }
+        //public async Task<List<Image>> getImages()
+        //{
+        //    return _context.Images.ToList();
+        //}
     }
 }

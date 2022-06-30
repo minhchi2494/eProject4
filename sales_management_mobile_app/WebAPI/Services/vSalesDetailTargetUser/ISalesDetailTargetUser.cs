@@ -8,6 +8,6 @@ namespace WebAPI.Services
 {
     public interface ISalesDetailTargetUser
     {
-        Task<List<vSalesDetailTargetUser>> getSalesDetailTargetUsers(DateTime? fromDate, DateTime? toDate);
+        //Task<List<vSalesDetailTargetUser>> getSalesDetailTargetUsers(DateTime? fromDate, DateTime? toDate);
     }
 }

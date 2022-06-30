@@ -21,17 +21,17 @@ namespace WebAPI.Controllers
             _services = services;
         }
 
-        [HttpGet]
-        public Task<List<Target>> getTargets(DateTime? fromDate, DateTime? toDate)
-        {
-            return _services.getTargets(fromDate, toDate);
-        }
+        //[HttpGet]
+        //public Task<List<Target>> getTargets(DateTime? fromDate, DateTime? toDate)
+        //{
+        //    return _services.getTargets(fromDate, toDate);
+        //}
 
-        [HttpPost]
-        public Task<bool> createTarget([FromQuery] Target newTarget)
-        {
-            return _services.createTarget(newTarget);
-        }
+        //[HttpPost]
+        //public Task<bool> createTarget([FromQuery] Target newTarget)
+        //{
+        //    return _services.createTarget(newTarget);
+        //}
 
 
     }

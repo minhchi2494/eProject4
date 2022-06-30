@@ -8,7 +8,7 @@ using WebAPI.Models;
 using OfficeOpenXml;
 using WebAPI.Services;
 
-namespace practice_codefirst2.Controllers
+namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -41,20 +41,20 @@ namespace practice_codefirst2.Controllers
                         {
 
                             var ProductId = worksheet.Cells[row + 1, 1].Value?.ToString();
-                            var StoreId = worksheet.Cells[row + 1, 2].Value?.ToString();
+                            var OrderId = worksheet.Cells[row + 1, 2].Value?.ToString();
                             //var UserId = worksheet.Cells[row + 1, 3].Value?.ToString();
-                            var StoreActualQuantity = worksheet.Cells[row + 1, 3].Value?.ToString();
+                            var ActualQuantity = worksheet.Cells[row + 1, 3].Value?.ToString();
                             var Date = worksheet.Cells[row + 1, 4].Value?.ToString();
 
                             var ssd = new OrderDetail()
                             {
                                 ProductId = ProductId,
-                                StoreId = StoreId,
+                                OrderId = int.Parse(OrderId),
                                 //UserId = int.Parse(UserId),
-                                StoreActualQuantity = int.Parse(StoreActualQuantity),
+                                ActualQuantity = int.Parse(ActualQuantity),
                                 Date = DateTime.Parse(Date),
                             };
-                            _service.createStoreSalesDetail(ssd);
+                            _service.createOrderDetail(ssd);
                         }
                         catch (Exception ex)
                         {

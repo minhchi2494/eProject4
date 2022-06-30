@@ -9,6 +9,6 @@ namespace WebAPI.Services
 {
     public interface IImageServices
     {
-        Task<List<Image>> getImages();
+        //Task<List<Image>> getImages();
     }
 }

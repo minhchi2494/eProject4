@@ -51,6 +51,7 @@ namespace WebAPI.Controllers
             newProduct.Name = request.name;
             newProduct.Unit = request.unit;
             newProduct.Price = request.price;
+            newProduct.Description = request.description;
             newProduct.IsActive = request.active;
 
             if (file != null)
@@ -83,6 +84,7 @@ namespace WebAPI.Controllers
             editProduct.Name = request.name;
             editProduct.Unit = request.unit;
             editProduct.Price = request.price;
+            editProduct.Description = request.description;
             editProduct.IsActive = request.active;
 
             Task<Product> pro = _services.getProduct(request.id);

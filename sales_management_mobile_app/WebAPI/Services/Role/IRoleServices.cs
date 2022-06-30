@@ -9,9 +9,9 @@ namespace WebAPI.Services
 {
     public interface IRoleServices
     {
-        Task<List<Role>> getRoles(Role searchRole);
-        Task<Role> getRole(int id);
-        Task<bool> createRole(Role newRole);
-        Task<bool> updateRole(Role editRole);
+        //Task<List<Role>> getRoles(Role searchRole);
+        //Task<Role> getRole(int id);
+        //Task<bool> createRole(Role newRole);
+        //Task<bool> updateRole(Role editRole);
     }
 }

@@ -22,10 +22,10 @@ namespace WebAPI.Controllers
             _services = services;
         }
 
-        [HttpGet]
-        public Task<List<Image>> getImages()
-        {
-            return _services.getImages();
-        }
+        //[HttpGet]
+        //public Task<List<Image>> getImages()
+        //{
+        //    return _services.getImages();
+        //}
     }
 }
