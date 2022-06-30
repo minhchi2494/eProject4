@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public Task<List<Director>> getDirectors([FromBody] Director searchDirector)
+        public Task<List<Director>> getDirectors([FromQuery] Director searchDirector)
         {
             return _services.getDirectors(searchDirector);
         }
