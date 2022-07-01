@@ -67,6 +67,13 @@ namespace WebAPI.Services
             if (manager == null)
             {
                 newManager.Password = PinCodeSecurity.pinEncrypt(newManager.Password);
+
+
+                //var managers = _context.Managers.Where(x => x.DirectorId == newManager.DirectorId).Where(x => x.KpiYear == newManager.KpiYear).ToList();
+                //int countManagers = managers.Where(x => x.DirectorId == newManager.DirectorId).Where(x => x.KpiYear == newManager.KpiYear).Count();
+                //int kpiManager = kpiValue / countManagers;
+                //managers[i].KpiValue = kpiEachManager;
+
                 _context.Managers.Add(newManager);
                 _context.SaveChanges();
                 return true;
