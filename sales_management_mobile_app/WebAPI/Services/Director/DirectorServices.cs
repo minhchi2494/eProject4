@@ -100,5 +100,25 @@ namespace WebAPI.Services
                 return false;
             }
         }
+
+        public async Task<bool> createKpiValue(string dirId, int year, int kpiValue)
+        {
+            var managers = _context.Managers.Where(x => x.DirectorId == dirId).Where(x => x.KpiYear == year).ToList();
+            int countManagers = managers.Where(x => x.DirectorId == dirId).Where(x => x.KpiYear == year).Count();
+            int kpiEachManager = kpiValue / countManagers;
+            for (int i = 0; i < countManagers; i++)
+            {
+                managers[i].KpiValue = kpiEachManager;
+                var userss = _context.Users.Where(x => x.ManagerId == managers[i].Id).Where(x => x.KpiYear == year).ToList();
+                int countUser = userss.Where(x => x.ManagerId == managers[i].Id).Where(x => x.KpiYear == year).Count();
+                int kpiEachUser = kpiEachManager / countUser;
+                for (int j = 0; j < countUser; j++)
+                {
+                    userss[j].KpiValue = kpiEachUser;
+                }
+            }
+            _context.SaveChanges();
+            return true;
+        }
     }
 }
