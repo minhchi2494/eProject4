@@ -103,6 +103,13 @@ namespace WebAPI.Services
 
         public async Task<bool> createKpiValue(string dirId, int year, int kpiValue)
         {
+            //cập nhật kpiYear và kpiValue cho Director
+            var director = _context.Directors.SingleOrDefault(x => x.Id == dirId);
+            director.KpiYear = year;
+            director.KpiValue = kpiValue;
+            _context.SaveChanges();
+
+            //cập nhật kpiYear và kpiValue cho Manager dười quyền Director và Salesman dười sự quản lý của Manager đó
             var managers = _context.Managers.Where(x => x.DirectorId == dirId).Where(x => x.KpiYear == year).ToList();
             int countManagers = managers.Where(x => x.DirectorId == dirId).Where(x => x.KpiYear == year).Count();
             int kpiEachManager = kpiValue / countManagers;
