@@ -71,8 +71,21 @@ namespace WebAPI.Services
             if (model == null)
             {
                 newUser.Password = PinCodeSecurity.pinEncrypt(newUser.Password);
+
+                var manager = _context.Managers.Include(x => x.Users).SingleOrDefault(x => x.Id.Equals(newUser.ManagerId) && x.KpiYear == newUser.KpiYear);
+                //var director = _context.Directors.Include(x => x.Managers).SingleOrDefault(x => x.Id.Equals(manager.DirectorId));
+
+                var currentUsers = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == manager.Id).Where(x => x.KpiYear == newUser.KpiYear).ToList();
+                int countCurrentUsers = currentUsers.Where(x => x.ManagerId == manager.Id).Where(x => x.KpiYear == newUser.KpiYear).Count();
+                int kpiEachUser = manager.KpiValue / (countCurrentUsers +1);
+                for (int i = 0; i < countCurrentUsers; i++)
+                {
+                    currentUsers[i].KpiValue = kpiEachUser;
+                }
+
+                newUser.KpiValue = kpiEachUser; 
                 _context.Users.Add(newUser);
-                _context.SaveChanges();
+                //_context.SaveChanges();
                 return true;
             }
             else

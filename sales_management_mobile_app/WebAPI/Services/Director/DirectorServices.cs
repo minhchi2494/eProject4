@@ -104,19 +104,19 @@ namespace WebAPI.Services
         public async Task<bool> createKpiValue(string dirId, int year, int kpiValue)
         {
             //cập nhật kpiYear và kpiValue cho Director
-            var director = _context.Directors.SingleOrDefault(x => x.Id == dirId);
+            var director = _context.Directors.Include(x => x.Managers).SingleOrDefault(x => x.Id == dirId);
             director.KpiYear = year;
             director.KpiValue = kpiValue;
             _context.SaveChanges();
 
             //cập nhật kpiYear và kpiValue cho Manager dười quyền Director và Salesman dười sự quản lý của Manager đó
-            var managers = _context.Managers.Where(x => x.DirectorId == dirId).Where(x => x.KpiYear == year).ToList();
+            var managers = _context.Managers.Include(x => x.Users).Where(x => x.DirectorId == dirId).Where(x => x.KpiYear == year).ToList();
             int countManagers = managers.Where(x => x.DirectorId == dirId).Where(x => x.KpiYear == year).Count();
             int kpiEachManager = kpiValue / countManagers;
             for (int i = 0; i < countManagers; i++)
             {
                 managers[i].KpiValue = kpiEachManager;
-                var userss = _context.Users.Where(x => x.ManagerId == managers[i].Id).Where(x => x.KpiYear == year).ToList();
+                var userss = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == managers[i].Id).Where(x => x.KpiYear == year).ToList();
                 int countUser = userss.Where(x => x.ManagerId == managers[i].Id).Where(x => x.KpiYear == year).Count();
                 int kpiEachUser = kpiEachManager / countUser;
                 for (int j = 0; j < countUser; j++)
