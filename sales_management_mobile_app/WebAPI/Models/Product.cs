@@ -12,7 +12,6 @@ namespace WebAPI.Models
         public string Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public string Unit { get; set; }
         public string Images { get; set; }
         public string Description { get; set; }
 

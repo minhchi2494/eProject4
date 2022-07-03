@@ -69,8 +69,8 @@ namespace WebAPI.Services
                 newManager.Password = PinCodeSecurity.pinEncrypt(newManager.Password);
                 
 
-                var managers = _context.Managers.Include(x => x.Users).Where(x => x.DirectorId == newManager.DirectorId).Where(x => x.KpiYear == newManager.KpiYear).ToList();
-                int countManagers = managers.Where(x => x.DirectorId == newManager.DirectorId).Where(x => x.KpiYear == newManager.KpiYear).Count();
+                var managers = _context.Managers.Include(x => x.Users).Where(x => x.DirectorId == newManager.DirectorId).ToList();
+                int countManagers = managers.Where(x => x.DirectorId == newManager.DirectorId).Count();
                 var director = _context.Directors.Include(x => x.Managers).SingleOrDefault(x => x.Id == newManager.DirectorId);
                 int kpiEachManager = director.KpiValue / (countManagers+1);
                 for (int i = 0; i < countManagers; i++)
@@ -78,8 +78,8 @@ namespace WebAPI.Services
                     managers[i].KpiValue = kpiEachManager;
 
 
-                    var userss = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == managers[i].Id).Where(x => x.KpiYear == newManager.KpiYear).ToList();
-                    int countUser = userss.Where(x => x.ManagerId == managers[i].Id).Where(x => x.KpiYear == newManager.KpiYear).Count();
+                    var userss = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == managers[i].Id).ToList();
+                    int countUser = userss.Where(x => x.ManagerId == managers[i].Id).Count();
                     int kpiEachUser = kpiEachManager / countUser;
                     for (int j = 0; j < countUser; j++)
                     {
@@ -109,9 +109,7 @@ namespace WebAPI.Services
                 manager.Email = editManager.Email;
                 manager.Phone = editManager.Phone;
                 manager.Address = editManager.Address;
-                manager.KpiYear = editManager.KpiYear;
                 manager.KpiValue = editManager.KpiValue;
-                manager.StaffQuantity = editManager.StaffQuantity;
 
                 manager.DirectorId = editManager.DirectorId;
                 Director dir = _context.Directors.SingleOrDefault(d => d.Id == editManager.DirectorId);

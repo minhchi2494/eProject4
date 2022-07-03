@@ -48,7 +48,7 @@ namespace WebAPI.Services
             worksheet.Cell(1, 2).Value = "OrderId";
             //worksheet.Cell(1, 3).Value = "UserId";
             worksheet.Cell(1, 3).Value = "ActualQuantity";
-            worksheet.Cell(1, 4).Value = "Date";
+            //worksheet.Cell(1, 4).Value = "Date";
 
 
             var a = _context.OrderDetails.ToList();
@@ -58,7 +58,7 @@ namespace WebAPI.Services
                 worksheet.Cell(i + 1, 2).Value = a[i - 1].OrderId;
                 //worksheet.Cell(i + 1, 3).Value = a[i - 1].UserId;
                 worksheet.Cell(i + 1, 3).Value = a[i - 1].ActualQuantity;
-                worksheet.Cell(i + 1, 4).Value = a[i - 1].Date;
+                //worksheet.Cell(i + 1, 4).Value = a[i - 1].Date;
             }
         }
     }

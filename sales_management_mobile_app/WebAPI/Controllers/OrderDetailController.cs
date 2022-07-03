@@ -23,9 +23,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public Task<List<OrderDetail>> getOrderDetails([FromQuery]DateTime? fromDate, DateTime? toDate)
+        public Task<List<OrderDetail>> getOrderDetails()
         {
-            return _services.getOrderDetails(fromDate, toDate);
+            return _services.getOrderDetails();
         }
 
         [HttpPost]

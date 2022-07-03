@@ -44,7 +44,7 @@ namespace WebAPI
             services.AddScoped<IManagerServices, ManagerServices>();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IStoreServices, StoreServices>();
-
+            services.AddScoped<IOrderServices, OrderServices>();
             services.AddScoped<IOrderDetailServices, OrderDetailServices>();
             services.AddScoped<IProductServices, ProductServices>();
             services.AddScoped<IManagerUserServices, ManagerUserServices>();

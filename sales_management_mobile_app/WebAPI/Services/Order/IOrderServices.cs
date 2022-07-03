@@ -7,11 +7,9 @@ using WebAPI.Models;
 
 namespace WebAPI.Services
 {
-    public interface ITargetServices
+    public interface IOrderServices
     {
-        //Task<List<Target>> getTargets(DateTime? fromDate, DateTime? toDate);
-        
-        //Task<bool> createTarget(Target newTarget);
-      
+        Task<List<Order>> getOrders(DateTime? fromDate, DateTime? toDate);
+        Task<Order> getOrder(int id);
     }
 }

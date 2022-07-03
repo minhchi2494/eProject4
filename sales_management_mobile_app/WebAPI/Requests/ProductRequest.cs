@@ -6,7 +6,6 @@ namespace WebAPI.Requests
     {
         public string id { get; set; }
         public string name { get; set; }
-        public string unit { get; set; }
         public string description { get; set; }
         public decimal price { get; set; }
         public bool active { get; set; }

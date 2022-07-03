@@ -28,10 +28,10 @@ namespace WebAPI.Controllers
             return _services.getDirectors(searchDirector);
         }
 
-        [HttpPost("{dirId}/{year}/{kpiValue}")]
-        public Task<bool> createValueKpi(string dirId, int year, int kpiValue)
+        [HttpPost("{dirId}/{kpiValue}")]
+        public Task<bool> createValueKpi(string dirId, int kpiValue)
         {
-            return _services.createKpiValue(dirId, year, kpiValue);
+            return _services.createKpiValue(dirId, kpiValue);
         }
 
         [HttpGet("{id}")]
