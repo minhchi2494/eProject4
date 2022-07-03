@@ -90,7 +90,6 @@ namespace WebAPI.Services
                 model.Email = editDirector.Email;
                 model.Phone = editDirector.Phone;
                 model.Address = editDirector.Address;
-                model.KpiYear = editDirector.KpiYear;
                 model.KpiValue = editDirector.KpiValue;
                 _context.SaveChanges();
                 return true;
@@ -101,23 +100,22 @@ namespace WebAPI.Services
             }
         }
 
-        public async Task<bool> createKpiValue(string dirId, int year, int kpiValue)
+        public async Task<bool> createKpiValue(string dirId, int kpiValue)
         {
-            //cập nhật kpiYear và kpiValue cho Director
+            //kpiValue cho Director
             var director = _context.Directors.Include(x => x.Managers).SingleOrDefault(x => x.Id == dirId);
-            director.KpiYear = year;
             director.KpiValue = kpiValue;
             _context.SaveChanges();
 
             //cập nhật kpiYear và kpiValue cho Manager dười quyền Director và Salesman dười sự quản lý của Manager đó
-            var managers = _context.Managers.Include(x => x.Users).Where(x => x.DirectorId == dirId).Where(x => x.KpiYear == year).ToList();
-            int countManagers = managers.Where(x => x.DirectorId == dirId).Where(x => x.KpiYear == year).Count();
+            var managers = _context.Managers.Include(x => x.Users).Where(x => x.DirectorId == dirId).ToList();
+            int countManagers = managers.Where(x => x.DirectorId == dirId).Count();
             int kpiEachManager = kpiValue / countManagers;
             for (int i = 0; i < countManagers; i++)
             {
                 managers[i].KpiValue = kpiEachManager;
-                var userss = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == managers[i].Id).Where(x => x.KpiYear == year).ToList();
-                int countUser = userss.Where(x => x.ManagerId == managers[i].Id).Where(x => x.KpiYear == year).Count();
+                var userss = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == managers[i].Id).ToList();
+                int countUser = userss.Where(x => x.ManagerId == managers[i].Id).Count();
                 int kpiEachUser = kpiEachManager / countUser;
                 for (int j = 0; j < countUser; j++)
                 {

@@ -11,6 +11,7 @@ namespace WebAPI.Models
         public int Id { get; set; }
         public int ActualQuantity { get; set; }
         public string StoreId { get; set; }
+        public decimal TotalPrice { get; set; }
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         public virtual Store Store { get; set; }

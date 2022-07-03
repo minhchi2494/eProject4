@@ -63,7 +63,6 @@ namespace WebAPI.Services
             {
                 product.Name = editProduct.Name;
                 product.Price = editProduct.Price;
-                product.Unit = editProduct.Unit;
                 product.Images = editProduct.Images;
                 product.Description = editProduct.Description;
                 product.IsActive = editProduct.IsActive;

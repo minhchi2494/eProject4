@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
                             var OrderId = worksheet.Cells[row + 1, 2].Value?.ToString();
                             //var UserId = worksheet.Cells[row + 1, 3].Value?.ToString();
                             var ActualQuantity = worksheet.Cells[row + 1, 3].Value?.ToString();
-                            var Date = worksheet.Cells[row + 1, 4].Value?.ToString();
+                            //var Date = worksheet.Cells[row + 1, 4].Value?.ToString();
 
                             var ssd = new OrderDetail()
                             {
@@ -52,7 +52,7 @@ namespace WebAPI.Controllers
                                 OrderId = int.Parse(OrderId),
                                 //UserId = int.Parse(UserId),
                                 ActualQuantity = int.Parse(ActualQuantity),
-                                Date = DateTime.Parse(Date),
+                                //Date = DateTime.Parse(Date),
                             };
                             _service.createOrderDetail(ssd);
                         }

@@ -49,7 +49,6 @@ namespace WebAPI.Controllers
             Product newProduct = new Product();
             newProduct.Id = request.id;
             newProduct.Name = request.name;
-            newProduct.Unit = request.unit;
             newProduct.Price = request.price;
             newProduct.Description = request.description;
             newProduct.IsActive = request.active;
@@ -82,7 +81,6 @@ namespace WebAPI.Controllers
             Product editProduct = new Product();
             editProduct.Id = request.id;
             editProduct.Name = request.name;
-            editProduct.Unit = request.unit;
             editProduct.Price = request.price;
             editProduct.Description = request.description;
             editProduct.IsActive = request.active;

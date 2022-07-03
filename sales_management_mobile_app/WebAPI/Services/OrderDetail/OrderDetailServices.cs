@@ -118,19 +118,9 @@ namespace WebAPI.Services
             return true;
         }
 
-        public async Task<List<OrderDetail>> getOrderDetails(DateTime? fromDate, DateTime? toDate)
+        public async Task<List<OrderDetail>> getOrderDetails()
         {
-            var result = _context.OrderDetails.Include(x => x.Product).Include(x => x.Order).ToList();
-            if (fromDate == null && toDate == null)
-            {
-                return result;
-            }
-            else
-            {
-                result = _context.OrderDetails.Include(x => x.Product).Include(x => x.Order)
-                                              .Where(x => x.Date >= fromDate).Where(x => x.Date <= toDate).ToList();
-                return result;
-            }
+            return _context.OrderDetails.Include(x => x.Product).Include(x => x.Order).ToList();
         }
 
 

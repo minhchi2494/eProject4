@@ -9,7 +9,7 @@ namespace WebAPI.Services
 {
     public interface IOrderDetailServices
     {
-        Task<List<OrderDetail>> getOrderDetails(DateTime? fromDate, DateTime? toDate);
+        Task<List<OrderDetail>> getOrderDetails();
         Task<bool> createActualQuantity(OrderDetail ssd);
         Task<OrderDetail> getOrderDetail(int id);
         Task<bool> createOrderDetail(OrderDetail ssd);

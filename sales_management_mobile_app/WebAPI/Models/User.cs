@@ -15,7 +15,6 @@ namespace WebAPI.Models
         public string Phone { get; set; }
         public string Address { get; set; }
         public string ManagerId { get; set; }
-        public int KpiYear { get; set; }
         public int KpiValue { get; set; }
         public int ActualKpi { get; set; }
         public bool IsActive { get; set; }

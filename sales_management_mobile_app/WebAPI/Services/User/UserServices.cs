@@ -72,11 +72,11 @@ namespace WebAPI.Services
             {
                 newUser.Password = PinCodeSecurity.pinEncrypt(newUser.Password);
 
-                var manager = _context.Managers.Include(x => x.Users).SingleOrDefault(x => x.Id.Equals(newUser.ManagerId) && x.KpiYear == newUser.KpiYear);
+                var manager = _context.Managers.Include(x => x.Users).SingleOrDefault(x => x.Id.Equals(newUser.ManagerId));
                 //var director = _context.Directors.Include(x => x.Managers).SingleOrDefault(x => x.Id.Equals(manager.DirectorId));
 
-                var currentUsers = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == manager.Id).Where(x => x.KpiYear == newUser.KpiYear).ToList();
-                int countCurrentUsers = currentUsers.Where(x => x.ManagerId == manager.Id).Where(x => x.KpiYear == newUser.KpiYear).Count();
+                var currentUsers = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == manager.Id).ToList();
+                int countCurrentUsers = currentUsers.Where(x => x.ManagerId == manager.Id).Count();
                 int kpiEachUser = manager.KpiValue / (countCurrentUsers +1);
                 for (int i = 0; i < countCurrentUsers; i++)
                 {
@@ -105,7 +105,6 @@ namespace WebAPI.Services
                 model.Email = editUser.Email;
                 model.Phone = editUser.Phone;
                 model.Address = editUser.Address;
-                model.KpiYear = editUser.KpiYear;
                 model.KpiValue = editUser.KpiValue;
                 model.ManagerId = editUser.ManagerId;
                 Manager manager = _context.Managers.SingleOrDefault(x => x.Id.Equals(editUser.ManagerId));
