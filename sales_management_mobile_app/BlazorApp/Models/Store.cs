@@ -8,10 +8,6 @@ namespace BlazorApp.Models
 {
     public class Store
     {
-        //public Store()
-        //{
-        //    StoreSalesDetails = new HashSet<StoreSalesDetail>();
-        //}
         //[Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]

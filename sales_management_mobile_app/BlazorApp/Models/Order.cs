@@ -14,6 +14,8 @@ namespace BlazorApp.Models
         [Required]
         public string StoreId { get; set; }
 
+        public decimal TotalPrice { get; set; }
+
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         public virtual Store Store { get; set; }

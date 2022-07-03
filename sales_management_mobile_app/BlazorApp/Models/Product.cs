@@ -8,10 +8,6 @@ namespace BlazorApp.Models
 {
     public partial class Product
     {
-        //public Product()
-        //{
-        //    StoreSalesDetails = new HashSet<OrderDetail>();
-        //}
         [Required]
         public string Id { get; set; }
 
@@ -20,9 +16,6 @@ namespace BlazorApp.Models
 
         [Required]
         public decimal Price { get; set; }
-
-        [Required]
-        public string Unit { get; set; }
 
         public string Images { get; set; }
 

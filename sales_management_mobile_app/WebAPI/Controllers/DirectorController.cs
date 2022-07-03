@@ -53,7 +53,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public Task<bool> updateDirector(Director editDirector)
+        public Task<bool> updateDirector([FromBody]Director editDirector)
         {
             return _services.updateDirector(editDirector);
         }
