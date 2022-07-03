@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public Task<bool> createActualQuantity([FromQuery] OrderDetail ssd)
+        public Task<bool> createActualQuantity([FromBody] OrderDetail ssd)
         {
             return _services.createActualQuantity(ssd);
         }

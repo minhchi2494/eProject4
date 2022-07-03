@@ -27,9 +27,7 @@ namespace BlazorApp.Models
         [Required]
         public string DirectorId { get; set; }
 
-        public int? StaffQuantity { get; set; }
 
-        public int KpiYear { get; set; }
         public int KpiValue { get; set; }
         public int ActualKpi { get; set; }
 

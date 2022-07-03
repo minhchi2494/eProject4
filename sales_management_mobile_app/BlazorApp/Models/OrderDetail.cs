@@ -17,10 +17,6 @@ namespace BlazorApp.Models
         [Required]
         public int OrderId { get; set; }
 
-        public decimal? Price { get; set; }
-
-        public DateTime Date { get; set; } = DateTime.Now;
-
         public int ActualQuantity { get; set; }
 
         public virtual Product Product { get; set; }

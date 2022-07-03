@@ -47,7 +47,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public Task<bool> updateManager(Manager updateManager)
+        public Task<bool> updateManager([FromBody]Manager updateManager)
         {
             return _services.updateManager(updateManager);
         }

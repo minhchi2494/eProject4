@@ -40,11 +40,7 @@
             <ValidationMessage For="()=>newProduct.price"></ValidationMessage>
         </div>
 
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Unit">Unit <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="newProduct.unit"></InputText>
-            <ValidationMessage For="()=>newProduct.unit"></ValidationMessage>
-        </div>
+
     </div>
 
     <div>
@@ -113,7 +109,6 @@
         content.Add(new StringContent(newProduct.id), "id");
         content.Add(new StringContent(newProduct.name), "name");
         content.Add(new StringContent(newProduct.price.ToString()), "price");
-        content.Add(new StringContent(newProduct.unit), "unit");
         content.Add(new StringContent(newProduct.active.ToString()), "active");
         var result = await _services.createProduct(content);
 
