@@ -43,5 +43,30 @@ namespace WebAPI.Services
                 return null;
             }
         }
+
+        public async Task<bool> saveOrder(string storeId, List<CartItem> orderList)
+        {
+            double totalPrice = 0;
+            int quantity = 0;
+            foreach (CartItem tt in orderList)
+            {
+                totalPrice += tt.Quantity * tt.Price;
+                quantity += tt.Quantity;
+            }
+            Order newOrder = new Order() {
+                ActualQuantity = quantity,
+                StoreId = storeId,
+                TotalPrice = (decimal)totalPrice,
+                CreatedOn = DateTime.Now
+            };
+            _context.Add(newOrder);
+            _context.SaveChanges();
+            foreach(CartItem ci in orderList){
+                OrderDetail od = new OrderDetail(ci.ProductId, newOrder.Id, ci.Price * ci.Quantity, DateTime.Now, ci.Quantity);
+                _context.Add(od);
+                _context.SaveChanges();
+            }
+            return true;
+        }
     }
 }

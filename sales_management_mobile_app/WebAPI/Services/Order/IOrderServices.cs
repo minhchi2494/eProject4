@@ -11,5 +11,7 @@ namespace WebAPI.Services
     {
         Task<List<Order>> getOrders(DateTime? fromDate, DateTime? toDate);
         Task<Order> getOrder(int id);
+
+        Task<bool> saveOrder(string storeId, List<CartItem> orderList);
     }
 }
