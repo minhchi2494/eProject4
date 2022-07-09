@@ -79,7 +79,7 @@
     [Parameter]
     public string id { get; set; }
 
-    string nameImage = string.Empty;
+    string nameImage = null;
 
     ElementReference inputReference;
 
@@ -120,7 +120,11 @@
     {
         var content = new MultipartFormDataContent();
         content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data");
-        content.Add(new StreamContent(filestream, (int)filestream.Length), "file", nameImage);
+        if (nameImage != null)
+        {
+            content.Add(new StreamContent(filestream, (int)filestream.Length), "file", nameImage);
+        }
+        
         content.Add(new StringContent(editProduct.id), "id");
         content.Add(new StringContent(editProduct.name), "name");
         content.Add(new StringContent(editProduct.price.ToString()), "price");
