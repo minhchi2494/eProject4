@@ -13,8 +13,8 @@ namespace WebAPI.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
-        public int KpiValue { get; set; }
-        public int ActualKpi { get; set; }
+        public decimal KpiValue { get; set; }
+        public decimal ActualKpi { get; set; }
 
 
         public virtual ICollection<Manager> Managers { get; set; }

@@ -35,9 +35,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> saveOrder(string storeId, List<CartItem> orderList)
+        public async Task<bool> saveOrder(int userId, string storeId, List<CartItem> orderList)
         {
-            _services.saveOrder(storeId, orderList);
+            _services.saveOrder(userId, storeId, orderList);
             return false;
         }
     }

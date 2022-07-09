@@ -12,6 +12,12 @@ namespace WebAPI.Services
         Task<List<Order>> getOrders(DateTime? fromDate, DateTime? toDate);
         Task<Order> getOrder(int id);
 
-        Task<bool> saveOrder(string storeId, List<CartItem> orderList);
+        Task<bool> saveOrder(int userId, string storeId, List<CartItem> orderList);
+
+        Task<bool> setActualKPI(int userId);
+
+        Task<string> getActualKpiFromSalePerson(string managerId);
+
+        Task<string> getActualKpiFromManager(string dirId);
     }
 }

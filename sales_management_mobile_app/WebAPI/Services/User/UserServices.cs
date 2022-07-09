@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,13 +12,10 @@ namespace WebAPI.Services
     public class UserServices : IUserServices
     {
         private readonly Project4Context _context;
-
         public UserServices(Project4Context context)
         {
             _context = context;
         }
-
-
 
         public async Task<List<User>> getUsers(User searchUser)
         {
@@ -77,7 +75,7 @@ namespace WebAPI.Services
 
                 var currentUsers = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == manager.Id).ToList();
                 int countCurrentUsers = currentUsers.Where(x => x.ManagerId == manager.Id).Count();
-                int kpiEachUser = manager.KpiValue / (countCurrentUsers +1);
+                decimal kpiEachUser = manager.KpiValue / (countCurrentUsers +1);
                 for (int i = 0; i < countCurrentUsers; i++)
                 {
                     currentUsers[i].KpiValue = kpiEachUser;
@@ -119,5 +117,54 @@ namespace WebAPI.Services
                 return false;
             }
         }
+
+        /*public async Task<bool> setActualKPI(int userId)
+        {
+            List<Store> storeBelongUserId = null;
+            List<Store> storeList = _context.Stores.ToList();
+            //get list storeId belong userId
+            foreach(Store st in storeList)
+            {
+                if(st.UserId == userId)
+                {
+                    storeBelongUserId.Add(st);
+                }
+            }
+            List<Order> orderListBelongUserId = null;
+            List<Order> orderList = _context.Orders.ToList();
+            //get list Order belong storeId which user owner
+            foreach(Order o in orderList)
+            {
+                foreach(Store sbt in storeBelongUserId)
+                {
+                    if(sbt.Id == o.StoreId)
+                    {
+                        orderListBelongUserId.Add(o);
+                    }
+                }
+            }
+            
+            double sumOfOrderValue = 0;
+            // sum Order value 
+            foreach(Order od in orderListBelongUserId)
+            {
+                sumOfOrderValue += (double) od.TotalPrice;
+            }
+            User u = await getUser(userId);
+            float actualKPI = (float) (sumOfOrderValue / u.KpiValue) * 100;
+            DateTime moment = new DateTime();
+            int lastMonth = moment.Month - 1;
+            if (moment.Day == 1 && u.ActualKpi > 0)
+            {
+                KpiPerMonth kpm = new KpiPerMonth(lastMonth, actualKPI, userId);// save last month KPI
+                u.ActualKpi = 0.0f;//reset ActualKpi for current Month
+                _context.SaveChanges();
+            }
+            u.ActualKpi = actualKPI;
+            _context.SaveChanges();
+            return true;
+        }*/
+
+       
     }
 }

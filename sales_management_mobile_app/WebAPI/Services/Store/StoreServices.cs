@@ -80,5 +80,11 @@ namespace WebAPI.Services
                 return false;
             }
         }
+
+        public async Task<List<Store>> getList()
+        {
+            List<Store> storeList = _context.Stores.ToList();
+            return storeList;
+        }
     }
 }

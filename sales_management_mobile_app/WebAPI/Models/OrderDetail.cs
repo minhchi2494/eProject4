@@ -13,19 +13,17 @@ namespace WebAPI.Models
 
         public double Price { get; set; }
 
-        public DateTime Date { get; set; }
         public int ActualQuantity { get; set; } 
 
         public virtual Product Product { get; set; }
 
         public virtual Order Order { get; set; }
 
-        public OrderDetail(string ProductId, int OrderId, double Price, DateTime Date, int ActualQuantity)
+        public OrderDetail(string ProductId, int OrderId, double Price, int ActualQuantity)
         {
             this.ProductId = ProductId;
             this.OrderId = OrderId;
             this.Price = Price;
-            this.Date = Date;
             this.ActualQuantity = ActualQuantity;
         }
 

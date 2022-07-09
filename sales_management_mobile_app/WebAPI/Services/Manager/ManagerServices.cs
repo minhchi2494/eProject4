@@ -72,7 +72,7 @@ namespace WebAPI.Services
                 var managers = _context.Managers.Include(x => x.Users).Where(x => x.DirectorId == newManager.DirectorId).ToList();
                 int countManagers = managers.Where(x => x.DirectorId == newManager.DirectorId).Count();
                 var director = _context.Directors.Include(x => x.Managers).SingleOrDefault(x => x.Id == newManager.DirectorId);
-                int kpiEachManager = director.KpiValue / (countManagers+1);
+                decimal kpiEachManager = director.KpiValue / (countManagers+1);
                 for (int i = 0; i < countManagers; i++)
                 {
                     managers[i].KpiValue = kpiEachManager;
@@ -80,7 +80,7 @@ namespace WebAPI.Services
 
                     var userss = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == managers[i].Id).ToList();
                     int countUser = userss.Where(x => x.ManagerId == managers[i].Id).Count();
-                    int kpiEachUser = kpiEachManager / countUser;
+                    decimal kpiEachUser = kpiEachManager / countUser;
                     for (int j = 0; j < countUser; j++)
                     {
                         userss[j].KpiValue = kpiEachUser;
@@ -123,5 +123,7 @@ namespace WebAPI.Services
                 return false;
             }
         }
+
+        
     }
 }
