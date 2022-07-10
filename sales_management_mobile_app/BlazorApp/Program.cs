@@ -27,6 +27,8 @@ namespace BlazorApp
 
             builder.Services.AddScoped<IAdminServices, AdminServices>();
 
+            builder.Services.AddScoped<IDirectorServices, DirectorServices>();
+
             builder.Services.AddScoped<IStoreServices, StoreServices>();
 
             builder.Services.AddScoped<IManagerServices, ManagerServices>();
