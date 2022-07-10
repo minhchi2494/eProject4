@@ -31,6 +31,7 @@ namespace WebAPI.Services
             }
         }
 
+
         public async Task<Order> getOrder(int id)
         {
             var result = _context.Orders.Include(x => x.Store).SingleOrDefault(x => x.Id.Equals(id));
@@ -48,12 +49,13 @@ namespace WebAPI.Services
         {
             double totalPrice = 0;
             int quantity = 0;
-            foreach (CartItem tt in orderList)
+
+            foreach (CartItem tt in orderList)//sum of quantity and Price in CartItem
             {
                 totalPrice += tt.Quantity * tt.Price;
                 quantity += tt.Quantity;
             }
-            Order newOrder = new Order() {
+            Order newOrder = new Order() {//create Order
                 ActualQuantity = quantity,
                 StoreId = storeId,
                 TotalPrice = (decimal)totalPrice,
@@ -61,13 +63,14 @@ namespace WebAPI.Services
             };
             _context.Add(newOrder);
             _context.SaveChanges();
-            foreach(CartItem ci in orderList){
+
+            foreach(CartItem ci in orderList){// create OrderDetails
                 OrderDetail od = new OrderDetail(ci.ProductId, newOrder.Id, ci.Price * ci.Quantity, ci.Quantity);
                 _context.Add(od);
                 _context.SaveChanges();
             }
-            Console.WriteLine(newOrder.TotalPrice);
-            await setActualKPI(userId);
+
+            await this.setActualKPI(userId);//get ActualQuantity in Order to set ActualKpi for Sale person 
             return true;
         }
 
@@ -75,26 +78,24 @@ namespace WebAPI.Services
         {
             List<Store> storeBelongUserId = new List<Store>();
             List<Store> storeList = _context.Stores.ToList();
-            //get list storeId belong userId
-            foreach (Store st in storeList)
+            
+            foreach (Store st in storeList)//get list storeId belong userId
             {
                 if (st.UserId == userId)
                 {
                     storeBelongUserId.Add(st);
                 }
             }
-            Console.WriteLine(storeBelongUserId.Count);
+
             List<Order> orderListBelongUserId = new List<Order>();
+            List<Order> orderList = _context.Orders.ToList();
             DateTime moment = DateTime.Now;
             
-            List<Order> orderList = _context.Orders.ToList();
-            Console.WriteLine("current Month" + moment.Month);
-            //get list Order belong storeId owner user
             foreach (Order o in orderList)
             {
-                if (o.CreatedOn.Month == moment.Month)
+                if (o.CreatedOn.Month == moment.Month)//only order list in current month
                 {
-                    foreach (Store sbt in storeBelongUserId)
+                    foreach (Store sbt in storeBelongUserId)//get list Order belong storeId owner userId
                     {
                         if (sbt.Id == o.StoreId)
                         {
@@ -103,26 +104,27 @@ namespace WebAPI.Services
                     }
                 }
             }
-            Console.WriteLine(orderListBelongUserId.Count);
-            decimal sumOfOrderValue = 0;
-            // sum Order value 
-            foreach (Order od in orderListBelongUserId)
+
+            int sumofQuantityInOrder = 0;
+            
+            foreach (Order od in orderListBelongUserId)// sum of quantity in Order from above list
             {
-                sumOfOrderValue += od.TotalPrice;
+                sumofQuantityInOrder += od.ActualQuantity;
             }
             User u = _context.Users.SingleOrDefault(u=>u.Id.Equals(userId));
 
             if (moment.Day == 1 && u.ActualKpi > 0)
             {
-                int lastMonth = moment.Month - 1;
-                KpiPerMonth kpm = new KpiPerMonth(lastMonth, sumOfOrderValue, userId);// save last month KPI
+                string lastMonth = Convert.ToString(moment.Month - 1);
+                KpiPerMonth kpm = new KpiPerMonth(lastMonth, sumofQuantityInOrder, userId);// save last month KPI
                 u.ActualKpi = 0;//reset ActualKpi for current Month
                 _context.SaveChanges();
             }
-            u.ActualKpi = sumOfOrderValue;
+            u.ActualKpi = sumofQuantityInOrder;
             _context.SaveChanges();
-            Console.WriteLine(u.ActualKpi);
-            await getActualKpiFromSalePerson(u.ManagerId);
+
+            await this.getActualKpiFromSalePerson(u.ManagerId);// calculate ActualKpi for manager from sale person
+
             return true;
         }
 
@@ -130,6 +132,7 @@ namespace WebAPI.Services
         {
             List<User> listUserOfManager = new List<User>();
             List<User> listUser = _context.Users.ToList();
+
             foreach(User u in listUser)//get list sale person owner manager
             {
                 if(u.ManagerId == managerId)
@@ -137,27 +140,29 @@ namespace WebAPI.Services
                     listUserOfManager.Add(u);
                 }
             }
-            decimal totalActualKpiOfSalePerson = 0;
-            foreach(User u in listUserOfManager)//get actualKpi of Saleperson owner manager
+
+            int totalActualKpiOfSalePersons = 0;
+            foreach(User u in listUserOfManager)//get actualKpi of Sale person owner manager
             {
-                totalActualKpiOfSalePerson += u.ActualKpi;
+                totalActualKpiOfSalePersons += u.ActualKpi;
             }
-            Console.WriteLine(totalActualKpiOfSalePerson);
+
             Manager mgr = _context.Managers.SingleOrDefault(m => m.Id.Equals(managerId));
-            Console.WriteLine(mgr.Id);
+
             DateTime moment = DateTime.Now;
             
             if (moment.Day == 1 && mgr.ActualKpi > 0)
             {
-                int lastMonth = moment.Month - 1;
-                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfSalePerson, Int32.Parse(managerId));// save last month KPI
+                string lastMonth = Convert.ToString(moment.Month - 1);
+                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfSalePersons, Int32.Parse(managerId));// save last month KPI
                 mgr.ActualKpi = 0;//reset ActualKpi for current Month
                 _context.SaveChanges();
             }
-            mgr.ActualKpi = totalActualKpiOfSalePerson;
+            mgr.ActualKpi = totalActualKpiOfSalePersons;
             _context.SaveChanges();
-            Console.WriteLine(mgr.ActualKpi);
-            getActualKpiFromManager(mgr.DirectorId);
+
+            this.getActualKpiFromManager(mgr.DirectorId);
+
             return Task.FromResult("Calculate success!!!!");
         }
 
@@ -165,30 +170,35 @@ namespace WebAPI.Services
         {
             List<Manager> listManagerOfDir = new List<Manager>();
             List<Manager> listManager = _context.Managers.ToList();
-            foreach (Manager u in listManager)
+
+            foreach (Manager u in listManager)//get manager list owner dirId
             {
                 if (u.DirectorId == dirId)
                 {
                     listManagerOfDir.Add(u);
                 }
             }
-            decimal totalActualKpiOfManager = 0;
-            foreach (Manager u in listManagerOfDir)
+
+            int totalActualKpiOfManager = 0;
+
+            foreach (Manager u in listManagerOfDir)//sum of ActualKpi from manager list above
             {
                 totalActualKpiOfManager += u.ActualKpi;
             }
             Director dir = _context.Directors.SingleOrDefault(m => m.Id.Equals(dirId));
-            DateTime moment = new DateTime();
+
+            DateTime moment = DateTime.Now;
             
             if (moment.Day == 1 && dir.ActualKpi > 0)
             {
-                int lastMonth = moment.Month - 1;
+                string lastMonth = Convert.ToString(moment.Month - 1);
                 KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfManager, Int32.Parse(dirId));// save last month KPI
                 dir.ActualKpi = 0;//reset ActualKpi for current Month
                 _context.SaveChanges();
             }
             dir.ActualKpi = totalActualKpiOfManager;
             _context.SaveChanges();
+
             return Task.FromResult("Calculate success!!!!");
         }
     }

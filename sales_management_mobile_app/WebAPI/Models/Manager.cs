@@ -15,8 +15,8 @@ namespace WebAPI.Models
         public string Phone { get; set; }
         public string Address { get; set; }
         public string DirectorId { get; set; }
-        public decimal KpiValue { get; set; }
-        public decimal ActualKpi { get; set; }
+        public int KpiValue { get; set; }
+        public int ActualKpi { get; set; }
 
         public virtual Director Director { get; set; }
         public virtual ICollection<User> Users { get; set; }
