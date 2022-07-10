@@ -1,0 +1,120 @@
+﻿@page "/editDirector/{id}"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject IDirectorServices _services;
+@inject IToastService ToastService;
+
+<h3>Edit Director</h3>
+
+@if (editDirector == null)
+{
+    <div>Loading</div>
+}
+
+<EditForm Model="@editDirector" OnValidSubmit="@SubmitEdit">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: </label>
+            <input class="form-control" value="@editDirector.Id" readonly/>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Username">Username: </label>
+            <InputText class="form-control" @bind-Value="editDirector.Username"></InputText>
+            <ValidationMessage For="()=>editDirector.Username"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Password">Password: </label>
+            <InputText class="form-control" @bind-Value="editDirector.Password"></InputText>
+            <ValidationMessage For="()=>editDirector.Password"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Fullname">Fullname: </label>
+            <InputText class="form-control" @bind-Value="editDirector.Fullname"></InputText>
+            <ValidationMessage For="()=>editDirector.Fullname"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Email">Email: </label>
+            <InputText class="form-control" @bind-Value="editDirector.Email"></InputText>
+            <ValidationMessage For="()=>editDirector.Email"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Phone">Phone: </label>
+            <InputText class="form-control" @bind-Value="editDirector.Phone"></InputText>
+            <ValidationMessage For="()=>editDirector.Phone"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Address">Address: </label>
+            <InputText class="form-control" @bind-Value="editDirector.Address"></InputText>
+            <ValidationMessage For="()=>editDirector.Address"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    @*<a href="/managerUser/@editUser.ManagerId" class="btn btn-primary">Back</a>*@
+</EditForm>
+
+@code {
+    [Parameter]
+
+    public string id { get; set; }
+
+    private Director editDirector = new Director();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var director = await _services.getDirector(id);
+        editDirector = new Director();
+        editDirector.Id = director.Id;
+        editDirector.Username = director.Username;
+        editDirector.Password = director.Password;
+        editDirector.Fullname = director.Fullname;
+        editDirector.Email = director.Email;
+        editDirector.Phone = director.Phone;
+        editDirector.Address = director.Address;
+    }
+
+    private async Task SubmitEdit(EditContext context)
+    {
+        var result = await _services.updateDirector(editDirector);
+        if (result)
+        {
+            ToastService.ShowSuccess($"{editDirector.Fullname} has been updated successfully!", "Success");
+            NavigationManager.NavigateTo("/director");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

@@ -41,6 +41,7 @@ namespace WebAPI
             string url = "server=LAPTOP-6D8AK342\\CHI;database=Project4;uid=sa;pwd=123";
             services.AddScoped<IAdminServices, AdminServices>();
             services.AddScoped<IDirectorServices, DirectorServices>();
+            services.AddScoped<IKpiValueServices, KpiValueServices>();
             services.AddScoped<IManagerServices, ManagerServices>();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IStoreServices, StoreServices>();
