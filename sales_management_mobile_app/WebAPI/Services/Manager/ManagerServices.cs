@@ -63,28 +63,32 @@ namespace WebAPI.Services
 
         public async Task<bool> createManager(Manager newManager)
         {
-            var manager = _context.Managers.Include(a => a.Users).SingleOrDefault(m => m.Id.Equals(newManager.Id));
+            var manager = _context.Managers.Include(a => a.Director).SingleOrDefault(m => m.Id.Equals(newManager.Id));
             if (manager == null)
             {
                 newManager.Password = PinCodeSecurity.pinEncrypt(newManager.Password);
                 
 
-                var managers = _context.Managers.Include(x => x.Users).Where(x => x.DirectorId == newManager.DirectorId).ToList();
+                var managers = _context.Managers.Include(x => x.Director).Where(x => x.DirectorId == newManager.DirectorId).ToList();
                 int countManagers = managers.Where(x => x.DirectorId == newManager.DirectorId).Count();
-                var director = _context.Directors.Include(x => x.Managers).SingleOrDefault(x => x.Id == newManager.DirectorId);
+                var director = _context.Directors.SingleOrDefault(x => x.Id == newManager.DirectorId);
                 int kpiEachManager = director.KpiValue / (countManagers+1);
                 for (int i = 0; i < countManagers; i++)
                 {
                     managers[i].KpiValue = kpiEachManager;
 
 
-                    var userss = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == managers[i].Id).ToList();
+                    var userss = _context.Users.Include(x => x.Manager).Where(x => x.ManagerId == managers[i].Id).ToList();
                     int countUser = userss.Where(x => x.ManagerId == managers[i].Id).Count();
-                    int kpiEachUser = kpiEachManager / countUser;
-                    for (int j = 0; j < countUser; j++)
+                    if (countUser != 0)
                     {
-                        userss[j].KpiValue = kpiEachUser;
+                        int kpiEachUser = kpiEachManager / countUser;
+                        for (int j = 0; j < countUser; j++)
+                        {
+                            userss[j].KpiValue = kpiEachUser;
+                        }
                     }
+
                 }
 
                 newManager.KpiValue = kpiEachManager;

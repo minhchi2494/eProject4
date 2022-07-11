@@ -24,7 +24,6 @@ namespace BlazorApp.Models
         public string Fullname { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
-        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Phone is required")]
