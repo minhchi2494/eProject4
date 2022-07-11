@@ -41,7 +41,11 @@
 <RadzenGrid @ref="directorGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
             AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="directors" TItem="Director" ColumnWidth="150px">
     <Columns>
-        <RadzenGridColumn TItem="Director" Property="Id" Title="Id"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Director" Property="Id" Title="Id">
+            <FooterTemplate>
+                Displayed: <b>@directorGrid.View.Count()</b> of <b>@directors.Count()</b>
+            </FooterTemplate>
+        </RadzenGridColumn>
         <RadzenGridColumn TItem="Director" Property="Username" Title="Username"></RadzenGridColumn>
         <RadzenGridColumn TItem="Director" Property="Fullname" Title="Fullname"></RadzenGridColumn>
         <RadzenGridColumn TItem="Director" Property="Email" Title="Email"></RadzenGridColumn>

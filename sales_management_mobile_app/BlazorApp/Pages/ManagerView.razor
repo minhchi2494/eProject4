@@ -40,9 +40,13 @@
 }
 
 <RadzenGrid @ref="managerGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-            AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="managers" TItem="Manager" ColumnWidth="200px">
+            AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="managers" TItem="Manager" ColumnWidth="160px">
     <Columns>
-        <RadzenGridColumn TItem="Manager" Property="Id" Title="Id"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="Id" Title="Id">
+            <FooterTemplate>
+                Displayed: <b>@managerGrid.View.Count()</b> of <b>@managers.Count()</b>
+            </FooterTemplate>
+        </RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="Username" Title="Username"></RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="Fullname" Title="Fullname"></RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="Email" Title="Email"></RadzenGridColumn>
@@ -53,8 +57,6 @@
                 @data.Director.Fullname
             </Template>
         </RadzenGridColumn>
-        <RadzenGridColumn TItem="Manager" Property="StaffQuantity" Title="StaffQuantity"></RadzenGridColumn>
-        <RadzenGridColumn TItem="Manager" Property="KpiYear" Title="Kpi Year"></RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
         <RadzenGridColumn TItem="Manager" Property="ActualKpi" Title="Actual Kpi"></RadzenGridColumn>
 
@@ -62,9 +64,6 @@
             <Template Context="data">
                 <a href="/managerUser/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> 
             </Template>
-            <FooterTemplate>
-                Displayed Managers: <b>@managerGrid.View.Count()</b> of <b>@managers.Count()</b>
-            </FooterTemplate>
         </RadzenGridColumn>
 
     </Columns>
