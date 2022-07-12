@@ -35,7 +35,7 @@ namespace BlazorApp.Models
 
         public string Address { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Director Id is required")]
         public string DirectorId { get; set; }
 
 

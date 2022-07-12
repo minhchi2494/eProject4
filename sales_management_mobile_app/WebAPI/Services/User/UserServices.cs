@@ -85,7 +85,7 @@ namespace WebAPI.Services
 
                 newUser.KpiValue = kpiEachUser; 
                 _context.Users.Add(newUser);
-                //_context.SaveChanges();
+                _context.SaveChanges();
                 return true;
             }
             else

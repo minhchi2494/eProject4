@@ -19,9 +19,26 @@
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Fullname">Fullname: </label>
-            <InputText class="form-control" @bind-Value="editManager.Fullname"></InputText>
-            <ValidationMessage For="()=>editManager.Fullname"></ValidationMessage>
+            <label for="Username">Username <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="editManager.Username"></InputText>
+            <ValidationMessage For="()=>editManager.Username"></ValidationMessage>
+        </div>
+
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Password">Password <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" type="password" @bind-Value="editManager.Password"></InputText>
+            <ValidationMessage For="()=>editManager.Password"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputText class="form-control" @bind-Value="editManager.Fullname" hidden></InputText>
         </div>
     </div>
 
@@ -29,13 +46,38 @@
         <br>
     </div>
 
-@*    
+    <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="StaffQuantity">Staff Quantity: </label>
-            <InputNumber class="form-control" @bind-Value="editManager.StaffQuantity"></InputNumber>
-            <ValidationMessage For="()=>editManager.StaffQuantity"></ValidationMessage>
+            <InputText class="form-control" @bind-Value="editManager.Email" hidden></InputText>
         </div>
-    </div>*@
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputText class="form-control" @bind-Value="editManager.Phone" hidden></InputText>
+        </div>
+    </div>
+
+    <div>
+        <br />
+    </div>
+
+    <div class="row material">
+         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputText class="form-control" @bind-Value="editManager.Address" hidden></InputText>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputText class="form-control" @bind-Value="editManager.DirectorId" hidden></InputText>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputNumber class="form-control" @bind-Value="editManager.KpiValue" hidden></InputNumber>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputNumber class="form-control" @bind-Value="editManager.ActualKpi" hidden></InputNumber>
+        </div>
+    </div>
+
 
     <div>
         <br>
@@ -57,7 +99,15 @@
         var manager = await _services.getManager(id);
         editManager = new Manager();
         editManager.Id = manager.Id;
+        editManager.Username = manager.Username;
+        editManager.Password = manager.Password;
         editManager.Fullname = manager.Fullname;
+        editManager.Email = manager.Email;
+        editManager.Phone = manager.Phone;
+        editManager.Address = manager.Address;
+        editManager.DirectorId = manager.DirectorId;
+        editManager.KpiValue = manager.KpiValue;
+        editManager.ActualKpi = manager.ActualKpi;
     }
 
     private async Task SubmitEdit(EditContext context)
