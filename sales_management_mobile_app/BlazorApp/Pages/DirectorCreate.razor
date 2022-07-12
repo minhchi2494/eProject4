@@ -73,9 +73,9 @@
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="KpiValue">Kpi Value </label>
-            <InputNumber class="form-control" @bind-Value="model.KpiValue"></InputNumber>
-            <ValidationMessage For="()=>model.KpiValue"></ValidationMessage>
+            @*<label for="KpiValue">Kpi Value </label>*@
+            <InputNumber class="form-control" @bind-Value="model.KpiValue" hidden></InputNumber>
+            @*<ValidationMessage For="()=>model.KpiValue"></ValidationMessage>*@
         </div>
     </div>
 
@@ -101,7 +101,7 @@
         if (result)
         {
             ToastService.ShowSuccess($"Director {model.Fullname} has been created successfully!", "Success");
-            NavigationManager.NavigateTo("/director");
+            NavigationManager.NavigateTo("/account");
         }
         else
         {

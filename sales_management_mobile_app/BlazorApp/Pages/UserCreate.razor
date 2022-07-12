@@ -57,7 +57,7 @@
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Address">Address <span style="color:red">(*)</span> </label>
+            <label for="Address">Address  </label>
             <InputText class="form-control" @bind-Value="model.Address"></InputText>
             <ValidationMessage For="()=>model.Address"></ValidationMessage>
         </div>
@@ -71,8 +71,6 @@
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="ManagerId">Manager <span style="color:red">(*)</span> </label>
             <br />
-            @*<InputText class="form-control" @bind-Value="model.ManagerId"></InputText>*@
-            
             <select @bind="model.ManagerId" style="width:682px; height:35px">
                 @if (managers != null)
                 {
@@ -109,18 +107,11 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="IsActive">Active</label>
-            <input type="checkbox" unchecked @bind="model.IsActive">
-            <small id="nameHelp" class="form-text text-muted">(Note: check to active your User)</small>
+            @*<label for="IsActive">Active</label>*@
+            <input type="checkbox" unchecked @bind="model.IsActive" hidden>
+            @*<small id="nameHelp" class="form-text text-muted">(Note: check to active your User)</small>*@
         </div>
     </div>
-
-@*    <div class="row material">
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <InputNumber class="form-control" @bind-Value="model.RoleId" hidden></InputNumber>
-            <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
-        </div>
-    </div>*@
 
     <div>
         <br>
@@ -153,7 +144,7 @@
         if (result)
         {
             ToastService.ShowSuccess($"User {model.Fullname} has been created successfully!", "Success");
-            NavigationManager.NavigateTo("/manager");
+            NavigationManager.NavigateTo("/account");
         }
         else
         {

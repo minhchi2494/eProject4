@@ -23,26 +23,34 @@
 {
     <table class="table">
         <tr>
-            <td colspan="4" class="text-center">
+            <td colspan="8" class="text-center">
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>
         </tr>
     </table>
 }
 
-<RadzenGrid @ref="userGrid" AllowPaging="true" AllowSorting="true" Data="users" TItem="User" ColumnWidth="200px"
+<RadzenGrid @ref="userGrid" AllowPaging="true" AllowSorting="true" Data="users" TItem="User" ColumnWidth="150px"
             AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>
-        <RadzenGridColumn TItem="User" Property="Id" Title="Id"></RadzenGridColumn>
+        @*<RadzenGridColumn TItem="User" Property="Id" Title="Id"></RadzenGridColumn>*@
         <RadzenGridColumn TItem="User" Property="Username" Title="Username"></RadzenGridColumn>
         <RadzenGridColumn TItem="User" Property="Fullname" Title="Fullname"></RadzenGridColumn>
         <RadzenGridColumn TItem="User" Property="Email" Title="Email"></RadzenGridColumn>
         <RadzenGridColumn TItem="User" Property="Phone" Title="Phone"></RadzenGridColumn>
-        <RadzenGridColumn TItem="User" Title="Active">
+        <RadzenGridColumn TItem="User" Property="Address" Title="Address"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="ManagerId" Title="Manager">
+            <Template Context="data">
+                @data.Manager.Fullname
+            </Template>
+        </RadzenGridColumn>
+@*        <RadzenGridColumn TItem="User" Title="Active">
             <Template Context="data">
                 <span class="badge badge-success">@data.IsActive</span>
             </Template>
-        </RadzenGridColumn>
+        </RadzenGridColumn>*@
+        <RadzenGridColumn TItem="User" Property="ActualKpi" Title="Actual Kpi"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
         <RadzenGridColumn TItem="User" Title="Action">
             <Template Context="data">
                 <a href="/editUser/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a> &nbsp

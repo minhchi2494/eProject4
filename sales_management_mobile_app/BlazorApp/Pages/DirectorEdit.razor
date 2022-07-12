@@ -36,12 +36,10 @@
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Password">Password: </label>
             <InputText class="form-control" type="password" @bind-Value="editDirector.Password"></InputText>
-            <ValidationMessage For="()=>editDirector.Password"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <InputText class="form-control" @bind-Value="editDirector.Fullname" hidden></InputText>
-            <ValidationMessage For="()=>editDirector.Fullname"></ValidationMessage>
         </div>
     </div>
 
@@ -57,7 +55,6 @@
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <InputText class="form-control" @bind-Value="editDirector.Phone" hidden></InputText>
-            <ValidationMessage For="()=>editDirector.Phone"></ValidationMessage>
         </div>
     </div>
 
@@ -68,7 +65,14 @@
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <InputText class="form-control" @bind-Value="editDirector.Address" hidden></InputText>
-            <ValidationMessage For="()=>editDirector.Address"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputNumber class="form-control" @bind-Value="editDirector.KpiValue" hidden></InputNumber>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputNumber class="form-control" @bind-Value="editDirector.ActualKpi" hidden></InputNumber>
         </div>
     </div>
 
@@ -98,6 +102,8 @@
         editDirector.Email = director.Email;
         editDirector.Phone = director.Phone;
         editDirector.Address = director.Address;
+        editDirector.KpiValue = director.KpiValue;
+        editDirector.ActualKpi = director.ActualKpi;
     }
 
     private async Task SubmitEdit(EditContext context)
