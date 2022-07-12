@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,13 +12,10 @@ namespace WebAPI.Services
     public class UserServices : IUserServices
     {
         private readonly Project4Context _context;
-
         public UserServices(Project4Context context)
         {
             _context = context;
         }
-
-
 
         public async Task<List<User>> getUsers(User searchUser)
         {
@@ -119,5 +117,7 @@ namespace WebAPI.Services
                 return false;
             }
         }
+
+       
     }
 }
