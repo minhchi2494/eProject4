@@ -24,11 +24,9 @@ namespace WebAPI.Repository
 
         public DbSet<vManagerUser> vManagerUser { get; set; }
 
-
         public DbSet<KpiPerMonth> KpiPerMonths { get; set; }
 
         public DbSet<vDirectorManager> vDirectorManager { get; set; }
-
 
         public object Admin { get; internal set; }
 

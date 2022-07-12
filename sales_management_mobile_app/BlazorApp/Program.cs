@@ -43,6 +43,8 @@ namespace BlazorApp
 
             builder.Services.AddScoped<IManagerUserServices, ManagerUserServices>();
 
+            builder.Services.AddScoped<IDirectorManagerServices, DirectorManagerServices>();
+
             builder.Services.AddAuthorizationCore();
 
             builder.Services.AddFileReaderService();
