@@ -1,0 +1,88 @@
+﻿@page "/director"
+@attribute [Authorize]
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject IDirectorServices _services;
+
+<EditForm Model="@searchDirector" OnSubmit=@SeachForm>
+    <div class="row">
+        <div class="col-md-6">
+            <InputText @bind-Value="searchDirector.Fullname" class="form-control" placeholder="Enter Fullname..."></InputText>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
+        </div>
+    </div>
+
+    <br />
+
+    @*<div class=row>
+        <div class="col-3">
+        <a href="/managerCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+        </div>
+        </div>
+
+        <br />*@
+    <NavLink href="/directorCreate" class="btn btn-sm btn-success mb-2">Create Director</NavLink>
+</EditForm>
+
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="directorGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="directors" TItem="Director" ColumnWidth="150px">
+    <Columns>
+        <RadzenGridColumn TItem="Director" Property="Id" Title="Id">
+            <FooterTemplate>
+                Displayed: <b>@directorGrid.View.Count()</b> of <b>@directors.Count()</b>
+            </FooterTemplate>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="Director" Property="Username" Title="Username"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Director" Property="Fullname" Title="Fullname"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Director" Property="Email" Title="Email"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Director" Property="Phone" Title="Phone"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Director" Property="Address" Title="Address"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Director" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Director" Property="ActualKpi" Title="Actual Kpi"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Director" Title="Action">
+            <Template Context="data">
+                <a href="/editDirector/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+
+@code {
+    RadzenGrid<Director> directorGrid;
+
+    private bool loading;
+
+    private List<Director> directors = new List<Director>();
+
+    private Director searchDirector = new Director();
+
+    bool showModal;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        directors = await _services.getDirectors(searchDirector);
+        loading = false;
+    }
+
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        directors = await _services.getDirectors(searchDirector);
+    }
+}

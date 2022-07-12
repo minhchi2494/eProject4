@@ -41,6 +41,7 @@ namespace WebAPI
             string url = "server=ANHTUAN;database=Project4;uid=sa;pwd=123";
             services.AddScoped<IAdminServices, AdminServices>();
             services.AddScoped<IDirectorServices, DirectorServices>();
+            services.AddScoped<IKpiValueServices, KpiValueServices>();
             services.AddScoped<IManagerServices, ManagerServices>();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IStoreServices, StoreServices>();
@@ -48,6 +49,7 @@ namespace WebAPI
             services.AddScoped<IOrderDetailServices, OrderDetailServices>();
             services.AddScoped<IProductServices, ProductServices>();
             services.AddScoped<IManagerUserServices, ManagerUserServices>();
+            services.AddScoped<IDirectorManager, DirectorManager>();
             services.AddScoped<IPerformanceService, PerformanceService>();
             services.AddScoped<ExportService>();
 

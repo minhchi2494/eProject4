@@ -70,10 +70,10 @@ namespace WebAPI.Services
             {
                 newUser.Password = PinCodeSecurity.pinEncrypt(newUser.Password);
 
-                var manager = _context.Managers.Include(x => x.Users).SingleOrDefault(x => x.Id.Equals(newUser.ManagerId));
+                var manager = _context.Managers.Include(x => x.Director).SingleOrDefault(x => x.Id.Equals(newUser.ManagerId));
                 //var director = _context.Directors.Include(x => x.Managers).SingleOrDefault(x => x.Id.Equals(manager.DirectorId));
 
-                var currentUsers = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == manager.Id).ToList();
+                var currentUsers = _context.Users.Include(x => x.Manager).Where(x => x.ManagerId == manager.Id).ToList();
                 int countCurrentUsers = currentUsers.Where(x => x.ManagerId == manager.Id).Count();
                 int kpiEachUser = manager.KpiValue / (countCurrentUsers +1);
                 for (int i = 0; i < countCurrentUsers; i++)
@@ -83,7 +83,7 @@ namespace WebAPI.Services
 
                 newUser.KpiValue = kpiEachUser; 
                 _context.Users.Add(newUser);
-                //_context.SaveChanges();
+                _context.SaveChanges();
                 return true;
             }
             else
