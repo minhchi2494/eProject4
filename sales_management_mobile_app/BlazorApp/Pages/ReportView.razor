@@ -1,0 +1,90 @@
+﻿@page "/report"
+@attribute [Authorize]
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject IReportServices _services;
+
+<EditForm Model="@ftd" OnSubmit=@SeachForm>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="CreatedOn">From Date: </label>
+            <InputDate TValue="DateTime?" @bind-Value="ftd.FromDate" class="form-control"></InputDate>
+        </div>
+        <div class="col-md-3">
+            <label for="CreatedOn">To Date: </label>
+            <InputDate TValue="DateTime?" @bind-Value="ftd.ToDate" class="form-control"></InputDate>
+        </div>
+        <div class="col-md-2" style="margin-top: 24px;">
+            <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
+        </div>
+    
+        <div class="col-md-2" style="max-width:130px; margin-top: 24px">
+            <a href="/downloadexcel" class="btn btn-primary"><i class="fa fa-download"></i> Export</a>
+        </div>
+@*        <div class="col-md-2">
+            <a href="/importexcel" class="btn btn-primary"><i class="fas fa-file-import"></i> Import</a>
+        </div>*@
+    </div>
+
+
+</EditForm>
+
+<br />
+
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="reportGrid" AllowPaging="true" AllowSorting="true" Data="rp" TItem="Report" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
+    <Columns>
+        <RadzenGridColumn TItem="Report" Property="OrderId" Title="Order Id"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="Report" Property="Salesman" Title="Salesman"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="Report" Property="StoreName" Title="Store Name"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="Report" Property="ProductName" Title="Product Name"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="Report" Property="ActualQuantity" Title="Actual Quantity"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="Report" Property="CreatedOn" Title="Date">
+            <Template Context="data">
+                @data.CreatedOn.ToString("dd-MM-yyyy")
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+
+@code {
+    RadzenGrid<Report> reportGrid;
+
+    private bool loading;
+
+    private List<Report> rp = new List<Report>();
+
+    private FromToDate ftd = new FromToDate();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        rp = await _services.getReports(ftd.FromDate, ftd.ToDate);
+        loading = false;
+    }
+
+    private async Task SeachForm(EditContext context)
+    {
+        //ToastService.ShowSuccess("Search successfully!", "Success");
+        rp = await _services.getReports(ftd.FromDate, ftd.ToDate);
+    }
+}
