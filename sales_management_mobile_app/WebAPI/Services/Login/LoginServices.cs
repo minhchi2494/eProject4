@@ -11,26 +11,16 @@ namespace WebAPI.Services
 {
     public class LoginServices : ILoginServices
     {
-        public async Task<User> checkLogin(string username, string password)
+        private readonly Project4Context _context;
+        public LoginServices(Project4Context context)
         {
-            //List<Director>
-            //var model = _context.Users.Include(x => x.Manager).Where(x => x.IsActive == true).SingleOrDefault(a => a.Username.Equals(username));
-            //if (model != null)
-            //{
-            //    string pass = PinCodeSecurity.pinDecrypt(model.Password);
-            //    if (password.Equals(pass))
-            //    {
-            //        return model;
-            //    }
-            //    else
-            //    {
-            //        return null;
-            //    }
-            //}
-            //else
-            //{
-            //    return null;
-            //}
+            _context = context;
         }
+
+        //public async Task<Account> checkLogin(string username, string password)
+        //{
+            
+        //}
     }
 }
+

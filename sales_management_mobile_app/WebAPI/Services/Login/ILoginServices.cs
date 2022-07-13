@@ -9,6 +9,6 @@ namespace WebAPI.Services
 {
     public interface ILoginServices
     {
-        Task<User> checkLogin(string username, string password);
+        //Task<Account> checkLogin(string username, string password);
     }
 }

@@ -28,6 +28,9 @@ namespace WebAPI.Repository
 
         public DbSet<vDirectorManager> vDirectorManager { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+
+
         public object Admin { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -118,6 +121,10 @@ namespace WebAPI.Repository
                 entity.ToTable("KpiPerMonth");
             });
 
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.ToTable("Role");
+            });
 
             modelBuilder.Entity<Performance>(entity =>
             {
