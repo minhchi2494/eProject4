@@ -10,7 +10,7 @@ namespace WebAPI.Controllers
     {
         private ExportService _service;
         private string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-        private string fileName = "Store Daily Order.xlsx";
+        private string fileName = "Report.xlsx";
 
         public ExportController(ExportService service)
         {
