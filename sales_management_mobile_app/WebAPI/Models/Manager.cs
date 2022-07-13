@@ -17,7 +17,9 @@ namespace WebAPI.Models
         public string DirectorId { get; set; }
         public int KpiValue { get; set; }
         public int ActualKpi { get; set; }
+        public int RoleId { get; set; }
 
+        public virtual Role Role { get; set; }
         public virtual Director Director { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }

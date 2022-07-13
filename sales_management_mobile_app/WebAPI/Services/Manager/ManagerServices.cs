@@ -19,7 +19,7 @@ namespace WebAPI.Services
 
         public async Task<Manager> checkLogin(string username, string password)
         {
-            var mng = _context.Managers.SingleOrDefault(a => a.Username.Equals(username));
+            var mng = _context.Managers.Include(x => x.Role).Include(x => x.Director).SingleOrDefault(a => a.Username.Equals(username));
             if (mng != null)
             {
                 string pass = PinCodeSecurity.pinDecrypt(mng.Password);
@@ -40,7 +40,7 @@ namespace WebAPI.Services
 
         public async Task<List<Manager>> getManagers(Manager searchManager)
         {
-            var result = _context.Managers.Include(a => a.Director).ToList();
+            var result = _context.Managers.Include(x => x.Role).Include(a => a.Director).ToList();
             if (!string.IsNullOrEmpty(searchManager.Fullname))
             {
                 result = result.Where(x => x.Fullname.ToLower().Contains(searchManager.Fullname.ToLower())).ToList();
@@ -50,7 +50,7 @@ namespace WebAPI.Services
 
         public async Task<Manager> getManager(string id)
         {
-            var result = _context.Managers.Include(a => a.Director).SingleOrDefault(x => x.Id.Equals(id));  
+            var result = _context.Managers.Include(x => x.Role).Include(a => a.Director).SingleOrDefault(x => x.Id.Equals(id));  
             if (result != null)
             {
                 return result;
@@ -63,22 +63,22 @@ namespace WebAPI.Services
 
         public async Task<bool> createManager(Manager newManager)
         {
-            var manager = _context.Managers.Include(a => a.Director).SingleOrDefault(m => m.Id.Equals(newManager.Id));
+            var manager = _context.Managers.Include(x => x.Role).Include(a => a.Director).SingleOrDefault(m => m.Id.Equals(newManager.Id));
             if (manager == null)
             {
                 newManager.Password = PinCodeSecurity.pinEncrypt(newManager.Password);
                 
 
-                var managers = _context.Managers.Include(x => x.Director).Where(x => x.DirectorId == newManager.DirectorId).ToList();
+                var managers = _context.Managers.Include(x => x.Role).Include(x => x.Director).Where(x => x.DirectorId == newManager.DirectorId).ToList();
                 int countManagers = managers.Where(x => x.DirectorId == newManager.DirectorId).Count();
-                var director = _context.Directors.SingleOrDefault(x => x.Id == newManager.DirectorId);
+                var director = _context.Directors.Include(x => x.Role).SingleOrDefault(x => x.Id == newManager.DirectorId);
                 int kpiEachManager = director.KpiValue / (countManagers+1);
                 for (int i = 0; i < countManagers; i++)
                 {
                     managers[i].KpiValue = kpiEachManager;
 
 
-                    var userss = _context.Users.Include(x => x.Manager).Where(x => x.ManagerId == managers[i].Id).ToList();
+                    var userss = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.ManagerId == managers[i].Id).ToList();
                     int countUser = userss.Where(x => x.ManagerId == managers[i].Id).Count();
                     if (countUser != 0)
                     {
@@ -104,7 +104,7 @@ namespace WebAPI.Services
 
         public async Task<bool> updateManager(Manager editManager)
         {
-            var manager = _context.Managers.Include(a => a.Director).SingleOrDefault(m => m.Id.Equals(editManager.Id));
+            var manager = _context.Managers.Include(x => x.Role).Include(a => a.Director).SingleOrDefault(m => m.Id.Equals(editManager.Id));
             if (manager != null)
             {
                 manager.Username = editManager.Username;
