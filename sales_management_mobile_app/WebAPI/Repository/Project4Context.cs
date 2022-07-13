@@ -30,6 +30,8 @@ namespace WebAPI.Repository
 
         public DbSet<Role> Roles { get; set; }
 
+        public DbSet<Report> Reports { get; set; }
+
 
         public object Admin { get; internal set; }
 
