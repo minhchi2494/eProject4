@@ -47,6 +47,8 @@ namespace BlazorApp
 
             builder.Services.AddScoped<IReportServices, ReportServices>();
 
+            builder.Services.AddScoped<IUserStoreServices, UserStoreServices>();
+
             builder.Services.AddAuthorizationCore();
 
             builder.Services.AddFileReaderService();

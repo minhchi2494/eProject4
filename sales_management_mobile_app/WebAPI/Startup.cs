@@ -51,6 +51,7 @@ namespace WebAPI
             services.AddScoped<IManagerUserServices, ManagerUserServices>();
             services.AddScoped<IDirectorManager, DirectorManager>();
             services.AddScoped<IReportServices, ReportServices>();
+            services.AddScoped<IUserStoreServices, UserStoreServices>();
 
             services.AddScoped<IPerformanceService, PerformanceService>();
             services.AddScoped<ExportService>();
