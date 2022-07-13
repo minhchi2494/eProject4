@@ -42,6 +42,8 @@ namespace BlazorApp.Models
 
         public bool? IsActive { get; set; } = true;
 
+        public int RoleId { get; set; } = 3;
+        public virtual Director Director { get; set; }
 
         public virtual Manager Manager { get; set; }
 
