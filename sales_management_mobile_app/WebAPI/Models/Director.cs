@@ -15,7 +15,7 @@ namespace WebAPI.Models
         public string Address { get; set; }
         public int KpiValue { get; set; }
         public int ActualKpi { get; set; }
-        public int RoleId { get; set; }
+        public int RoleId { get; set; } = 1;
 
         public virtual Role Role { get; set; }
 

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using WebAPI.Models;
 using WebAPI.Repository;
 
-namespace WebAPI.Services.Login
+namespace WebAPI.Services
 {
 
     public class LoginService
@@ -17,7 +17,7 @@ namespace WebAPI.Services.Login
             _context = context;
         }
 
-        public Task<AccountDTO> checkLogin(string username, string password)
+        public object checkLogin(string username, string password)
         {
             List<AccountDTO> accountList = new List<AccountDTO>();//contain all of account in Dir, Man, User table
 
@@ -46,30 +46,31 @@ namespace WebAPI.Services.Login
             {
                 if (acc.Username.Equals(username))
                 {
-                    string pass = PinCodeSecurity.pinDecrypt(password);
-                    if (acc.Password.Equals(password))
+                    string pass = PinCodeSecurity.pinEncrypt(password);
+                    if (acc.Password.Equals(pass))
                     {
-                        if(acc.RoleId == 1)
+                        if (acc.RoleId == 1)
                         {
                             Director accChecked = _context.Directors.SingleOrDefault(d => d.Username.Equals(acc.Username));
                             return accChecked;
                         }
-                        
+                        if(acc.RoleId == 2)
+                        {
+                            Manager accChecked = _context.Managers.SingleOrDefault(d => d.Username.Equals(acc.Username));
+                            return accChecked;
+                        }
+                        else
+                        {
+                            User accChecked = _context.Users.SingleOrDefault(d => d.Username.Equals(acc.Username));
+                            return accChecked;
+                        }
                     }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    return null;
                 }
             }
-            
 
             return null;
         }
+
 
     }
 }

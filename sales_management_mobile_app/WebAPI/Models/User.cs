@@ -17,7 +17,7 @@ namespace WebAPI.Models
         public string ManagerId { get; set; }
         public int KpiValue { get; set; }
         public int ActualKpi { get; set; }
-        public int RoleId { get; set; }
+        public int RoleId { get; set; } = 3;
 
         public bool IsActive { get; set; }
 

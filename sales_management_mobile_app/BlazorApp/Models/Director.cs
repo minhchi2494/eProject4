@@ -34,6 +34,7 @@ namespace BlazorApp.Models
         public int KpiValue { get; set; } = 0;
         public int ActualKpi { get; set; } = 0;
 
+        public int RoleId { get; set; } = 1;
 
         public virtual ICollection<Manager> Managers { get; set; }
     }
