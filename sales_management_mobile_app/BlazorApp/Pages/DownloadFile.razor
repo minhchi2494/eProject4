@@ -30,13 +30,13 @@ else if (IsDownloadStarted == 2)
             response.EnsureSuccessStatusCode();
  
             var fileBytes = await response.Content.ReadAsByteArrayAsync();
-            var fileName = $"Store Daily Order ({DateTime.Now.ToString("dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture)}).xlsx";
+            var fileName = $"Report ({DateTime.Now.ToString("dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture)}).xlsx";
             await JSRuntime.InvokeAsync<object>("saveAsFile", fileName, Convert.ToBase64String(fileBytes));
  
             IsDownloadStarted = 2;
 
             ToastService.ShowSuccess("File has been export successfully!", "Success");
-            NavigationManager.NavigateTo("/storeSalesDetail");
+            NavigationManager.NavigateTo("/report");
         }
     }
 }

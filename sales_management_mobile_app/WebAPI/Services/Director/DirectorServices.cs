@@ -19,7 +19,7 @@ namespace WebAPI.Services
 
         public async Task<Director> checkLogin(string username, string password)
         {
-            var dir = _context.Directors.SingleOrDefault(a => a.Username.Equals(username));
+            var dir = _context.Directors.Include(x => x.Role).SingleOrDefault(a => a.Username.Equals(username));
             if (dir != null)
             {
                 string pass = PinCodeSecurity.pinDecrypt(dir.Password);
@@ -40,7 +40,7 @@ namespace WebAPI.Services
 
         public async Task<List<Director>> getDirectors(Director searchDirector)
         {
-            var dir = _context.Directors.ToList();
+            var dir = _context.Directors.Include(x => x.Role).ToList();
 
             if (!string.IsNullOrEmpty(searchDirector.Fullname))
             {
@@ -51,7 +51,7 @@ namespace WebAPI.Services
 
         public async Task<Director> getDirector(string id)
         {
-            var dir = _context.Directors.SingleOrDefault(x => x.Id.Equals(id));
+            var dir = _context.Directors.Include(x => x.Role).SingleOrDefault(x => x.Id.Equals(id));
             if (dir != null)
             {
                 return dir;
@@ -64,7 +64,7 @@ namespace WebAPI.Services
 
         public async Task<bool> createDirector(Director newDirector)
         {
-            var dir = _context.Directors.SingleOrDefault(x => x.Id.Equals(newDirector.Id));
+            var dir = _context.Directors.Include(x => x.Role).SingleOrDefault(x => x.Id.Equals(newDirector.Id));
             if (dir == null)
             {
                 newDirector.Password = PinCodeSecurity.pinEncrypt(newDirector.Password);
@@ -81,7 +81,7 @@ namespace WebAPI.Services
 
         public async Task<bool> updateDirector(Director editDirector)
         {
-            var model = _context.Directors.SingleOrDefault(x => x.Id.Equals(editDirector.Id));
+            var model = _context.Directors.Include(x => x.Role).SingleOrDefault(x => x.Id.Equals(editDirector.Id));
             if (model != null)
             {
                 model.Username = editDirector.Username;

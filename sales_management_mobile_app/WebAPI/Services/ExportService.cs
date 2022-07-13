@@ -33,7 +33,7 @@ namespace WebAPI.Services
             var workbook = new XLWorkbook();
             workbook.Properties.Title = "Daily Sales";
             workbook.Properties.Author = "Chi Author";
-            workbook.Properties.Subject = "Store Sales Detail";
+            workbook.Properties.Subject = "Report";
             workbook.Properties.Keywords = "Export, Chi, Blazor";
 
             CreateAuthorWorksheet(workbook);
@@ -42,23 +42,25 @@ namespace WebAPI.Services
 
         public void CreateAuthorWorksheet(XLWorkbook package)
         {
-            var worksheet = package.Worksheets.Add("StoreSalesDetail");
+            var worksheet = package.Worksheets.Add("Report");
 
-            worksheet.Cell(1, 1).Value = "ProductId";
-            worksheet.Cell(1, 2).Value = "OrderId";
-            //worksheet.Cell(1, 3).Value = "UserId";
-            worksheet.Cell(1, 3).Value = "ActualQuantity";
-            //worksheet.Cell(1, 4).Value = "Date";
+            worksheet.Cell(1, 1).Value = "OrderId";
+            worksheet.Cell(1, 2).Value = "Salesman";
+            worksheet.Cell(1, 3).Value = "StoreName";
+            worksheet.Cell(1, 4).Value = "ProductName";
+            worksheet.Cell(1, 5).Value = "ActualQuantity";
+            worksheet.Cell(1, 6).Value = "CreatedOn";
 
 
-            var a = _context.OrderDetails.ToList();
+            var a = _context.Reports.ToList();
             for (int i = 1; i <= a.Count; i++)
             {
-                worksheet.Cell(i + 1, 1).Value = a[i - 1].ProductId;
-                worksheet.Cell(i + 1, 2).Value = a[i - 1].OrderId;
-                //worksheet.Cell(i + 1, 3).Value = a[i - 1].UserId;
-                worksheet.Cell(i + 1, 3).Value = a[i - 1].ActualQuantity;
-                //worksheet.Cell(i + 1, 4).Value = a[i - 1].Date;
+                worksheet.Cell(i + 1, 1).Value = a[i - 1].OrderId;
+                worksheet.Cell(i + 1, 2).Value = a[i - 1].Salesman;
+                worksheet.Cell(i + 1, 3).Value = a[i - 1].StoreName;
+                worksheet.Cell(i + 1, 4).Value = a[i - 1].ProductName;
+                worksheet.Cell(i + 1, 5).Value = a[i - 1].ActualQuantity;
+                worksheet.Cell(i + 1, 6).Value = a[i - 1].CreatedOn;
             }
         }
     }

@@ -19,7 +19,7 @@ namespace WebAPI.Services
 
         public async Task<List<User>> getUsers(User searchUser)
         {
-            var result = _context.Users.Include(x => x.Manager).Where(x => x.IsActive == true).ToList();
+            var result = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.IsActive == true).ToList();
 
             if (!string.IsNullOrEmpty(searchUser.Fullname))
             {
@@ -31,7 +31,7 @@ namespace WebAPI.Services
 
         public async Task<User> getUser(int id)
         {
-            var result = _context.Users.Include(x => x.Manager).Where(x => x.IsActive == true).SingleOrDefault(x => x.Id.Equals(id));
+            var result = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.IsActive == true).SingleOrDefault(x => x.Id.Equals(id));
             if (result != null)
             {
                 return result;
@@ -44,7 +44,7 @@ namespace WebAPI.Services
 
         public async Task<User> checkLogin(string username, string password)
         {
-            var model = _context.Users.Include(x => x.Manager).Where(x => x.IsActive == true).SingleOrDefault(a => a.Username.Equals(username));
+            var model = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.IsActive == true).SingleOrDefault(a => a.Username.Equals(username));
             if (model != null)
             {
                 string pass = PinCodeSecurity.pinDecrypt(model.Password);
@@ -65,15 +65,15 @@ namespace WebAPI.Services
 
         public async Task<bool> createUser(User newUser)
         {
-            var model = _context.Users.Include(x => x.Manager).SingleOrDefault(x => x.Id.Equals(newUser.Id));
+            var model = _context.Users.Include(x => x.Role).Include(x => x.Manager).SingleOrDefault(x => x.Id.Equals(newUser.Id));
             if (model == null)
             {
                 newUser.Password = PinCodeSecurity.pinEncrypt(newUser.Password);
 
-                var manager = _context.Managers.Include(x => x.Director).SingleOrDefault(x => x.Id.Equals(newUser.ManagerId));
+                var manager = _context.Managers.Include(x => x.Role).Include(x => x.Director).SingleOrDefault(x => x.Id.Equals(newUser.ManagerId));
                 //var director = _context.Directors.Include(x => x.Managers).SingleOrDefault(x => x.Id.Equals(manager.DirectorId));
 
-                var currentUsers = _context.Users.Include(x => x.Manager).Where(x => x.ManagerId == manager.Id).ToList();
+                var currentUsers = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.ManagerId == manager.Id).ToList();
                 int countCurrentUsers = currentUsers.Where(x => x.ManagerId == manager.Id).Count();
                 int kpiEachUser = manager.KpiValue / (countCurrentUsers +1);
                 for (int i = 0; i < countCurrentUsers; i++)
@@ -94,7 +94,7 @@ namespace WebAPI.Services
 
         public async Task<bool> updateUser(User editUser)
         {
-            var model = _context.Users.Include(x => x.Manager).Where(x => x.IsActive == true).SingleOrDefault(x=>x.Id.Equals(editUser.Id));
+            var model = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.IsActive == true).SingleOrDefault(x=>x.Id.Equals(editUser.Id));
             if (model != null)
             {
                 model.Username = editUser.Username;

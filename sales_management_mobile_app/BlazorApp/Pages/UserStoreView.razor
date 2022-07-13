@@ -1,10 +1,10 @@
-﻿@page "/managerUser/{id}"
+﻿@page "/userStore/{id:int}"
 @attribute [Authorize]
 @using BlazorApp.Services
 @using BlazorApp.Models
 @inject IToastService ToastService
-@inject IManagerUserServices _services;
-@inject IManagerServices _managerServices;
+@inject IUserStoreServices _services;
+@inject IUserServices _userServices;
 
 @if (loading)
 {
@@ -43,86 +43,89 @@
                 <div class="d-flex flex-row">
                     <RadzenImage Path="/images/manager.jpg" Class="rounded-circle float-left mr-3" Style="width: 100px; height: 100px;" />
                     <div>
-                        <div>Manager</div>
-                        <b>@manager.Fullname</b>
+                        <div>Salesman</div>
+                        <b>@user.Fullname</b>
                         <div class="mt-3">Company</div>
                         <b>FPT Company</b>
                     </div>
                 </div>
             </RadzenCard>
             <RadzenCard class="m-3">
-                <h3 class="h5">Sales Information</h3>
+                <h3 class="h5">Salesman Information</h3>
                 <div class="row">
                     <div class="col-md-4">
                         <div>Kpi Value</div>
-                        <b>@manager.KpiValue</b>
-                        <div class="mt-3">Salesman list:
+                        <b>@user.KpiValue</b>
+                        <div class="mt-3">Manager list:
                             <button @onclick="Show" class="form-control btn btn-primary">Show List</button>
+                            @*<button @onclick="Hide" class="form-control btn btn-secondary">Show List</button>*@
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div>Actual Kpi</div>
-                        <b>@manager.ActualKpi</b>
+                        <b>@user.ActualKpi</b>
                         <div class="mt-3">
                             <span style="color:#fff">Hide</span>
                             <button @onclick="Hide" class="form-control btn btn-secondary">Hide</button>
                         </div>
+                       
                     </div>
                 </div>
             </RadzenCard>
         </div>
     </div>
 
-
-@if (showList)
+@if(showList)
 {
-    <RadzenGrid style="margin-top: -30px;" @ref="managerUserGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-            AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="managerUsers" TItem="vManagerUser" ColumnWidth="200px">
+<RadzenGrid style="margin-top: -30px;" @ref="userStoreGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="userStores" TItem="vUserStore" ColumnWidth="200px">
     <Columns>
 
-        <RadzenGridColumn TItem="vManagerUser" Property="Salesman" Title="Salesman Name">
+        <RadzenGridColumn TItem="vUserStore" Property="StoreName" Title="Store Name">
             <FooterTemplate>
-                Displayed: <b>@managerUserGrid.View.Count()</b> of <b>@managerUsers.Count()</b>
+                Displayed: <b>@userStoreGrid.View.Count()</b> of <b>@userStores.Count()</b>
             </FooterTemplate>
         </RadzenGridColumn>
 
 
-        <RadzenGridColumn TItem="vManagerUser" Title="Action">
+@*        <RadzenGridColumn TItem="vUserStore" Title="Action">
             <Template Context="data">
-                <a href="/managerUser/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> &nbsp
+                <a href="/userStore/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> &nbsp
                 <a href="/editManager/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
             </Template>
-        </RadzenGridColumn>
+        </RadzenGridColumn>*@
 
     </Columns>
 </RadzenGrid>
 }
 
+
 <div><br /></div>
 <a href="/account" class="btn btn-primary">Cancel</a>
 
 @code {
-    RadzenGrid<vManagerUser> managerUserGrid;
+    RadzenGrid<vUserStore> userStoreGrid;
 
     private bool loading, showList;
 
-    private List<vManagerUser> managerUsers = new List<vManagerUser>();
+    private List<vUserStore> userStores = new List<vUserStore>();
 
-    private Manager manager = new Manager();
+    private User user = new User();
 
     [Parameter]
-    public string id { get; set; }
-    public string managerName { get; set; }
+    public int id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         showList = false;
         loading = true;
-        managerUsers = await _services.getManagerUsers(id);
-        manager = await _managerServices.getManager(id);
+        userStores = await _services.getUserStores(id);
+        user = await _userServices.getUser(id);
         loading = false;
     }
 
+
+    
     private void Show()
     {
         showList = true;

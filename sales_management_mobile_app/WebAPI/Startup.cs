@@ -38,7 +38,7 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string url = "server=ANHTUAN;database=Project4;uid=sa;pwd=123";
+            string url = "server=LAPTOP-6D8AK342\\CHI;database=Project4;uid=sa;pwd=123";
             services.AddScoped<IAdminServices, AdminServices>();
             services.AddScoped<IDirectorServices, DirectorServices>();
             services.AddScoped<IKpiValueServices, KpiValueServices>();
@@ -50,6 +50,9 @@ namespace WebAPI
             services.AddScoped<IProductServices, ProductServices>();
             services.AddScoped<IManagerUserServices, ManagerUserServices>();
             services.AddScoped<IDirectorManager, DirectorManager>();
+            services.AddScoped<IReportServices, ReportServices>();
+            services.AddScoped<IUserStoreServices, UserStoreServices>();
+
             services.AddScoped<IPerformanceService, PerformanceService>();
             services.AddScoped<ExportService>();
 
