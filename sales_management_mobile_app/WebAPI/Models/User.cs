@@ -20,6 +20,8 @@ namespace WebAPI.Models
        
         public bool IsActive { get; set; }
 
+        public int RoleId { get; set; }
+
         public virtual Manager Manager { get; set; }
 
         public virtual ICollection<Store> Stores { get; set; }
