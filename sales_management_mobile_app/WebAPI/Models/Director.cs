@@ -18,6 +18,7 @@ namespace WebAPI.Models
         public int RoleId { get; set; }
 
         public virtual Role Role { get; set; }
+
         public virtual ICollection<Manager> Managers { get; set; }
 
     }
