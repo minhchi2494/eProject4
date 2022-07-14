@@ -9,6 +9,7 @@ namespace BlazorApp.Services.Request
         public string name { get; set; }
         public decimal price { get; set; }
         public bool? active { get; set; }
+        public string description { get; set; }
         public MultipartFormDataContent file { get; set; }
     }
 }

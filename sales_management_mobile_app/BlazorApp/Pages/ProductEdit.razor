@@ -45,7 +45,11 @@
             <ValidationMessage For="()=>editProduct.price"></ValidationMessage>
         </div>
 
-
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Description">Description: </label>
+            <InputText class="form-control" @bind-Value="editProduct.description"></InputText>
+            <ValidationMessage For="()=>editProduct.description"></ValidationMessage>
+        </div>
     </div>
 
     <div>
@@ -112,7 +116,7 @@
         editProduct.id = product.Id;
         editProduct.name = product.Name;
         editProduct.price = product.Price;
-        //nameImage = product.Images;
+        editProduct.description = product.Description;
         editProduct.active = product.IsActive;
     }
 
@@ -128,6 +132,7 @@
         content.Add(new StringContent(editProduct.id), "id");
         content.Add(new StringContent(editProduct.name), "name");
         content.Add(new StringContent(editProduct.price.ToString()), "price");
+        content.Add(new StringContent(editProduct.description), "description");
         content.Add(new StringContent(editProduct.active.ToString()), "active");
         var result = await _services.updateProduct(content);
         if (result)

@@ -96,9 +96,9 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="KpiValue">Kpi Value </label>
-            <InputNumber class="form-control" @bind-Value="newManager.KpiValue"></InputNumber>
-            <ValidationMessage For="()=>newManager.KpiValue"></ValidationMessage>
+            @*<label for="KpiValue">Kpi Value </label>*@
+            <InputNumber class="form-control" @bind-Value="newManager.KpiValue" hidden></InputNumber>
+            @*<ValidationMessage For="()=>newManager.KpiValue"></ValidationMessage>*@
         </div>
     </div>
 
@@ -107,7 +107,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="/manager" class="btn btn-primary">Cancel</a>
+    <a href="/account" class="btn btn-primary">Cancel</a>
 </EditForm>
 
 @code {

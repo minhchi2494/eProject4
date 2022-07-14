@@ -40,7 +40,11 @@
             <ValidationMessage For="()=>newProduct.price"></ValidationMessage>
         </div>
 
-
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Description">Description </label>
+            <InputText class="form-control" @bind-Value="newProduct.description"></InputText>
+            <ValidationMessage For="()=>newProduct.description"></ValidationMessage>
+        </div>
     </div>
 
     <div>
@@ -55,11 +59,15 @@
         </div>
     </div>
 
+    <div>
+        <br>
+    </div>
+
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="IsActive">Active</label>
             <input type="checkbox" unchecked @bind="newProduct.active">
-            <small id="nameHelp" class="form-text text-muted">(Note: check to active your Product)</small>
+            @*<small id="nameHelp" class="form-text text-muted">(Note: check to active your Product)</small>*@
         </div>
     </div>
 
@@ -108,6 +116,7 @@
         content.Add(new StreamContent(filestream, (int)filestream.Length), "file", nameImage);
         content.Add(new StringContent(newProduct.id), "id");
         content.Add(new StringContent(newProduct.name), "name");
+        content.Add(new StringContent(newProduct.description), "description");
         content.Add(new StringContent(newProduct.price.ToString()), "price");
         content.Add(new StringContent(newProduct.active.ToString()), "active");
         var result = await _services.createProduct(content);

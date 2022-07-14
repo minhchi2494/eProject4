@@ -39,7 +39,7 @@
     <Tabs>
         <RadzenTabsItem Text="Director">
             <RadzenGrid @ref="directorGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                        AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="directors" TItem="Director" ColumnWidth="150px">
+                        AllowFiltering="true" AllowPaging="true" PageSize="10" AllowSorting="true" Data="directors" TItem="Director" ColumnWidth="150px">
                 <Columns>
                     <RadzenGridColumn TItem="Director" Property="Id" Title="Id">
                         <FooterTemplate>
@@ -65,7 +65,7 @@
 
         <RadzenTabsItem Text="Manager">
             <RadzenGrid @ref="managerGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                        AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="managers" TItem="Manager" ColumnWidth="160px">
+                        AllowFiltering="true" AllowPaging="true" AllowSorting="true" PageSize="10" Data="managers" TItem="Manager" ColumnWidth="160px">
                 <Columns>
                     <RadzenGridColumn TItem="Manager" Property="Id" Title="Id">
                         <FooterTemplate>
@@ -75,7 +75,7 @@
                     <RadzenGridColumn TItem="Manager" Property="Username" Title="Username"></RadzenGridColumn>
                     <RadzenGridColumn TItem="Manager" Property="Fullname" Title="Fullname"></RadzenGridColumn>
                     <RadzenGridColumn TItem="Manager" Property="Email" Title="Email"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Manager" Property="Phone" Title="Phone"></RadzenGridColumn>
+                    @*<RadzenGridColumn TItem="Manager" Property="Phone" Title="Phone"></RadzenGridColumn>*@
                     <RadzenGridColumn TItem="Manager" Property="Address" Title="Address"></RadzenGridColumn>
                     <RadzenGridColumn TItem="Manager" Property="DirectorId" Title="Director">
                         <Template Context="data">
@@ -97,7 +97,7 @@
         </RadzenTabsItem>
 
         <RadzenTabsItem Text="Salesman">
-            <RadzenGrid @ref="userGrid" AllowPaging="true" AllowSorting="true" Data="users" TItem="User" ColumnWidth="150px"
+            <RadzenGrid @ref="userGrid" AllowPaging="true" PageSize="10" AllowSorting="true" Data="users" TItem="User" ColumnWidth="150px"
                         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
                 <Columns>
                     @*<RadzenGridColumn TItem="User" Property="Id" Title="Id"></RadzenGridColumn>*@
@@ -120,8 +120,8 @@
                     <RadzenGridColumn TItem="User" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
                     <RadzenGridColumn TItem="User" Title="Action">
                         <Template Context="data">
-                            <a href="/editUser/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a> &nbsp
-                            <a href="/userStore/@data.Id" class="btn btn-outline-info"><i class="fas fa-store"></i></a>
+                            <a href="/userStore/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> &nbsp
+                            <a href="/editUser/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a> 
                         </Template>
                     </RadzenGridColumn>
                 </Columns>
