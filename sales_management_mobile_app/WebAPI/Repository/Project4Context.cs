@@ -33,6 +33,9 @@ namespace WebAPI.Repository
         public DbSet<Report> Reports { get; set; }
 
         public DbSet<vUserStore> vUserStores { get; set; }
+
+        public DbSet<vOrderHistory> vOrderHistories { get; set; }
+
         public object Admin { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
