@@ -72,26 +72,28 @@ namespace WebAPI.Services
                 var managers = _context.Managers.Include(x => x.Role).Include(x => x.Director).Where(x => x.DirectorId == newManager.DirectorId).ToList();
                 int countManagers = managers.Where(x => x.DirectorId == newManager.DirectorId).Count();
                 var director = _context.Directors.Include(x => x.Role).SingleOrDefault(x => x.Id == newManager.DirectorId);
-                int kpiEachManager = director.KpiValue / (countManagers+1);
+                double kpiEachManager = (director.KpiValue*1.0) / (countManagers+1*1.0);
+                int a = (int)(Math.Ceiling(kpiEachManager));
                 for (int i = 0; i < countManagers; i++)
                 {
-                    managers[i].KpiValue = kpiEachManager;
+                    managers[i].KpiValue = a;
 
 
                     var userss = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.ManagerId == managers[i].Id).ToList();
                     int countUser = userss.Where(x => x.ManagerId == managers[i].Id).Count();
                     if (countUser != 0)
                     {
-                        int kpiEachUser = kpiEachManager / countUser;
+                        double kpiEachUser = (kpiEachManager*1.0) / (countUser*1.0);
+                        int b = (int)(Math.Ceiling(kpiEachUser));
                         for (int j = 0; j < countUser; j++)
                         {
-                            userss[j].KpiValue = kpiEachUser;
+                            userss[j].KpiValue = b;
                         }
                     }
 
                 }
 
-                newManager.KpiValue = kpiEachManager;
+                newManager.KpiValue = a;
                 _context.Managers.Add(newManager);
                 _context.SaveChanges();
                 return true;
