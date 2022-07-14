@@ -77,14 +77,16 @@
 @if (showList)
 {
     <RadzenGrid style="margin-top: -30px;" @ref="managerUserGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-            AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="managerUsers" TItem="vManagerUser" ColumnWidth="200px">
+            AllowFiltering="true" AllowPaging="true" PageSize="5" AllowSorting="true" Data="managerUsers" TItem="vManagerUser" ColumnWidth="200px">
     <Columns>
 
-        <RadzenGridColumn TItem="vManagerUser" Property="Salesman" Title="Salesman Name">
+        <RadzenGridColumn TItem="vManagerUser" Property="SalesmanId" Title="Salesman Id">
             <FooterTemplate>
                 Displayed: <b>@managerUserGrid.View.Count()</b> of <b>@managerUsers.Count()</b>
             </FooterTemplate>
         </RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vManagerUser" Property="Salesman" Title="Salesman Name"></RadzenGridColumn>
 
 
 @*        <RadzenGridColumn TItem="vManagerUser" Title="Action">

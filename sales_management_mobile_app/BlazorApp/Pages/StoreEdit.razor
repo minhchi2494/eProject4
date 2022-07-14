@@ -52,14 +52,14 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Address">Address: </label>
-            <InputText class="form-control" @bind-Value="editStore.Address"></InputText>
+            @*<label for="Address">Address: </label>*@
+            <InputText class="form-control" @bind-Value="editStore.Address" hidden></InputText>
             <ValidationMessage For="()=>editStore.Address"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Longitude">Longitude: </label>
-            <InputNumber class="form-control" @bind-Value="editStore.Longitude"></InputNumber>
+            @*<label for="Longitude">Longitude: </label>*@
+            <InputNumber class="form-control" @bind-Value="editStore.Longitude" hidden></InputNumber>
             <ValidationMessage For="()=>editStore.Longitude"></ValidationMessage>
         </div>
     </div>
@@ -70,25 +70,29 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Latitude">Latitude: </label>
-            <InputNumber class="form-control" @bind-Value="editStore.Latitude"></InputNumber>
+            @*<label for="Latitude">Latitude: </label>*@
+            <InputNumber class="form-control" @bind-Value="editStore.Latitude" hidden></InputNumber>
             <ValidationMessage For="()=>editStore.Latitude"></ValidationMessage>
         </div>
 
-
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            @*<label for="Latitude">Latitude: </label>*@
+            <InputNumber class="form-control" @bind-Value="editStore.UserId" hidden></InputNumber>
+            <ValidationMessage For="()=>editStore.UserId"></ValidationMessage>
+        </div>
     </div>
 
     <div>
         <br>
     </div>
 
-@*    <div class="row material">
+    <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="IsActive">IsActive</label>
-            <input type="checkbox" unchecked @bind="editStore.IsActive">
-            <small id="nameHelp" class="form-text text-muted">(Note: Uncheck will deactive your Location)</small>
+            @*<label for="IsActive">IsActive</label>*@
+            <input type="checkbox" unchecked @bind="editStore.IsActive" hidden>
+            @*<small id="nameHelp" class="form-text text-muted">(Note: Uncheck will deactive your Location)</small>*@
         </div>
-    </div>*@
+    </div>
 
     <div>
         <br>
@@ -115,6 +119,7 @@
         editStore.Address = store.Address;
         editStore.Longitude = store.Longitude;
         editStore.Latitude = store.Latitude;
+        editStore.UserId = store.UserId;
         editStore.IsActive = store.IsActive;
     }
 
