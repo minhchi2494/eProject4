@@ -27,16 +27,18 @@ namespace WebAPI.Services
             //cập nhật kpiYear và kpiValue cho Manager dười quyền Director và Salesman dười sự quản lý của Manager đó
             var managers = _context.Managers.Include(x => x.Users).Where(x => x.DirectorId == dirId).ToList();
             int countManagers = managers.Where(x => x.DirectorId == dirId).Count();
-            int kpiEachManager = kpiValue / countManagers;
+            double kpiEachManager = (kpiValue*1.0) / (countManagers*1.0);
+            int a = (int)(Math.Ceiling(kpiEachManager));
             for (int i = 0; i < countManagers; i++)
             {
-                managers[i].KpiValue = kpiEachManager;
+                managers[i].KpiValue = a;
                 var userss = _context.Users.Include(x => x.Stores).Where(x => x.ManagerId == managers[i].Id).ToList();
                 int countUser = userss.Where(x => x.ManagerId == managers[i].Id).Count();
-                int kpiEachUser = kpiEachManager / countUser;
+                double kpiEachUser = (kpiEachManager*1.0) / (countUser*1.0);
+                int b = (int)(Math.Ceiling(kpiEachUser));
                 for (int j = 0; j < countUser; j++)
                 {
-                    userss[j].KpiValue = kpiEachUser;
+                    userss[j].KpiValue = b;
                 }
             }
             _context.SaveChanges();

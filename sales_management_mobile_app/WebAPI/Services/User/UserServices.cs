@@ -75,13 +75,14 @@ namespace WebAPI.Services
 
                 var currentUsers = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.ManagerId == manager.Id).ToList();
                 int countCurrentUsers = currentUsers.Where(x => x.ManagerId == manager.Id).Count();
-                int kpiEachUser = manager.KpiValue / (countCurrentUsers +1);
+                double kpiEachUser = (manager.KpiValue*1.0) / (countCurrentUsers +1*1.0);
+                int a = (int)(Math.Ceiling(kpiEachUser));
                 for (int i = 0; i < countCurrentUsers; i++)
                 {
-                    currentUsers[i].KpiValue = kpiEachUser;
+                    currentUsers[i].KpiValue = a;
                 }
 
-                newUser.KpiValue = kpiEachUser; 
+                newUser.KpiValue = a; 
                 _context.Users.Add(newUser);
                 _context.SaveChanges();
                 return true;
