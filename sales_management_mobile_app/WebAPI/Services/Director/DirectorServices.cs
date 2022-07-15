@@ -68,9 +68,18 @@ namespace WebAPI.Services
             if (dir == null)
             {
                 newDirector.Password = PinCodeSecurity.pinEncrypt(newDirector.Password);
-                _context.Directors.Add(newDirector);
-                _context.SaveChanges();
-                return true;
+                newDirector.ConfirmPassword = PinCodeSecurity.pinEncrypt(newDirector.ConfirmPassword);
+                if (newDirector.Password.Equals(newDirector.ConfirmPassword))
+                {
+                    _context.Directors.Add(newDirector);
+                    _context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
             }
             else
             {
