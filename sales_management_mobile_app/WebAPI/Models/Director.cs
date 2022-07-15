@@ -17,6 +17,8 @@ namespace WebAPI.Models
         public int ActualKpi { get; set; }
         public int RoleId { get; set; } = 1;
 
+        public string ConfirmPassword { get; set; }
+
         public virtual Role Role { get; set; }
 
         public virtual ICollection<Manager> Managers { get; set; }

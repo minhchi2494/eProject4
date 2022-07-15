@@ -10,6 +10,7 @@
 
 <EditForm Model="@model" OnValidSubmit="@SubmitCreate">
     <DataAnnotationsValidator />
+    @*<ValidationSummary />*@
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Id">Id: <span style="color:red">(*)</span> </label>
@@ -36,9 +37,9 @@
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Fullname">Fullname <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="model.Fullname"></InputText>
-            <ValidationMessage For="()=>model.Fullname"></ValidationMessage>
+            <label for="ConfirmPassword">Confirm Password <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" type="password" @bind-Value="model.ConfirmPassword"></InputText>
+            <ValidationMessage For="()=>model.ConfirmPassword"></ValidationMessage>
         </div>
     </div>
 
@@ -47,17 +48,17 @@
     </div>
 
     <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Fullname">Fullname <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="model.Fullname"></InputText>
+            <ValidationMessage For="()=>model.Fullname"></ValidationMessage>
+        </div>
+
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Email">Email <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="model.Email"></InputText>
             <ValidationMessage For="()=>model.Email"></ValidationMessage>
         </div>
-
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Phone">Phone <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="model.Phone"></InputText>
-            <ValidationMessage For="()=>model.Phone"></ValidationMessage>
-        </div>
     </div>
 
     <div>
@@ -66,6 +67,12 @@
 
 
     <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Phone">Phone <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="model.Phone"></InputText>
+            <ValidationMessage For="()=>model.Phone"></ValidationMessage>
+        </div>
+
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Address">Address </label>
             <InputText class="form-control" @bind-Value="model.Address"></InputText>
