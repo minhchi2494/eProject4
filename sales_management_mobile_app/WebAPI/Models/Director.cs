@@ -18,6 +18,7 @@ namespace WebAPI.Models
         public int RoleId { get; set; } = 1;
 
         public string ConfirmPassword { get; set; }
+        public string OldPassword { get; set; }
 
         public virtual Role Role { get; set; }
 
