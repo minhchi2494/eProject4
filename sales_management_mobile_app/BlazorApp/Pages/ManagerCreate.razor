@@ -37,9 +37,9 @@
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Fullname">Fullname <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="newManager.Fullname"></InputText>
-            <ValidationMessage For="()=>newManager.Fullname"></ValidationMessage>
+            <label for="ConfirmPassword">Confirm Password <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" type="password" @bind-Value="newManager.ConfirmPassword"></InputText>
+            <ValidationMessage For="()=>newManager.ConfirmPassword"></ValidationMessage>
         </div>
     </div>
 
@@ -49,15 +49,15 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Email">Email <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="newManager.Email"></InputText>
-            <ValidationMessage For="()=>newManager.Email"></ValidationMessage>
+            <label for="Fullname">Fullname <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="newManager.Fullname"></InputText>
+            <ValidationMessage For="()=>newManager.Fullname"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Phone">Phone <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="newManager.Phone"></InputText>
-            <ValidationMessage For="()=>newManager.Phone"></ValidationMessage>
+            <label for="Email">Email <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="newManager.Email"></InputText>
+            <ValidationMessage For="()=>newManager.Email"></ValidationMessage>
         </div>
     </div>
 
@@ -67,11 +67,23 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Phone">Phone <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="newManager.Phone"></InputText>
+            <ValidationMessage For="()=>newManager.Phone"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Address">Address </label>
             <InputText class="form-control" @bind-Value="newManager.Address"></InputText>
             <ValidationMessage For="()=>newManager.Address"></ValidationMessage>
         </div>
+    </div>
 
+    <div>
+        <br />
+    </div>
+
+    <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Director Id">Director <span style="color:red">(*)</span> </label>
             <br />
@@ -88,13 +100,7 @@
             </select>
             <ValidationMessage For="()=>newManager.DirectorId"></ValidationMessage>
         </div>
-    </div>
 
-    <div>
-        <br />
-    </div>
-
-    <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             @*<label for="KpiValue">Kpi Value </label>*@
             <InputNumber class="form-control" @bind-Value="newManager.KpiValue" hidden></InputNumber>
