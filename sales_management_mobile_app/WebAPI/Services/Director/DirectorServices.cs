@@ -93,15 +93,27 @@ namespace WebAPI.Services
             var model = _context.Directors.Include(x => x.Role).SingleOrDefault(x => x.Id.Equals(editDirector.Id));
             if (model != null)
             {
-                model.Username = editDirector.Username;
-                model.Password = PinCodeSecurity.pinEncrypt(editDirector.Password);
-                model.Fullname = editDirector.Fullname;
-                model.Email = editDirector.Email;
-                model.Phone = editDirector.Phone;
-                model.Address = editDirector.Address;
-                model.KpiValue = editDirector.KpiValue;
-                _context.SaveChanges();
-                return true;
+                var oldPassword = PinCodeSecurity.pinEncrypt(editDirector.OldPassword);
+                var password = PinCodeSecurity.pinEncrypt(editDirector.Password);
+                var confirmPassword = PinCodeSecurity.pinEncrypt(editDirector.ConfirmPassword);
+                if (oldPassword.Equals(model.Password))
+                {
+                    if (password.Equals(confirmPassword))
+                    {
+                        model.Password = password;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+
             }
             else
             {

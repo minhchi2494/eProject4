@@ -22,9 +22,14 @@
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Username">Username: </label>
-            <InputText class="form-control" @bind-Value="editDirector.Username"></InputText>
-            <ValidationMessage For="()=>editDirector.Username"></ValidationMessage>
+            <label for="OldPassword">Current Password: </label>
+            <InputText class="form-control" type="password" @bind-Value="editDirector.OldPassword"></InputText>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            @*<label for="Username">Username: </label>*@
+            <InputText class="form-control" @bind-Value="editDirector.Username" hidden></InputText>
+            @*<ValidationMessage For="()=>editDirector.Username"></ValidationMessage>*@
         </div>
     </div>
 
@@ -36,6 +41,12 @@
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Password">Password: </label>
             <InputText class="form-control" type="password" @bind-Value="editDirector.Password"></InputText>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="ConfirmPassword">Confirm Password <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" type="password" @bind-Value="editDirector.ConfirmPassword"></InputText>
+            <ValidationMessage For="()=>editDirector.ConfirmPassword"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
