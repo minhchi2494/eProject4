@@ -7,7 +7,7 @@
     </button>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+<div class="@NavMenuCssClass">
     <ul class="nav flex-column">
 
         @*<li class="nav-item px-3">
@@ -65,6 +65,27 @@
             </NavLink>
         </li>
 
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="#" @onclick="()=>ToggleNavMenu()">
+                <span class="oi oi-list-rich"></span> Report &nbsp &nbsp <i class="fa-solid fa-angle-down"></i>
+                
+            </NavLink>
+            @if (collapseNavMenu)
+            {
+                
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href=""><i class="fa-solid fa-angles-right"></i>&nbsp &nbsp<span>Director</span></NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href=""><i class="fa-solid fa-angles-right"></i>&nbsp &nbsp<span>Manager</span></NavLink>
+                    </li>
+                    <li class="nav-item px-3">
+                        <NavLink class="nav-link" href=""><i class="fa-solid fa-angles-right"></i>&nbsp &nbsp<span>Salesman</span></NavLink>
+                    </li>
+                
+             }
+        </li>
+
 @*        <li class="nav-item px-3">
             <NavLink class="nav-link" href="target">
                 <span><i class="fa-solid fa-bullseye"></i>&nbsp &nbsp Targets</span>
@@ -96,7 +117,7 @@
 
 
 @code {
-    private bool collapseNavMenu = true;
+    private bool collapseNavMenu = false;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 

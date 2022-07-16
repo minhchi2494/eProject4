@@ -15,52 +15,52 @@
     <DataAnnotationsValidator />
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="model.Id"></InputText>
+            <ValidationMessage For="()=>model.Id"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Username">Username <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="model.Username"></InputText>
             <ValidationMessage For="()=>model.Username"></ValidationMessage>
         </div>
+    </div>
 
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Password">Password <span style="color:red">(*)</span> </label>
             <InputText class="form-control" type="password" @bind-Value="model.Password"></InputText>
             <ValidationMessage For="()=>model.Password"></ValidationMessage>
         </div>
-    </div>
 
-    <div>
-        <br>
-    </div>
-
-    <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="ConfirmPassword">Confirm Password <span style="color:red">(*)</span> </label>
             <InputText class="form-control" type="password" @bind-Value="model.ConfirmPassword"></InputText>
             <ValidationMessage For="()=>model.ConfirmPassword"></ValidationMessage>
         </div>
+    </div>
 
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Fullname">Fullname <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="model.Fullname"></InputText>
             <ValidationMessage For="()=>model.Fullname"></ValidationMessage>
         </div>
-    </div>
 
-    <div>
-        <br>
-    </div>
-
-    <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Email">Email <span style="color:red">(*)</span> </label>
             <InputText class="form-control" @bind-Value="model.Email"></InputText>
             <ValidationMessage For="()=>model.Email"></ValidationMessage>
         </div>
-
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Phone">Phone <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="model.Phone"></InputText>
-            <ValidationMessage For="()=>model.Phone"></ValidationMessage>
-        </div>
     </div>
 
     <div>
@@ -69,27 +69,16 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Phone">Phone <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="model.Phone"></InputText>
+            <ValidationMessage For="()=>model.Phone"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Address">Address  </label>
             <InputText class="form-control" @bind-Value="model.Address"></InputText>
             <ValidationMessage For="()=>model.Address"></ValidationMessage>
         </div>
-
-        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="ManagerId">Manager <span style="color:red">(*)</span> </label>
-            <br />
-            <select @bind="model.ManagerId" style="width:682px; height:35px">
-                @if (managers != null)
-                {
-                        <option value=0 style="text-align:center">-- Select manager --</option>
-                    @foreach (var mag in managers)
-                    {
-                        <option value="@mag.Id">@mag.Fullname</option>
-                    }
-                }
-            </select>
-            <ValidationMessage For="()=>model.ManagerId"></ValidationMessage>
-        </div>
-
 @*        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="TargetId">Target No.</label>
             <select @bind="model.TargetId" style="width:682px; height:35px">
@@ -112,6 +101,22 @@
     </div>
 
     <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="ManagerId">Manager <span style="color:red">(*)</span> </label>
+            <br />
+            <select @bind="model.ManagerId" style="width:682px; height:35px">
+                @if (managers != null)
+                {
+                        <option value=0 style="text-align:center">-- Select manager --</option>
+                    @foreach (var mag in managers)
+                    {
+                        <option value="@mag.Id">@mag.Fullname</option>
+                    }
+                }
+            </select>
+            <ValidationMessage For="()=>model.ManagerId"></ValidationMessage>
+        </div>
+
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             @*<label for="IsActive">Active</label>*@
             <input type="checkbox" unchecked @bind="model.IsActive" hidden>

@@ -45,7 +45,7 @@ namespace WebAPI.Services
             }
         }
 
-        public async Task<bool> saveOrder(int userId, string storeId, List<CartItem> orderList)
+        public async Task<bool> saveOrder(string userId, string storeId, List<CartItem> orderList)
         {
             double totalPrice = 0;
             int quantity = 0;
@@ -74,7 +74,7 @@ namespace WebAPI.Services
             return true;
         }
 
-        public async Task<bool> setActualKPI(int userId)
+        public async Task<bool> setActualKPI(string userId)
         {
             List<Store> storeBelongUserId = new List<Store>();
             List<Store> storeList = _context.Stores.ToList();

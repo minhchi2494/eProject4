@@ -17,7 +17,7 @@ namespace WebAPI.Services
             _context = context;
         }
 
-        public async Task<List<vUserStore>> getUserStores(int id)
+        public async Task<List<vUserStore>> getUserStores(string id)
         {
             var result = _context.vUserStores.Where(x => x.Id.Equals(id)).ToList();
             return result;

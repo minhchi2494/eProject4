@@ -9,7 +9,7 @@ namespace BlazorApp.Models
     public partial class User
     {
         [Required(ErrorMessage = "Id is required")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "Username is required")]
         [StringLength(20, MinimumLength = 2, ErrorMessage = "Username must contains from 2 to 20 characters!")]
@@ -29,6 +29,9 @@ namespace BlazorApp.Models
 
 
         [Required(ErrorMessage = "Email is required")]
+        [StringLength(30, MinimumLength = 8, ErrorMessage = "Email must contains from 8 to 40 characters!")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Phone is required")]

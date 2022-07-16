@@ -19,7 +19,7 @@ namespace BlazorApp.Services
         }
 
 
-        public async Task<List<vUserStore>> getUserStores(int id)
+        public async Task<List<vUserStore>> getUserStores(string id)
         {
             var result = await _httpClient.GetFromJsonAsync<List<vUserStore>>($"/api/UserStore/{id}");
             return result;

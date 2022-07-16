@@ -29,6 +29,9 @@ namespace BlazorApp.Models
         public string Fullname { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
+        [StringLength(30, MinimumLength = 8, ErrorMessage = "Email must contains from 8 to 40 characters!")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Phone is required")]

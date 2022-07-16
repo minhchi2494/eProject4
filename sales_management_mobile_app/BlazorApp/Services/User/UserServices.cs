@@ -38,7 +38,7 @@ namespace BlazorApp.Services
         }
     
      
-        public async Task<User> getUser(int id)
+        public async Task<User> getUser(string id)
         {
             var result = await _httpClient.GetFromJsonAsync<User>($"/api/User/{id}");
             return result;

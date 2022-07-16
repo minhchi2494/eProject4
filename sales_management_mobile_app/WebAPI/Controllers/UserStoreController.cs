@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public Task<List<vUserStore>> getUserStores(int id)
+        public Task<List<vUserStore>> getUserStores(string id)
         {
             return _services.getUserStores(id);
         }
