@@ -22,6 +22,8 @@ namespace BlazorApp.Models
         [Compare("Password",ErrorMessage = "Password and Confirm Password must match")]
         public string ConfirmPassword { get; set; }
 
+        public string OldPassword { get; set; }
+
         [Required(ErrorMessage = "Fullname is required")]
         [StringLength(40, MinimumLength = 2, ErrorMessage = "Fullname must contains from 2 to 40 characters!")]
         public string Fullname { get; set; }
