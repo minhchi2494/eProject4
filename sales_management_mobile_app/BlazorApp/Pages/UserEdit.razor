@@ -1,0 +1,157 @@
+﻿@page "/editUser/{id:int}"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject IUserServices _services;
+@inject IToastService ToastService;
+
+<h3>Edit Salesman</h3>
+
+@if (editUser == null)
+{
+    <div>Loading</div>
+}
+
+<EditForm Model="@editUser" OnValidSubmit="@SubmitEdit">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: </label>
+            <input class="form-control" value="@editUser.Id" readonly/>
+        </div>
+
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Username">Username: </label>
+            <InputText class="form-control" @bind-Value="editUser.Username"></InputText>
+            <ValidationMessage For="()=>editUser.Username"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Password">Password <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" type="password" @bind-Value="editUser.Password"></InputText>
+            <ValidationMessage For="()=>editUser.Password"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputText class="form-control" @bind-Value="editUser.Fullname" hidden></InputText>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputText class="form-control" @bind-Value="editUser.Email" hidden></InputText>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputText class="form-control" @bind-Value="editUser.Phone" hidden></InputText>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputText class="form-control" @bind-Value="editUser.Address" hidden></InputText>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputText class="form-control" @bind-Value="editUser.ManagerId" hidden></InputText>
+        </div>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputNumber class="form-control" @bind-Value="editUser.KpiValue" hidden></InputNumber>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <InputNumber class="form-control" @bind-Value="editUser.ActualKpi" hidden></InputNumber>
+        </div>
+    </div>
+
+
+@*    <div>
+        <br>
+    </div>*@
+
+@*    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="ManagerId">Manager Id: </label>
+            <InputText class="form-control" @bind-Value="editUser.ManagerId" readonly></InputText>
+            <ValidationMessage For="()=>editUser.ManagerId"></ValidationMessage>
+        </div>
+    </div>*@
+
+@*    <div>
+        <br>
+    </div>*@
+
+@*    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="IsActive">Is Active</label>
+            <input type="checkbox" unchecked @bind="editUser.IsActive">
+            <small id="nameHelp" class="form-text text-muted">(Note: Uncheck will deactive your User)</small>
+        </div>
+    </div>*@
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    @*<a href="/managerUser/@editUser.ManagerId" class="btn btn-primary">Back</a>*@
+    <a href="/account" class="btn btn-primary">Back</a>
+</EditForm>
+
+@code {
+    [Parameter]
+
+    public int id { get; set; }
+
+    private User editUser = new User();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await _services.getUser(id);
+        editUser = new User();
+        editUser.Id = user.Id;
+        editUser.Username = user.Username;
+        editUser.Password = user.Password;
+        editUser.Fullname = user.Fullname;
+        editUser.Email = user.Email;
+        editUser.Phone = user.Phone;
+        editUser.Address = user.Address;
+        editUser.ManagerId = user.ManagerId;
+        editUser.KpiValue = user.KpiValue;
+        editUser.ActualKpi = user.ActualKpi;
+        editUser.IsActive = user.IsActive;
+    }
+
+    private async Task SubmitEdit(EditContext context)
+    {
+        var result = await _services.updateUser(editUser);
+        if (result)
+        {
+            ToastService.ShowSuccess($"{editUser.Fullname} has been updated successfully!", "Success");
+            NavigationManager.NavigateTo("/account");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

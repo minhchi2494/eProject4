@@ -1,0 +1,174 @@
+﻿@page "/manager"
+@attribute [Authorize]
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject IManagerServices _services;
+
+<EditForm Model="@searchManager" OnSubmit=@SeachForm>
+    <div class="row">
+        <div class="col-md-6">
+            <InputText @bind-Value="searchManager.Fullname" class="form-control" placeholder="Enter Fullname..."></InputText>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
+        </div>
+    </div>
+
+    <br />
+
+    @*<div class=row>
+        <div class="col-3">
+        <a href="/managerCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+        </div>
+        </div>
+
+        <br />*@
+    <NavLink href="/managerCreate" class="btn btn-sm btn-success mb-2">Create Manager</NavLink>
+    <NavLink href="/userCreate" class="btn btn-sm btn-success mb-2">Create Salesman</NavLink>
+</EditForm>
+
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="managerGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+            AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="managers" TItem="Manager" ColumnWidth="160px">
+    <Columns>
+        <RadzenGridColumn TItem="Manager" Property="Id" Title="Id">
+            <FooterTemplate>
+                Displayed: <b>@managerGrid.View.Count()</b> of <b>@managers.Count()</b>
+            </FooterTemplate>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="Username" Title="Username"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="Fullname" Title="Fullname"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="Email" Title="Email"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="Phone" Title="Phone"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="Address" Title="Address"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="DirectorId" Title="Director">
+            <Template Context="data">
+                @data.Director.Fullname
+            </Template>
+        </RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Manager" Property="ActualKpi" Title="Actual Kpi"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="Manager" Title="Action">
+            <Template Context="data">
+                <a href="/managerUser/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> &nbsp
+                <a href="/editManager/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+            </Template>
+        </RadzenGridColumn>
+
+    </Columns>
+</RadzenGrid>
+
+@*<div class="row">
+    <div class="col">
+        <div class="col-md-2">
+            <button type="button" class="form-control btn btn-primary" @onclick="Show">
+                <i class="fas fa-plus"></i> ADD New
+            </button>
+
+            <div>
+                <br>
+            </div>
+
+            @if (showModal)
+            {
+                <div class="modal" style="display:block" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <h4 style="text-align:center" class="modal-title">Create</h4>
+                            <div class="modal-body">
+                                <label for="AttributeMaster" class="Requried">Attribute Master : </label>
+                                <input />
+                                <div>Hello from Dialog</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary d-flex justify-content-start">Save</button>
+                                <button type="button" @onclick="CancelSubmit" class="btn btn-default d-flex justify-content-end" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th style="width:20%">Id</th>
+            <th style="width:20%">Fullname</th>
+            <th style="width:20%">District</th>
+            <th style="width:20%">Team members</th>
+            <th style="width:20%">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in managers)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Fullname</td>
+                <td>@item.Location.District</td>
+
+                <td>
+                    <a href="/managerUser/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
+                </td>
+
+                <td>
+                    <a href="/editManager/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@
+
+@code {
+    RadzenGrid<Manager> managerGrid;
+
+    private bool loading;
+
+    private List<Manager> managers = new List<Manager>();
+
+    private Manager searchManager = new Manager();
+
+    bool showModal;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //showModal = false;
+        loading = true;
+        managers = await _services.getManagers(searchManager);
+        loading = false;
+    }
+
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        managers = await _services.getManagers(searchManager);
+    }
+
+    //private void Show()
+    //{
+    //    showModal = true;
+    //}
+
+    //private void CancelSubmit()
+    //{
+    //    showModal = false;
+    //}
+}

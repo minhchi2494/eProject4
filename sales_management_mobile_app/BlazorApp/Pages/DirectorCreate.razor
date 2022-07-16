@@ -1,0 +1,118 @@
+﻿@page "/directorCreate"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@inject NavigationManager NavigationManager;
+@inject IDirectorServices _services;
+@inject IToastService ToastService;
+
+<h3>Create Director</h3>
+
+<EditForm Model="@model" OnValidSubmit="@SubmitCreate">
+    <DataAnnotationsValidator />
+    @*<ValidationSummary />*@
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="model.Id"></InputText>
+            <ValidationMessage For="()=>model.Id"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Username">Username <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="model.Username"></InputText>
+            <ValidationMessage For="()=>model.Username"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Password">Password <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" type="password" @bind-Value="model.Password"></InputText>
+            <ValidationMessage For="()=>model.Password"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="ConfirmPassword">Confirm Password <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" type="password" @bind-Value="model.ConfirmPassword"></InputText>
+            <ValidationMessage For="()=>model.ConfirmPassword"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Fullname">Fullname <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="model.Fullname"></InputText>
+            <ValidationMessage For="()=>model.Fullname"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Email">Email <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="model.Email"></InputText>
+            <ValidationMessage For="()=>model.Email"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Phone">Phone <span style="color:red">(*)</span> </label>
+            <InputText class="form-control" @bind-Value="model.Phone"></InputText>
+            <ValidationMessage For="()=>model.Phone"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Address">Address </label>
+            <InputText class="form-control" @bind-Value="model.Address"></InputText>
+            <ValidationMessage For="()=>model.Address"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            @*<label for="KpiValue">Kpi Value </label>*@
+            <InputNumber class="form-control" @bind-Value="model.KpiValue" hidden></InputNumber>
+            @*<ValidationMessage For="()=>model.KpiValue"></ValidationMessage>*@
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/account" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+@code {
+    private List<Director> directors = new List<Director>();
+
+    private Director searchDirector = new Director();
+
+    private Director model = new Director();
+
+
+    private async Task SubmitCreate(EditContext context)
+    {
+        var result = await _services.createDirector(model);
+        if (result)
+        {
+            ToastService.ShowSuccess($"Director {model.Fullname} has been created successfully!", "Success");
+            NavigationManager.NavigateTo("/account");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

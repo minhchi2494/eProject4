@@ -1,0 +1,128 @@
+﻿@page "/product"
+@attribute [Authorize]
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject IProductServices _services;
+
+<EditForm Model="@searchProduct" OnSubmit=@SeachForm>
+    <div class="row">
+        <div class="col-md-6">
+            <InputText @bind-Value="searchProduct.Name" class="form-control" placeholder="Enter Product Name..."></InputText>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
+        </div>
+    </div>
+
+    <br />
+
+    @*<div class=row>
+        <div class="col-3">
+            <a href="/productCreate" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+        </div>
+    </div>
+
+    <br />*@
+    <NavLink href="/productCreate" class="btn btn-sm btn-success mb-2">Create Product</NavLink>
+</EditForm>
+
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="productGrid" AllowPaging="true" PageSize="5" AllowSorting="true" Data="products" TItem="Product" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
+    <Columns>
+        <RadzenGridColumn TItem="Product" Property="Id" Title="Id"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Product" Property="Name" Title="Name"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Product" Property="Price" Title="Price"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Product" Property="Description" Title="Description"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Product" Title="Image">
+            <Template Context="data">
+                <img src="@("http://localhost:54350" + data.Images)" style="width: 80px; height: 80px; border-radius: 8px;" />
+            </Template>
+        </RadzenGridColumn>
+@*        <RadzenGridColumn TItem="Product" Title="Active">
+            <Template Context="data">
+                <span class="badge badge-success">@data.IsActive</span>
+            </Template>
+        </RadzenGridColumn>*@
+        <RadzenGridColumn TItem="Product" Title="Action">
+            <Template Context="data">
+                <a href="/editProduct/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+            </Template>
+            <FooterTemplate>
+                Displayed Managers: <b>@productGrid.View.Count()</b> of <b>@products.Count()</b>
+            </FooterTemplate>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Images</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Unit</th>
+            <th>Active</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in products)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>
+                    <img src="images/@item.Images" width="150px" />
+                </td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Unit</td>
+                <td>
+                    <span class="badge badge-success">@item.IsActive</span>
+                </td>
+               
+                <td>
+                    <a href="/editProduct/@item.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@
+
+@code {
+
+    RadzenGrid<Product> productGrid;
+
+    private bool loading;
+
+    private List<Product> products = new List<Product>();
+
+    private Product searchProduct = new Product();
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        products = await _services.getProducts(searchProduct);
+        loading = false;
+    }
+
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        products = await _services.getProducts(searchProduct);
+    }
+
+
+}

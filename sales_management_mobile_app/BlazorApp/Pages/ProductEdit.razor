@@ -1,0 +1,148 @@
+﻿@page "/editProduct/{id}"
+@attribute [Authorize]
+@using BlazorApp.Models
+@using BlazorApp.Services
+@using BlazorApp.Services.Request
+@using Tewr.Blazor.FileReader
+@using System.IO
+@inject NavigationManager NavigationManager;
+@inject IProductServices _services;
+@inject IToastService ToastService;
+@inject IFileReaderService fileReader;
+
+
+<h3>Edit Product</h3>
+
+@if (editProduct == null)
+{
+    <div>Loading</div>
+}
+
+<EditForm Model="@editProduct" OnValidSubmit="@SubmitEdit">
+    <DataAnnotationsValidator />
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Id">Id: </label>
+            <InputText class="form-control" @bind-Value="editProduct.id" readonly></InputText>
+            <ValidationMessage For="()=>editProduct.id"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Name">Name: </label>
+            <InputText class="form-control" @bind-Value="editProduct.name"></InputText>
+            <ValidationMessage For="()=>editProduct.name"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Price">Price: </label>
+            <InputNumber class="form-control" @bind-Value="editProduct.price"></InputNumber>
+            <ValidationMessage For="()=>editProduct.price"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Description">Description: </label>
+            <InputText class="form-control" @bind-Value="editProduct.description"></InputText>
+            <ValidationMessage For="()=>editProduct.description"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Images">Images: </label>
+            <input type="file" name="image" @ref="inputReference" @onchange="async() =>await OnInputFileChange()" />
+        </div>
+    </div>
+
+@*    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="IsActive">Active</label>
+            <input type="checkbox" unchecked @bind="editProduct.IsActive">
+            <small id="nameHelp" class="form-text text-muted">(Note: Uncheck to de-active your Product)</small>
+        </div>
+    </div>*@
+
+    <div>
+        <br>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="/product" class="btn btn-primary">Cancel</a>
+</EditForm>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    string nameImage = null;
+
+    ElementReference inputReference;
+
+    Stream filestream = null;
+
+    string Message = "No image selected";
+    IReadOnlyList<IBrowserFile> selectedFiles;
+
+    async Task OnInputFileChange()
+    {
+        var file = (await fileReader.CreateReference(inputReference).EnumerateFilesAsync()).FirstOrDefault();
+
+        if (file == null) {
+            return;
+        }
+
+        var fileInfo=await file.ReadFileInfoAsync();
+        nameImage = fileInfo.Name;
+        using (var ms = await file.CreateMemoryStreamAsync((int)fileInfo.Size)) {
+            filestream = new MemoryStream(ms.ToArray());
+        }
+    }
+
+    private ProductRequest editProduct = new ProductRequest();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var product = await _services.getProduct(id);
+        editProduct = new ProductRequest();
+        editProduct.id = product.Id;
+        editProduct.name = product.Name;
+        editProduct.price = product.Price;
+        editProduct.description = product.Description;
+        editProduct.active = product.IsActive;
+    }
+
+    private async Task SubmitEdit(EditContext context)
+    {
+        var content = new MultipartFormDataContent();
+        content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data");
+        if (nameImage != null)
+        {
+            content.Add(new StreamContent(filestream, (int)filestream.Length), "file", nameImage);
+        }
+        
+        content.Add(new StringContent(editProduct.id), "id");
+        content.Add(new StringContent(editProduct.name), "name");
+        content.Add(new StringContent(editProduct.price.ToString()), "price");
+        content.Add(new StringContent(editProduct.description), "description");
+        content.Add(new StringContent(editProduct.active.ToString()), "active");
+        var result = await _services.updateProduct(content);
+        if (result)
+        {
+            ToastService.ShowSuccess($"{editProduct.name} has been updated successfully!", "Success");
+            NavigationManager.NavigateTo("/product");
+        }
+        else
+        {
+            ToastService.ShowError("An error has been occured in progress!", "Fail");
+        }
+    }
+}

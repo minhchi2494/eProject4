@@ -1,0 +1,62 @@
+﻿@attribute [Authorize]
+@inherits LayoutComponentBase
+@using Blazored.Toast.Configuration;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@inject BlazorApp.Services.IAdminServices AdminService
+@inject NavigationManager NavigationManager
+@inject IAdminServices AdminService
+
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="5"
+                IconType="IconType.FontAwesome"
+                ErrorIcon="fa fa-times"
+                InfoIcon="fa fa-info"
+                SuccessIcon="fa fa-check"
+                WarningIcon="fa fa-exclamation" />
+<head>
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+
+
+
+@if (LoggedIn)
+{
+<div class="page">
+
+
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <div class="main">
+
+
+        <div class="top-row px-3">
+            <a href="admin/logout" class="nav-item nav-link"><i class="fa-solid fa-sign-out"></i>Logout</a>
+            <a href="profile" class="nav-item nav-link"><i class="fa-solid fa-user-gear"></i></a>Hi @AdminService.Admin.Username
+        </div>
+
+        <div class="content px-3">
+            <Alert />
+            @Body
+        </div>
+
+    </div>
+</div>
+        }
+            else {<div class="content px-3 @(LoggedIn ? "bg-light" : "")">
+            <Alert />
+            @Body
+        </div> }
+        
+
+   
+
+    @code {
+public bool LoggedIn
+    {
+        get { return AdminService.Admin != null; }
+    }
+    }

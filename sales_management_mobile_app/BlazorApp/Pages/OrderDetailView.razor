@@ -1,0 +1,125 @@
+﻿@page "/orderDetail"
+@attribute [Authorize]
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject IStoreSalesDetailServices _services;
+
+<EditForm Model="@ftd" OnSubmit=@SeachForm>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="CreatedOn">From Date: </label>
+            <InputDate TValue="DateTime?" @bind-Value="ftd.FromDate" class="form-control"></InputDate>
+        </div>
+        <div class="col-md-3">
+            <label for="CreatedOn">To Date: </label>
+            <InputDate TValue="DateTime?" @bind-Value="ftd.ToDate" class="form-control"></InputDate>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
+        </div>
+    
+        <div class="col-md-2" style="max-width:130px;">
+            <a href="/downloadexcel" class="btn btn-primary"><i class="fa fa-download"></i> Export</a>
+        </div>
+        <div class="col-md-2">
+            <a href="/importexcel" class="btn btn-primary"><i class="fas fa-file-import"></i> Import</a>
+        </div>
+    </div>
+
+@*    <div class="row">
+             <div class="col-md-8">
+             </div>
+
+             <div class="col-md-2">
+                 <DownloadFile></DownloadFile>
+                 <a href="/downloadexcel" class="btn btn-primary"><i class="fa fa-download"></i></a>
+             </div>
+
+             <div class="col-md-2">
+                  <a href="/importexcel" class="btn btn-primary"><i class="fas fa-file-import"></i></a>
+                 <ImportFile></ImportFile>
+             </div>
+    </div>*@
+</EditForm>
+
+<br />
+
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="ssdGrid" AllowPaging="true" AllowSorting="true" Data="ssd" TItem="OrderDetail" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
+    <Columns>
+        <RadzenGridColumn TItem="OrderDetail" Property="ProductId" Title="Product">
+            <Template Context="data">
+                @data.Product.Name
+            </Template>
+        </RadzenGridColumn>
+
+        <RadzenGridColumn TItem="OrderDetail" Property="StoreActualQuantity" Title="Store Actual Quantity"></RadzenGridColumn>
+
+@*        <RadzenGridColumn TItem="OrderDetail" Property="Date" Title="Date">
+            <Template Context="data">
+                @data.Date.ToString("dd-MM-yyyy")
+            </Template>
+        </RadzenGridColumn>*@
+    </Columns>
+</RadzenGrid>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>Salesman id</th>
+            <th>Product</th>
+            <th>Store</th>
+            <th>Store Actual Quantity</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ssd)
+        {
+            <tr>
+                <td>@item.Store.UserId</td>
+                <td>@item.Product.Name</td>
+                <td>@item.Store.Name</td>
+                <td>@item.StoreActualQuantity</td>
+                <td>@item.Date.ToString("dd-MM-yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>*@
+
+@code {
+    RadzenGrid<OrderDetail> ssdGrid;
+
+    private bool loading;
+
+    private List<OrderDetail> ssd = new List<OrderDetail>();
+
+    private FromToDate ftd = new FromToDate();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        ssd = await _services.getStoreSalesDetails(ftd.FromDate, ftd.ToDate);
+        loading = false;
+    }
+
+    private async Task SeachForm(EditContext context)
+    {
+        //ToastService.ShowSuccess("Search successfully!", "Success");
+        ssd = await _services.getStoreSalesDetails(ftd.FromDate, ftd.ToDate);
+    }
+}

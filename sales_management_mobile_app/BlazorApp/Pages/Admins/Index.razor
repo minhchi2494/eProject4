@@ -1,0 +1,84 @@
+﻿@page "/admin"
+@attribute [Authorize]
+@inject IAdminServices AdminService
+
+<h1>Admin Team</h1>
+<NavLink href="admin/add" class="btn btn-sm btn-success mb-2">Create Admin</NavLink>
+
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+<RadzenGrid @ref="adminGrid" AllowPaging="true" AllowSorting="true" Data="admins" TItem="Admin" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
+    <Columns>
+        <RadzenGridColumn TItem="Admin" Property="Username" Title="Username"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Admin" Property="Fullname" Title="Fullname"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Admin" Property="Phone" Title="Phone"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Admin" Property="Email" Title="Email">
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th style="width: 20%">Username</th>
+            <th style="width: 20%">FullName</th>
+            <th style="width: 20%">Phone</th>
+            <th style="width: 20%">Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (admins != null)
+        {
+            foreach (var admin in admins)
+            {
+        <tr>
+            <td>@admin.Username</td>
+            <td>@admin.Fullname</td>
+            <td>@admin.Phone</td>
+            <td>@admin.Email</td>
+
+        </tr>
+            }
+        }
+        @if (loading)
+        {
+            <tr>
+                <td colspan="4" class="text-center">
+                    <span class="spinner-border spinner-border-lg align-center"></span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@
+
+@code {
+    RadzenGrid<Admin> adminGrid;
+
+    private bool loading;
+    private IList<Admin> admins;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        admins = await AdminService.GetAll();
+        loading = false;
+    }
+
+    private async void DeleteAdmin(int id)
+    {
+        var admin = admins.First(x => x.Id == id);
+        admin.IsDeleting = true;
+        await AdminService.Delete(id);
+        admins.Remove(admin);
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,107 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">Sales Management</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+
+        @*<li class="nav-item px-3">
+            <NavLink class="nav-link" href="/">
+            <span><i class="fa-solid fa-address-card"></i>&nbsp &nbsp Profile</span>
+            </NavLink>
+            </li>*@
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="admin">
+                <span><i class="fa-solid fa-user"></i>&nbsp &nbsp Admin</span>
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="account">
+                <span><i class="fa-solid fa-users"></i>&nbsp &nbsp Account</span>
+            </NavLink>
+        </li>
+
+@*         <li class="nav-item px-3">
+            <NavLink class="nav-link" href="director">
+                <span><i class="fa-solid fa-user"></i>&nbsp &nbsp Director</span>
+            </NavLink>
+        </li>*@
+
+@*        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="user">
+                <span><i class="fa-solid fa-users"></i>&nbsp &nbsp User</span>
+            </NavLink>
+        </li>*@
+
+@*        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="manager">
+                <span><i class="fa-solid fa-user-tie"></i>&nbsp &nbsp Manager</span>
+            </NavLink>
+        </li>*@
+
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="product">
+                <span><i class="fa-solid fa-wine-bottle"></i>&nbsp &nbsp Products</span>
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="store">
+                <span><i class="fa-solid fa-store"></i>&nbsp &nbsp Stores</span>
+            </NavLink>
+        </li>
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="report">
+                <span><i class="fa-solid fa-chart-bar"></i>&nbsp &nbsp Report</span>
+            </NavLink>
+        </li>
+
+@*        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="target">
+                <span><i class="fa-solid fa-bullseye"></i>&nbsp &nbsp Targets</span>
+            </NavLink>
+        </li>
+
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="salesDetail">
+                <span><i class="fa-solid fa-chart-column"></i>&nbsp &nbsp Daily Sales</span>
+            </NavLink>
+        </li>
+
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="orderDetail">
+                <span><i class="fa-solid fa-chart-bar"></i>&nbsp &nbsp Order</span>
+            </NavLink>
+        </li>
+
+
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="testMap">
+                <span><i class="fa-solid fa-chart-bar"></i>&nbsp &nbsp Google Map</span>
+            </NavLink>
+        </li>*@
+    </ul>
+</div>
+
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

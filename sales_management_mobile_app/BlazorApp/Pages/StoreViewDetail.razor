@@ -1,0 +1,65 @@
+﻿@page "/storeDetail/{id}"
+@attribute [Authorize]
+@using BlazorApp.Services
+@using BlazorApp.Models
+
+<h1>Store's Information</h1>
+
+<table class="table">
+    <tr>
+        <td>Id</td>
+        <td>@store?.Id</td>
+    </tr>
+
+    <tr>
+        <td>Name</td>
+        <td>@store?.Name</td>
+    </tr>
+
+    <tr>
+        <td>Email</td>
+        <td>@store?.Email</td>
+    </tr>
+
+    <tr>
+        <td>Phone</td>
+        <td>@store?.Phone</td>
+    </tr>
+
+    <tr>
+        <td>Address</td>
+        <td>@store?.Address</td>
+    </tr>
+
+    <tr>
+        <td>Longitude</td>
+        <td>@store?.Longitude</td>
+    </tr>
+
+    <tr>
+        <td>Latitude</td>
+        <td>@store?.Latitude</td>
+    </tr>
+
+    <tr>
+        <td>Active</td>
+        <td>@store?.IsActive</td>
+    </tr>
+</table>
+
+<a href="/store" class="btn btn-primary">Cancel</a>
+
+@code {
+    [Inject]
+    private IStoreServices _services { get; set; }
+
+    private Store store { set; get; }
+
+    [Parameter]
+    public string id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        store = await _services.getStore(id);
+    }
+}

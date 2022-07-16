@@ -1,0 +1,134 @@
+﻿@page "/user"
+@attribute [Authorize]
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject IUserServices _services;
+@inject IStoreServices _storeservices;
+
+<EditForm Model="@searchUser" OnSubmit=@SeachForm>
+    <div class="row">
+        <div class="col-md-6">
+            <InputText @bind-Value="searchUser.Fullname" class="form-control" placeholder="Enter Full Name..."></InputText>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
+        </div>
+    </div>
+</EditForm>
+<br />
+<NavLink href="/userCreate" class="btn btn-sm btn-success mb-2">Create User</NavLink>
+
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="8" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="userGrid" AllowPaging="true" AllowSorting="true" Data="users" TItem="User" ColumnWidth="150px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
+    <Columns>
+        @*<RadzenGridColumn TItem="User" Property="Id" Title="Id"></RadzenGridColumn>*@
+        <RadzenGridColumn TItem="User" Property="Username" Title="Username"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="Fullname" Title="Fullname"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="Email" Title="Email"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="Phone" Title="Phone"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="Address" Title="Address"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="ManagerId" Title="Manager">
+            <Template Context="data">
+                @data.Manager.Fullname
+            </Template>
+        </RadzenGridColumn>
+@*        <RadzenGridColumn TItem="User" Title="Active">
+            <Template Context="data">
+                <span class="badge badge-success">@data.IsActive</span>
+            </Template>
+        </RadzenGridColumn>*@
+        <RadzenGridColumn TItem="User" Property="ActualKpi" Title="Actual Kpi"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
+        <RadzenGridColumn TItem="User" Title="Action">
+            <Template Context="data">
+                <a href="/editUser/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a> &nbsp
+                <a href="/storeUser/@data.Id" class="btn btn-outline-info"><i class="fas fa-store"></i></a>
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Fullname</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Role</th>
+            <th>Address</th>
+            <th>Location</th>
+            <th>Active</th>
+            <th>Action</th>
+            <th>Store</th>
+            <th>Manager</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in users)
+        {
+            <tr>
+                <td>@item.Username</td>
+                <td>@item.Fullname</td>
+                <td>@item.Email</td>
+                <td>@item.Phone</td>
+                <td>@item.Address</td>
+                <td>@item.Role.Title</td>
+                <td>@item.Location.District</td>
+                @foreach (var store in stores)
+                {
+                    <td>@store.Name</td>
+                }
+                <td>
+                    <span class="badge badge-success">@item.IsActive</span>
+                </td>
+
+                <td>
+                    <a href="/editUser/@item.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a>
+                </td>
+
+                <td>
+                    <a href="/storeUser/@item.Id" class="btn btn-outline-info"><i class="fas fa-store"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@
+
+@code {
+    RadzenGrid<User> userGrid;
+
+    private bool loading;
+
+    private List<User> users = new List<User>();
+    private List<Store> stores = new List<Store>();
+    private User searchUser = new User();
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        users = await _services.getUsers(searchUser);
+        loading = false;
+
+    }
+
+    private async Task SeachForm(EditContext context)
+    {
+        ToastService.ShowSuccess("Search successfully!", "Success");
+        users = await _services.getUsers(searchUser);
+    }
+}
