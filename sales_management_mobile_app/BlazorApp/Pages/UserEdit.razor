@@ -1,4 +1,4 @@
-﻿@page "/editUser/{id:int}"
+﻿@page "/editUser/{id}"
 @attribute [Authorize]
 @using BlazorApp.Models
 @using BlazorApp.Services
@@ -120,7 +120,7 @@
 @code {
     [Parameter]
 
-    public int id { get; set; }
+    public string id { get; set; }
 
     private User editUser = new User();
 

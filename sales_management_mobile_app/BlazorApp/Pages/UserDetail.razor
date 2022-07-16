@@ -1,4 +1,4 @@
-﻿@page "/userDetail/{id:int}"
+﻿@page "/userDetail/{id}"
 @attribute [Authorize]
 @using BlazorApp.Services
 @using BlazorApp.Models
@@ -62,7 +62,7 @@
     private User user = new User();
 
     [Parameter]
-    public int id { get; set; }
+    public string id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

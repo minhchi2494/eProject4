@@ -29,7 +29,7 @@ namespace WebAPI.Services
         }
 
 
-        public async Task<User> getUser(int id)
+        public async Task<User> getUser(string id)
         {
             var result = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.IsActive == true).SingleOrDefault(x => x.Id.Equals(id));
             if (result != null)

@@ -9,6 +9,6 @@ namespace WebAPI.Services
 {
     public interface IUserStoreServices
     {
-        Task<List<vUserStore>> getUserStores(int id);
+        Task<List<vUserStore>> getUserStores(string id);
     }
 }

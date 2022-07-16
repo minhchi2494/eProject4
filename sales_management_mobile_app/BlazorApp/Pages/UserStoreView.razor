@@ -1,4 +1,4 @@
-﻿@page "/userStore/{id:int}"
+﻿@page "/userStore/{id}"
 @attribute [Authorize]
 @using BlazorApp.Services
 @using BlazorApp.Models
@@ -80,12 +80,14 @@
 <RadzenGrid style="margin-top: -30px;" @ref="userStoreGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
             AllowFiltering="true" AllowPaging="true" PageSize="5" AllowSorting="true" Data="userStores" TItem="vUserStore" ColumnWidth="200px">
     <Columns>
-
-        <RadzenGridColumn TItem="vUserStore" Property="StoreName" Title="Store Name">
+        <RadzenGridColumn TItem="vUserStore" Property="StoreId" Title="Store Id">
             <FooterTemplate>
                 Displayed: <b>@userStoreGrid.View.Count()</b> of <b>@userStores.Count()</b>
             </FooterTemplate>
         </RadzenGridColumn>
+
+
+        <RadzenGridColumn TItem="vUserStore" Property="StoreName" Title="Store Name"></RadzenGridColumn>
 
 
 @*        <RadzenGridColumn TItem="vUserStore" Title="Action">
@@ -113,7 +115,7 @@
     private User user = new User();
 
     [Parameter]
-    public int id { get; set; }
+    public string id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {

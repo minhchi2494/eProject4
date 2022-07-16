@@ -28,7 +28,7 @@ namespace BlazorApp.Models
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Salesman is required")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         public double Longitude { get; set; }
 
