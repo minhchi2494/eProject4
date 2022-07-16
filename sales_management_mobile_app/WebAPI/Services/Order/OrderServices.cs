@@ -115,9 +115,9 @@ namespace WebAPI.Services
 
             if (moment.Day == 1 && u.ActualKpi > 0)
             {
-                string lastMonth = Convert.ToString(moment.Month - 1);
-                KpiPerMonth kpm = new KpiPerMonth(lastMonth, sumofQuantityInOrder, userId);// save last month KPI
-                u.ActualKpi = 0;//reset ActualKpi for current Month
+                int lastMonth = moment.Month - 1;
+                KpiPerMonth kpm = new KpiPerMonth(lastMonth, sumofQuantityInOrder, u.Username);// save last month KPI
+                u.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
                 _context.SaveChanges();
             }
             u.ActualKpi = sumofQuantityInOrder;
@@ -153,9 +153,9 @@ namespace WebAPI.Services
             
             if (moment.Day == 1 && mgr.ActualKpi > 0)
             {
-                string lastMonth = Convert.ToString(moment.Month - 1);
-                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfSalePersons, Int32.Parse(managerId));// save last month KPI
-                mgr.ActualKpi = 0;//reset ActualKpi for current Month
+                int lastMonth = moment.Month - 1;
+                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfSalePersons, mgr.Username);// save last month KPI
+                mgr.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
                 _context.SaveChanges();
             }
             mgr.ActualKpi = totalActualKpiOfSalePersons;
@@ -191,9 +191,9 @@ namespace WebAPI.Services
             
             if (moment.Day == 1 && dir.ActualKpi > 0)
             {
-                string lastMonth = Convert.ToString(moment.Month - 1);
-                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfManager, Int32.Parse(dirId));// save last month KPI
-                dir.ActualKpi = 0;//reset ActualKpi for current Month
+                int lastMonth = moment.Month - 1;
+                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfManager, dir.Username);// save last month KPI
+                dir.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
                 _context.SaveChanges();
             }
             dir.ActualKpi = totalActualKpiOfManager;

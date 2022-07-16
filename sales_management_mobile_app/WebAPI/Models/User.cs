@@ -27,7 +27,6 @@ namespace WebAPI.Models
 
         public virtual ICollection<Store> Stores { get; set; }
 
-        public virtual ICollection<KpiPerMonth> KpiPerMonths { get; set; }
 
         
     }

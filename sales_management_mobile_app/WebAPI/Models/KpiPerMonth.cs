@@ -7,17 +7,17 @@ namespace WebAPI.Models
 {
     public class KpiPerMonth
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
+
+        public int LastMonth { get; set; }
         public int Value { get; set; }
-        public int UserId { get; set; }
+        public string UserName { get; set; }
 
-        public virtual User User { get; set; }
-
-        public KpiPerMonth(string Id, int Value, int UserId)
+        public KpiPerMonth(int LastMonth, int Value, string UserName)
         {
-            this.Id = Id;
+            this.LastMonth = LastMonth;
             this.Value = Value;
-            this.UserId = UserId;
+            this.UserName = UserName;
         }
     }
 }
