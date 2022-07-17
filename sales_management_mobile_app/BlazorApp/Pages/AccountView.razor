@@ -77,11 +77,11 @@
                     <RadzenGridColumn TItem="Manager" Property="Email" Title="Email"></RadzenGridColumn>
                     @*<RadzenGridColumn TItem="Manager" Property="Phone" Title="Phone"></RadzenGridColumn>*@
                     <RadzenGridColumn TItem="Manager" Property="Address" Title="Address"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Manager" Property="DirectorId" Title="Director">
+@*                    <RadzenGridColumn TItem="Manager" Property="DirectorId" Title="Director">
                         <Template Context="data">
                             @data.Director.Fullname
                         </Template>
-                    </RadzenGridColumn>
+                    </RadzenGridColumn>*@
                     <RadzenGridColumn TItem="Manager" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
                     <RadzenGridColumn TItem="Manager" Property="ActualKpi" Title="Actual Kpi"></RadzenGridColumn>
 
@@ -106,11 +106,11 @@
                     <RadzenGridColumn TItem="User" Property="Email" Title="Email"></RadzenGridColumn>
                     <RadzenGridColumn TItem="User" Property="Phone" Title="Phone"></RadzenGridColumn>
                     <RadzenGridColumn TItem="User" Property="Address" Title="Address"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="User" Property="ManagerId" Title="Manager">
+@*                    <RadzenGridColumn TItem="User" Property="ManagerId" Title="Manager">
                         <Template Context="data">
                             @data.Manager.Fullname
                         </Template>
-                    </RadzenGridColumn>
+                    </RadzenGridColumn>*@
             @*        <RadzenGridColumn TItem="User" Title="Active">
                         <Template Context="data">
                             <span class="badge badge-success">@data.IsActive</span>

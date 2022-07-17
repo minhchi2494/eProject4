@@ -19,6 +19,8 @@ namespace WebAPI.Models
         public int ActualKpi { get; set; }
         public int RoleId { get; set; } = 3;
 
+        public string ConfirmPassword { get; set; }
+        public string OldPassword { get; set; }
         public bool IsActive { get; set; }
 
         public virtual Role Role { get; set; }

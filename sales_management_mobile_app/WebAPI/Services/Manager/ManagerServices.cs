@@ -109,20 +109,36 @@ namespace WebAPI.Services
             var manager = _context.Managers.Include(x => x.Role).Include(a => a.Director).SingleOrDefault(m => m.Id.Equals(editManager.Id));
             if (manager != null)
             {
-                manager.Username = editManager.Username;
-                manager.Password = PinCodeSecurity.pinEncrypt(editManager.Password);
-                manager.Fullname = editManager.Fullname;
-                manager.Email = editManager.Email;
-                manager.Phone = editManager.Phone;
-                manager.Address = editManager.Address;
-                manager.KpiValue = editManager.KpiValue;
-
-                manager.DirectorId = editManager.DirectorId;
-                Director dir = _context.Directors.SingleOrDefault(d => d.Id == editManager.DirectorId);
-                manager.Director = dir;
-
-                _context.SaveChanges();
-                return true;
+                var oldPassword = PinCodeSecurity.pinEncrypt(editManager.OldPassword);
+                var password = PinCodeSecurity.pinEncrypt(editManager.Password);
+                var confirmPassword = PinCodeSecurity.pinEncrypt(editManager.ConfirmPassword);
+                if (oldPassword.Equals(manager.Password))
+                {
+                    if (password.Equals(confirmPassword))
+                    {
+                        manager.Password = password;
+                        _context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    //manager.Username = editManager.Username;
+                    //manager.Password = PinCodeSecurity.pinEncrypt(editManager.Password);
+                    //manager.Fullname = editManager.Fullname;
+                    //manager.Email = editManager.Email;
+                    //manager.Phone = editManager.Phone;
+                    //manager.Address = editManager.Address;
+                    //manager.KpiValue = editManager.KpiValue;
+                    //manager.DirectorId = editManager.DirectorId;
+                    //Director dir = _context.Directors.SingleOrDefault(d => d.Id == editManager.DirectorId);
+                    //manager.Director = dir;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
