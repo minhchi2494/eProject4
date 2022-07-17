@@ -12,7 +12,7 @@ namespace WebAPI.Models
     {
         public string DirectorId { get; set; }
         public string ManagerId { get; set; }
-        public int SalesmanId { get; set; }
+        public string SalesmanId { get; set; }
         public int OrderId { get; set; }
         public string Director { get; set; }
         public string Manager { get; set; }

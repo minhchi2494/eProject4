@@ -16,7 +16,7 @@ namespace WebAPI.Services
         {
             _context = context;
         }
-        public async Task<List<vOrderHistory>> getSalesmanOrders(int id)
+        public async Task<List<vOrderHistory>> getSalesmanOrders(string id)
         {
             var result = _context.vOrderHistories.Where(x => x.SalesmanId.Equals(id)).ToList();
             return result;
