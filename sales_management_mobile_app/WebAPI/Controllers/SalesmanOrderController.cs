@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public Task<List<vOrderHistory>> getSalesmanOrders(int id)
+        public Task<List<vOrderHistory>> getSalesmanOrders(string id)
         {
             return _services.getSalesmanOrders(id);
         }
