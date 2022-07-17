@@ -88,26 +88,18 @@ namespace WebAPI.Services
         }
 
 
-        public async Task<bool> updateDirector(Director editDirector)
+        public async Task<bool> updateDirector(string id, string oldPass, string Pass)
         {
-            var model = _context.Directors.Include(x => x.Role).SingleOrDefault(x => x.Id.Equals(editDirector.Id));
+            var model = _context.Directors.Include(x => x.Role).SingleOrDefault(x => x.Id.Equals(id));
             if (model != null)
             {
-                var oldPassword = PinCodeSecurity.pinEncrypt(editDirector.OldPassword);
-                var password = PinCodeSecurity.pinEncrypt(editDirector.Password);
-                var confirmPassword = PinCodeSecurity.pinEncrypt(editDirector.ConfirmPassword);
+                var oldPassword = PinCodeSecurity.pinEncrypt(oldPass);
+                var password = PinCodeSecurity.pinEncrypt(Pass);
                 if (oldPassword.Equals(model.Password))
                 {
-                    if (password.Equals(confirmPassword))
-                    {
-                        model.Password = password;
-                        _context.SaveChanges();
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    model.Password = password;
+                    _context.SaveChanges();
+                    return true;
                 }
                 else
                 {

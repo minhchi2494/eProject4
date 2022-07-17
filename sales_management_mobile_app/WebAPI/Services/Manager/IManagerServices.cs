@@ -12,6 +12,6 @@ namespace WebAPI.Services
         Task<Manager> getManager(string id);
         Task<Manager> checkLogin(string username, string password);
         Task<bool> createManager(Manager newManager);
-        Task<bool> updateManager(Manager editManager);
+        Task<bool> updateManager(string id, string oldPass, string Pass);
     }
 }

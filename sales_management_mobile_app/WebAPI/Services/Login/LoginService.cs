@@ -52,7 +52,7 @@ namespace WebAPI.Services
                         if (acc.RoleId == 1)
                         {
                             Director accChecked = _context.Directors.SingleOrDefault(d => d.Username.Equals(acc.Username));
-                            /*return accChecked;*/
+                            return accChecked;
                         }
                         if(acc.RoleId == 2)
                         {
