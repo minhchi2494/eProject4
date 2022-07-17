@@ -104,26 +104,18 @@ namespace WebAPI.Services
             }
         }
 
-        public async Task<bool> updateManager(Manager editManager)
+        public async Task<bool> updateManager(string id, string oldPass, string Pass)
         {
-            var manager = _context.Managers.Include(x => x.Role).Include(a => a.Director).SingleOrDefault(m => m.Id.Equals(editManager.Id));
+            var manager = _context.Managers.Include(x => x.Role).Include(a => a.Director).SingleOrDefault(m => m.Id.Equals(id));
             if (manager != null)
             {
-                var oldPassword = PinCodeSecurity.pinEncrypt(editManager.OldPassword);
-                var password = PinCodeSecurity.pinEncrypt(editManager.Password);
-                var confirmPassword = PinCodeSecurity.pinEncrypt(editManager.ConfirmPassword);
+                var oldPassword = PinCodeSecurity.pinEncrypt(oldPass);
+                var password = PinCodeSecurity.pinEncrypt(Pass);
                 if (oldPassword.Equals(manager.Password))
                 {
-                    if (password.Equals(confirmPassword))
-                    {
-                        manager.Password = password;
-                        _context.SaveChanges();
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    manager.Password = password;
+                    _context.SaveChanges();
+                     return true;
                     //manager.Username = editManager.Username;
                     //manager.Password = PinCodeSecurity.pinEncrypt(editManager.Password);
                     //manager.Fullname = editManager.Fullname;

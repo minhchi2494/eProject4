@@ -93,30 +93,53 @@ namespace WebAPI.Services
             }
         }
 
-        public async Task<bool> updateUser(User editUser)
+        public async Task<bool> updateUser(string id, string oldPass, string Pass)
         {
-            var model = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.IsActive == true).SingleOrDefault(x=>x.Id.Equals(editUser.Id));
+            var model = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.IsActive == true).SingleOrDefault(x => x.Id.Equals(id));
             if (model != null)
             {
-                model.Username = editUser.Username;
-                model.Password = PinCodeSecurity.pinEncrypt(editUser.Password);
-                model.Fullname = editUser.Fullname;
-                model.Email = editUser.Email;
-                model.Phone = editUser.Phone;
-                model.Address = editUser.Address;
-                model.KpiValue = editUser.KpiValue;
-                model.ManagerId = editUser.ManagerId;
-                Manager manager = _context.Managers.SingleOrDefault(x => x.Id.Equals(editUser.ManagerId));
-                model.Manager = manager;
+                var oldPassword = PinCodeSecurity.pinEncrypt(oldPass);
+                var password = PinCodeSecurity.pinEncrypt(Pass);
+                if (oldPassword.Equals(model.Password))
+                {
+                    model.Password = password;
+                    _context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
 
-                model.IsActive = editUser.IsActive;
-                _context.SaveChanges();
-                return true;
             }
             else
             {
                 return false;
             }
+
+
+            //var model = _context.Users.Include(x => x.Role).Include(x => x.Manager).Where(x => x.IsActive == true).SingleOrDefault(x=>x.Id.Equals(editUser.Id));
+            //if (model != null)
+            //{
+            //    model.Username = editUser.Username;
+            //    model.Password = PinCodeSecurity.pinEncrypt(editUser.Password);
+            //    model.Fullname = editUser.Fullname;
+            //    model.Email = editUser.Email;
+            //    model.Phone = editUser.Phone;
+            //    model.Address = editUser.Address;
+            //    model.KpiValue = editUser.KpiValue;
+            //    model.ManagerId = editUser.ManagerId;
+            //    Manager manager = _context.Managers.SingleOrDefault(x => x.Id.Equals(editUser.ManagerId));
+            //    model.Manager = manager;
+
+            //    model.IsActive = editUser.IsActive;
+            //    _context.SaveChanges();
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
         }
 
        

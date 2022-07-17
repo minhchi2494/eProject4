@@ -13,7 +13,7 @@ namespace WebAPI.Services
         Task<User> getUser(string id);
         Task<User> checkLogin(string username, string password);
         Task<bool> createUser(User newUser);
-        Task<bool> updateUser(User editUser);
+        Task<bool> updateUser(string id, string oldPass, string Pass);
         /*Task<bool> setActualKPI(int userId);*/
 
     }

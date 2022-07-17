@@ -70,7 +70,7 @@ namespace WebAPI.Services
                 _context.SaveChanges();
             }
 
-            setActualKPI(userId);//get ActualQuantity in Order to set ActualKpi for Sale person 
+            await this.setActualKPI(userId);//get ActualQuantity in Order to set ActualKpi for Sale person 
             return true;
         }
 
@@ -113,18 +113,18 @@ namespace WebAPI.Services
             }
             User u = _context.Users.SingleOrDefault(u=>u.Id.Equals(userId));
 
-            //if (moment.Day == 1 && u.ActualKpi > 0)
-            if (u.ActualKpi >= 0)
+            if (moment.Day == 1 && u.ActualKpi > 0)
             {
                 int lastMonth = moment.Month - 1;
                 KpiPerMonth kpm = new KpiPerMonth(lastMonth, sumofQuantityInOrder, u.Username);// save last month KPI
                 u.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
+                _context.KpiPerMonths.Add(kpm);
                 _context.SaveChanges();
             }
             u.ActualKpi = sumofQuantityInOrder;
             _context.SaveChanges();
 
-            getActualKpiFromSalePerson(u.ManagerId);// calculate ActualKpi for manager from sale person
+            await this.getActualKpiFromSalePerson(u.ManagerId);// calculate ActualKpi for manager from sale person
 
             return true;
         }
@@ -151,19 +151,19 @@ namespace WebAPI.Services
             Manager mgr = _context.Managers.SingleOrDefault(m => m.Id.Equals(managerId));
 
             DateTime moment = DateTime.Now;
-
-            //if (moment.Day == 1 && mgr.ActualKpi > 0)
-            if (mgr.ActualKpi >= 0)
+            
+            if (moment.Day == 1 && mgr.ActualKpi > 0)
             {
                 int lastMonth = moment.Month - 1;
                 KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfSalePersons, mgr.Username);// save last month KPI
                 mgr.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
+                _context.KpiPerMonths.Add(kpm);
                 _context.SaveChanges();
             }
             mgr.ActualKpi = totalActualKpiOfSalePersons;
             _context.SaveChanges();
 
-            getActualKpiFromManager(mgr.DirectorId);
+            this.getActualKpiFromManager(mgr.DirectorId);
 
             return Task.FromResult("Calculate success!!!!");
         }
@@ -190,13 +190,13 @@ namespace WebAPI.Services
             Director dir = _context.Directors.SingleOrDefault(m => m.Id.Equals(dirId));
 
             DateTime moment = DateTime.Now;
-
-            //if (moment.Day == 1 && dir.ActualKpi > 0)
-            if (dir.ActualKpi >= 0)
+            
+            if (moment.Day == 1 && dir.ActualKpi > 0)
             {
                 int lastMonth = moment.Month - 1;
                 KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfManager, dir.Username);// save last month KPI
                 dir.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
+                _context.KpiPerMonths.Add(kpm);
                 _context.SaveChanges();
             }
             dir.ActualKpi = totalActualKpiOfManager;

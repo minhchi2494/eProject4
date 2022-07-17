@@ -13,6 +13,6 @@ namespace WebAPI.Services
         Task<Director> getDirector(string id);
         Task<Director> checkLogin(string username, string password);
         Task<bool> createDirector(Director newDirector);
-        Task<bool> updateDirector(Director editDirector);
+        Task<bool> updateDirector(string id, string oldPass, string Pass);
     }
 }
