@@ -114,8 +114,7 @@ namespace WebAPI.Services
             }
             User u = _context.Users.SingleOrDefault(u=>u.Id.Equals(userId));
 
-            //if (moment.Day == 1 && u.ActualKpi > 0)
-            if (u.ActualKpi >= 0)
+            if (moment.Day == 1 && u.ActualKpi > 0)
             {
                 int lastMonth = moment.Month - 1;
                 KpiPerMonth kpm = new KpiPerMonth(lastMonth, sumofQuantityInOrder, u.Username);// save last month KPI
@@ -152,9 +151,9 @@ namespace WebAPI.Services
 
             Manager mgr = _context.Managers.SingleOrDefault(m => m.Id.Equals(managerId));
 
-            DateTime moment = DateTime.Now;
+            DateTime moment = new DateTime(2022, 06, 01);
 
-            if (mgr.ActualKpi >= 0)
+            if (moment.Day == 1 && mgr.ActualKpi > 0)
             {
                 int lastMonth = moment.Month - 1;
                 KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfSalePersons, mgr.Username);// save last month KPI
@@ -193,7 +192,7 @@ namespace WebAPI.Services
 
             DateTime moment = DateTime.Now;
 
-            if (dir.ActualKpi >= 0)
+            if (moment.Day == 1 && dir.ActualKpi > 0)
             {
                 int lastMonth = moment.Month - 1;
                 KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfManager, dir.Username);// save last month KPI
