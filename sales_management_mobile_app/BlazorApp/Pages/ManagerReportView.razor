@@ -1,0 +1,66 @@
+﻿@page "/managerReport"
+@attribute [Authorize]
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject ManagerReportServices _services;
+
+
+    <div class="row">
+        <div class="col-md-2" style="max-width:130px; margin-top: 24px">
+            <a href="/downloadexcel" class="btn btn-primary"><i class="fa fa-download"></i> Export</a>
+        </div>
+    </div>
+
+
+<br />
+
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="reportGrid" AllowPaging="true" PageSize="10" AllowSorting="true" Data="rp" TItem="vManagerReport" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
+    <Columns>
+        <RadzenGridColumn TItem="vManagerReport" Property="ManagerId" Title="Manager Id"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vManagerReport" Property="Manager" Title="Manager"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vManagerReport" Property="Store" Title="Store"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vManagerReport" Property="Product" Title="Product"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vManagerReport" Property="ActualQuantity" Title="Actual Quantity"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vManagerReport" Property="CreatedOn" Title="Date">
+            <Template Context="data">
+                @data.CreatedOn.ToString("dd-MM-yyyy")
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+
+@code {
+    RadzenGrid<vManagerReport> reportGrid;
+
+    private bool loading;
+
+    private List<vManagerReport> rp = new List<vManagerReport>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        rp = await _services.getManagerReports();
+        loading = false;
+    }
+
+}

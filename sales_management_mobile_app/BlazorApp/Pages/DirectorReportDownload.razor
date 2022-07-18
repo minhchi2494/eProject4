@@ -1,0 +1,42 @@
+﻿@page "/downloadDirector"
+@inject IJSRuntime JSRuntime
+@inject HttpClient _httpClient
+ 
+@inject NavigationManager NavigationManager;
+@inject IToastService ToastService;
+
+<button @onclick="@(async() => await DownloadFiles())" class="form-control btn btn-primary col-md-10">Export</button>
+ 
+@if (IsDownloadStarted == 1)
+{
+    <p>Downloading...Please wait</p>
+}
+else if (IsDownloadStarted == 2)
+{
+    <p>Download complete.</p>
+}
+ 
+@code {
+    public int IsDownloadStarted { get; set; } = 0;
+ 
+    protected async Task DownloadFiles()
+    {
+        if (await JSRuntime.InvokeAsync<bool>("confirm", $"Do you want to Export?"))
+        {
+            IsDownloadStarted = 1;
+            StateHasChanged();
+ 
+            var response = await _httpClient.GetAsync("/api/DirectorReportExport");
+            response.EnsureSuccessStatusCode();
+ 
+            var fileBytes = await response.Content.ReadAsByteArrayAsync();
+            var fileName = $"DirectorReport ({DateTime.Now.ToString("dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture)}).xlsx";
+            await JSRuntime.InvokeAsync<object>("saveAsFile", fileName, Convert.ToBase64String(fileBytes));
+ 
+            IsDownloadStarted = 2;
+
+            ToastService.ShowSuccess("File has been export successfully!", "Success");
+            NavigationManager.NavigateTo("/directorReport");
+        }
+    }
+}
