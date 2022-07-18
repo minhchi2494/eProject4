@@ -47,9 +47,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public Task<bool> updateUser([FromBody] User editUser)
+        public Task<bool> updateUser(string id, string oldPass, string Pass)
         {
-            return _services.updateUser(editUser);
+            return _services.updateUser(id, oldPass, Pass);
         }
     }
 }
