@@ -90,8 +90,8 @@ namespace WebAPI.Services
             List<Order> orderListBelongUserId = new List<Order>();
             List<Order> orderList = _context.Orders.ToList();
             //***********************************//
-            DateTime moment = DateTime.Now;
-            
+            DateTime moment = new DateTime(2022, 07, 01);
+
             foreach (Order o in orderList)
             {
                 if (o.CreatedOn.Month == moment.Month)//only order list in current month
@@ -151,7 +151,7 @@ namespace WebAPI.Services
 
             Manager mgr = _context.Managers.SingleOrDefault(m => m.Id.Equals(managerId));
 
-            DateTime moment = new DateTime(2022, 06, 01);
+            DateTime moment = new DateTime(2022, 07, 01);
 
             if (moment.Day == 1 && mgr.ActualKpi > 0)
             {
@@ -190,7 +190,7 @@ namespace WebAPI.Services
             }
             Director dir = _context.Directors.SingleOrDefault(m => m.Id.Equals(dirId));
 
-            DateTime moment = DateTime.Now;
+            DateTime moment = new DateTime(2022, 07, 01);
 
             if (moment.Day == 1 && dir.ActualKpi > 0)
             {
