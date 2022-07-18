@@ -47,9 +47,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public Task<bool> updateDirector([FromBody]Director editDirector)
+        public Task<bool> updateDirector(string id, string oldPass, string Pass)
         {
-            return _services.updateDirector(editDirector);
+            return _services.updateDirector(id, oldPass, Pass);
         }
     }
 }
