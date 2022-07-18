@@ -38,6 +38,12 @@ namespace WebAPI.Repository
 
         public DbSet<vManagerUserStore> vManagerUserStores { get; set; }
 
+        public DbSet<vDirectorReport> vDirectorReports { get; set; }
+
+        public DbSet<vManagerReport> vManagerReports { get; set; }
+
+        public DbSet<vSalesmanReport> vSalesmanReports { get; set; }
+
         public object Admin { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
