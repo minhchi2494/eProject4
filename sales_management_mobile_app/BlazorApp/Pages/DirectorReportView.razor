@@ -1,0 +1,69 @@
+﻿@page "/directorReport"
+@attribute [Authorize]
+@using BlazorApp.Services
+@using BlazorApp.Models
+@inject IToastService ToastService
+@inject DirectorReportServices _services;
+
+
+    <div class="row">
+        <div class="col-md-2" style="max-width:130px">
+            @*<a href="/downloadexcel" class="btn btn-primary"><i class="fa fa-download"></i> Export</a>*@
+            <div class="download" style="display:flex; align-items: center">
+                <DirectorReportDownload></DirectorReportDownload><i class="fa fa-download"></i>
+            </div>
+            
+        </div>
+    </div>
+
+<br />
+
+@if (loading)
+{
+    <table class="table">
+        <tr>
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </table>
+}
+
+<RadzenGrid @ref="reportGrid" AllowPaging="true" PageSize="10" AllowSorting="true" Data="rp" TItem="vDirectorReport" ColumnWidth="200px"
+            AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
+    <Columns>
+        <RadzenGridColumn TItem="vDirectorReport" Property="DirectorId" Title="Director Id"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vDirectorReport" Property="Director" Title="Director"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vDirectorReport" Property="Store" Title="Store"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vDirectorReport" Property="Product" Title="Product"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vDirectorReport" Property="ActualQuantity" Title="Actual Quantity"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vDirectorReport" Property="CreatedOn" Title="Date">
+            <Template Context="data">
+                @data.CreatedOn.ToString("dd-MM-yyyy")
+            </Template>
+        </RadzenGridColumn>
+    </Columns>
+</RadzenGrid>
+
+
+@code {
+    RadzenGrid<vDirectorReport> reportGrid;
+
+    private bool loading;
+
+    private List<vDirectorReport> rp = new List<vDirectorReport>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        rp = await _services.getDirectorReports();
+        loading = false;
+    }
+
+}
