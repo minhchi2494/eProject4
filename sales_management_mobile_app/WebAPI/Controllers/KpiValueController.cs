@@ -17,7 +17,6 @@ namespace WebAPI.Controllers
     public class KpiValueController : ControllerBase
     {
         private readonly IKpiValueServices _services;
-        private readonly OrderServices _orderServices;
         private readonly Project4Context _context;
         public KpiValueController(IKpiValueServices services, Project4Context context)
         {

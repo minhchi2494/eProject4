@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace WebAPI.Services
         {
             _context = context;
         }
+
+        public OrderServices() { }
 
         public async Task<List<Order>> getOrders(DateTime? fromDate, DateTime? toDate)
         {
@@ -55,7 +58,8 @@ namespace WebAPI.Services
                 totalPrice += tt.Quantity * tt.Price;
                 quantity += tt.Quantity;
             }
-            Order newOrder = new Order() {//create Order
+            Order newOrder = new Order()
+            {//create Order
                 ActualQuantity = quantity,
                 StoreId = storeId,
                 TotalPrice = (decimal)totalPrice,
@@ -64,12 +68,12 @@ namespace WebAPI.Services
             _context.Add(newOrder);
             _context.SaveChanges();
 
-            foreach(CartItem ci in orderList){// create OrderDetails
+            foreach (CartItem ci in orderList)
+            {// create OrderDetails
                 OrderDetail od = new OrderDetail(ci.ProductId, newOrder.Id, ci.Price * ci.Quantity, ci.Quantity);
                 _context.Add(od);
                 _context.SaveChanges();
             }
-
             await this.setActualKPI(userId);//get ActualQuantity in Order to set ActualKpi for Sale person 
             return true;
         }
@@ -78,7 +82,7 @@ namespace WebAPI.Services
         {
             List<Store> storeBelongUserId = new List<Store>();
             List<Store> storeList = _context.Stores.ToList();
-            
+
             foreach (Store st in storeList)//get list storeId belong userId
             {
                 if (st.UserId == userId)
@@ -90,7 +94,7 @@ namespace WebAPI.Services
             List<Order> orderListBelongUserId = new List<Order>();
             List<Order> orderList = _context.Orders.ToList();
             //***********************************//
-            DateTime moment = new DateTime(2022, 07, 01);
+            DateTime moment = DateTime.Now;
 
             foreach (Order o in orderList)
             {
@@ -107,21 +111,13 @@ namespace WebAPI.Services
             }
 
             int sumofQuantityInOrder = 0;
-            
+
             foreach (Order od in orderListBelongUserId)// sum of quantity in Order from above list
             {
                 sumofQuantityInOrder += od.ActualQuantity;
             }
-            User u = _context.Users.SingleOrDefault(u=>u.Id.Equals(userId));
+            User u = _context.Users.SingleOrDefault(u => u.Id.Equals(userId));
 
-            if (moment.Day == 1 && u.ActualKpi > 0)
-            {
-                int lastMonth = moment.Month - 1;
-                KpiPerMonth kpm = new KpiPerMonth(lastMonth, sumofQuantityInOrder, u.Username);// save last month KPI
-                u.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
-                _context.KpiPerMonths.Add(kpm);
-                _context.SaveChanges();
-            }
             u.ActualKpi = sumofQuantityInOrder;
             _context.SaveChanges();
 
@@ -135,32 +131,22 @@ namespace WebAPI.Services
             List<User> listUserOfManager = new List<User>();
             List<User> listUser = _context.Users.ToList();
 
-            foreach(User u in listUser)//get list sale person owner manager
+            foreach (User u in listUser)//get list sale person owner manager
             {
-                if(u.ManagerId == managerId)
+                if (u.ManagerId == managerId)
                 {
                     listUserOfManager.Add(u);
                 }
             }
 
             int totalActualKpiOfSalePersons = 0;
-            foreach(User u in listUserOfManager)//get actualKpi of Sale person owner manager
+            foreach (User u in listUserOfManager)//get actualKpi of Sale person owner manager
             {
                 totalActualKpiOfSalePersons += u.ActualKpi;
             }
 
             Manager mgr = _context.Managers.SingleOrDefault(m => m.Id.Equals(managerId));
 
-            DateTime moment = new DateTime(2022, 07, 01);
-
-            if (moment.Day == 1 && mgr.ActualKpi > 0)
-            {
-                int lastMonth = moment.Month - 1;
-                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfSalePersons, mgr.Username);// save last month KPI
-                mgr.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
-                _context.KpiPerMonths.Add(kpm);
-                _context.SaveChanges();
-            }
             mgr.ActualKpi = totalActualKpiOfSalePersons;
             _context.SaveChanges();
 
@@ -190,20 +176,12 @@ namespace WebAPI.Services
             }
             Director dir = _context.Directors.SingleOrDefault(m => m.Id.Equals(dirId));
 
-            DateTime moment = new DateTime(2022, 07, 01);
-
-            if (moment.Day == 1 && dir.ActualKpi > 0)
-            {
-                int lastMonth = moment.Month - 1;
-                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfManager, dir.Username);// save last month KPI
-                dir.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
-                _context.KpiPerMonths.Add(kpm);
-                _context.SaveChanges();
-            }
             dir.ActualKpi = totalActualKpiOfManager;
             _context.SaveChanges();
 
             return Task.FromResult("Calculate success!!!!");
         }
+
+        
     }
 }
