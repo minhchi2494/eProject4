@@ -118,7 +118,7 @@ namespace WebAPI.Services
             if (u.ActualKpi >= 0)
             {
                 int lastMonth = moment.Month - 1;
-                KpiPerMonth kpm = new KpiPerMonth(lastMonth, sumofQuantityInOrder, u.Username, moment);// save last month KPI
+                KpiPerMonth kpm = new KpiPerMonth(lastMonth, sumofQuantityInOrder, u.Username);// save last month KPI
                 u.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
                 _context.KpiPerMonths.Add(kpm);
                 _context.SaveChanges();
@@ -157,7 +157,7 @@ namespace WebAPI.Services
             if (mgr.ActualKpi >= 0)
             {
                 int lastMonth = moment.Month - 1;
-                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfSalePersons, mgr.Username, moment);// save last month KPI
+                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfSalePersons, mgr.Username);// save last month KPI
                 mgr.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
                 _context.KpiPerMonths.Add(kpm);
                 _context.SaveChanges();
@@ -196,7 +196,7 @@ namespace WebAPI.Services
             if (dir.ActualKpi >= 0)
             {
                 int lastMonth = moment.Month - 1;
-                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfManager, dir.Username, moment);// save last month KPI
+                KpiPerMonth kpm = new KpiPerMonth(lastMonth, totalActualKpiOfManager, dir.Username);// save last month KPI
                 dir.ActualKpi = 0;//reset ActualKpi on last month to save value of current month
                 _context.KpiPerMonths.Add(kpm);
                 _context.SaveChanges();
