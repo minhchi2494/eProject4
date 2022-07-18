@@ -64,9 +64,12 @@ namespace WebAPI
 
             //export
             services.AddScoped<DirectorReportExportServices>();
-            services.AddScoped<IPerformanceService, PerformanceService>();
+            services.AddScoped<ManagerReportExportServices>();
+            services.AddScoped<SalesmanReportExportServices>();
             services.AddScoped<ExportService>();
 
+            services.AddScoped<IPerformanceService, PerformanceService>();
+            
             services.AddDbContext<Project4Context>(options => options.UseSqlServer(url));
 
             services.AddCors();
