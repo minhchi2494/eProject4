@@ -17,15 +17,18 @@ namespace WebAPI.Controllers
     public class LoginController : ControllerBase
     {
         private readonly LoginService _services;
+        private readonly KpiPerMonthServices _kpiPerMonthServices;
 
-        public LoginController(LoginService services)
+        public LoginController(LoginService services, KpiPerMonthServices kpiPerMonthServices)
         {
             _services = services;
+            _kpiPerMonthServices = kpiPerMonthServices;
         }
 
         [HttpPost("{username}/{password}")]
         public Object checkLogin( string username, string password)
         {
+            _kpiPerMonthServices.saveKpiPerMonth();
             return (object)_services.checkLogin(username, password);
         }
     }
