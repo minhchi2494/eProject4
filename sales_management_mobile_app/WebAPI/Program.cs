@@ -1,3 +1,4 @@
+using Amazon.S3;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -13,6 +14,12 @@ namespace WebAPI
     {
         public static void Main(string[] args)
         {
+            //var builder = CreateHostBuilder(args).Build().Run();
+            //builder.Services.AddEndpointsApiExplorer();
+            //builder.Services.AddSwaggerGen();
+            //builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+            //builder.Services.AddAWSService<IAmazonS3>();
+            //var app = builder.Build();
             CreateHostBuilder(args).Build().Run();
         }
 

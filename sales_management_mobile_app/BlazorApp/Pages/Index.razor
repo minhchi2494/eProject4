@@ -18,18 +18,23 @@
  <div class="row my-5">
         <div class="col-lg-6 col-xl-4 offset-lg-3 offset-xl-4">
             <RadzenCard class="m-3">
-                <h3 class="h5">Admin Information</h3>
+                <h3 class="h5">Admin Information 
+                    <span style="margin-left: 120px; font-size: 14px">
+                        <a href="@($"/admin/edit/{@AdminService.Admin.Id}")"><i class="fas fa-pencil"></i> Edit Profile</a>
+                    </span></h3>
                 <div class="d-flex flex-row">
                     <RadzenImage Path="/images/manager.jpg" Class="rounded-circle float-left mr-3" Style="width: 100px; height: 100px;" />
                     <div>
                         <div>Admin</div>
                         <b>@AdminService.Admin.Username</b>
-                        <div class="mt-3">Company</div>
-                        <b>FPT Company</b>
+                        <div class="mt-3">Fullname</div>
+                        <b>@AdminService.Admin.Fullname</b>
+                         <div class="mt-3">Phone:</div>
+                        <b>@AdminService.Admin.Phone</b>
                     </div>
                 </div>
             </RadzenCard>
-            <RadzenCard class="m-3">
+@*            <RadzenCard class="m-3">
                 <h3 class="h5">Detail</h3>
                 <div class="row">
                     <div class="col-md-4">
@@ -41,6 +46,6 @@
                         <b>@AdminService.Admin.Phone</b>              
                     </div>
                 </div>
-            </RadzenCard>
+            </RadzenCard>*@
         </div>
 </div>
