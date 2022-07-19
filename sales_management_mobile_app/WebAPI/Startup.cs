@@ -77,10 +77,8 @@ namespace WebAPI
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
-            services.AddControllersWithViews()
-    .AddNewtonsoftJson(options =>
-    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-);
+            services.AddControllersWithViews().AddNewtonsoftJson(options 
+                => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 
 
