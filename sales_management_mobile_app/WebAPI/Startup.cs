@@ -18,6 +18,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using WebAPI.Services.MailService;
+using WebAPI.Settings;
 
 namespace WebAPI
 {
@@ -38,7 +40,7 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string url = "server=LAPTOP-6D8AK342\\CHI;database=Project4;uid=sa;pwd=123";
+            string url = "server=ANHTUAN;database=Project4;uid=sa;pwd=123";
             services.AddScoped<IAdminServices, AdminServices>();
             services.AddScoped<IDirectorServices, DirectorServices>();
             services.AddScoped<IKpiValueServices, KpiValueServices>();
@@ -60,6 +62,7 @@ namespace WebAPI
             services.AddScoped<ManagerUserStoreServices>();
             services.AddScoped<IPerformanceService, PerformanceService>();
             services.AddScoped<ExportService>();
+            
 
             services.AddDbContext<Project4Context>(options => options.UseSqlServer(url));
 
@@ -130,6 +133,9 @@ namespace WebAPI
                     ValidateAudience = false
                 };
             });
+            //send mail to recorver password
+            services.Configure<MailSettings>(_configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService, MailService>();
 
         }
 

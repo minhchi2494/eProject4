@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Models;
@@ -17,7 +18,15 @@ namespace WebAPI.Services
             _context = context;
         }
 
-        public object checkLogin(string username, string password)
+        private readonly Random _random = new Random();
+
+        // Generates a random number within a range.      
+        public int Generate(int min, int max)
+        {
+            return _random.Next(min, max);
+        }
+
+        public List<AccountDTO> getAllAccount()
         {
             List<AccountDTO> accountList = new List<AccountDTO>();//contain all of account in Dir, Man, User table
 
@@ -39,32 +48,33 @@ namespace WebAPI.Services
                 accountList.Add(new AccountDTO(saleperson.Username, saleperson.Password, saleperson.RoleId));
             }
 
+            return accountList;
+        }
 
-            //===== checkLogin =======
-
-            foreach(AccountDTO acc in accountList)
+        public object checkLogin(string username, string password)
+        {
+            foreach (AccountDTO acc in this.getAllAccount())
             {
                 if (acc.Username.Equals(username))
                 {
                     string pass = PinCodeSecurity.pinEncrypt(password);
-                    if (acc.Password.Equals(pass))
+
+                    if (acc.RoleId == 1)
                     {
-                        if (acc.RoleId == 1)
-                        {
-                            Director accChecked = _context.Directors.SingleOrDefault(d => d.Username.Equals(acc.Username));
-                            return accChecked;
-                        }
-                        if(acc.RoleId == 2)
-                        {
-                            Manager accChecked = _context.Managers.SingleOrDefault(d => d.Username.Equals(acc.Username));
-                            return accChecked;
-                        }
-                        else
-                        {
-                            User accChecked = _context.Users.SingleOrDefault(d => d.Username.Equals(acc.Username));
-                            return accChecked;
-                        }
+                        Director accChecked = _context.Directors.SingleOrDefault(d => d.Username.Equals(acc.Username));
+                        return accChecked;
                     }
+                    if (acc.RoleId == 2)
+                    {
+                        Manager accChecked = _context.Managers.SingleOrDefault(d => d.Username.Equals(acc.Username));
+                        return accChecked;
+                    }
+                    else
+                    {
+                        User accChecked = _context.Users.SingleOrDefault(d => d.Username.Equals(acc.Username));
+                        return accChecked;
+                    }
+
                 }
             }
 
@@ -72,5 +82,54 @@ namespace WebAPI.Services
         }
 
 
+        public bool checkAccountExist(string username)
+        {
+            //========= generate new password for user if request valid
+
+            foreach (AccountDTO acc in this.getAllAccount())
+            {
+                if (acc.Username.Equals(username))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public string generatePassword(string username)
+        {
+            foreach (AccountDTO acc in this.getAllAccount())
+            {
+                if (acc.Username.Equals(username))
+                {
+                    string convertRandom = Convert.ToString(this.Generate(000000, 999999));
+                    string passRandom = PinCodeSecurity.pinEncrypt(convertRandom);
+
+                    if (acc.RoleId == 1)
+                    {
+                        Director accChecked = _context.Directors.SingleOrDefault(d => d.Username.Equals(acc.Username));
+                        accChecked.Password = passRandom;
+                        _context.SaveChanges();
+                        return convertRandom;
+                    }
+                    if (acc.RoleId == 2)
+                    {
+                        Manager accChecked = _context.Managers.SingleOrDefault(d => d.Username.Equals(acc.Username));
+                        accChecked.Password = passRandom;
+                        _context.SaveChanges();
+                        return convertRandom;
+                    }
+                    else
+                    {
+                        User accChecked = _context.Users.SingleOrDefault(d => d.Username.Equals(acc.Username));
+                        accChecked.Password = passRandom;
+                        _context.SaveChanges();
+                        return convertRandom;
+                    }
+
+                }
+            }
+            return null;
+        }
     }
 }
