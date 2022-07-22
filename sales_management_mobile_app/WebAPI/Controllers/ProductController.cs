@@ -13,6 +13,8 @@ using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using WebAPI.Requests;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Controllers
 {
@@ -25,9 +27,14 @@ namespace WebAPI.Controllers
 
         public static Cloudinary cloudinary;
 
-        public const string CLOUD_NAME = "da85i8t2o";
-        public const string API_KEY = "782372915787355";
-        public const string API_SECRET = "6peu85e37dcz83v7zrm8IsX3d5k";
+        /* public const string CLOUD_NAME = "da85i8t2o";
+         public const string API_KEY = "782372915787355";
+         public const string API_SECRET = "6peu85e37dcz83v7zrm8IsX3d5k";*/
+        public const string CLOUD_NAME = "twinscloud";
+        public const string API_KEY = "275761499984721";
+        public const string API_SECRET = "80CMu92lwsKriZP5LqAiTu-EgH4";
+
+
 
         public ProductController(IProductServices services, IWebHostEnvironment hostEnvironment)
         {
@@ -38,7 +45,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public Task<List<Product>> getProducts([FromQuery] Product searchProduct)
         {
-            
+
             return _services.getProducts(searchProduct);
         }
 
@@ -49,89 +56,95 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public Task<bool> createProduct([FromForm] Requests.ProductRequest request)
+        public async Task<bool> createProduct([FromQuery] ProductRequest product)
         {
-            //IFormFile file = request.file;
-            //Product newProduct = new Product();
-            //newProduct.Id = request.id;
-            //newProduct.Name = request.name;
-            //newProduct.Price = request.price;
-            //newProduct.Description = request.description;
-            //newProduct.IsActive = request.active;
-
-            //if (file != null)
-            //{
-            //    var dictPath = Path.Combine(_hostEnvironment.ContentRootPath, "Upload");
-            //    var filepath = Path.Combine(dictPath, file.FileName);
-            //    using(var stream = new FileStream(filepath, FileMode.Create))
-            //    {
-            //        file.CopyTo(stream);
-            //    }
-            //    newProduct.Images = "/Upload/" + file.FileName;
-            //}
-
-            //return _services.createProduct(newProduct);
             Account account = new Account(CLOUD_NAME, API_KEY, API_SECRET);
             cloudinary = new Cloudinary(account);
 
-            IFormFile file = request.file;
             Product newProduct = new Product();
-            newProduct.Id = request.id;
-            newProduct.Name = request.name;
-            newProduct.Price = request.price;
-            newProduct.Description = request.description;
-            newProduct.IsActive = request.active;
+            newProduct.Id = product.id;
+            newProduct.Name = product.name;
+            newProduct.Price = product.price;
+            newProduct.Description = product.description;
+            newProduct.IsActive = product.active;
 
-            if (file != null)
+            if (product.file != null)
             {
-                var dictPath = Path.Combine(_hostEnvironment.ContentRootPath, "Upload");
-                var filepath = Path.Combine(dictPath, file.FileName);
+                string filepath = Path.GetTempFileName();//get full path of file
 
-                //var imagePath = filepath;
+                using (var stream = new FileStream(filepath, FileMode.Create))//copy path to stream to read path of file
+                {
+                    await product.file.CopyToAsync(stream);
+                }
 
+                //store to cloud
                 var uploadParams = new ImageUploadParams()
                 {
                     File = new FileDescription(filepath)
                 };
                 var uploadResult = cloudinary.Upload(uploadParams);
 
-                newProduct.Images = uploadResult.Url.ToString(); 
+                newProduct.Images = uploadResult.Url.ToString();
             }
-            return _services.createProduct(newProduct);
+            return await _services.createProduct(newProduct);
 
         }
 
 
         [HttpPut]
-        public Task<bool> updateProduct([FromForm] Requests.ProductRequest request)
+        public async Task<ActionResult<Product>> updateProduct([FromQuery] ProductRequest product)
         {
-            IFormFile file = request.file;
-            Product editProduct = new Product();
-            editProduct.Id = request.id;
-            editProduct.Name = request.name;
-            editProduct.Price = request.price;
-            editProduct.Description = request.description;
-            editProduct.IsActive = request.active;
-
-            Task<Product> pro = _services.getProduct(request.id);
-            Product p = pro.Result;
-
-
-            if (file != null)
+            try
             {
-                var dicPath = Path.Combine(_hostEnvironment.ContentRootPath, "Upload");
-                var filePath = Path.Combine(dicPath, file.FileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                Account account = new Account(CLOUD_NAME, API_KEY, API_SECRET);
+                cloudinary = new Cloudinary(account);
+
+                Product editProduct = _services.getProduct(product.id).Result;
+                if (editProduct == null)
                 {
-                    file.CopyTo(stream);
+                    return NotFound();
                 }
-                editProduct.Images = "/Upload/" + file.FileName;
+
+
+                editProduct.Id = product.id;
+                editProduct.Name = product.name;
+                editProduct.Price = product.price;
+                editProduct.Description = product.description;
+                editProduct.IsActive = product.active;
+
+                if (product.file != null)
+                {
+                    string filepath = Path.GetTempFileName();//get full path of file
+                    Console.WriteLine(filepath);
+                    using (var stream = new FileStream(filepath, FileMode.Create))//copy path to stream to read path of file
+                    {
+                        await product.file.CopyToAsync(stream);
+                    }
+
+                    //store to cloud
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(filepath)
+                    };
+                    Console.WriteLine(uploadParams.ToString());
+                    Console.WriteLine(filepath);
+                    var uploadResult = cloudinary.Upload(uploadParams);
+
+                    editProduct.Images = uploadResult.Url.ToString(); ;
+                }
+                else
+                {
+                    editProduct.Images = editProduct.Images;
+                }
+
+
+                return await _services.updateProduct(editProduct);
             }
-            else if (file == null)
+            catch (Exception)
             {
-                editProduct.Images = p.Images;
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error updating data");
             }
-            return _services.updateProduct(editProduct);
         }
     }
 }

@@ -12,6 +12,6 @@ namespace WebAPI.Services
         Task<List<Product>> getProducts(Product searchProduct);
         Task<Product> getProduct(string id);
         Task<bool> createProduct(Product createProduct);
-        Task<bool> updateProduct(Product editProduct);
+        Task<Product> updateProduct(Product editProduct);
     }
 }

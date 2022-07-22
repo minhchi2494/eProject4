@@ -56,7 +56,7 @@ namespace WebAPI.Services
         }
 
 
-        public async Task<bool> updateProduct(Product editProduct)
+        public async Task<Product> updateProduct(Product editProduct)
         {
             var product = _context.Products.SingleOrDefault(x => x.Id.Equals(editProduct.Id));
             if (product != null)
@@ -67,11 +67,11 @@ namespace WebAPI.Services
                 product.Description = editProduct.Description;
                 product.IsActive = editProduct.IsActive;
                 _context.SaveChanges();
-                return true;
+                return product;
             }
             else
             {
-                return false;
+                return null;
             }
         }
     }
