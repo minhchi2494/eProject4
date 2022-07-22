@@ -18,6 +18,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using WebAPI.Services.MailService;
+using WebAPI.Settings;
 
 namespace WebAPI
 {
@@ -67,6 +69,7 @@ namespace WebAPI
             services.AddScoped<ManagerReportExportServices>();
             services.AddScoped<SalesmanReportExportServices>();
             services.AddScoped<ExportService>();
+            
 
             services.AddScoped<IPerformanceService, PerformanceService>();
             
@@ -137,6 +140,9 @@ namespace WebAPI
                     ValidateAudience = false
                 };
             });
+            //send mail to recorver password
+            services.Configure<MailSettings>(_configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService, MailService>();
 
         }
 
