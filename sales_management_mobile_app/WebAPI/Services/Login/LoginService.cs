@@ -82,13 +82,13 @@ namespace WebAPI.Services
         }
 
 
-        public bool checkAccountExist(string username)
+        public bool checkAccountExist(string username, string email)
         {
             //========= generate new password for user if request valid
 
             foreach (AccountDTO acc in this.getAllAccount())
             {
-                if (acc.Username.Equals(username))
+                if (acc.Username.Equals(username) && acc.Email.Equals(email))
                 {
                     return true;
                 }

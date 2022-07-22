@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
         {
             try
             {
-                var findUser = loginService.checkAccountExist(request.UserName);
+                var findUser = loginService.checkAccountExist(request.UserName, request.ToEmail);
                 if(findUser == true)
                 {
                     loginService.generatePassword(request.UserName);
