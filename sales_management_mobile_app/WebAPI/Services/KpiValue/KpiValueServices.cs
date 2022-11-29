@@ -21,6 +21,7 @@ namespace WebAPI.Services
         {
             //kpiValue cho Director
             var director = _context.Directors.Include(x => x.Managers).SingleOrDefault(x => x.Id == dirId);
+            /* var director = _context.Directors.SingleOrDefault(x=>x.Username.Equals(dirId));*/
             director.KpiValue = kpiValue;
             _context.SaveChanges();
 

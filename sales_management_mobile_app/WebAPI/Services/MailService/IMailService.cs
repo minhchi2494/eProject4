@@ -5,6 +5,6 @@ namespace WebAPI.Services.MailService
 {
     public interface IMailService
     {
-        Task sendPasswordViaEmail(MailRequest request);
+        Task sendPinCodeToEmail(MailRequest request);
     }
 }

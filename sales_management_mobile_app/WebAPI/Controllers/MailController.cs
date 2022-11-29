@@ -26,8 +26,8 @@ namespace WebAPI.Controllers
                 var findUser = loginService.checkAccountExist(request.UserName, request.ToEmail);
                 if(findUser == true)
                 {
-                    loginService.generatePassword(request.UserName);
-                    await mailService.sendPasswordViaEmail(request);
+                    loginService.generatePinCode(request.UserName);
+                    await mailService.sendPinCodeToEmail(request);
                     return Ok();
                 }
                 return NotFound();

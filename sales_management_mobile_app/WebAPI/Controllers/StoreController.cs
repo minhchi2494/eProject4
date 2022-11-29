@@ -29,19 +29,19 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public Task<List<Store>> getStores([FromQuery] Store searchStore)
+        public Task<List<Store>> getStores(Store searchStore)
         {
             return _services.getStores(searchStore);
         }
 
         [HttpPost]
-        public Task<bool> createStore([FromBody] Store newStore)
+        public Task<bool> createStore([FromQuery] Store newStore)
         {
             return _services.createStore(newStore);
         }
 
         [HttpPut]
-        public Task<bool> updateStore([FromBody]Store editStore)
+        public Task<bool> updateStore([FromQuery] Store editStore)
         {
             return _services.updateStore(editStore);
         }

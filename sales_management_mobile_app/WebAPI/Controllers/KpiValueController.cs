@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
             return _services.createKpiValue(dirId, kpiValue);
         }
 
-        [HttpGet("KpiCurrentTime")]
+        [HttpGet("ActualKpi")]
         public int getKpiOfAllObj(string username)
         {
             List<AccountDTO> accountList = new List<AccountDTO>();//contain all of account in Dir, Man, User table
@@ -38,19 +38,19 @@ namespace WebAPI.Controllers
             List<Director> directorList = _context.Directors.ToList();
             foreach (Director director in directorList)//mapping data of Dir account to AccountDTO 
             {
-                accountList.Add(new AccountDTO(director.Username, null, director.RoleId));
+                accountList.Add(new AccountDTO(director.Username, null, null, director.RoleId));
             }
 
             List<Manager> managerList = _context.Managers.ToList();
             foreach (Manager manager in managerList)//mapping data of Manager account to AccountDTO 
             {
-                accountList.Add(new AccountDTO(manager.Username, null, manager.RoleId));
+                accountList.Add(new AccountDTO(manager.Username, null, null, manager.RoleId));
             }
 
             List<User> salepersonList = _context.Users.ToList();
             foreach (User saleperson in salepersonList)//mapping data of User account to AccountDTO 
             {
-                accountList.Add(new AccountDTO(saleperson.Username, null, saleperson.RoleId));
+                accountList.Add(new AccountDTO(saleperson.Username, null, null, saleperson.RoleId));
             }
             foreach (AccountDTO acc in accountList)//get acutualKpi for username parameter
             {

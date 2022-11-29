@@ -24,12 +24,18 @@ namespace WebAPI.Controllers
             _services = services;
             _kpiPerMonthServices = kpiPerMonthServices;
         }
-
-        [HttpPost("{username}/{password}")]
+        /*("{username}/{password}")*/
+        [HttpGet("{username}/{password}")]
         public Object checkLogin( string username, string password)
         {
             _kpiPerMonthServices.saveKpiPerMonth();
             return (object)_services.checkLogin(username, password);
+        }
+        [Route("/reset-password")]
+        [HttpPut]
+        public string resetPassword(string username, int pinCode, string newPassword)
+        {
+            return _services.resetPassword(username, pinCode, newPassword);
         }
     }
 }

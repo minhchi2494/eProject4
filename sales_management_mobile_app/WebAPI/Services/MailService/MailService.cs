@@ -19,13 +19,13 @@ namespace WebAPI.Services.MailService
             _loginService = loginService;
         }
 
-        public async Task sendPasswordViaEmail(MailRequest request)
+        public async Task sendPinCodeToEmail(MailRequest request)
         {
             string FilePath = Directory.GetCurrentDirectory() + "\\Templates\\WelcomeTemplate.html";
             StreamReader str = new StreamReader(FilePath);
             string MailText = str.ReadToEnd();
             str.Close();
-            MailText = MailText.Replace("[username]", request.UserName).Replace("[newPassword]", _loginService.generatePassword(request.UserName));
+            MailText = MailText.Replace("[username]", request.UserName).Replace("[pinCode]", _loginService.generatePinCode(request.UserName));
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
             email.To.Add(MailboxAddress.Parse(request.ToEmail));

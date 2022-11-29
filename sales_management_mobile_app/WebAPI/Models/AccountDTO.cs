@@ -8,10 +8,11 @@
         public string Email { get; set; }
         public int RoleId { get; set; }
 
-        public AccountDTO(string username, string password, int roleId)
+        public AccountDTO(string username, string password, string email, int roleId)
         {
             Username = username;
             Password = password;
+            Email = email;
             RoleId = roleId;
         }
     }

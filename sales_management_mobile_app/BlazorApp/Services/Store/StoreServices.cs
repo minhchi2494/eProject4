@@ -24,6 +24,7 @@ namespace BlazorApp.Services
             return result;
         }
 
+
         public async Task<Store> getStore(string id)
         {
             var result = await _httpClient.GetFromJsonAsync<Store>($"/api/Store/{id}");
