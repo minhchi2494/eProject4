@@ -74,5 +74,19 @@ namespace WebAPI.Services
                 return null;
             }
         }
+
+        public List<Product> getInventory()
+        {
+            List<Product> products = _context.Products.ToList();
+            List<Product> productInventory = new List<Product>();
+            foreach(Product product in products)
+            {
+                if(product.Inventory > 0)
+                {
+                    productInventory.Add(product);
+                }
+            }
+            return productInventory;
+        }
     }
 }

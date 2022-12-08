@@ -35,10 +35,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> saveOrder(string userId, string storeId, List<CartItem> orderList)
+        public async Task<string> saveOrder(string userId, string storeId, List<CartItem> orderList)
         {
-            _services.saveOrder(userId, storeId, orderList);
-            return true;
+            var checkOrder = _services.saveOrder(userId, storeId, orderList);
+            if (checkOrder.Result)
+            {
+                return "order has successfully !!!";
+            }
+            return "do not enough amount to sales";
         }
     }
 }

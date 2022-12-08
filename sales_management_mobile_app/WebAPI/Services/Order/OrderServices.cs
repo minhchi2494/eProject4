@@ -53,6 +53,21 @@ namespace WebAPI.Services
             double totalPrice = 0;
             int quantity = 0;
 
+            List<Product> products = _context.Products.ToList();
+            foreach(Product p in products)
+            {
+                foreach(CartItem c in orderList)
+                {
+                    if (p.Id.Equals(c.ProductId)){
+                        if(p.Inventory < c.Quantity)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                
+            }
+
             foreach (CartItem tt in orderList)//sum of quantity and Price in CartItem
             {
                 totalPrice += tt.Quantity * tt.Price;
@@ -70,6 +85,9 @@ namespace WebAPI.Services
 
             foreach (CartItem ci in orderList)
             {// create OrderDetails
+                Product p = _context.Products.FirstOrDefault(p => p.Id.Equals(ci.ProductId));
+                p.Inventory -= ci.Quantity;
+                /*_context.SaveChanges();*/
                 OrderDetail od = new OrderDetail(ci.ProductId, newOrder.Id, ci.Price * ci.Quantity, ci.Quantity);
                 _context.Add(od);
                 _context.SaveChanges();

@@ -28,6 +28,13 @@ namespace WebAPI.Controllers
             return _services.getStore(id);
         }
 
+        [Route("/store-list")]
+        [HttpGet]
+        public Task<List<Store>> getStoreList()
+        {
+            return _services.getList();
+        }
+
         [HttpGet]
         public Task<List<Store>> getStores(Store searchStore)
         {

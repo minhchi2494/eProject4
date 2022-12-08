@@ -146,5 +146,12 @@ namespace WebAPI.Controllers
                     "Error updating data");
             }
         }
+
+        [Route("/get-inventory")]
+        [HttpGet]
+        public List<Product> getInvetory()
+        {
+            return _services.getInventory();
+        }
     }
 }
