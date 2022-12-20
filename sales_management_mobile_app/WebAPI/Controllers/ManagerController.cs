@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +19,11 @@ namespace WebAPI.Controllers
     public class ManagerController : ControllerBase
     {
         private readonly IManagerServices _services;
+        public static Cloudinary cloudinary;
+
+        public const string CLOUD_NAME = "twinscloud";
+        public const string API_KEY = "275761499984721";
+        public const string API_SECRET = "80CMu92lwsKriZP5LqAiTu-EgH4";
 
         public ManagerController(IManagerServices services)
         {
@@ -41,9 +49,30 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public Task<bool> createManager([FromBody] Manager newManager)
+        public async Task<bool> createManager([FromQuery] Manager newManager, IFormFile file)
         {
-            return _services.createManager(newManager);
+            Account account = new Account(CLOUD_NAME, API_KEY, API_SECRET);
+            cloudinary = new Cloudinary(account);
+
+            if (file != null)
+            {
+                string filepath = Path.GetTempFileName();//get full path of file
+
+                using (var stream = new FileStream(filepath, FileMode.Create))//copy path to stream to read path of file
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                //store to cloud
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(filepath)
+                };
+                var uploadResult = cloudinary.Upload(uploadParams);
+
+                newManager.Avatar = uploadResult.Url.ToString();
+            }
+            return await _services.createManager(newManager);
         }
 
         [HttpPut]

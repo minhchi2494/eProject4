@@ -14,6 +14,7 @@ namespace WebAPI.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Address { get; set; }
+        public string Avatar { get; set; }
         public string DirectorId { get; set; }
         public int KpiValue { get; set; }
         public int ActualKpi { get; set; }

@@ -14,5 +14,7 @@ namespace WebAPI.Models
         public string Manager { get; set; }
         public string Salesman { get; set; }
         public string SalesmanId { get; set; }
+        public string Phone { get; set; }
+        public int ActualKpi { get; set; }
     }
 }
