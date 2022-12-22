@@ -13,7 +13,7 @@
 
 <h3>Create Product</h3>
 
-<EditForm Model="@newProduct" OnValidSubmit="@SubmitCreate">
+<EditForm Model="@newProduct" OnValidSubmit="@SubmitCreate" enctype="multipart/form-data">
     <DataAnnotationsValidator />
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
@@ -118,9 +118,16 @@
         content.Add(new StringContent(newProduct.name), "name");
         content.Add(new StringContent(newProduct.description), "description");
         content.Add(new StringContent(newProduct.price.ToString()), "price");
-        content.Add(new StringContent(newProduct.active.ToString()), "active");
-        var result = await _services.createProduct(content);
+        if (newProduct.active == null)
+        {
+            content.Add(new StringContent("false"), "active");
+        } else
+        {
+            content.Add(new StringContent(newProduct.active.ToString()), "active");
+        }
 
+
+        var result = await _services.createProduct(content);
         if (result)
         {
             ToastService.ShowSuccess($"{newProduct.name} has been created successfully!", "Success");

@@ -47,8 +47,8 @@
         <RadzenGridColumn TItem="Product" Property="Description" Title="Description"></RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Title="Image">
             <Template Context="data">
-                <img src="@("http://localhost:54350" + data.Images)" style="width: 80px; height: 80px; border-radius: 8px;" />
-                @*<img src="@data.Images" style="width: 80px; height: 80px; border-radius: 8px;" />*@
+                @*<img src="@("http://localhost:54350" + data.Images)" style="width: 80px; height: 80px; border-radius: 8px;" />*@
+                <img src="@data.Images" style="width: 80px; height: 80px; border-radius: 8px;" />
 
             </Template>
         </RadzenGridColumn>
