@@ -15,7 +15,6 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using WebAPI.Requests;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.Services.Cloudinary;
 
 namespace WebAPI.Controllers
 {
@@ -28,12 +27,12 @@ namespace WebAPI.Controllers
 
         public static Cloudinary cloudinary;
 
-        public const string CLOUD_NAME = "da85i8t2o";
-        public const string API_KEY = "782372915787355";
-        public const string API_SECRET = "6peu85e37dcz83v7zrm8IsX3d5k";
-        //public const string CLOUD_NAME = "twinscloud";
-        //public const string API_KEY = "275761499984721";
-        //public const string API_SECRET = "80CMu92lwsKriZP5LqAiTu-EgH4";
+        /* public const string CLOUD_NAME = "da85i8t2o";
+         public const string API_KEY = "782372915787355";
+         public const string API_SECRET = "6peu85e37dcz83v7zrm8IsX3d5k";*/
+        public const string CLOUD_NAME = "twinscloud";
+        public const string API_KEY = "275761499984721";
+        public const string API_SECRET = "80CMu92lwsKriZP5LqAiTu-EgH4";
 
 
 
@@ -57,7 +56,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> createProduct([FromForm] ProductRequest product)
+        public async Task<bool> createProduct([FromQuery] ProductRequest product)
         {
             Account account = new Account(CLOUD_NAME, API_KEY, API_SECRET);
             cloudinary = new Cloudinary(account);
@@ -77,7 +76,6 @@ namespace WebAPI.Controllers
                 {
                     await product.file.CopyToAsync(stream);
                 }
-
 
                 //store to cloud
                 var uploadParams = new ImageUploadParams()
