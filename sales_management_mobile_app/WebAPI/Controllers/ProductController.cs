@@ -94,7 +94,7 @@ namespace WebAPI.Controllers
 
 
         [HttpPut]
-        public async Task<ActionResult<Product>> updateProduct([FromQuery] ProductRequest product)
+        public async Task<ActionResult<Product>> updateProduct([FromForm] ProductRequest product)
         {
             try
             {
