@@ -53,8 +53,41 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Inventory">Inventory: </label>
+            <InputNumber class="form-control" @bind-Value="newProduct.inventory"></InputNumber>
+            <ValidationMessage For="()=>newProduct.inventory"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Unit">Unit </label>
+            <InputText class="form-control" @bind-Value="newProduct.unit"></InputText>
+            <ValidationMessage For="()=>newProduct.unit"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="DoM">Date of manufacture : </label>
+            <InputDate class="form-control" @bind-Value="newProduct.DoM" @bind-Value:format="yyyy/MM/dd" ></InputDate>
+            <ValidationMessage For="()=>newProduct.DoM"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="ExpiryDate">Expire_Date </label>
+            <InputDate class="form-control" @bind-Value="newProduct.ExpiryDate" @bind-Value:format="yyyy/MM/dd"></InputDate>
+            <ValidationMessage For="()=>newProduct.ExpiryDate"></ValidationMessage>
+        </div>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Images">Images <span style="color:red">(*)</span> </label>
             <input type="file" name="image" @ref="inputReference" @onchange="async() =>await OnInputFileChange()" />
+            <ValidationMessage For="()=>newProduct.file"></ValidationMessage>
             @*<InputFile OnChange="OnInputFileChange" @bind-Value="newProduct.File"></InputFile>*@
         </div>
     </div>
@@ -81,6 +114,8 @@
 
 
 @code {
+    
+     
     private ProductRequest newProduct = new ProductRequest();
 
     ElementReference inputReference;

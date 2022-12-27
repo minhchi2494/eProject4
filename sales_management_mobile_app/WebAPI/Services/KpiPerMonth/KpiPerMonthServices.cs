@@ -24,7 +24,11 @@ namespace WebAPI.Services
             return result;
         }
 
-        
+        public async Task<List<KpiPerMonth>> getAll()
+        {
+            var result = _context.KpiPerMonths.ToList();
+            return result;
+        }
 
         public bool saveKpiPerMonth()
         {

@@ -22,6 +22,12 @@ namespace WebAPI.Controllers
             _services = services;
         }
 
+        [HttpGet]
+        public Task<List<KpiPerMonth>> getAll()
+        {
+            return _services.getAll();
+        }
+
         [HttpGet("{username}")]
         public Task<List<KpiPerMonth>> getManagers(string username)
         {

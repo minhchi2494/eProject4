@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
             _kpiPerMonthServices.saveKpiPerMonth();
             return (object)_services.checkLogin(username, password);
         }
-        [Route("/reset-password")]
+        [Route("/reset-password/{username}/{pinCode}/{newPassword}")]
         [HttpPut]
         public string resetPassword(string username, int pinCode, string newPassword)
         {

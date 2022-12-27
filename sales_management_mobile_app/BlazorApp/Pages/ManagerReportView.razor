@@ -33,15 +33,21 @@
 <RadzenGrid @ref="reportGrid" AllowPaging="true" PageSize="10" AllowSorting="true" Data="rp" TItem="vManagerReport" ColumnWidth="200px"
             AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>
-        <RadzenGridColumn TItem="vManagerReport" Property="ManagerId" Title="Manager Id"></RadzenGridColumn>
-
         <RadzenGridColumn TItem="vManagerReport" Property="Manager" Title="Manager"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vManagerReport" Property="Salesman" Title="Salesman"></RadzenGridColumn>
 
         <RadzenGridColumn TItem="vManagerReport" Property="Store" Title="Store"></RadzenGridColumn>
 
         <RadzenGridColumn TItem="vManagerReport" Property="Product" Title="Product"></RadzenGridColumn>
 
+        <RadzenGridColumn TItem="vManagerReport" Property="Unit" Title="Unit"></RadzenGridColumn>
+
         <RadzenGridColumn TItem="vManagerReport" Property="ActualQuantity" Title="Actual Quantity"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vManagerReport" Property="Price" Title="Price"></RadzenGridColumn>
+
+        <RadzenGridColumn TItem="vManagerReport" Property="Inventory" Title="Inventory"></RadzenGridColumn>
 
         <RadzenGridColumn TItem="vManagerReport" Property="CreatedOn" Title="Date">
             <Template Context="data">

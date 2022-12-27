@@ -58,6 +58,24 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Inventory">Inventory: </label>
+            <InputNumber class="form-control" @bind-Value="editProduct.inventory"></InputNumber>
+            <ValidationMessage For="()=>editProduct.inventory"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Unit">Unit </label>
+            <InputText class="form-control" @bind-Value="editProduct.unit"></InputText>
+            <ValidationMessage For="()=>editProduct.unit"></ValidationMessage>
+        </div>
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Images">Images: </label>
             <input type="file" name="image" @ref="inputReference" @onchange="async() =>await OnInputFileChange()" />
         </div>

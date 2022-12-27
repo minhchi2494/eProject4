@@ -48,7 +48,7 @@
         <RadzenGridColumn TItem="Store" Property="Phone" Title="Phone"></RadzenGridColumn>
         <RadzenGridColumn TItem="Store" Property="Address" Title="Address"></RadzenGridColumn>
 
-        <RadzenGridColumn TItem="Store" Property="UserId" Title="Salesman">
+        <RadzenGridColumn TItem="Store" Property="Users.Fullname" Title="Salesman">
             <Template Context="data">
                 @data.Users.Fullname
             </Template>

@@ -44,23 +44,29 @@ namespace WebAPI.Services
         {
             var worksheet = package.Worksheets.Add("ManagerReport");
 
-            worksheet.Cell(1, 1).Value = "ManagerId";
-            worksheet.Cell(1, 2).Value = "Manager";
+            worksheet.Cell(1, 1).Value = "Manager";
+            worksheet.Cell(1, 2).Value = "Salesman";
             worksheet.Cell(1, 3).Value = "Store";
             worksheet.Cell(1, 4).Value = "Product";
-            worksheet.Cell(1, 5).Value = "ActualQuantity";
-            worksheet.Cell(1, 6).Value = "CreatedOn";
+            worksheet.Cell(1, 5).Value = "Unit";
+            worksheet.Cell(1, 6).Value = "ActualQuantity";
+            worksheet.Cell(1, 7).Value = "Price";
+            worksheet.Cell(1, 8).Value = "Inventory";
+            worksheet.Cell(1, 9).Value = "CreatedOn";
 
 
             var a = _context.vManagerReports.ToList();
             for (int i = 1; i <= a.Count; i++)
             {
-                worksheet.Cell(i + 1, 1).Value = a[i - 1].ManagerId;
-                worksheet.Cell(i + 1, 2).Value = a[i - 1].Manager;
+                worksheet.Cell(i + 1, 1).Value = a[i - 1].Manager;
+                worksheet.Cell(i + 1, 2).Value = a[i - 1].Salesman;
                 worksheet.Cell(i + 1, 3).Value = a[i - 1].Store;
                 worksheet.Cell(i + 1, 4).Value = a[i - 1].Product;
-                worksheet.Cell(i + 1, 5).Value = a[i - 1].ActualQuantity;
-                worksheet.Cell(i + 1, 6).Value = a[i - 1].CreatedOn;
+                worksheet.Cell(i + 1, 5).Value = a[i - 1].Unit;
+                worksheet.Cell(i + 1, 6).Value = a[i - 1].ActualQuantity;
+                worksheet.Cell(i + 1, 7).Value = a[i - 1].Price;
+                worksheet.Cell(i + 1, 8).Value = a[i - 1].Inventory;
+                worksheet.Cell(i + 1, 9).Value = a[i - 1].CreatedOn;
             }
         }
     }

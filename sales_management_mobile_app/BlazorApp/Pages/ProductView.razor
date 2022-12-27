@@ -38,13 +38,15 @@
     </table>
 }
 
-<RadzenGrid @ref="productGrid" AllowPaging="true" PageSize="5" AllowSorting="true" Data="products" TItem="Product" ColumnWidth="200px"
+<RadzenGrid @ref="productGrid" AllowPaging="true" PageSize="8" AllowSorting="true" Data="products" TItem="Product" ColumnWidth="200px"
             AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
     <Columns>
-        <RadzenGridColumn TItem="Product" Property="Id" Title="Id"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Product" Property="Inventory" Title="Inventory"></RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Property="Name" Title="Name"></RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Property="Price" Title="Price"></RadzenGridColumn>
-        <RadzenGridColumn TItem="Product" Property="Description" Title="Description"></RadzenGridColumn>
+        <RadzenGridColumn TItem="Product" Property="Unit" Title="Unit"></RadzenGridColumn>
+         <RadzenGridColumn TItem="Product" Property="DoM" Title="Date of manufacture"></RadzenGridColumn>
+          <RadzenGridColumn TItem="Product" Property="ExpiryDate" Title="Expiry_Date"></RadzenGridColumn>
         <RadzenGridColumn TItem="Product" Title="Image">
             <Template Context="data">
                 @*<img src="@("http://localhost:54350" + data.Images)" style="width: 80px; height: 80px; border-radius: 8px;" />*@
