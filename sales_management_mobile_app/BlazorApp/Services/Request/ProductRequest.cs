@@ -28,7 +28,7 @@ namespace BlazorApp.Services.Request
         public bool? active { get; set; }=false;
         [Required(ErrorMessage = "Description is required")]
         public string description { get; set; }
-        [Required(ErrorMessage = "Images is required")]
+        [StringLength(500, MinimumLength = 2, ErrorMessage = "Image do not empty!")]
         public MultipartFormDataContent file { get; set; }
     }
 }

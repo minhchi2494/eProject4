@@ -6,24 +6,29 @@
 @inject IUserServices _services;
 @inject IToastService ToastService;
 
+@using System.IO
+@using BlazorApp.Services.Request
+@using Tewr.Blazor.FileReader
+@inject IFileReaderService fileReader;
+
 @inject IManagerServices _managerServices;
 @*@inject ITargetServices _targetServices;*@
 
 <h3>Create User</h3>
 
-<EditForm Model="@model" OnValidSubmit="@SubmitCreate">
+<EditForm Model="@model" OnValidSubmit="@SubmitCreate" enctype="multipart/form-data">
     <DataAnnotationsValidator />
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Id">Id <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="model.Id"></InputText>
-            <ValidationMessage For="()=>model.Id"></ValidationMessage>
+            <InputText class="form-control" @bind-Value="model.id"></InputText>
+            <ValidationMessage For="()=>model.id"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Username">Username <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="model.Username"></InputText>
-            <ValidationMessage For="()=>model.Username"></ValidationMessage>
+            <InputText class="form-control" @bind-Value="model.username"></InputText>
+            <ValidationMessage For="()=>model.username"></ValidationMessage>
         </div>
     </div>
 
@@ -34,8 +39,8 @@
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Password">Password <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" type="password" @bind-Value="model.Password"></InputText>
-            <ValidationMessage For="()=>model.Password"></ValidationMessage>
+            <InputText class="form-control" type="password" @bind-Value="model.password"></InputText>
+            <ValidationMessage For="()=>model.password"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
@@ -52,14 +57,14 @@
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Fullname">Fullname <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="model.Fullname"></InputText>
-            <ValidationMessage For="()=>model.Fullname"></ValidationMessage>
+            <InputText class="form-control" @bind-Value="model.fullname"></InputText>
+            <ValidationMessage For="()=>model.fullname"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Email">Email <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="model.Email"></InputText>
-            <ValidationMessage For="()=>model.Email"></ValidationMessage>
+            <InputText class="form-control" @bind-Value="model.email"></InputText>
+            <ValidationMessage For="()=>model.email"></ValidationMessage>
         </div>
     </div>
 
@@ -70,29 +75,15 @@
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Phone">Phone <span style="color:red">(*)</span> </label>
-            <InputText class="form-control" @bind-Value="model.Phone"></InputText>
-            <ValidationMessage For="()=>model.Phone"></ValidationMessage>
+            <InputText class="form-control" @bind-Value="model.phone"></InputText>
+            <ValidationMessage For="()=>model.phone"></ValidationMessage>
         </div>
 
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="Address">Address  </label>
-            <InputText class="form-control" @bind-Value="model.Address"></InputText>
-            <ValidationMessage For="()=>model.Address"></ValidationMessage>
+            <InputText class="form-control" @bind-Value="model.address"></InputText>
+            <ValidationMessage For="()=>model.address"></ValidationMessage>
         </div>
-@*        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="TargetId">Target No.</label>
-            <select @bind="model.TargetId" style="width:682px; height:35px">
-                @if (targets != null)
-                {
-                        <option value=0 style="text-align:center">-- Select Target Number --</option>
-                    @foreach (var targs in targets)
-                    {
-                        <option value="@targs.Id">@targs.Id</option>
-                    }
-                }
-            </select>
-            <ValidationMessage For="()=>model.RoleId"></ValidationMessage>
-        </div>*@
 
     </div>
 
@@ -104,23 +95,35 @@
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="ManagerId">Manager <span style="color:red">(*)</span> </label>
             <br />
-            <select @bind="model.ManagerId" style="width:682px; height:35px">
+            <select @bind="model.managerId" style="width:682px; height:35px">
                 @if (managers != null)
                 {
-                        <option value=0 style="text-align:center">-- Select manager --</option>
+                    <option value=0 style="text-align:center">-- Select manager --</option>
                     @foreach (var mag in managers)
                     {
                         <option value="@mag.Id">@mag.Fullname</option>
                     }
                 }
             </select>
-            <ValidationMessage For="()=>model.ManagerId"></ValidationMessage>
+            <ValidationMessage For="()=>model.managerId"></ValidationMessage>
+        </div>
+         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Avatar">Avatar <span style="color:red">(*)</span> </label>
+            <br/>
+            <input type="file" name="image" @ref="inputReference" @onchange="async() =>await OnInputFileChange()" />
+            <ValidationMessage For="()=>model.file"></ValidationMessage>
         </div>
 
+    </div>
+
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            @*<label for="IsActive">Active</label>*@
-            <input type="checkbox" unchecked @bind="model.IsActive" hidden>
-            @*<small id="nameHelp" class="form-text text-muted">(Note: check to active your User)</small>*@
+            <label for="IsActive">Active</label>
+            <input type="checkbox" unchecked @bind="model.isActive">
         </div>
     </div>
 
@@ -137,9 +140,29 @@
 
     private Manager searchManager = new Manager();
 
-    private User model = new User();
+    private UserRequest model = new UserRequest();
 
-    //private List<Target> targets = new List<Target>();
+    ElementReference inputReference;
+
+    string nameImage = string.Empty;
+
+    Stream filestream = null;
+    async Task OnInputFileChange()
+    {
+        var file = (await fileReader.CreateReference(inputReference).EnumerateFilesAsync()).FirstOrDefault();
+
+        if (file == null)
+        {
+            return;
+        }
+
+        var fileInfo = await file.ReadFileInfoAsync();
+        nameImage = fileInfo.Name;
+        using (var ms = await file.CreateMemoryStreamAsync((int)fileInfo.Size))
+        {
+            filestream = new MemoryStream(ms.ToArray());
+        }
+    }
 
     private FromToDate ftd = new FromToDate();
 
@@ -151,10 +174,29 @@
 
     private async Task SubmitCreate(EditContext context)
     {
-        var result = await _services.createUser(model);
+        var content = new MultipartFormDataContent();
+        content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data");
+        content.Add(new StreamContent(filestream, (int)filestream.Length), "file", nameImage);
+        content.Add(new StringContent(model.id), "id");
+        content.Add(new StringContent(model.username), "username");
+        content.Add(new StringContent(model.password), "password");
+        content.Add(new StringContent(model.fullname), "fullname");
+        content.Add(new StringContent(model.email), "email");
+        content.Add(new StringContent(model.phone), "phone");
+        content.Add(new StringContent(model.address), "address");
+        content.Add(new StringContent(model.managerId), "managerId");
+        if (model.isActive == null)
+        {
+            content.Add(new StringContent("false"), "isActive");
+        }
+        else
+        {
+            content.Add(new StringContent(model.isActive.ToString()), "isActive");
+        }
+        var result = await _services.createUser(content);
         if (result)
         {
-            ToastService.ShowSuccess($"User {model.Fullname} has been created successfully!", "Success");
+            ToastService.ShowSuccess($"User {model.fullname} has been created successfully!", "Success");
             NavigationManager.NavigateTo("/account");
         }
         else

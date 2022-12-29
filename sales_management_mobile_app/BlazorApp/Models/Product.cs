@@ -20,7 +20,7 @@ namespace BlazorApp.Models
         [Range(1, 1000, ErrorMessage = "Amount invalid (1-1000).")]
         public decimal Price { get; set; }
 
-        [Required(ErrorMessage = "Images is required")]
+       /* [Required(ErrorMessage = "Images is required")]*/
         public string Images { get; set; }
 
         [Required(ErrorMessage = "Description is required")]

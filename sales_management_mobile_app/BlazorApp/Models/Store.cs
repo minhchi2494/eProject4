@@ -17,7 +17,9 @@ namespace BlazorApp.Models
         [Required(ErrorMessage = "Store Name is required")]
         [StringLength(40, MinimumLength = 2, ErrorMessage = "Store Name must contains from 2 to 40 characters!")]
         public string Name { get; set; }
-
+        [StringLength(30, MinimumLength = 8, ErrorMessage = "Email must contains from 8 to 40 characters!")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Phone is required")]

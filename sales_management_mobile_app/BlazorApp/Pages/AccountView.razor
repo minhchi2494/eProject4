@@ -9,11 +9,11 @@
 
 <EditForm Model="@searchManager" OnSubmit=@SeachForm>
     <div class="row">
-@*        <div class="col-md-6">
-            <InputText @bind-Value="searchManager.Fullname" class="form-control" placeholder="Enter Fullname..."></InputText>
+        @*        <div class="col-md-6">
+        <InputText @bind-Value="searchManager.Fullname" class="form-control" placeholder="Enter Fullname..."></InputText>
         </div>
         <div class="col-md-2">
-            <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
+        <button type="submit" class="form-control btn btn-primary "><i class="fas fa-search"></i> Search</button>
         </div>*@
     </div>
 
@@ -41,7 +41,12 @@
             <RadzenGrid @ref="directorGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         AllowFiltering="true" AllowPaging="true" PageSize="10" AllowSorting="true" Data="directors" TItem="Director" ColumnWidth="150px">
                 <Columns>
-                    @*<RadzenGridColumn TItem="Director" Property="Id" Title="Id"></RadzenGridColumn>*@
+                    <RadzenGridColumn TItem="Director" Title="Avatar">
+                        <Template Context="data">
+                            <img src="@data.Avatar" style="width: 80px; height: 80px; border-radius: 8px;" />
+
+                        </Template>
+                    </RadzenGridColumn>
                     <RadzenGridColumn TItem="Director" Property="Username" Title="Username">
                         <FooterTemplate>
                             Displayed: <b>@directorGrid.View.Count()</b> of <b>@directors.Count()</b>
@@ -51,12 +56,12 @@
                     <RadzenGridColumn TItem="Director" Property="Email" Title="Email"></RadzenGridColumn>
                     <RadzenGridColumn TItem="Director" Property="Phone" Title="Phone"></RadzenGridColumn>
                     <RadzenGridColumn TItem="Director" Property="Address" Title="Address"></RadzenGridColumn>
-@*                    <RadzenGridColumn TItem="Director" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
+                    @*                    <RadzenGridColumn TItem="Director" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
                     <RadzenGridColumn TItem="Director" Property="ActualKpi" Title="Actual Kpi"></RadzenGridColumn>*@
                     <RadzenGridColumn TItem="Director" Title="Action">
                         <Template Context="data">
                             <a href="/directorManager/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> &nbsp
-                            @*<a href="/editDirector/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>*@
+                            <a href="/editDirector/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
                         </Template>
                     </RadzenGridColumn>
                 </Columns>
@@ -67,7 +72,12 @@
             <RadzenGrid @ref="managerGrid" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         AllowFiltering="true" AllowPaging="true" AllowSorting="true" PageSize="10" Data="managers" TItem="Manager" ColumnWidth="160px">
                 <Columns>
-                    @*<RadzenGridColumn TItem="Manager" Property="Id" Title="Id"></RadzenGridColumn>*@
+                    <RadzenGridColumn TItem="Manager" Title="Avatar">
+                        <Template Context="data">
+                            <img src="@data.Avatar" style="width: 80px; height: 80px; border-radius: 8px;" />
+
+                        </Template>
+                    </RadzenGridColumn>
                     <RadzenGridColumn TItem="Manager" Property="Username" Title="Username">
                         <FooterTemplate>
                             Displayed: <b>@managerGrid.View.Count()</b> of <b>@managers.Count()</b>
@@ -77,18 +87,18 @@
                     <RadzenGridColumn TItem="Manager" Property="Email" Title="Email"></RadzenGridColumn>
                     @*<RadzenGridColumn TItem="Manager" Property="Phone" Title="Phone"></RadzenGridColumn>*@
                     <RadzenGridColumn TItem="Manager" Property="Address" Title="Address"></RadzenGridColumn>
-@*                    <RadzenGridColumn TItem="Manager" Property="DirectorId" Title="Director">
-                        <Template Context="data">
-                            @data.Director.Fullname
-                        </Template>
+                    @*                    <RadzenGridColumn TItem="Manager" Property="DirectorId" Title="Director">
+                    <Template Context="data">
+                    @data.Director.Fullname
+                    </Template>
                     </RadzenGridColumn>*@
-@*                    <RadzenGridColumn TItem="Manager" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
+                    @*                    <RadzenGridColumn TItem="Manager" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>
                     <RadzenGridColumn TItem="Manager" Property="ActualKpi" Title="Actual Kpi"></RadzenGridColumn>*@
 
                     <RadzenGridColumn TItem="Manager" Title="Action">
                         <Template Context="data">
                             <a href="/managerUser/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> &nbsp
-                            @*<a href="/editManager/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>*@
+                            <a href="/editManager/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a>
                         </Template>
                     </RadzenGridColumn>
 
@@ -100,7 +110,12 @@
             <RadzenGrid @ref="userGrid" AllowPaging="true" PageSize="10" AllowSorting="true" Data="users" TItem="User" ColumnWidth="150px"
                         AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive">
                 <Columns>
-                    @*<RadzenGridColumn TItem="User" Property="Id" Title="Id"></RadzenGridColumn>*@
+                    <RadzenGridColumn TItem="User" Title="Avatar">
+                        <Template Context="data">
+                            <img src="@data.Avatar" style="width: 80px; height: 80px; border-radius: 8px;" />
+
+                        </Template>
+                    </RadzenGridColumn>
                     <RadzenGridColumn TItem="User" Property="Username" Title="Username">
                         <FooterTemplate>
                             Displayed: <b>@userGrid.View.Count()</b> of <b>@users.Count()</b>
@@ -110,22 +125,22 @@
                     <RadzenGridColumn TItem="User" Property="Email" Title="Email"></RadzenGridColumn>
                     <RadzenGridColumn TItem="User" Property="Phone" Title="Phone"></RadzenGridColumn>
                     <RadzenGridColumn TItem="User" Property="Address" Title="Address"></RadzenGridColumn>
-@*                    <RadzenGridColumn TItem="User" Property="ManagerId" Title="Manager">
-                        <Template Context="data">
-                            @data.Manager.Fullname
-                        </Template>
+                    @*                    <RadzenGridColumn TItem="User" Property="ManagerId" Title="Manager">
+                    <Template Context="data">
+                    @data.Manager.Fullname
+                    </Template>
                     </RadzenGridColumn>*@
-            @*        <RadzenGridColumn TItem="User" Title="Active">
-                        <Template Context="data">
-                            <span class="badge badge-success">@data.IsActive</span>
-                        </Template>
+                    @*        <RadzenGridColumn TItem="User" Title="Active">
+                    <Template Context="data">
+                    <span class="badge badge-success">@data.IsActive</span>
+                    </Template>
                     </RadzenGridColumn>*@
-@*                    <RadzenGridColumn TItem="User" Property="ActualKpi" Title="Actual Kpi"></RadzenGridColumn>
+                    @*                    <RadzenGridColumn TItem="User" Property="ActualKpi" Title="Actual Kpi"></RadzenGridColumn>
                     <RadzenGridColumn TItem="User" Property="KpiValue" Title="Kpi Value"></RadzenGridColumn>*@
                     <RadzenGridColumn TItem="User" Title="Action">
                         <Template Context="data">
                             <a href="/userStore/@data.Id" class="btn btn-outline-info"><i class="far fa-eye"></i></a> &nbsp
-                            @*<a href="/editUser/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a> *@
+                            <a href="/editUser/@data.Id" class="btn btn-outline-warning"><i class="fas fa-pencil"></i></a> 
                         </Template>
                     </RadzenGridColumn>
                 </Columns>

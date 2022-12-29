@@ -44,9 +44,9 @@ namespace BlazorApp.Services
             return result;
         }
 
-        public async Task<bool> createUser(User newUser)
+        public async Task<bool> createUser(MultipartFormDataContent newUser)
         {
-            var result = await _httpClient.PostAsJsonAsync("/api/User", newUser);
+            var result = await _httpClient.PostAsync("/api/User", newUser);
             if (result.IsSuccessStatusCode)
             {
                 return true;

@@ -24,7 +24,7 @@
         <div class="form-row">
             <div class="form-group col">
                 <label>Username</label>
-                <InputText @bind-Value="model.Username" class="form-control" />
+                <InputText @bind-Value="model.Username" class="form-control" readonly/>
                 <ValidationMessage For="@(() => model.Username)" />
             </div>
             <div class="form-group col">

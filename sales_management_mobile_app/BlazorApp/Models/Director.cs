@@ -37,11 +37,12 @@ namespace BlazorApp.Models
         [Required(ErrorMessage = "Phone is required")]
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Phone must contains from 8 to 20 characters!")]
         public string Phone { get; set; }
-
+        public string Avatar { get; set; }
         public string Address { get; set; }
         public int KpiValue { get; set; } = 0;
         public int ActualKpi { get; set; } = 0;
 
+        public bool? IsActive { get; set; } = false;
         public int RoleId { get; set; } = 1;
 
         public virtual ICollection<Manager> Managers { get; set; }

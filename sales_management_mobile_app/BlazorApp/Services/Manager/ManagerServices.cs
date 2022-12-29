@@ -29,9 +29,9 @@ namespace BlazorApp.Services
             return result;
         }
 
-        public async Task<bool> createManager(Manager newManager)
+        public async Task<bool> createManager(MultipartFormDataContent newManager)
         {
-            var result = await _httpClient.PostAsJsonAsync("/api/Manager", newManager);
+            var result = await _httpClient.PostAsync("/api/Manager", newManager);
             if (result.IsSuccessStatusCode)
             {
                 return true;

@@ -18,7 +18,7 @@
     <div>Loading</div>
 }
 
-<EditForm Model="@editProduct" OnValidSubmit="@SubmitEdit">
+<EditForm Model="@editProduct" OnValidSubmit="@SubmitEdit" enctype="multipart/form-data">
     <DataAnnotationsValidator />
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
@@ -76,18 +76,37 @@
 
     <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
-            <label for="Images">Images: </label>
-            <input type="file" name="image" @ref="inputReference" @onchange="async() =>await OnInputFileChange()" />
+            <label for="DoM">Date of manufacture : </label>
+            <InputDate class="form-control" @bind-Value="editProduct.DoM" @bind-Value:format="yyyy/MM/dd" readonly></InputDate>
+            <ValidationMessage For="()=>editProduct.DoM"></ValidationMessage>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="ExpiryDate">Expire_Date </label>
+            <InputDate class="form-control" @bind-Value="editProduct.ExpiryDate" @bind-Value:format="yyyy/MM/dd" readonly></InputDate>
+            <ValidationMessage For="()=>editProduct.ExpiryDate"></ValidationMessage>
         </div>
     </div>
 
-@*    <div class="row material">
+    <div>
+        <br>
+    </div>
+
+    <div class="row material">
+        <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
+            <label for="Images">Images: </label>
+            <input type="file" name="image" @ref="inputReference" @onchange="async() =>await OnInputFileChange()" />
+            <img src="@images" style="width: 80px; height: 80px; border-radius: 8px;" />
+        </div>
+    </div>
+
+    <div class="row material">
         <div class="col-xs-6 col-sm-6 col-lg-6 col-md -6">
             <label for="IsActive">Active</label>
-            <input type="checkbox" unchecked @bind="editProduct.IsActive">
-            <small id="nameHelp" class="form-text text-muted">(Note: Uncheck to de-active your Product)</small>
+            <input type="checkbox" @bind="editProduct.active">
+            
         </div>
-    </div>*@
+    </div>
 
     <div>
         <br>
@@ -126,7 +145,7 @@
     }
 
     private ProductRequest editProduct = new ProductRequest();
-
+    string images = null;
     protected override async Task OnInitializedAsync()
     {
         var product = await _services.getProduct(id);
@@ -134,8 +153,13 @@
         editProduct.id = product.Id;
         editProduct.name = product.Name;
         editProduct.price = product.Price;
+        editProduct.unit = product.Unit;
+        editProduct.inventory = product.Inventory;
         editProduct.description = product.Description;
+        editProduct.DoM = product.DoM;
+        editProduct.ExpiryDate = product.ExpiryDate;
         editProduct.active = product.IsActive;
+        images = product.Images;
     }
 
     private async Task SubmitEdit(EditContext context)
@@ -150,8 +174,19 @@
         content.Add(new StringContent(editProduct.id), "id");
         content.Add(new StringContent(editProduct.name), "name");
         content.Add(new StringContent(editProduct.price.ToString()), "price");
+        content.Add(new StringContent(editProduct.unit), "unit");
+        content.Add(new StringContent(editProduct.inventory.ToString()), "inventory");
         content.Add(new StringContent(editProduct.description), "description");
-        content.Add(new StringContent(editProduct.active.ToString()), "active");
+        content.Add(new StringContent(editProduct.DoM.ToString()), "DoM");
+        content.Add(new StringContent(editProduct.ExpiryDate.ToString()), "ExpiryDate");
+         if (editProduct.active == null)
+        {
+            content.Add(new StringContent("false"), "active");
+        } else
+        {
+            content.Add(new StringContent(editProduct.active.ToString()), "active");
+        }
+
         var result = await _services.updateProduct(content);
         if (result)
         {

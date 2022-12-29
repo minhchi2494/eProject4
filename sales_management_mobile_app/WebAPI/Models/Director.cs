@@ -22,7 +22,7 @@ namespace WebAPI.Models
         public string OldPassword { get; set; }
         public int PinCode { get; set; }
         public DateTime Expired { get; set; } = DateTime.Now;
-
+        public bool IsActive { get; set; }
         public virtual Role Role { get; set; }
 
         public virtual ICollection<Manager> Managers { get; set; }

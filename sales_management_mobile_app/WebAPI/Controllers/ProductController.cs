@@ -67,6 +67,10 @@ namespace WebAPI.Controllers
             newProduct.Name = product.name;
             newProduct.Price = product.price;
             newProduct.Description = product.description;
+            newProduct.Unit = product.unit;
+            newProduct.Inventory = product.inventory;
+            newProduct.DoM = product.DoM;
+            newProduct.ExpiryDate = product.ExpiryDate;
             newProduct.IsActive = product.active;
 
             if (product.file != null)
@@ -112,6 +116,10 @@ namespace WebAPI.Controllers
                 editProduct.Name = product.name;
                 editProduct.Price = product.price;
                 editProduct.Description = product.description;
+                editProduct.Unit = product.unit;
+                editProduct.Inventory = product.inventory;
+                editProduct.DoM = editProduct.DoM;
+                editProduct.ExpiryDate = editProduct.ExpiryDate;
                 editProduct.IsActive = product.active;
 
                 if (product.file != null)
@@ -132,7 +140,7 @@ namespace WebAPI.Controllers
                     Console.WriteLine(filepath);
                     var uploadResult = cloudinary.Upload(uploadParams);
 
-                    editProduct.Images = uploadResult.Url.ToString(); ;
+                    editProduct.Images = uploadResult.Url.ToString();
                 }
                 else
                 {

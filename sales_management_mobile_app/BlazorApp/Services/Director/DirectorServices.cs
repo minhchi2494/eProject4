@@ -34,9 +34,9 @@ namespace BlazorApp.Services
             return result;
         }
          
-        public async Task<bool> createDirector(Director newDirector)
+        public async Task<bool> createDirector(MultipartFormDataContent newDirector)
         {
-            var result = await _httpClient.PostAsJsonAsync("/api/Director", newDirector);
+            var result = await _httpClient.PostAsync("/api/Director", newDirector);
             if (result.IsSuccessStatusCode)
             {
                 return true;

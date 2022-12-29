@@ -6,12 +6,16 @@ namespace BlazorApp.Models.AdminModel
     public class AddAdmin
     {
         [Required]
+        [StringLength(16, MinimumLength = 3, ErrorMessage = "Email must contains from 3 to 16 characters!")]
         public string Username { get; set; }
 
         [Required]
         public string Fullname { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Email is required")]
+        [StringLength(30, MinimumLength = 8, ErrorMessage = "Email must contains from 8 to 40 characters!")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]

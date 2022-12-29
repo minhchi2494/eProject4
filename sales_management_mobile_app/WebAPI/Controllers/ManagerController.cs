@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using WebAPI.Models;
+using WebAPI.Requests;
 using WebAPI.Services;
 
 namespace WebAPI.Controllers
@@ -49,18 +50,28 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> createManager([FromQuery] Manager newManager, IFormFile file)
+        public async Task<bool> createManager([FromForm] ManagerRequest newManager)
         {
             Account account = new Account(CLOUD_NAME, API_KEY, API_SECRET);
             cloudinary = new Cloudinary(account);
 
-            if (file != null)
+            Manager u = new Manager();
+            u.Id = newManager.id;
+            u.Username = newManager.username;
+            u.Password = newManager.password;
+            u.Fullname = newManager.fullname;
+            u.Address = newManager.address;
+            u.Email = newManager.email;
+            u.Phone = newManager.phone;
+            u.DirectorId = newManager.directorId;
+            u.IsActive = newManager.isActive;
+            if (newManager.file != null)
             {
                 string filepath = Path.GetTempFileName();//get full path of file
 
                 using (var stream = new FileStream(filepath, FileMode.Create))//copy path to stream to read path of file
                 {
-                    await file.CopyToAsync(stream);
+                    await newManager.file.CopyToAsync(stream);
                 }
 
                 //store to cloud
@@ -70,9 +81,9 @@ namespace WebAPI.Controllers
                 };
                 var uploadResult = cloudinary.Upload(uploadParams);
 
-                newManager.Avatar = uploadResult.Url.ToString();
+                u.Avatar = uploadResult.Url.ToString();
             }
-            return await _services.createManager(newManager);
+            return await _services.createManager(u);
         }
 
         [HttpPut]

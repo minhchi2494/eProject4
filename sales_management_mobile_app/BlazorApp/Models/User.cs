@@ -38,6 +38,7 @@ namespace BlazorApp.Models
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Phone must contains from 8 to 20 characters!")]
         public string Phone { get; set; }
 
+        public string Avatar { get; set; }
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Manager Id is required")]
@@ -46,7 +47,7 @@ namespace BlazorApp.Models
         public int KpiValue { get; set; } = 0;
         public int ActualKpi { get; set; } = 0;
 
-        public bool? IsActive { get; set; } = true;
+        public bool? IsActive { get; set; } = false;
 
         public int RoleId { get; set; } = 3;
         public virtual Director Director { get; set; }

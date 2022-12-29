@@ -151,6 +151,10 @@
         content.Add(new StreamContent(filestream, (int)filestream.Length), "file", nameImage);
         content.Add(new StringContent(newProduct.id), "id");
         content.Add(new StringContent(newProduct.name), "name");
+        content.Add(new StringContent(newProduct.unit), "unit");
+        content.Add(new StringContent(newProduct.inventory.ToString()), "inventory");
+        content.Add(new StringContent(newProduct.DoM.ToString()), "DoM");
+        content.Add(new StringContent(newProduct.ExpiryDate.ToString()), "ExpiryDate");
         content.Add(new StringContent(newProduct.description), "description");
         content.Add(new StringContent(newProduct.price.ToString()), "price");
         if (newProduct.active == null)

@@ -11,6 +11,7 @@ using CloudinaryDotNet.Actions;
 using WebAPI.Models;
 using WebAPI.Services;
 using System.IO;
+using WebAPI.Requests;
 
 namespace WebAPI.Controllers
 {
@@ -49,18 +50,28 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> createUser([FromQuery] User newUser, IFormFile file)
+        public async Task<bool> createUser([FromForm] UserRequest newUser)
         {
+            Console.WriteLine(newUser.fullname);
             Account account = new Account(CLOUD_NAME, API_KEY, API_SECRET);
             cloudinary = new Cloudinary(account);
-
-            if (file != null)
+            User u = new User();
+            u.Id = newUser.id;
+            u.Username = newUser.username;
+            u.Password = newUser.password;
+            u.Fullname = newUser.fullname;
+            u.Address = newUser.address;
+            u.Email = newUser.email;
+            u.Phone = newUser.phone;
+            u.ManagerId = newUser.managerId;
+            u.IsActive = newUser.isActive;
+            if (newUser.file != null)
             {
                 string filepath = Path.GetTempFileName();//get full path of file
 
                 using (var stream = new FileStream(filepath, FileMode.Create))//copy path to stream to read path of file
                 {
-                    await file.CopyToAsync(stream);
+                    await newUser.file.CopyToAsync(stream);
                 }
 
                 //store to cloud
@@ -70,9 +81,9 @@ namespace WebAPI.Controllers
                 };
                 var uploadResult = cloudinary.Upload(uploadParams);
 
-                newUser.Avatar = uploadResult.Url.ToString();
+                u.Avatar = uploadResult.Url.ToString();
             }
-            return await _services.createUser(newUser);
+            return await _services.createUser(u);
         }
 
         [HttpPut]
